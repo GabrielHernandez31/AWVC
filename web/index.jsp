@@ -6,16 +6,17 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
         <!-- Bootstrap CSS -->
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
 
-        <title>Hello, world!</title>
+        <title>Index</title>
     </head>
     <body>
         <div class="container-fluid">
-            <!-- BARRA DE NAVEGACION -->
-            <div class="row">
+            <!-- HEADER DE LA PAGINA -->
+            <div class="row justify-content-center align-content-center" style="min-height: 10vh; background-color: #003B46">
                 <div class="col">
-                    <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #003B46">
+                    <!-- INTRODUCE AQUI TODO LO DEL HEADER -->
+                    <nav class="navbar navbar-expand-lg navbar-dark">
                         <a class="navbar-brand"><h3>AWCV</h3></a>
                         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                             <span class="navbar-toggler-icon"></span>
@@ -31,87 +32,96 @@
                             </ul>
                         </div>
                     </nav>
+                    <!-- // INTRODUCE AQUI TODO LO DEL HEADER -->
                 </div>
             </div>
-            <!-- // BARRA DE NAVEGACION -->
-
-            <!-- DIV BIENVENIDA -->
-            <div class="row">
-                <div class="col-12" style="background-color: #66A5AD; text-align: center">
-                    <br><h3>Bienvenido a AWCV, ten el control a tu alcance.</h3>
-                    <h2><footer class="blockquote-footer" style="color: #fff">Controla los viatico en <cite title="Source Title">AWCV</cite></footer></h2><br>
+            <!-- // HEADER DE LA PAGINA -->
+            <!-- ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- -->
+            <!-- CUERPO DE LA PAGINA -->
+            <div class="row justify-content-center align-content-center" style="min-height: 80vh;">
+                <!-- INTRODUCE AQUI TODO LO DEL CUERPO -->
+                <!-- DIV BIENVENIDA -->
+                <div class="row col-12 bg-info">
+                    <div class="col-12 text-center">
+                        <p style="font-size: 4vh">Bienvenido a AWCV, ten el control a tu alcance.</p>
+                        <p style="color: #FFFFFF; font-size: 3vh">Controla los viatico en <cite title="Source Title">AWCV</cite></p>
+                    </div>
                 </div>
-            </div>
-            <!-- // DIV BIENVENIDA -->
-
-            <!-- CARRUSEL -->
-            <div class="row">
-                <div class="col-12">
-                    <div id="carouselExampleCaptions" class="carousel slide" data-ride="carousel">
-                        <div class="carousel-inner">
-                            <div class="carousel-item active">
-                                <img src="img/pista.jpg" class="d-block w-100" >
-                                <div class="carousel-caption d-none d-md-block" style="color: #FFFFFF">
-                                    <h5>Gestiona tu empresa</h5>
-                                    <p>El orden es fundamental para tener una empresa.</p>
+                <!-- // DIV BIENVENIDA -->
+                <!-- CARROUSEL -->
+                <div class="row">
+                    <div class="col-12">
+                        <div id="carouselExampleCaptions" class="carousel slide" data-ride="carousel">
+                            <div class="carousel-inner">
+                                <div class="carousel-item active">
+                                    <img src="img/pista.jpg" class="d-block w-100" >
+                                    <div class="carousel-caption d-none d-md-block" style="color: #FFFFFF">
+                                        <h5>Gestiona tu empresa</h5>
+                                        <p>El orden es fundamental para tener una empresa.</p>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <!-- // CARRUSEL -->
-
-            <!-- ITEMS INFORMATIVOS -->
-            <div>
-                <div class="row" style="height: 50px">
-
-                </div>
-                <div class="row" style="display: flex;">
+                <div class="row">
+                    <!-- ITEMS INFORMATIVOS -->
                     <div class="col-sm-12 col-md-4 col-lg-4">
-                        <div class="card text-center">
-                            <img src="img/grupo.png" class="card-img-top">
-                            <div class="card-body" style="background-color: #66A5AD">
+                        <div class="card text-center bg-info">
+                            <img src="img/grupo.png" class="card-img-top im-fluid">
+                            <div class="card-body">
                                 <h4 class="card-text">¡Gestiona a tus empleados!</h4>
                             </div>
                         </div>
                     </div>
                     <div class="col-sm-12 col-md-4 col-lg-4">
-                        <div class="card text-center">
-                            <img src="img/lista.png" class="card-img-top">
-                            <div class="card-body" style="background-color: #66A5AD">
+                        <div class="card text-center bg-info">
+                            <img src="img/lista.png" class="card-img-top im-fluid">
+                            <div class="card-body">
                                 <h4 class="card-text">Ten el control de los servicios</h4>
                             </div>
                         </div>
                     </div>
                     <div class="col-sm-12 col-md-4 col-lg-4">
-                        <div class="card text-center">
-                            <img src="img/formulario.png" class="card-img-top">
-                            <div class="card-body" style="background-color: #66A5AD">
+                        <div class="card text-center bg-info">
+                            <img src="img/formulario.png" class="card-img-top im-fluid">
+                            <div class="card-body">
                                 <h4 class="card-text">Actualiza los datos en segundos</h4>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="row" style="height: 50px">
-
-                </div>
             </div>
             <!-- // ITEMS INFORMATIVOS -->
-
-            <!-- FOOTER REDES -->
-            <footer class="page-footer font-small" style="background-color: #003B46; color: white">
-                <div class="footer-copyright text-center py-4">© 2020 Copyright:
+        </div>
+        <!-- // CARROUSEL -->
+        <!-- // INTRODUCE AQUI TODO LO DEL CUERPO -->
+    </div>
+    <!-- // CUERPO DE LA PAGINA -->
+    <!-- ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- -->
+    <!-- FOOTER REDES -->
+    <div class="row justify-content-center align-content-center" style="min-height: 10vh; background-color: #003B46; color: white">
+        <div class="col">
+            <!-- INTRODUCE AQUI TODO LO DEL FOOTER -->
+            <footer class="page-footer font-small">
+                <div class="footer-copyright text-center">© 2020 Copyright:
                     <a> Derechos Reservados AWCV</a>
                 </div>
             </footer>
-            <!-- //FOOTER REDES -->
+            <!-- // INTRODUCE AQUI TODO LO DEL FOOTER -->
         </div>
+    </div>
+    <!-- //FOOTER REDES -->
+</div>
 
-        <!-- Optional JavaScript -->
-        <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
-    </body>
+<!-- Option 1: jQuery and Bootstrap Bundle (includes Popper) -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
+
+<!-- Option 2: jQuery, Popper.js, and Bootstrap JS
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" integrity="sha384-w1Q4orYjBQndcko6MimVbzY0tgp4pWB4lZ7lr30WKz0vr/aWKhXdBNmNb5D92v7s" crossorigin="anonymous"></script>
+-->
+</body>
 </html>

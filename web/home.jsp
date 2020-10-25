@@ -24,13 +24,14 @@
                         <div class="collapse navbar-collapse" id="navbarSupportedContent" style="margin-right: 2%;">
                             <ul class="navbar-nav ml-auto">
                                 <li class="nav-item active">
-                                    <a class="nav-link" href="home.jsp">Inicio</a>
+                                    <a class="nav-link" href="home.jsp" style="font-size: 3vh">Inicio</a>
                                 </li>
                                 <li class="nav-item dropdown">
-                                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Mi cuenta</a>
+                                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="font-size: 3vh">
+                                        Mi cuenta</a>
                                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                        <a class="dropdown-item" href="miCuenta.jsp">Consultar</a>
-                                        <a class="dropdown-item" href="cerrarSesion.jsp">Cerrar sesión</a>
+                                        <a class="dropdown-item" href="miCuenta.jsp" style="font-size: 2vh">Consultar</a>
+                                        <a class="dropdown-item" href="cerrarSesion.jsp" style="font-size: 2vh">Cerrar sesión</a>
                                     </div>
                                 </li>
                             </ul>
@@ -44,7 +45,7 @@
             <!-- CUERPO DE LA PAGINA -->
             <div class="row justify-content-center align-content-center" style="min-height: 80vh">
                 <!-- INTRODUCE AQUI TODO LO DEL CUERPO -->
-                <div class="col-12 col-sm-12 col-md-6 col-lg-5">
+                <div class="col-12 col-sm-6 col-md-6 col-lg-6">
                     <p>
                         <a href="#" style="text-decoration: none"><button type="button" class="btn" style="width: 100%; font-size: 3vh; background-color: #66A5AD; color: #FFFFFF;">Gestionar Empleados</button></a>
                     </p><br>
