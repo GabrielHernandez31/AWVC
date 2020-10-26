@@ -98,13 +98,13 @@
                     <p>
                         <a href="adm-gestionar-empleados.jsp"><button type="button" class="btn btn-primary" style="border-radius: 5rem; width: 100%; font-size: 3vh;">Gestionar Empleados</button></a>
                     <p>
-                        <a href="#"><button type="button" class="btn btn-primary" style="border-radius: 5rem; width: 100%; font-size: 3vh;">Gestionar Automóviles</button></a>
+                        <a href="adm-gestionar-auto.jsp"><button type="button" class="btn btn-primary" style="border-radius: 5rem; width: 100%; font-size: 3vh;">Gestionar Automóviles</button></a>
                     <p>
-                        <a href="#"><button type="button" class="btn btn-primary" style="border-radius: 5rem; width: 100%; font-size: 3vh;">Gestionar Servicios</button></a>
+                        <a href="adm-gestionar-serv.jsp"><button type="button" class="btn btn-primary" style="border-radius: 5rem; width: 100%; font-size: 3vh;">Gestionar Servicios</button></a>
                     <p>
-                        <a href="#"><button type="button" class="btn btn-primary" style="border-radius: 5rem; width: 100%; font-size: 3vh;">Gestionar Casetas</button></a>
+                        <a href="adm-gestionar-casetas.jsp"><button type="button" class="btn btn-primary" style="border-radius: 5rem; width: 100%; font-size: 3vh;">Gestionar Casetas</button></a>
                     <p>
-                        <a href="#"><button type="button" class="btn btn-primary" style="border-radius: 5rem; width: 100%; font-size: 3vh;">Gestionar Tarjetas RFID</button></a>
+                        <a href="adm-gestionar-rfid.jsp"><button type="button" class="btn btn-primary" style="border-radius: 5rem; width: 100%; font-size: 3vh;">Gestionar Tarjetas RFID</button></a>
                     </p>
                 </div>
                 <!-- // ESTO ES LO DE EMPLEADO-->
