@@ -1,0 +1,104 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 25/10/2020, 02:35:58 PM
+    Author     : Juan J. Medina
+*/
+
+:root{
+    --color-dark: #15181F;
+    --color-dark-x:#2D343F;
+    --color-dark-xx: #1F232B;
+    --color-light: #FFFFFF;
+    --color-grey: #F5F6FB;
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+    font-size: 3vh;
+    font-weight: 200;
+    background-color: var(--color-gray);
+    color: var(--color-light);
+    letter-spacing: .1rem;
+}
+
+.p-6 {
+    padding: .5rem .5rem;
+}
+.contact-box {
+    padding: 1rem;
+}
+
+.btn {
+    font-weight: 100;
+    border-radius: 4rem;
+}
+.btn-outline-dark{
+    border: 2px solid var(--color-dark-xx); 
+}
+
+.btn ion-icon{
+    font-size: 16px;
+    color: #FFFFFF;
+    margin-right: 10px;
+}
+
+.form-control{
+    background-color: white;
+    border: 2px solid var(--color-dark-xx);
+    border-radius: .2rem;    
+}
+
+.form-con{
+    background-color: white;
+    border: 2px solid var(--color-dark-xx);
+    border-radius: .2rem;    
+}
+
+.register-bg {
+    background-image: url('../img/RE.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    min-height: 100vh;
+}
+
+.register-bgau {
+    background-image: url('../img/AU.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    min-height: 100vh;
+}
+
+.register-bgge {
+    background-image: url('../img/ge.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    min-height: 100vh;
+}
+
+.testiomonial {
+    bottom: 10px;
+}
+
+@media (max-width: 600px) {
+    .p-6 {
+        padding: 2rem;
+    }
+
+    .contact-box {
+        padding: 0;
+    }
+
+    .width-100 {
+        width: 100%;
+    }
+}
+
+@media (max-width: 1200px) { 
+    .register-bg {
+        min-height: 50vh;
+    }
+}

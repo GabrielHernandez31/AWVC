@@ -1,59 +1,10 @@
+<%-- 
+    Document   : adm-registrar-empleados
+    Created on : 25/10/2020, 02:31:02 PM
+    Author     : Juan J. Medina
+--%>
+
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@page import="Modelo.Usuario" %>
-<%
-    Usuario usuario = new Usuario();    
-    String accion="", nombre="", app="", apm="", tel="", correo="", password="";
-    int rol=0;
-    
-    if(request.getParameter("accion")!=null){
-        accion = request.getParameter("accion");
-    }
-    if(request.getParameter("txtNombre")!=null){
-        nombre = request.getParameter("txtNombre");
-    }
-    if(request.getParameter("txtAp_pat")!=null){
-        app = request.getParameter("txtAp_pat");
-    }
-    if(request.getParameter("txtAp_mat")!=null){
-        apm = request.getParameter("txtAp_mat");
-    }
-    if(request.getParameter("txtTel")!=null){
-        tel = request.getParameter("txtTel");
-    }
-    if(request.getParameter("txtCorreo")!=null){
-        correo = request.getParameter("txtCorreo");
-    }
-    if(request.getParameter("txtContra")!=null){
-        password = request.getParameter("txtContra");
-    }
-    if(request.getParameter("txtRol")!=null){
-        rol = Integer.parseInt(request.getParameter("txtRol"));
-    }
-    
-    switch(accion){
-        case "Registrar":
-            usuario.setCorreo_usuario(correo);
-            if(usuario.validarCorreoRegistro()){
-                usuario.setNombre_usuario(nombre);
-                usuario.setApp_usuario(app);
-                usuario.setApm_usuario(apm);
-                usuario.setTelefono_usuario(tel);
-                usuario.setCorreo_usuario(correo);
-                usuario.setPassword_usuario(password);
-                usuario.setId_rol(rol);
-                
-                usuario.createUsuario();
-                
-                out.print("<script>cancelar=confirm('¡Registro Exitoso!'); if(cancelar){ window.location.href='adm-registrar-empleados.jsp'; }else{ window.location.href='adm-registrar-empleados.jsp'; }</script>");
-            }else{
-                out.print("<script>cancelar=confirm('El correo ya existe!'); if(cancelar){ window.location.href='adm-registrar-empleados.jsp'; }else{ window.location.href='adm-registrar-empleados.jsp'; }</script>");
-            }
-        break;
-        default:
-            
-        break;
-    }
-%>
 <!DOCTYPE html>
 <html lang="es">
     <head>
@@ -65,7 +16,7 @@
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
 
         <link href="css/are.css" rel="stylesheet">
-        <title>Registrar Empleado</title>
+        <title>Modificar Empleado</title>
     </head>
     <body>
 
@@ -82,7 +33,7 @@
                         <div class="collapse navbar-collapse" id="navbarSupportedContent" style="margin-right: 2%;">
                             <ul class="navbar-nav ml-auto">
                                 <li class="nav-item active">
-                                    <a class="nav-link" href="home.jsp" style="font-size: 3vh">Inicio</a>
+                                    <a class="nav-link" href="home.jsp" style="font-size: 3vh">Home</a>
                                 </li>
                                 <li class="nav-item dropdown">
                                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="font-size: 3vh">
@@ -102,36 +53,43 @@
             <!-- ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- -->
             <!-- CUERPO DE LA PAGINA -->
             <div class="row justify-content-center align-content-center" style="min-height: 80vh;padding-top: 2vh;padding-bottom: 2vh">
+
+
+
                 <div class="container">
                     <div class="row  bg-info">
-                        <div class="d-none d-md-block col-12 col-lg-5 register-bg">
+                        <div class="d-none d-md-block col-12 col-lg-5 register-bgge">
+
                         </div>
                         <div class="col-12 col-lg-7 d-flex">
                             <div class="container align-self-center p-6">
-                                <div class="form-row justify-content-center align-content-center"">
+
+                                <div class="form-row justify-content-center align-content-center">
                                     <div class="col-md-12">
-                                        <h1 class="font-weight-bold">Registrar un Empleado</h1>
-                                        <p class="text-dark mb-3">Ingresa la siguiente información. </p>
+                                        <h1 class="font-weight-bold">Modificar Empleado</h1>
+                                        <p class="text-dark mb-3">Modifique los campos, que desea cambiar. </p>
                                     </div>
                                 </div>
-                                <form action="adm-registrar-empleados.jsp" id="" name="formulario" method="POST">
+
+
+                                <form action="registrarParticipante.jsp" id="" name="formulario" method="POST">
                                     <div class="form-row mb">
                                         <div class="form-group col-md-4">
                                             <label class="font-weight-bold">Nombre: <span class="text-danger">*</span></label>
-                                            <input name="txtNombre" type="text" class="form-control" placeholder="Tu nombre" required>
+                                            <input name="txtNombre" type="text" class="form-control" placeholder="Nombre" required>
                                         </div>
                                         <div class="form-group col-md-4">
                                             <label class="font-weight-bold">A. Paterno <span class="text-danger">*</span></label>
-                                            <input name="txtAp_pat" type="text" class="form-control" placeholder="Tu apellido" required>
+                                            <input name="txtAp_pat" type="text" class="form-control" placeholder="Apellido M" required>
                                         </div>
                                         <div class="form-group col-md-4">
                                             <label class="font-weight-bold">A. Materno <span class="text-danger">*</span></label>
-                                            <input name="txtAp_mat" type="text" class="form-control" placeholder="Tu apellido" required>
+                                            <input name="txtAp_mat" type="text" class="form-control" placeholder="Apellido M" required>
                                         </div>
                                     </div>
                                     <div class="form-group mb-3">
                                         <label  class="font-weight-bold">Rol<span class="text-danger">*</span></label>
-                                        <select name="txtRol" class="form-control">
+                                        <select name="select" class="form-control">
                                             <option value="0" disabled selected>Elegir</option> 
                                             <option value="1">Administrador</option>
                                             <option value="2">Empleado</option>
@@ -139,34 +97,36 @@
                                     </div>
                                     <div class="form-group mb-3">
                                         <label  class="font-weight-bold">Telefono<span class="text-danger">*</span></label>
-                                        <input name="txtTel" type="text" class="form-control" placeholder="Ingresa tu telefono" required pattern="[0-9]{10}" title="Debe contener 10 dígitos">
+                                        <input name="txtTel" type="text" class="form-control" placeholder="Telefono" required  pattern="[0-9]" title="Ingresa tu telefono">
                                     </div>
                                     <div class="form-group mb-3">
                                         <label  class="font-weight-bold">Correo electrónico <span class="text-danger">*</span></label>
-                                        <input name="txtCorreo" type="email" class="form-control" placeholder="Ingresa tu correo electrónico" required  pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" title="Muestre un correo valido">
+                                        <input name="txtCorreo" type="email" class="form-control" placeholder="Correo electrónico" required  pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" title=gresa tu correo electrónico"Muestre un correo valido">
                                     </div>
                                     <div class="form-group mb-3">
-                                        <label class="font-weight-bold">Contraseña <span class="text-danger">*</span></label>
-                                        <input name="txtContra" type="password" class="form-control" placeholder="Ingresa una Contraseña" required>
+                                        <label class="font-weight-bold">Contraseña Nueva<span class="text-danger">*</span></label>
+                                        <input name="txtContra" type="password" class="form-control" placeholder="Contraseña Nueva" required>
                                     </div>
                                     <div class="form-group mb-3">
-                                        <label class="font-weight-bold">Confirmar Contraseña <span class="text-danger">*</span></label>
-                                        <input name="txtVContra" type="password" class="form-control" placeholder="Confirmar Contraseña" required>
+                                        <label class="font-weight-bold">Confirmar Contraseña Nueva <span class="text-danger">*</span></label>
+                                        <input name="txtVContra" type="password" class="form-control" placeholder="Confirmar Contraseña Nueva" required>
                                     </div>
 
                                     <div class="form-row mb justify-content-center">
                                         <div class="col-12 col-lg-6 text-center">
-                                            <input type="submit" name="accion" class="btn btn-primary" value="Registrar">
+                                            <input type="submit" name="btnRegistrar" class="btn btn-primary" value="Registrar">
                                         </div>
                                         <div class="col-12 col-lg-6 text-center">
-                                            <input type="button" name="btnRegresar" class="btn btn-secondary" value="Regresar" onclick="location = 'home.jsp'" >
+                                            <input type="button" name="btnRegresar" class="btn btn-secondary" value="Regresar" onclick="location='gestionar_empleado.jsp'" >
                                         </div>
                                     </div>
                                 </form>
+
                             </div>
                         </div>
                     </div>
                 </div>
+
             </div>
             <!-- // CUERPO DE LA PAGINA -->
             <!-- ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- -->
