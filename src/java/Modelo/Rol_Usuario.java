@@ -1,9 +1,10 @@
-
 package Modelo;
+
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
 public class Rol_Usuario {
+
     private int id_rol;
     private String nombre_rol;
     private String descripcion_rol;
@@ -32,4 +33,46 @@ public class Rol_Usuario {
         this.descripcion_rol = descripcion_rol;
     }
     
+    public Rol_Usuario(){
+        
+    }
+
+    public Rol_Usuario(int id_rol) {
+        try {
+            final String sql = "Select * from rol_usuario where id_rol = ?";
+            Conexion conex = new Conexion();
+            PreparedStatement buscarUsuario = conex.obtenerConnexion().prepareStatement(sql);
+            buscarUsuario.setInt(1, id_rol);
+            ResultSet resulUsuario = buscarUsuario.executeQuery();
+            while (resulUsuario.next()) {
+                id_rol = resulUsuario.getInt("id_rol");
+                nombre_rol = resulUsuario.getString("nombre_rol");
+                descripcion_rol = resulUsuario.getString("descripcion_rol");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+        
+
+    public String obtenerNombreRol(String id) {
+        try {
+            final String sql = "Select * from rol where id_usuario = ?";
+            Conexion conex = new Conexion();
+            PreparedStatement existenCategorias = conex.obtenerConnexion().prepareStatement(sql);
+            existenCategorias.setInt(1, Integer.parseInt(id));
+            ResultSet resulExistenCategorias = existenCategorias.executeQuery();
+            if (resulExistenCategorias.next()) {
+                String nombre = resulExistenCategorias.getString("nombre_rol") + " " + resulExistenCategorias.getString("app_usuario");
+                return nombre;
+            } else {
+                String nombre2 = "Sin asignar aun.";
+                return nombre2;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        String nombre3 = "Sin asignar aun.";
+        return nombre3;
+    }
 }

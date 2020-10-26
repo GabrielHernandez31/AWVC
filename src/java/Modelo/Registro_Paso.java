@@ -5,6 +5,9 @@
  */
 package Modelo;
 
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+
 public class Registro_Paso {
     private int id_rfid;
     private int id_caseta;
@@ -41,5 +44,26 @@ public class Registro_Paso {
 
     public void setHora_paso(String hora_paso) {
         this.hora_paso = hora_paso;
+    }
+    
+    public Registro_Paso() {
+
+    }
+
+    public boolean createCaseta() {
+        try {
+            final String sql = "Insert into registro_paso values (?,?,?,?)";
+            Conexion conex = new Conexion();
+            PreparedStatement insertarUsuario = conex.obtenerConnexion().prepareStatement(sql);
+            insertarUsuario.setInt(1, getId_rfid());
+            insertarUsuario.setInt(2, getId_caseta());
+            insertarUsuario.setString(3, getFecha_paso());
+            insertarUsuario.setString(4, getHora_paso());
+            insertarUsuario.executeUpdate();
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
     }
 }

@@ -1,25 +1,30 @@
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ page import="Modelo.Usuario" %>
 <%
     Usuario usuario = new Usuario();
+    String accion="", correo="", password="";
     
     if(request.getParameter("accion")!=null){
         accion = request.getParameter("accion");
     }
+    if(request.getParameter("correo")!=null){
+        correo = request.getParameter("correo");
+    }
+    if(request.getParameter("password")!=null){
+        password = request.getParameter("password");
+    }
     
     switch(accion){
         case "Iniciar Sesion":
-            correo = request.getParameter("correo");
-            password = request.getParameter("password");
             usuario.setCorreo_usuario(correo);
             usuario.setPassword_usuario(password);
-                if(usuario.iniciarSesion()){
-                    HttpSession sesion_act = request.getSession();
-                    sesion_act.setAttribute("email",correo);
+            if(usuario.iniciarSesion()){
+                HttpSession sesion_act = request.getSession();
+                sesion_act.setAttribute("email",correo);
                 
-                    response.sendRedirect("home.jsp");
-                }else{
-                    out.print("<script>alert('Correo y/o contraseña incorrectos')</script>");
-                }
+                response.sendRedirect("home.jsp");
+            }else{
+                out.print("<script>alert('Correo y/o contraseÃ±a incorrectos')</script>");
             }
         break;
         case "Regresar":
@@ -31,7 +36,7 @@
     }
 %>
 <!doctype html>
-<html lang="en">
+<html lang="es>"
     <head>
         <!-- Required meta tags -->
         <meta charset="utf-8">
@@ -49,17 +54,17 @@
                 <div class="col">
                     <!-- INTRODUCE AQUI TODO LO DEL HEADER -->
                     <nav class="navbar navbar-expand-lg navbar-dark">
-                        <a class="navbar-brand"><h3>AWCV</h3></a>
+                        <a class="navbar-brand" style="font-size: 4vh;">AWCV</a>
                         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                             <span class="navbar-toggler-icon"></span>
                         </button>
-                        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <div class="collapse navbar-collapse" id="navbarSupportedContent" style="font-size: 3vh;">
                             <ul class="navbar-nav ml-auto">
                                 <li class="nav-item ">
-                                    <a class="nav-link" href="index.jsp"><h5>Inicio</h5></a>
+                                    <a class="nav-link" href="index.jsp">Inicio</a>
                                 </li>
                                 <li class="nav-item active">
-                                    <a class="nav-link" href="iniciarSesion.jsp"><h5>Iniciar sesión</h5></a>
+                                    <a class="nav-link" href="iniciarSesion.jsp">Iniciar sesiÃ³n</a>
                                 </li>
                             </ul>
                         </div>
@@ -81,13 +86,13 @@
                             <form action="iniciarSesion.jsp" method="POST">
                                 <div class="form-group row justify-content-center align-content-center">
                                     <div class="col-12-block">
-                                        <h1 style="font-size: 5vh;">Iniciar sesión.</h1>
+                                        <h1 style="font-size: 5vh;">Iniciar sesiÃ³n.</h1>
                                     </div>
                                 </div>
                                 <div class="form-group row justify-content-center align-content-center">
                                     <label for="inputPassword" class="col-12 col-sm-12 col-lg-3 col-form-label text-center" >Correo:</label>
                                     <div class="col-12 col-sm-8 col-lg-6">
-                                        <input type="text" class="form-control" name="correo" required pattern="[a-zA-Z0-9]+@+(gmail|hotmail)+\.+(com|mx|org)" title="EJ: correo@dominio.terminacion (DOMINIO: gmail | hotmail y TERMINACIÓN: com | mx | org)">
+                                        <input type="text" class="form-control" name="correo" required pattern="[a-zA-Z0-9]+@+(gmail|hotmail)+\.+(com|mx|org)" title="EJ: correo@dominio.terminacion (DOMINIO: gmail | hotmail y TERMINACIÃ“N: com | mx | org)">
                                     </div>
                                 </div>
                                 <div class="form-group row justify-content-center align-content-center">
@@ -105,8 +110,8 @@
                                     </div>
                                 </div>
                                 <div class="form-group row justify-content-center align-content-center">
-                                    <p>¿No tienes una cuenta?</p>
-                                    <b><a href="#" style="color: #003B46">¡Registrate ahora!</a></b>
+                                    <p>Â¿No tienes una cuenta?</p>
+                                    <b><a href="#" style="color: #003B46">Â¡Registrate ahora!</a></b>
                                 </div>
                             </form>
                         </div>
@@ -121,7 +126,7 @@
                 <div class="col">
                     <!-- INTRODUCE AQUI TODO LO DEL FOOTER -->
                     <footer class="page-footer font-small">
-                        <div class="footer-copyright text-center">© 2020 Copyright:
+                        <div class="footer-copyright text-center">Â© 2020 Copyright:
                             <a> Derechos Reservados AWCV</a>
                         </div>
                     </footer>

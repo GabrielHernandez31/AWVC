@@ -1,3 +1,33 @@
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page import="Modelo.Usuario" %>
+<%@page import="java.util.List" %>
+<%@page import="java.util.Arrays" %>
+<%
+    /*
+    Asigna un valor a la variable email en caso de que se haya iniciado sesion
+    De lo contrario, deja la variable nula
+    */
+    HttpSession sesion = request.getSession();
+    String email=(String)sesion.getAttribute("email");
+    
+    /*
+    Asigna valores a las variables si existe una sesion.
+    Retoma datos del usuario para poder utilizarlos mÃ¡s adelante
+    */
+    Usuario usuario = new Usuario(email);
+    String nombre_usu = usuario.getNombre_usuario();
+    String app_usu = usuario.getApp_usuario();
+    int id_usu = usuario.getId_usuario();
+    int id_rol = usuario.getId_rol();
+    
+    /*
+    Valida si hay una sesion activa.
+    En caso de que no exista una sesion activa, se redirige al index
+    */
+    if(email==null){
+        response.sendRedirect("index.jsp");
+    }
+%>
 <!doctype html>
 <html lang="en">
     <head>
@@ -17,11 +47,11 @@
                 <div class="col">
                     <!-- INTRODUCE AQUI TODO LO DEL HEADER -->
                     <nav class="navbar navbar-expand-lg navbar-dark">
-                        <a class="navbar-brand"><h3>AWCV</h3></a>
+                        <a class="navbar-brand" style="font-size: 4vh">AWCV</a>
                         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                             <span class="navbar-toggler-icon"></span>
                         </button>
-                        <div class="collapse navbar-collapse" id="navbarSupportedContent" style="margin-right: 2%;">
+                        <div class="collapse navbar-collapse" id="navbarSupportedContent">
                             <ul class="navbar-nav ml-auto">
                                 <li class="nav-item active">
                                     <a class="nav-link" href="home.jsp" style="font-size: 3vh">Inicio</a>
@@ -30,8 +60,8 @@
                                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="font-size: 3vh">
                                         Mi cuenta</a>
                                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                        <a class="dropdown-item" href="miCuenta.jsp" style="font-size: 2vh">Consultar</a>
-                                        <a class="dropdown-item" href="cerrarSesion.jsp" style="font-size: 2vh">Cerrar sesión</a>
+                                        <a class="dropdown-item" href="#" style="font-size: 2vh">Consultar</a>
+                                        <a class="dropdown-item" href="cerrarSesion.jsp" style="font-size: 2vh">Cerrar sesiÃ³n</a>
                                     </div>
                                 </li>
                             </ul>
@@ -45,27 +75,35 @@
             <!-- CUERPO DE LA PAGINA -->
             <div class="row justify-content-center align-content-center" style="min-height: 80vh">
                 <!-- INTRODUCE AQUI TODO LO DEL CUERPO -->
+                <% if(id_rol==1){ %>
+                <!-- ESTO ES LO DE EMPLEADO -->
                 <div class="col-12 col-sm-6 col-md-6 col-lg-6">
                     <p>
-                        <a href="#" style="text-decoration: none"><button type="button" class="btn" style="width: 100%; font-size: 3vh; background-color: #66A5AD; color: #FFFFFF;">Gestionar Empleados</button></a>
-                    </p><br>
+                        <a href="#"><button type="button" class="btn btn-primary" style="border-radius: 5rem; width: 100%; font-size: 3vh;">Gestionar Empleados</button></a>
                     <p>
-                        <a href="#" style="text-decoration: none"><button type="button" class="btn" style="width: 100%; font-size: 3vh; background-color: #66A5AD; color: #FFFFFF;">Gestionar Automóviles</button></a>
-                    </p><br>
+                        <a href="#"><button type="button" class="btn btn-primary" style="border-radius: 5rem; width: 100%; font-size: 3vh;">Gestionar AutomÃ³viles</button></a>
                     <p>
-                        <a href="#" style="text-decoration: none"><button type="button" class="btn" style="width: 100%; font-size: 3vh; background-color: #66A5AD; color: #FFFFFF;">Gestionar Servicios</button></a>
-                    </p><br>
+                        <a href="#"><button type="button" class="btn btn-primary" style="border-radius: 5rem; width: 100%; font-size: 3vh;">Gestionar Servicios</button></a>
                     <p>
-                        <a href="#" style="text-decoration: none"><button type="button" class="btn" style="width: 100%; font-size: 3vh; background-color: #66A5AD; color: #FFFFFF;">Gestionar Casetas</button></a>
-                    </p><br>
+                        <a href="#"><button type="button" class="btn btn-primary" style="border-radius: 5rem; width: 100%; font-size: 3vh;">Gestionar Casetas</button></a>
                     <p>
-                        <a href="#" style="text-decoration: none"><button type="button" class="btn" style="width: 100%; font-size: 3vh; background-color: #66A5AD; color: #FFFFFF;">Gestionar Tarjetas RFID</button></a>
+                        <a href="#"><button type="button" class="btn btn-primary" style="border-radius: 5rem; width: 100%; font-size: 3vh;">Gestionar Tarjetas RFID</button></a>
                     </p>
                 </div>
-                <!-- ESTO ES LO DE EMPLEADO
-                    
+                <!-- // ESTO ES LO DE EMPLEADO-->
+                <% }else{ %>
+                <!-- ESTO ES LO DE EMPLEADO -->
+                <div class="col-12 col-sm-6 col-md-6 col-lg-6">
+                    <p>
+                        <a href="#"><button type="button" class="btn btn-primary" style="border-radius: 5rem; width: 100%; font-size: 3vh;">Gestionar Servicios</button></a>
+                    <p><br>
+                        <a href="#"><button type="button" class="btn btn-primary" style="border-radius: 5rem; width: 100%; font-size: 3vh;">Gestionar Automovil</button></a>
+                    <p><br>
+                        <a href="#"><button type="button" class="btn btn-primary" style="border-radius: 5rem; width: 100%; font-size: 3vh;">Gestionar Cuenta</button></a>
+                    </p>
                 </div>
-                -->
+                <!-- // ESTO ES LO DE EMPLEADO-->
+                <% } %>
                 <!-- // INTRODUCE AQUI TODO LO DEL CUERPO -->
             </div>
             <!-- // CUERPO DE LA PAGINA -->
@@ -75,7 +113,7 @@
                 <div class="col">
                     <!-- INTRODUCE AQUI TODO LO DEL FOOTER -->
                     <footer class="page-footer font-small">
-                        <div class="footer-copyright text-center">© 2020 Copyright:
+                        <div class="footer-copyright text-center">Â© 2020 Copyright:
                             <a> Derechos Reservados AWCV</a>
                         </div>
                     </footer>
