@@ -95,7 +95,7 @@
                     </div>
 
                     <div class="row justify-content-center align-content-center" >
-                        <div class="col-xl-12 table-responsive"  style="padding-top: 1vh;padding-bottom: 1vh; font-size: 2vh">
+                        <div class="col-xl-12 table-responsive"  style="padding-top: 1vh;padding-bottom: 1vh; font-size: 2.5vh">
                             <table class="table">
                                 <thead class="thead-dark">
                                     <tr>
@@ -105,8 +105,8 @@
                                         <th scope="col">A. Materno</th>
                                         <th scope="col">Telefono</th>
                                         <th scope="col">Correo</th>
-                                        <th scope="col">Editar</th>
-                                        <th scope="col">Eliminar</th>
+                                        <th scope="col" class="text-center">Editar</th>
+                                        <th scope="col" class="text-center">Eliminar</th>
                                     </tr>
                                 </thead>
                                 <tbody>
