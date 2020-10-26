@@ -235,18 +235,14 @@ public class Usuario {
      */
     public boolean updateUsuarioCCCT() {
         try {
-            final String sql = "Update usuario set nombre_usuario = ?, app_usuario = ?, apm_usuario = ?, telefono_usuario = ?,"
-                    + "correo_usuario = ?, password_usuario = ?, id_rol = ? where id_usuario = ?";
+            final String sql = "Update usuario set telefono_usuario = ?, correo_usuario = ?, password_usuario = ?, id_rol = ? where id_usuario = ?";
             Conexion conex = new Conexion();
             PreparedStatement actualizarUsuario = conex.obtenerConnexion().prepareStatement(sql);
-            actualizarUsuario.setString(1, nombre_usuario);
-            actualizarUsuario.setString(2, app_usuario);
-            actualizarUsuario.setString(3, apm_usuario);
-            actualizarUsuario.setString(4, telefono_usuario);
-            actualizarUsuario.setString(5, correo_usuario);
-            actualizarUsuario.setString(6, password_usuario);
-            actualizarUsuario.setInt(7, id_rol);
-            actualizarUsuario.setInt(8, getId_usuario());
+            actualizarUsuario.setString(1, telefono_usuario);
+            actualizarUsuario.setString(2, correo_usuario);
+            actualizarUsuario.setString(3, password_usuario);
+            actualizarUsuario.setInt(4, id_rol);
+            actualizarUsuario.setInt(5, getId_usuario());
             actualizarUsuario.executeUpdate();
             actualizarUsuario.close();
             return true;
@@ -261,17 +257,13 @@ public class Usuario {
      */
     public boolean updateUsuarioCCST() {
         try {
-            final String sql = "Update usuario set nombre_usuario = ?, app_usuario = ?, apm_usuario = ?,"
-                    + "correo_usuario = ?, password_usuario = ?, id_rol = ? where id_usuario = ?";
+            final String sql = "Update usuario set correo_usuario = ?, password_usuario = ?, id_rol = ? where id_usuario = ?";
             Conexion conex = new Conexion();
             PreparedStatement actualizarUsuario = conex.obtenerConnexion().prepareStatement(sql);
-            actualizarUsuario.setString(1, nombre_usuario);
-            actualizarUsuario.setString(2, app_usuario);
-            actualizarUsuario.setString(3, apm_usuario);
-            actualizarUsuario.setString(4, correo_usuario);
-            actualizarUsuario.setString(5, password_usuario);
-            actualizarUsuario.setInt(6, id_rol);
-            actualizarUsuario.setInt(7, getId_usuario());
+            actualizarUsuario.setString(1, correo_usuario);
+            actualizarUsuario.setString(2, password_usuario);
+            actualizarUsuario.setInt(3, id_rol);
+            actualizarUsuario.setInt(4, getId_usuario());
             actualizarUsuario.executeUpdate();
             actualizarUsuario.close();
             return true;
@@ -286,16 +278,12 @@ public class Usuario {
      */
     public boolean updateUsuarioSCST() {
         try {
-            final String sql = "Update usuario set nombre_usuario = ?, app_usuario = ?, apm_usuario = ?,"
-                    + "password_usuario = ?, id_rol = ? where id_usuario = ?";
+            final String sql = "Update usuario set password_usuario = ?, id_rol = ? where id_usuario = ?";
             Conexion conex = new Conexion();
             PreparedStatement actualizarUsuario = conex.obtenerConnexion().prepareStatement(sql);
-            actualizarUsuario.setString(1, nombre_usuario);
-            actualizarUsuario.setString(2, app_usuario);
-            actualizarUsuario.setString(3, apm_usuario);
-            actualizarUsuario.setString(4, password_usuario);
-            actualizarUsuario.setInt(5, id_rol);
-            actualizarUsuario.setInt(6, getId_usuario());
+            actualizarUsuario.setString(1, password_usuario);
+            actualizarUsuario.setInt(2, id_rol);
+            actualizarUsuario.setInt(3, getId_usuario());
             actualizarUsuario.executeUpdate();
             actualizarUsuario.close();
             return true;
@@ -310,17 +298,13 @@ public class Usuario {
      */
     public boolean updateUsuarioSCCT() {
         try {
-            final String sql = "Update usuario set nombre_usuario = ?, app_usuario = ?, apm_usuario = ?, telefono_usuario = ?,"
-                    + "password_usuario = ?, id_rol = ? where id_usuario = ?";
+            final String sql = "Update usuario set telefono_usuario = ?, password_usuario = ?, id_rol = ? where id_usuario = ?";
             Conexion conex = new Conexion();
             PreparedStatement actualizarUsuario = conex.obtenerConnexion().prepareStatement(sql);
-            actualizarUsuario.setString(1, nombre_usuario);
-            actualizarUsuario.setString(2, app_usuario);
-            actualizarUsuario.setString(3, apm_usuario);
-            actualizarUsuario.setString(4, telefono_usuario);
-            actualizarUsuario.setString(5, password_usuario);
-            actualizarUsuario.setInt(6, id_rol);
-            actualizarUsuario.setInt(7, getId_usuario());
+            actualizarUsuario.setString(1, telefono_usuario);
+            actualizarUsuario.setString(2, password_usuario);
+            actualizarUsuario.setInt(3, id_rol);
+            actualizarUsuario.setInt(4, getId_usuario());
             actualizarUsuario.executeUpdate();
             actualizarUsuario.close();
             return true;
@@ -405,7 +389,7 @@ public class Usuario {
             PreparedStatement consultarProducto = conex.obtenerConnexion().prepareStatement(sql);
             ResultSet resulProducto = consultarProducto.executeQuery();
             int cuenta = -1;
-            String[][] arreglo_servicio = new String[contarUsuariosAdm()][7];
+            String[][] arreglo_servicio = new String[contarUsuariosAdm()][8];
             while (resulProducto.next()) {
                 cuenta++;
                 arreglo_servicio[cuenta][0] = resulProducto.getString("id_usuario");
@@ -416,6 +400,7 @@ public class Usuario {
                 arreglo_servicio[cuenta][5] = resulProducto.getString("correo_usuario");
                 Rol_Usuario rol = new Rol_Usuario();
                 arreglo_servicio[cuenta][6] = rol.obtenerNombreRol(resulProducto.getString("id_rol"));
+                arreglo_servicio[cuenta][7] = resulProducto.getString("password_usuario");
             }
             consultarProducto.close();
             resulProducto.close();

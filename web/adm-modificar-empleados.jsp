@@ -9,6 +9,8 @@
     */
     HttpSession sesion = request.getSession();
     String email=(String)sesion.getAttribute("email");
+    String id_usuario=(String)sesion.getAttribute("id_usuario");
+    int id_us = Integer.parseInt(id_usuario);
     
     /*
     Asigna valores a las variables si existe una sesion.
@@ -27,17 +29,9 @@
     }
     
     /*
-    ACCIONES
-    */
-    int id_us = 0;
-    if(request.getParameter("id_us")!=null){
-        id_us = Integer.parseInt(request.getParameter("id_us"));
-    }
-    
-    /*
     MODIFICAR EMPLEADO
     */
-    Usuario usuario1 = new Usuario();    
+    
     String accion="", nombre="", app="", apm="", tel="", correo="", password="";
     int rol=0;
     
@@ -66,6 +60,11 @@
         rol = Integer.parseInt(request.getParameter("txtRol"));
     }
     
+    int id_usu2 = 0;
+    if(request.getParameter("id_us")!=null){
+        id_usu2 = Integer.parseInt(request.getParameter("id_us"));
+    }
+    Usuario usuario1 = new Usuario();    
     switch(accion){
         case "Guardar":
             
@@ -75,26 +74,37 @@
             
             if(tel.equals(datos[0][4])){
                 if(correo.equals(datos[0][5])){
-                    usuario1.setNombre_usuario(nombre);
-                    usuario1.setApp_usuario(app);
-                    usuario1.setApm_usuario(apm);
-                    usuario1.setPassword_usuario(password);
-                    usuario1.setId_rol(rol);
-                    usuario1.setId_usuario(Integer.parseInt(datos[0][0]));
-                    usuario1.updateUsuarioSCST();
-                    out.print("<script>cancelar=confirm('¡Registro Exitoso!'); if(cancelar){ window.location.href='adm-gestionar-empleados.jsp'; }else{ window.location.href='adm-gestionar-empleados.jsp'; }</script>");
-                }else{
-                    usuario1.setCorreo_usuario(correo);
-                    if(usuario1.validarCorreoRegistro()){
-                        usuario1.setNombre_usuario(nombre);
-                        usuario1.setApp_usuario(app);
-                        usuario1.setApm_usuario(apm);
-                        usuario1.setCorreo_usuario(correo);
+                    if(password.equals("")){
+                        usuario1.setPassword_usuario(datos[0][7]);
+                        usuario1.setId_rol(rol);
+                        usuario1.setId_usuario(Integer.parseInt(datos[0][0]));
+                        usuario1.updateUsuarioSCST();
+                        out.print("<script>cancelar=confirm('¡Registro Exitoso!'); if(cancelar){ window.location.href='adm-gestionar-empleados.jsp'; }else{ window.location.href='adm-gestionar-empleados.jsp'; }</script>");
+                    }else{
                         usuario1.setPassword_usuario(password);
                         usuario1.setId_rol(rol);
                         usuario1.setId_usuario(Integer.parseInt(datos[0][0]));
-                        usuario1.updateUsuarioCCST();
+                        usuario1.updateUsuarioSCST();
                         out.print("<script>cancelar=confirm('¡Registro Exitoso!'); if(cancelar){ window.location.href='adm-gestionar-empleados.jsp'; }else{ window.location.href='adm-gestionar-empleados.jsp'; }</script>");
+                    }
+                }else{
+                    usuario1.setCorreo_usuario(correo);
+                    if(usuario1.validarCorreoRegistro()){
+                        if(password.equals("")){
+                            usuario1.setCorreo_usuario(correo);
+                            usuario1.setPassword_usuario(datos[0][7]);
+                            usuario1.setId_rol(rol);
+                            usuario1.setId_usuario(Integer.parseInt(datos[0][0]));
+                            usuario1.updateUsuarioCCST();
+                            out.print("<script>cancelar=confirm('¡Registro Exitoso!'); if(cancelar){ window.location.href='adm-gestionar-empleados.jsp'; }else{ window.location.href='adm-gestionar-empleados.jsp'; }</script>");
+                        }else{
+                            usuario1.setCorreo_usuario(correo);
+                            usuario1.setPassword_usuario(password);
+                            usuario1.setId_rol(rol);
+                            usuario1.setId_usuario(Integer.parseInt(datos[0][0]));
+                            usuario1.updateUsuarioCCST();
+                            out.print("<script>cancelar=confirm('¡Registro Exitoso!'); if(cancelar){ window.location.href='adm-gestionar-empleados.jsp'; }else{ window.location.href='adm-gestionar-empleados.jsp'; }</script>");
+                        }
                     }else{
                         out.print("<script>cancelar=confirm('El correo ya está en uso'); if(cancelar){ window.location.href='adm-gestionar-empleados.jsp'; }else{ window.location.href='adm-gestionar-empleados.jsp'; }</script>");
                     }
@@ -103,15 +113,21 @@
                 if(correo.equals(datos[0][5])){
                     usuario1.setTelefono_usuario(tel);
                     if(usuario1.validarTelefonoRegistro()){
-                        usuario1.setNombre_usuario(nombre);
-                        usuario1.setApp_usuario(app);
-                        usuario1.setApm_usuario(apm);
-                        usuario1.setTelefono_usuario(tel);
-                        usuario1.setPassword_usuario(password);
-                        usuario1.setId_rol(rol);
-                        usuario1.setId_usuario(Integer.parseInt(datos[0][0]));
-                        usuario1.updateUsuarioSCCT();
-                        out.print("<script>cancelar=confirm('¡Registro Exitoso!'); if(cancelar){ window.location.href='adm-gestionar-empleados.jsp'; }else{ window.location.href='adm-gestionar-empleados.jsp'; }</script>");
+                        if(password.equals("")){
+                            usuario1.setTelefono_usuario(tel);
+                            usuario1.setPassword_usuario(datos[0][7]);
+                            usuario1.setId_rol(rol);
+                            usuario1.setId_usuario(Integer.parseInt(datos[0][0]));
+                            usuario1.updateUsuarioSCCT();
+                            out.print("<script>cancelar=confirm('¡Registro Exitoso!'); if(cancelar){ window.location.href='adm-gestionar-empleados.jsp'; }else{ window.location.href='adm-gestionar-empleados.jsp'; }</script>");
+                        }else{
+                            usuario1.setTelefono_usuario(tel);
+                            usuario1.setPassword_usuario(password);
+                            usuario1.setId_rol(rol);
+                            usuario1.setId_usuario(Integer.parseInt(datos[0][0]));
+                            usuario1.updateUsuarioSCCT();
+                            out.print("<script>cancelar=confirm('¡Registro Exitoso!'); if(cancelar){ window.location.href='adm-gestionar-empleados.jsp'; }else{ window.location.href='adm-gestionar-empleados.jsp'; }</script>");
+                        }
                     }else{
                         out.print("<script>cancelar=confirm('El teléfono ya está en uso'); if(cancelar){ window.location.href='adm-gestionar-empleados.jsp'; }else{ window.location.href='adm-gestionar-empleados.jsp'; }</script>");
                     }
@@ -120,16 +136,23 @@
                     if(usuario1.validarTelefonoRegistro()){
                         usuario1.setCorreo_usuario(correo);
                         if(usuario1.validarCorreoRegistro()){
-                            usuario1.setNombre_usuario(nombre);
-                            usuario1.setApp_usuario(app);
-                            usuario1.setApm_usuario(apm);
-                            usuario1.setTelefono_usuario(tel);
-                            usuario1.setCorreo_usuario(correo);
-                            usuario1.setPassword_usuario(password);
-                            usuario1.setId_rol(rol);
-                            usuario1.setId_usuario(Integer.parseInt(datos[0][0]));
-                            usuario1.updateUsuarioCCCT();
-                            out.print("<script>cancelar=confirm('¡Registro Exitoso!'); if(cancelar){ window.location.href='adm-gestionar-empleados.jsp'; }else{ window.location.href='adm-gestionar-empleados.jsp'; }</script>");
+                            if(password.equals("")){
+                                usuario1.setTelefono_usuario(tel);
+                                usuario1.setCorreo_usuario(correo);
+                                usuario1.setPassword_usuario(datos[0][7]);
+                                usuario1.setId_rol(rol);
+                                usuario1.setId_usuario(Integer.parseInt(datos[0][0]));
+                                usuario1.updateUsuarioCCCT();
+                                out.print("<script>cancelar=confirm('¡Registro Exitoso!'); if(cancelar){ window.location.href='adm-gestionar-empleados.jsp'; }else{ window.location.href='adm-gestionar-empleados.jsp'; }</script>");
+                            }else{
+                                usuario1.setTelefono_usuario(tel);
+                                usuario1.setCorreo_usuario(correo);
+                                usuario1.setPassword_usuario(password);
+                                usuario1.setId_rol(rol);
+                                usuario1.setId_usuario(Integer.parseInt(datos[0][0]));
+                                usuario1.updateUsuarioCCCT();
+                                out.print("<script>cancelar=confirm('¡Registro Exitoso!'); if(cancelar){ window.location.href='adm-gestionar-empleados.jsp'; }else{ window.location.href='adm-gestionar-empleados.jsp'; }</script>");
+                            }
                         }else{
                             out.print("<script>cancelar=confirm('El correo ya está en uso'); if(cancelar){ window.location.href='adm-gestionar-empleados.jsp'; }else{ window.location.href='adm-gestionar-empleados.jsp'; }</script>");
                         }
@@ -229,10 +252,10 @@
                                 </div>
 
                                 <%  
-                                    usuario.setId_usuario(id_us);
-                                    String[][] usuarios = usuario.consultarUsuariosEmp();
+                                    usuario1.setId_usuario(id_us);
+                                    String[][] usuarios = usuario1.consultarUsuariosEmp();
                                 %>
-                                <form action="adm-modificar-empleados.jsp?id_us="<% out.print(usuarios[0][4]); %> id="" name="formulario" method="POST">
+                                <form action="adm-modificar-empleados.jsp" name="formulario" method="POST">
                                     <div class="form-row mb">
                                         <div class="form-group col-md-4">
                                             <label class="font-weight-bold">Nombre: <span class="text-danger">*</span></label>
@@ -269,11 +292,11 @@
                                     </div>
                                     <div class="form-group mb-3">
                                         <label class="font-weight-bold">Contraseña Nueva<span class="text-danger">*</span></label>
-                                        <input name="txtContra" type="password" class="form-control" placeholder="Contraseña Nueva" required>
+                                        <input name="txtContra" type="password" class="form-control" placeholder="Contraseña Nueva" >
                                     </div>
                                     <div class="form-group mb-3">
                                         <label class="font-weight-bold">Confirmar Contraseña Nueva <span class="text-danger">*</span></label>
-                                        <input name="txtVContra" type="password" class="form-control" placeholder="Confirmar Contraseña Nueva" required>
+                                        <input name="txtVContra" type="password" class="form-control" placeholder="Confirmar Contraseña Nueva" >
                                     </div>
 
                                     <div class="form-row mb justify-content-center">
