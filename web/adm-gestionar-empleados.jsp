@@ -15,8 +15,6 @@
     Retoma datos del usuario para poder utilizarlos más adelante
     */
     Usuario usuario = new Usuario(email);
-    String nombre_usu = usuario.getNombre_usuario();
-    String app_usu = usuario.getApp_usuario();
     int id_usu = usuario.getId_usuario();
     int id_rol = usuario.getId_rol();
     
@@ -31,8 +29,7 @@
     /*
     ACCIONES
     */
-    String accion = "", nombre = "", app = "";
-    int id_us = 0;
+    String accion = "", nombre = "", app = "", id_us="";
     if(request.getParameter("accion")!=null){
         accion = request.getParameter("accion");
     }
@@ -43,11 +40,16 @@
         app = request.getParameter("app");
     }
     if(request.getParameter("id_us")!=null){
-        id_us = Integer.parseInt(request.getParameter("id_us"));
+        id_us = request.getParameter("id_us");
     }
     switch(accion){
         case "eliminar":
             out.print("<script>cancelar=confirm('Se eliminará a: "+nombre+" "+app+" ¿Deseas continuar?'); if(cancelar){ window.location.href='adm-eliminar-empleados.jsp?id_us="+id_us+"'; }else{ window.location.href='adm-gestionar-empleados.jsp'; }</script>");
+        break;
+        case "modificar":
+            HttpSession sesion_act = request.getSession();
+            sesion_act.setAttribute("id_usuario", id_us);
+            response.sendRedirect("adm-modificar-empleados.jsp");
         break;
         default:
             
@@ -145,7 +147,7 @@
 
                     <div class="row justify-content-center align-content-center" >
                         <div class="col-12-block table-responsive"  style="padding-top: 1vh;padding-bottom: 1vh; font-size: 2.5vh">
-                            <table class="table">
+                            <table class="table text-center">
                                 <thead class="thead-dark">
                                     <tr>
                                         <th scope="col">ID</th>
@@ -155,8 +157,8 @@
                                         <th scope="col">Telefono</th>
                                         <th scope="col">Correo</th>
                                         <th scope="col">Rol</th>
-                                        <th scope="col" class="text-center">Editar</th>
-                                        <th scope="col" class="text-center">Eliminar</th>
+                                        <th scope="col">Editar</th>
+                                        <th scope="col">Eliminar</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -176,7 +178,10 @@
                                         <td><% out.print(usuarios[cuenta][4]); %></td>
                                         <td><% out.print(usuarios[cuenta][5]); %></td>
                                         <td><% out.print(usuarios[cuenta][6]); %></td>
-                                         <td class="text-center"><a href="#" class="text-primary">
+                                        <% if(usuarios[cuenta][5].equals(email)){ %>
+                                        <td colspan="2" class="bg-warning"><a href="#">(Tu cuenta)</a></td>
+                                        <% }else{ %>
+                                        <td class="text-center"><a href="adm-gestionar-empleados.jsp?accion=modificar&id_us=<% out.print(usuarios[cuenta][0]); %>" class="text-primary">
                                                 <svg width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-pencil-square" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                                                 <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456l-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
                                                 <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/>
@@ -189,6 +194,7 @@
                                                 </svg>
                                             </a>
                                         </td>
+                                        <% } %>
                                     </tr>
                                     <%
                                         }      

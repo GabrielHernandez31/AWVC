@@ -11,9 +11,9 @@ public class Conexion {
     private Connection connection;
 
     public Conexion() {
-        url = "jdbc:postgresql://localhost:5432/awcv";
+        url = "jdbc:postgresql://localhost:5432/awcv2";
         user = "postgres";
-        password = "db";
+        password = "bd";
     }
 
     public Connection obtenerConnexion() {

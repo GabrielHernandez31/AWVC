@@ -178,6 +178,32 @@ public class Usuario {
         }
         return false;
     }
+    
+    /*
+    Valida que el correo electronico no este en uso.
+    Si no está en uso, devuelve True.
+    Utilizar este metodo para validar el correo al registrar.
+     */
+    public boolean validarTelefonoRegistro() {
+        try {
+            final String sql = "Select * from usuario where telefono_usuario = ?";
+            Conexion con = new Conexion();
+            PreparedStatement validarCorreo = con.obtenerConnexion().prepareStatement(sql);
+            validarCorreo.setString(1, getCorreo_usuario());
+            ResultSet validar = validarCorreo.executeQuery();
+            if (validar.next()) {
+                validar.close();
+                validarCorreo.close();
+                return false;
+            } else {
+                validar.close();
+                return true;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
 
     /*
     Utilizar este metodo para corroborar que el correo y la contraseña existan y coincidan
@@ -205,22 +231,80 @@ public class Usuario {
     }
 
     /*
-    Actualiza un usuario 
+    Actualiza un usuario con correo y con telefono
      */
-    public boolean updateUsuario() {
+    public boolean updateUsuarioCCCT() {
         try {
-            final String sql = "Update usuario set nombre_usuario = ?, app_usuario = ?, apm_usuario = ?, telefono_usuario = ?,"
-                    + "correo_usuario = ?, password_usuario = ?, id_rol = ? where id_usuario = ?";
+            final String sql = "Update usuario set telefono_usuario = ?, correo_usuario = ?, password_usuario = ?, id_rol = ? where id_usuario = ?";
             Conexion conex = new Conexion();
             PreparedStatement actualizarUsuario = conex.obtenerConnexion().prepareStatement(sql);
-            actualizarUsuario.setString(1, nombre_usuario);
-            actualizarUsuario.setString(2, app_usuario);
-            actualizarUsuario.setString(3, apm_usuario);
-            actualizarUsuario.setString(4, telefono_usuario);
-            actualizarUsuario.setString(5, correo_usuario);
-            actualizarUsuario.setString(6, password_usuario);
-            actualizarUsuario.setInt(7, id_rol);
-            actualizarUsuario.setInt(8, getId_usuario());
+            actualizarUsuario.setString(1, telefono_usuario);
+            actualizarUsuario.setString(2, correo_usuario);
+            actualizarUsuario.setString(3, password_usuario);
+            actualizarUsuario.setInt(4, id_rol);
+            actualizarUsuario.setInt(5, getId_usuario());
+            actualizarUsuario.executeUpdate();
+            actualizarUsuario.close();
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    /*
+    Actualiza un usuario con correo y sin telefono
+     */
+    public boolean updateUsuarioCCST() {
+        try {
+            final String sql = "Update usuario set correo_usuario = ?, password_usuario = ?, id_rol = ? where id_usuario = ?";
+            Conexion conex = new Conexion();
+            PreparedStatement actualizarUsuario = conex.obtenerConnexion().prepareStatement(sql);
+            actualizarUsuario.setString(1, correo_usuario);
+            actualizarUsuario.setString(2, password_usuario);
+            actualizarUsuario.setInt(3, id_rol);
+            actualizarUsuario.setInt(4, getId_usuario());
+            actualizarUsuario.executeUpdate();
+            actualizarUsuario.close();
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+    
+    /*
+    Actualiza un usuario sin correo y sin telefono
+     */
+    public boolean updateUsuarioSCST() {
+        try {
+            final String sql = "Update usuario set password_usuario = ?, id_rol = ? where id_usuario = ?";
+            Conexion conex = new Conexion();
+            PreparedStatement actualizarUsuario = conex.obtenerConnexion().prepareStatement(sql);
+            actualizarUsuario.setString(1, password_usuario);
+            actualizarUsuario.setInt(2, id_rol);
+            actualizarUsuario.setInt(3, getId_usuario());
+            actualizarUsuario.executeUpdate();
+            actualizarUsuario.close();
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+    
+    /*
+    Actualiza un usuario sin correo y con telefono
+     */
+    public boolean updateUsuarioSCCT() {
+        try {
+            final String sql = "Update usuario set telefono_usuario = ?, password_usuario = ?, id_rol = ? where id_usuario = ?";
+            Conexion conex = new Conexion();
+            PreparedStatement actualizarUsuario = conex.obtenerConnexion().prepareStatement(sql);
+            actualizarUsuario.setString(1, telefono_usuario);
+            actualizarUsuario.setString(2, password_usuario);
+            actualizarUsuario.setInt(3, id_rol);
+            actualizarUsuario.setInt(4, getId_usuario());
             actualizarUsuario.executeUpdate();
             actualizarUsuario.close();
             return true;
@@ -272,6 +356,31 @@ public class Usuario {
         String nombre3 = "Sin asignar aun.";
         return nombre3;
     }
+    
+    public int obtenerIdUsuario(int id) {
+        try {
+            final String sql = "Select * from usuario where id_usuario = ?";
+            Conexion conex = new Conexion();
+            PreparedStatement existenCategorias = conex.obtenerConnexion().prepareStatement(sql);
+            existenCategorias.setInt(1, id);
+            ResultSet resulExistenCategorias = existenCategorias.executeQuery();
+            if (resulExistenCategorias.next()) {
+                int nombre = resulExistenCategorias.getInt("id_usuario");
+                resulExistenCategorias.close();
+                existenCategorias.close();
+                return nombre;
+            } else {
+                int nombre2 = 0;
+                resulExistenCategorias.close();
+                existenCategorias.close();
+                return nombre2;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        int nombre3 = 0;
+        return nombre3;
+    }
 
     public String[][] consultarUsuariosAdm() {
         try {
@@ -280,7 +389,7 @@ public class Usuario {
             PreparedStatement consultarProducto = conex.obtenerConnexion().prepareStatement(sql);
             ResultSet resulProducto = consultarProducto.executeQuery();
             int cuenta = -1;
-            String[][] arreglo_servicio = new String[contarUsuariosAdm()][7];
+            String[][] arreglo_servicio = new String[contarUsuariosAdm()][8];
             while (resulProducto.next()) {
                 cuenta++;
                 arreglo_servicio[cuenta][0] = resulProducto.getString("id_usuario");
@@ -291,6 +400,7 @@ public class Usuario {
                 arreglo_servicio[cuenta][5] = resulProducto.getString("correo_usuario");
                 Rol_Usuario rol = new Rol_Usuario();
                 arreglo_servicio[cuenta][6] = rol.obtenerNombreRol(resulProducto.getString("id_rol"));
+                arreglo_servicio[cuenta][7] = resulProducto.getString("password_usuario");
             }
             consultarProducto.close();
             resulProducto.close();
@@ -350,7 +460,7 @@ public class Usuario {
             consultarProducto.setInt(1, getId_usuario());
             ResultSet resulProducto = consultarProducto.executeQuery();
             int cuenta = -1;
-            String[][] arreglo_servicio = new String[contarUsuariosAdm()][7];
+            String[][] arreglo_servicio = new String[contarUsuariosAdm()][8];
             while (resulProducto.next()) {
                 cuenta++;
                 arreglo_servicio[cuenta][0] = resulProducto.getString("id_usuario");
@@ -360,7 +470,8 @@ public class Usuario {
                 arreglo_servicio[cuenta][4] = resulProducto.getString("telefono_usuario");
                 arreglo_servicio[cuenta][5] = resulProducto.getString("correo_usuario");
                 Rol_Usuario rol = new Rol_Usuario();
-                arreglo_servicio[cuenta][6] = rol.obtenerNombreRol(resulProducto.getString("id_usuario"));
+                arreglo_servicio[cuenta][6] = rol.obtenerNombreRol(resulProducto.getString("id_rol"));
+                arreglo_servicio[cuenta][7] = resulProducto.getString("password_usuario");
             }
             
             return arreglo_servicio;
