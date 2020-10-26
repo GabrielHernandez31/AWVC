@@ -13,6 +13,7 @@ import java.sql.ResultSet;
  * @author boowe
  */
 public class RFID {
+
     private int id_rfid;
     private String serial_rfid;
     private String estatus_rfid;
@@ -40,7 +41,7 @@ public class RFID {
     public void setEstatus_rfid(String estatus_rfid) {
         this.estatus_rfid = estatus_rfid;
     }
-    
+
     public RFID() {
 
     }
@@ -106,7 +107,7 @@ public class RFID {
         }
         return false;
     }
-    
+
     public String obtenerNombreRFID(String id) {
         try {
             final String sql = "Select * from rfid where id_rfid = ?";
@@ -126,5 +127,63 @@ public class RFID {
         }
         String nombre3 = "Sin asignar aun.";
         return nombre3;
+    }
+
+    public String[][] consultarRFID() {
+        try {
+            final String sql = "Select * from rfid";
+            Conexion conex = new Conexion();
+            PreparedStatement consultarProducto = conex.obtenerConnexion().prepareStatement(sql);
+            ResultSet resulProducto = consultarProducto.executeQuery();
+            int cuenta = -1;
+            String[][] arreglo_servicio = new String[contarCasetas()][3];
+            while (resulProducto.next()) {
+                cuenta++;
+                arreglo_servicio[cuenta][0] = resulProducto.getString("id_rfid");
+                arreglo_servicio[cuenta][1] = resulProducto.getString("serial_rfid");
+                arreglo_servicio[cuenta][2] = resulProducto.getString("estatus_rfid");
+            }
+            return arreglo_servicio;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        String[][] arreglo_sinDatos = new String[0][0];
+        return arreglo_sinDatos;
+    }
+
+    public int contarCasetas() {
+        try {
+            int resultado;
+            final String sql = "Select count(*) from rfid";
+            Conexion conex = new Conexion();
+            PreparedStatement consultarProducto = conex.obtenerConnexion().prepareStatement(sql);
+            ResultSet resulProducto = consultarProducto.executeQuery();
+            if (resulProducto.next()) {
+                resultado = resulProducto.getInt("count");
+                return resultado;
+            } else {
+                return 0;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return 0;
+    }
+
+    public boolean existenCasetas() {
+        try {
+            final String sql = "Select * from rfid";
+            Conexion conex = new Conexion();
+            PreparedStatement consultarProducto = conex.obtenerConnexion().prepareStatement(sql);
+            ResultSet resulProducto = consultarProducto.executeQuery();
+            if (resulProducto.next()) {
+                return true;
+            } else {
+                return false;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
     }
 }

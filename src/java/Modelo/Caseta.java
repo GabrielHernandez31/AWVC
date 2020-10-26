@@ -119,24 +119,20 @@ public class Caseta {
         return false;
     }
     
-    public String[][] consultarCasetasAdm() {
+    public String[][] consultarCasetas() {
         try {
             final String sql = "Select * from caseta";
             Conexion conex = new Conexion();
             PreparedStatement consultarProducto = conex.obtenerConnexion().prepareStatement(sql);
             ResultSet resulProducto = consultarProducto.executeQuery();
             int cuenta = -1;
-            String[][] arreglo_servicio = new String[contarCasetasAdm()][7];
+            String[][] arreglo_servicio = new String[contarCasetas()][4];
             while (resulProducto.next()) {
                 cuenta++;
-                arreglo_servicio[cuenta][0] = resulProducto.getString("id_usuario");
-                arreglo_servicio[cuenta][1] = resulProducto.getString("nombre_usuario");
-                arreglo_servicio[cuenta][2] = resulProducto.getString("app_usuario");
-                arreglo_servicio[cuenta][3] = resulProducto.getString("apm_usuario");
-                arreglo_servicio[cuenta][4] = resulProducto.getString("telefono_usuario");
-                arreglo_servicio[cuenta][5] = resulProducto.getString("correo_usuario");
-                Rol_Usuario rol = new Rol_Usuario();
-                arreglo_servicio[cuenta][6] = rol.obtenerNombreRol(resulProducto.getString("id_usuario"));
+                arreglo_servicio[cuenta][0] = resulProducto.getString("id_caseta");
+                arreglo_servicio[cuenta][1] = resulProducto.getString("nombre_caseta");
+                arreglo_servicio[cuenta][2] = resulProducto.getString("ubicacion_caseta");
+                arreglo_servicio[cuenta][3] = resulProducto.getString("costos_caseta");
             }
             return arreglo_servicio;
         } catch (Exception e) {
@@ -146,10 +142,10 @@ public class Caseta {
         return arreglo_sinDatos;
     }
 
-    public int contarCasetasAdm() {
+    public int contarCasetas() {
         try {
             int resultado;
-            final String sql = "Select count(*) from usuario";
+            final String sql = "Select count(*) from caseta";
             Conexion conex = new Conexion();
             PreparedStatement consultarProducto = conex.obtenerConnexion().prepareStatement(sql);
             ResultSet resulProducto = consultarProducto.executeQuery();
@@ -165,77 +161,11 @@ public class Caseta {
         return 0;
     }
 
-    public boolean existenCasetasAdm() {
+    public boolean existenCasetas() {
         try {
-            final String sql = "Select * from usuaeio";
+            final String sql = "Select * from caseta";
             Conexion conex = new Conexion();
             PreparedStatement consultarProducto = conex.obtenerConnexion().prepareStatement(sql);
-            ResultSet resulProducto = consultarProducto.executeQuery();
-            if (resulProducto.next()) {
-                return true;
-            } else {
-                return false;
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return false;
-    }
-
-    public String[][] consultarCasetasEmp() {
-        try {
-            final String sql = "Select * from caseta where id_caseta = ?";
-            Conexion conex = new Conexion();
-            PreparedStatement consultarProducto = conex.obtenerConnexion().prepareStatement(sql);
-            consultarProducto.setInt(1, getId_caseta());
-            ResultSet resulProducto = consultarProducto.executeQuery();
-            int cuenta = -1;
-            String[][] arreglo_servicio = new String[contarCasetasEmp()][7];
-            while (resulProducto.next()) {
-                cuenta++;
-                arreglo_servicio[cuenta][0] = resulProducto.getString("id_usuario");
-                arreglo_servicio[cuenta][1] = resulProducto.getString("nombre_usuario");
-                arreglo_servicio[cuenta][2] = resulProducto.getString("app_usuario");
-                arreglo_servicio[cuenta][3] = resulProducto.getString("apm_usuario");
-                arreglo_servicio[cuenta][4] = resulProducto.getString("telefono_usuario");
-                arreglo_servicio[cuenta][5] = resulProducto.getString("correo_usuario");
-                Rol_Usuario rol = new Rol_Usuario();
-                arreglo_servicio[cuenta][6] = rol.obtenerNombreRol(resulProducto.getString("id_usuario"));
-            }
-            return arreglo_servicio;
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        String[][] arreglo_sinDatos = new String[0][0];
-        return arreglo_sinDatos;
-    }
-
-    public int contarCasetasEmp() {
-        try {
-            int resultado;
-            final String sql = "Select count(*) from usuario where id_usuario=?";
-            Conexion conex = new Conexion();
-            PreparedStatement consultarProducto = conex.obtenerConnexion().prepareStatement(sql);
-            consultarProducto.setInt(1, getId_caseta());
-            ResultSet resulProducto = consultarProducto.executeQuery();
-            if (resulProducto.next()) {
-                resultado = resulProducto.getInt("count");
-                return resultado;
-            } else {
-                return 0;
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return 0;
-    }
-
-    public boolean existenCasetasEmp() {
-        try {
-            final String sql = "Select * from usuario where id_usuario";
-            Conexion conex = new Conexion();
-            PreparedStatement consultarProducto = conex.obtenerConnexion().prepareStatement(sql);
-            consultarProducto.setInt(1, getId_caseta());
             ResultSet resulProducto = consultarProducto.executeQuery();
             if (resulProducto.next()) {
                 return true;
