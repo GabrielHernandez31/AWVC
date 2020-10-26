@@ -1,186 +1,5 @@
 
-/**const formulario = document.getElementById('formulario');
- const inputs = document.querySelectorAll('#formulario input');
- 
- const expresiones = {
- usuario: /^[a-zA-Z0-9\_\-]{4,16}$/, // Letras, numeros, guion y guion_bajo
- nombre: /^[a-zA-ZÀ-ÿ\s]{1,40}$/, // Letras y espacios, pueden llevar acentos.
- password: /^.{4,12}$/, // 4 a 12 digitos.
- correo: /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/,
- telefono: /^\d{7,14}$/ // 7 a 14 numeros.
- }
- 
- const campos = {
- usuario: false,
- nombre: false,
- password: false,
- correo: false,
- telefono: false
- }
- 
- const validarFormulario = (e) => {
- switch (e.target.name) {
- case "usuario":
- validarCampo(expresiones.usuario, e.target, 'usuario');
- break;
- case "nombre":
- validarCampo(expresiones.nombre, e.target, 'nombre');
- break;
- case "password":
- validarCampo(expresiones.password, e.target, 'password');
- validarPassword2();
- break;
- case "password2":
- validarPassword2();
- break;
- case "correo":
- validarCampo(expresiones.correo, e.target, 'correo');
- break;
- case "telefono":
- validarCampo(expresiones.telefono, e.target, 'telefono');
- break;
- }
- }
- 
- const validarCampo = (expresion, input, campo) => {
- if (expresion.test(input.value)) {
- document.getElementById(`grupo__${campo}`).classList.remove('formulario__grupo-incorrecto');
- document.getElementById(`grupo__${campo}`).classList.add('formulario__grupo-correcto');
- document.querySelector(`#grupo__${campo} i`).classList.add('fa-check-circle');
- document.querySelector(`#grupo__${campo} i`).classList.remove('fa-times-circle');
- document.querySelector(`#grupo__${campo} .formulario__input-error`).classList.remove('formulario__input-error-activo');
- campos[campo] = true;
- } else {
- document.getElementById(`grupo__${campo}`).classList.add('formulario__grupo-incorrecto');
- document.getElementById(`grupo__${campo}`).classList.remove('formulario__grupo-correcto');
- document.querySelector(`#grupo__${campo} i`).classList.add('fa-times-circle');
- document.querySelector(`#grupo__${campo} i`).classList.remove('fa-check-circle');
- document.querySelector(`#grupo__${campo} .formulario__input-error`).classList.add('formulario__input-error-activo');
- campos[campo] = false;
- }
- }
- 
- const validarPassword2 = () => {
- const inputPassword1 = document.getElementById('password');
- const inputPassword2 = document.getElementById('password2');
- 
- if (inputPassword1.value !== inputPassword2.value) {
- document.getElementById(`grupo__password2`).classList.add('formulario__grupo-incorrecto');
- document.getElementById(`grupo__password2`).classList.remove('formulario__grupo-correcto');
- document.querySelector(`#grupo__password2 i`).classList.add('fa-times-circle');
- document.querySelector(`#grupo__password2 i`).classList.remove('fa-check-circle');
- document.querySelector(`#grupo__password2 .formulario__input-error`).classList.add('formulario__input-error-activo');
- campos['password'] = false;
- } else {
- document.getElementById(`grupo__password2`).classList.remove('formulario__grupo-incorrecto');
- document.getElementById(`grupo__password2`).classList.add('formulario__grupo-correcto');
- document.querySelector(`#grupo__password2 i`).classList.remove('fa-times-circle');
- document.querySelector(`#grupo__password2 i`).classList.add('fa-check-circle');
- document.querySelector(`#grupo__password2 .formulario__input-error`).classList.remove('formulario__input-error-activo');
- campos['password'] = true;
- }
- }
- 
- inputs.forEach((input) => {
- input.addEventListener('keyup', validarFormulario);
- input.addEventListener('blur', validarFormulario);
- });
- 
- formulario.addEventListener('submit', (e) => {
- e.preventDefault();
- 
- const terminos = document.getElementById('terminos');
- if (campos.usuario && campos.nombre && campos.password && campos.correo && campos.telefono && terminos.checked) {
- formulario.reset();
- 
- document.getElementById('formulario__mensaje-exito').classList.add('formulario__mensaje-exito-activo');
- setTimeout(() => {
- document.getElementById('formulario__mensaje-exito').classList.remove('formulario__mensaje-exito-activo');
- }, 5000);
- 
- document.querySelectorAll('.formulario__grupo-correcto').forEach((icono) => {
- icono.classList.remove('formulario__grupo-correcto');
- });
- } else {
- document.getElementById('formulario__mensaje').classList.add('formulario__mensaje-activo');
- }
- });
- 
- 
- var formulario = document.getElementById("form-re"),
- comodin = true;
- 
- formulario.addEventListener("submit", function (event) {
- event.preventDefault();
- 
- var elementos = this.elements;
- for (var i in elementos) {
- if (!elementos[i].value.length) {
- alert("Debe de completar el campo " + elementos[i].name);
- comodin = false;
- break;
- }
- }
- if (comodin) {
- this.submit();
- }
- }, false); 
-
-function vtxt() {
-    //var camp;
-    //camp = document.getElementById('txtCamp').value;
-
-    let isValid = false;
-
-    // El input que queremos validar
-    const input = document.forms['formulario']['txtCamp'];
-
-    input.willValidate = false;
-
-    // El tamaño maximo para nuestro input
-    const maximo = 35;
-
-    // El pattern que vamos a comprobar
-    const pattern = new RegExp('^[a-zA-Z]+$', 'i');
-    
-    //El div con el mensaje de advertencia:
-      const message = document.getElementById('message');
-
-    // Primera validacion, si input esta vacio entonces no es valido
-    if (!input.value) {
-        isValid = false;
-    } else {
-        // Segunda validacion, si input es mayor que 35
-        if (input.value.length > maximo) {
-            isValid = false;
-        } else {
-            // Tercera validacion, si input contiene caracteres diferentes a los permitidos
-            if (!pattern.test(input.value)) {
-                // Si queremos agregar letras acentuadas y/o letra ñ debemos usar
-                // codigos de Unicode (ejemplo: Ñ: \u00D1  ñ: \u00F1)
-                isValid = false;
-            } else {
-                // Si pasamos todas la validaciones anteriores, entonces el input es valido
-                isValid = true;
-            }
-        }
-    }
-
-    //Ahora coloreamos el borde de nuestro input
-    if (!isValid) {
-        // rojo: no es valido
-        input.style.borderColor = 'red';
-        message.hidden = false;
-    } else {
-        // verde: si es valido
-        input.style.borderColor = 'green';
-        message.hidden = true;
-    }
-}*/
-
 function vtxt(cat) {
-    //var camp;
-    //camp = document.getElementById('txtCamp').value;
 
     let isValid = false;
 
@@ -194,9 +13,9 @@ function vtxt(cat) {
 
     // El pattern que vamos a comprobar
     const pattern = new RegExp('^[a-zA-ZÀ-ÿ\s]+$', 'i');
-    
+
     //El div con el mensaje de advertencia:
-      const message = document.getElementById('message');
+    const message = document.getElementById('message');
 
     // Primera validacion, si input esta vacio entonces no es valido
     if (!input.value) {
@@ -229,6 +48,167 @@ function vtxt(cat) {
         message.hidden = true;
     }
 }
+
+//Validar un corre electronico *************************************************************************
+function vemail(mail) {
+
+    const input = mail;
+
+    input.willValidate = false;
+
+    const maximo = 50;
+
+    const messagec = document.getElementById('messagec');
+
+    var reg = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+
+    var regOficial = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/;
+    if (input.value.length > maximo) {
+        input.style.borderColor = 'red';
+        messagec.hidden = false;
+    } else {
+        if (reg.test(input.value) && regOficial.test(input.value)) {
+            input.style.borderColor = 'green';
+            messagec.hidden = true;
+        } else if (reg.test(input.value)) {
+            input.style.borderColor = 'green';
+            messagec.hidden = true;
+
+        } else {
+            input.style.borderColor = 'red';
+            messagec.hidden = false;
+
+        }
+    }
+}
+
+//Validar campo telefonico*************************************************************************
+
+function vtel(tel) {
+
+    let isValid = false;
+
+    const input = tel;
+
+    input.willValidate = false;
+
+    const maximo = 10;
+
+    const pattern = new RegExp('[0-9]', 'i');
+
+    const messaget = document.getElementById('messaget');
+
+    if (!input.value) {
+        isValid = false;
+    } else {
+        if (input.value.length > maximo) {
+            isValid = false;
+        } else {
+            if (!pattern.test(input.value)) {
+
+                isValid = false;
+            } else {
+                isValid = true;
+            }
+        }
+    }
+
+    if (!isValid) {
+        // rojo: no es valido
+        input.style.borderColor = 'red';
+        messaget.hidden = false;
+    } else {
+
+        input.style.borderColor = 'green';
+        messaget.hidden = true;
+    }
+}
+
+
+
+//Verificar campos llenos ***************************************************************************************
+
+
+//Verificar contraseña******************************************************************************************
+
+
+function vpass(pass) {
+
+    let isValid = false;
+
+    const input = pass;
+
+    input.willValidate = false;
+
+    const maximo = 15;
+    const minimo = 8;
+
+    regex = /^(?=.*\d)(?=.*[a-záéíóúüñ]).*[A-ZÁÉÍÓÚÜÑ].*[0-9]/;
+
+   
+    const messagepa = document.getElementById('messagepa');
+
+    if (!input.value) {
+        isValid = false;
+    } else {
+       
+        if (input.value.length > maximo && input.value.length > minimo) {
+            isValid = false;
+        } else {
+            if (!regex.test(input.value)) {
+                isValid = false;
+            } else {
+                isValid = true;
+            }
+        }
+    }
+
+    //coloreamos el borde de nuestro input
+    if (!isValid) {
+        // rojo: no es valido
+        input.style.borderColor = 'red';
+        messagepa.hidden = false;
+    } else {
+        // verde: si es valido
+        input.style.borderColor = 'green';
+        messagepa.hidden = true;
+    }
+}
+
+function vpass2(passv) {
+
+    let isValid = false;
+
+    const input = passv;
+
+    input.willValidate = false;
+
+    const messagepa = document.getElementById('messageppa');
+    var pass = document.getElementById('pass');
+
+
+    if (!input.value) {
+        isValid = false;
+    } else {
+        if (input.value != pass) {
+            isValid = false;
+        } else {
+            isValid = true;
+        }
+    }
+
+    if (!isValid) {
+        // rojo: no es valido
+        input.style.borderColor = 'red';
+        messageppa.hidden = false;
+    } else {
+        // verde: si es valido
+        input.style.borderColor = 'green';
+        messageppa.hidden = true;
+    }
+}
+
+
 
 
 

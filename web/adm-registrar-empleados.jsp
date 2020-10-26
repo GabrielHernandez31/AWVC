@@ -139,15 +139,15 @@
                                     <div class="form-row mb">
                                         <div class="form-group col-md-4">
                                             <label class="font-weight-bold">Nombre: <span class="text-danger">*</span></label>
-                                            <input name="txtNombre" type="text" class="form-control" placeholder="Tu nombre" required onkeyup="vtxt(this)" onblur="vtxt(this)">
+                                            <input name="txtNombre" type="text" class="form-control" placeholder="Tu nombre" required onblur="vtxt(this)">
                                         </div>
                                         <div class="form-group col-md-4">
                                             <label class="font-weight-bold">A. Paterno <span class="text-danger">*</span></label>
-                                            <input name="txtAp_pat" type="text" class="form-control" placeholder="Tu apellido" required onkeyup="vtxt(this)" onblur="vtxt(this)">
+                                            <input name="txtAp_pat" type="text" class="form-control" placeholder="Tu apellido" required onblur="vtxt(this)">
                                         </div>
                                         <div class="form-group col-md-4">
                                             <label class="font-weight-bold">A. Materno <span class="text-danger">*</span></label>
-                                            <input name="txtAp_mat" type="text" class="form-control" placeholder="Tu apellido" required onkeyup="vtxt(this)" onblur="vtxt(this)">
+                                            <input name="txtAp_mat" type="text" class="form-control" placeholder="Tu apellido" required  onblur="vtxt(this)">
                                         </div>
                                     </div>
                                     
@@ -163,19 +163,39 @@
                                     </div>
                                     <div class="form-group mb-3">
                                         <label  class="font-weight-bold">Telefono<span class="text-danger">*</span></label>
-                                        <input name="txtTel" type="text" class="form-control" placeholder="Ingresa tu telefono" required pattern="[0-9]{10}" title="Debe contener 10 dígitos">
+                                        <input name="txtTel" type="text" class="form-control" placeholder="Ingresa tu telefono" required onblur="vtel(this)">
                                     </div>
+                                    
+                                                                
+                                    <div class="form-group mb-3" id="messaget" hidden>
+                                        <span class="text-dark">El formato del telefono es incorrecto, use 10 digitos entre 0 y 9</span>
+                                    </div>
+                                    
                                     <div class="form-group mb-3">
                                         <label  class="font-weight-bold">Correo electrónico <span class="text-danger">*</span></label>
-                                        <input name="txtCorreo" type="email" class="form-control" placeholder="Ingresa tu correo electrónico" required  pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" title="Muestre un correo valido">
+                                        <input name="txtCorreo" type="email" class="form-control" placeholder="Ingresa tu correo electrónico" required onblur="vemail(this)">
                                     </div>
+                                    
+                                    <div class="form-group mb-3" id="messagec" hidden>
+                                        <span class="text-dark">El formato del correo no es valido verifique sus datos</span>
+                                    </div>
+                                    
                                     <div class="form-group mb-3">
                                         <label class="font-weight-bold">Contraseña <span class="text-danger">*</span></label>
-                                        <input name="txtContra" type="password" class="form-control" placeholder="Ingresa una Contraseña" required>
+                                        <input name="txtContra" id="pass" type="password" class="form-control" placeholder="Ingresa una Contraseña" required onblur="vpass(this)">
                                     </div>
+                                    
+                                    <div class="form-group mb-3" id="messagepa" hidden>
+                                        <span class="text-dark">La contraseña debe ser mayor o igual a 8 caracteres y menor igual a 15, debe contener mayusculas,minusculas,numeros y caracteres especiales</span>
+                                    </div>
+                                    
                                     <div class="form-group mb-3">
                                         <label class="font-weight-bold">Confirmar Contraseña <span class="text-danger">*</span></label>
-                                        <input name="txtVContra" type="password" class="form-control" placeholder="Confirmar Contraseña" required>
+                                        <input name="txtVContra"  type="password" class="form-control" placeholder="Confirmar Contraseña" required onblur="vpass2(this)">
+                                    </div>
+                                    
+                                    <div class="form-group mb-3" id="messageppa" hidden>
+                                        <span class="text-dark">La contraseña no coinciden </span>
                                     </div>
 
                                     <div class="form-row mb justify-content-center">
