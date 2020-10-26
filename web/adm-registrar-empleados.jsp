@@ -1,39 +1,39 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import="Modelo.Usuario" %>
 <%
-    Usuario usuario = new Usuario();    
-    String accion="", nombre="", app="", apm="", tel="", correo="", password="";
-    int rol=0;
-    
-    if(request.getParameter("accion")!=null){
+    Usuario usuario = new Usuario();
+    String accion = "", nombre = "", app = "", apm = "", tel = "", correo = "", password = "";
+    int rol = 0;
+
+    if (request.getParameter("accion") != null) {
         accion = request.getParameter("accion");
     }
-    if(request.getParameter("txtNombre")!=null){
+    if (request.getParameter("txtNombre") != null) {
         nombre = request.getParameter("txtNombre");
     }
-    if(request.getParameter("txtAp_pat")!=null){
+    if (request.getParameter("txtAp_pat") != null) {
         app = request.getParameter("txtAp_pat");
     }
-    if(request.getParameter("txtAp_mat")!=null){
+    if (request.getParameter("txtAp_mat") != null) {
         apm = request.getParameter("txtAp_mat");
     }
-    if(request.getParameter("txtTel")!=null){
+    if (request.getParameter("txtTel") != null) {
         tel = request.getParameter("txtTel");
     }
-    if(request.getParameter("txtCorreo")!=null){
+    if (request.getParameter("txtCorreo") != null) {
         correo = request.getParameter("txtCorreo");
     }
-    if(request.getParameter("txtContra")!=null){
+    if (request.getParameter("txtContra") != null) {
         password = request.getParameter("txtContra");
     }
-    if(request.getParameter("txtRol")!=null){
+    if (request.getParameter("txtRol") != null) {
         rol = Integer.parseInt(request.getParameter("txtRol"));
     }
-    
-    switch(accion){
+
+    switch (accion) {
         case "Registrar":
             usuario.setCorreo_usuario(correo);
-            if(usuario.validarCorreoRegistro()){
+            if (usuario.validarCorreoRegistro()) {
                 usuario.setNombre_usuario(nombre);
                 usuario.setApp_usuario(app);
                 usuario.setApm_usuario(apm);
@@ -41,17 +41,17 @@
                 usuario.setCorreo_usuario(correo);
                 usuario.setPassword_usuario(password);
                 usuario.setId_rol(rol);
-                
+
                 usuario.createUsuario();
-                
+
                 out.print("<script>cancelar=confirm('¡Registro Exitoso!'); if(cancelar){ window.location.href='adm-gestionar-empleados.jsp'; }else{ window.location.href='adm-registrar-empleados.jsp'; }</script>");
-            }else{
+            } else {
                 out.print("<script>cancelar=confirm('El correo ya existe!'); if(cancelar){ window.location.href='adm-registrar-empleados.jsp'; }else{ window.location.href='adm-registrar-empleados.jsp'; }</script>");
             }
-        break;
+            break;
         default:
-            
-        break;
+
+            break;
     }
 %>
 <!DOCTYPE html>
@@ -64,7 +64,11 @@
         <!-- Bootstrap CSS -->
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
 
+        <!--FontAwesome-->
+        <script src="https://kit.fontawesome.com/2c36e9b7b1.js" crossorigin="anonymous"></script>
+
         <link href="css/are.css" rel="stylesheet">
+       <script src="script/validar.js"></script>
         <title>Registrar Empleado</title>
     </head>
     <body>
@@ -84,7 +88,7 @@
                                 <li class="nav-item active">
                                     <a class="nav-link" href="home.jsp" style="font-size: 3vh">Home</a>
                                 </li>
-                                <li class="nav-item dropdown show ">
+                                <li class="nav-item dropleft show ">
                                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="font-size: 3vh">
                                         Menu</a>
                                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -95,8 +99,8 @@
                                         <a class="dropdown-item" href="adm-gestionar-serv" style="font-size: 2vh">Servicio</a>
                                     </div>
                                 </li>
-                                
-                                <li class="nav-item dropdown">
+
+                                <li class="nav-item dropleft">
                                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="font-size: 3vh">
                                         <svg width="1.5em" height="1.5em" viewBox="0 0 16 16" class="bi bi-person-circle" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                                         <path d="M13.468 12.37C12.758 11.226 11.195 10 8 10s-4.757 1.225-5.468 2.37A6.987 6.987 0 0 0 8 15a6.987 6.987 0 0 0 5.468-2.63z"/>
@@ -131,27 +135,30 @@
                                         <p class="text-dark mb-3">Ingresa la siguiente información. </p>
                                     </div>
                                 </div>
-                                <form action="adm-registrar-empleados.jsp" id="" name="formulario" method="POST">
+                                <form action="adm-registrar-empleados.jsp" id="formulario" name="formulario" method="POST">
                                     <div class="form-row mb">
                                         <div class="form-group col-md-4">
                                             <label class="font-weight-bold">Nombre: <span class="text-danger">*</span></label>
-                                            <input name="txtNombre" type="text" class="form-control" placeholder="Tu nombre" required>
+                                            <input name="txtNombre" type="text" class="form-control" placeholder="Tu nombre" required onkeyup="vtxt(this)" onblur="vtxt(this)">
                                         </div>
                                         <div class="form-group col-md-4">
                                             <label class="font-weight-bold">A. Paterno <span class="text-danger">*</span></label>
-                                            <input name="txtAp_pat" type="text" class="form-control" placeholder="Tu apellido" required>
+                                            <input name="txtAp_pat" type="text" class="form-control" placeholder="Tu apellido" required onkeyup="vtxt(this)" onblur="vtxt(this)">
                                         </div>
                                         <div class="form-group col-md-4">
                                             <label class="font-weight-bold">A. Materno <span class="text-danger">*</span></label>
-                                            <input name="txtAp_mat" type="text" class="form-control" placeholder="Tu apellido" required>
+                                            <input name="txtAp_mat" type="text" class="form-control" placeholder="Tu apellido" required onkeyup="vtxt(this)" onblur="vtxt(this)">
                                         </div>
+                                    </div>
+                                    
+                                    <div class="form-group mb-3" id="message" hidden>
+                                        <span class="text-dark">Debe ingresar solo letras de "A-Z" y no mas de 35 letras</span>
                                     </div>
                                     <div class="form-group mb-3">
                                         <label  class="font-weight-bold">Rol<span class="text-danger">*</span></label>
-                                        <select name="txtRol" class="form-control">
-                                            <option value="0" disabled selected>Elegir</option> 
+                                        <select name="txtRol" class="form-control"> 
                                             <option value="1">Administrador</option>
-                                            <option value="2">Empleado</option>
+                                            <option value="2" selected>Empleado</option>
                                         </select>
                                     </div>
                                     <div class="form-group mb-3">
@@ -173,7 +180,7 @@
 
                                     <div class="form-row mb justify-content-center">
                                         <div class="col-12 col-lg-6 text-center">
-                                            <input type="submit" name="accion" class="btn btn-primary" value="Registrar">
+                                            <input type="submit" name="accion" class="btn btn-primary" value="Registrar" onclick="Comprobar();">
                                         </div>
                                         <div class="col-12 col-lg-6 text-center">
                                             <input type="button" name="btnRegresar" class="btn btn-secondary" value="Regresar" onclick="location = 'adm-gestionar-empleados.jsp'" >
