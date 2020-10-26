@@ -139,7 +139,7 @@
                             </select>
                         </div>
                         <div class="col-12 col-md-4 text-center" style="padding-top: 1vh;padding-bottom: 1vh">
-                            <a class="btn btn-success"><i class="fas fa-user-plus text-secondary-lg" style="width: 5vh"></i>Agregar </a>
+                            <a href="adm-registrar-empleados.jsp" class="btn btn-success"><i class="fas fa-user-plus text-secondary-lg" style="width: 5vh"></i>Agregar </a>
                         </div>
                     </div>
 
