@@ -201,7 +201,7 @@ public class Usuario {
     public boolean updateUsuario() {
         try {
             final String sql = "Update usuario set nombre_usuario = ?, app_usuario = ?, apm_usuario = ?, telefono_usuario = ?,"
-                    + "correo_usuario = ?, password_usuario = ?, id_rol=? where id_usuario = ?";
+                    + "correo_usuario = ?, password_usuario = ?, id_rol = ? where id_usuario = ?";
             Conexion conex = new Conexion();
             PreparedStatement actualizarUsuario = conex.obtenerConnexion().prepareStatement(sql);
             actualizarUsuario.setString(1, nombre_usuario);
@@ -211,7 +211,7 @@ public class Usuario {
             actualizarUsuario.setString(5, correo_usuario);
             actualizarUsuario.setString(6, password_usuario);
             actualizarUsuario.setInt(7, id_rol);
-            actualizarUsuario.setInt(5, getId_usuario());
+            actualizarUsuario.setInt(8, getId_usuario());
             actualizarUsuario.executeUpdate();
             return true;
         } catch (Exception e) {
