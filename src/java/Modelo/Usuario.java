@@ -121,6 +121,8 @@ public class Usuario {
                 id_rol = resulUsuario.getInt("id_rol");
                 existe_usuario = true;
             }
+            resulUsuario.close();
+            buscarUsuario.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -143,6 +145,7 @@ public class Usuario {
             insertarUsuario.setString(6, getPassword_usuario());
             insertarUsuario.setInt(7, getId_rol());
             insertarUsuario.executeUpdate();
+            insertarUsuario.close();
             return true;
         } catch (Exception e) {
             e.printStackTrace();
@@ -163,8 +166,11 @@ public class Usuario {
             validarCorreo.setString(1, getCorreo_usuario());
             ResultSet validar = validarCorreo.executeQuery();
             if (validar.next()) {
+                validar.close();
+                validarCorreo.close();
                 return false;
             } else {
+                validar.close();
                 return true;
             }
         } catch (Exception e) {
@@ -185,8 +191,11 @@ public class Usuario {
             validarCorreo.setString(2, getPassword_usuario());
             ResultSet validar = validarCorreo.executeQuery();
             if (validar.next()) {
+                validar.close();
+                validarCorreo.close();
                 return true;
             } else {
+                validar.close();
                 return false;
             }
         } catch (Exception e) {
@@ -213,6 +222,7 @@ public class Usuario {
             actualizarUsuario.setInt(7, id_rol);
             actualizarUsuario.setInt(8, getId_usuario());
             actualizarUsuario.executeUpdate();
+            actualizarUsuario.close();
             return true;
         } catch (Exception e) {
             e.printStackTrace();
@@ -230,6 +240,7 @@ public class Usuario {
             PreparedStatement eliminarUsuario = conex.obtenerConnexion().prepareStatement(sql);
             eliminarUsuario.setInt(1, getId_usuario());
             eliminarUsuario.executeUpdate();
+            eliminarUsuario.close();
             return true;
         } catch (Exception e) {
             e.printStackTrace();
@@ -246,9 +257,13 @@ public class Usuario {
             ResultSet resulExistenCategorias = existenCategorias.executeQuery();
             if (resulExistenCategorias.next()) {
                 String nombre = resulExistenCategorias.getString("nombre_usuario") + " " + resulExistenCategorias.getString("app_usuario");
+                resulExistenCategorias.close();
+                existenCategorias.close();
                 return nombre;
             } else {
                 String nombre2 = "Sin asignar aun.";
+                resulExistenCategorias.close();
+                existenCategorias.close();
                 return nombre2;
             }
         } catch (Exception e) {
@@ -275,8 +290,10 @@ public class Usuario {
                 arreglo_servicio[cuenta][4] = resulProducto.getString("telefono_usuario");
                 arreglo_servicio[cuenta][5] = resulProducto.getString("correo_usuario");
                 Rol_Usuario rol = new Rol_Usuario();
-                arreglo_servicio[cuenta][6] = rol.obtenerNombreRol(resulProducto.getString("id_usuario"));
+                arreglo_servicio[cuenta][6] = rol.obtenerNombreRol(resulProducto.getString("id_rol"));
             }
+            consultarProducto.close();
+            resulProducto.close();
             return arreglo_servicio;
         } catch (Exception e) {
             e.printStackTrace();
@@ -294,6 +311,8 @@ public class Usuario {
             ResultSet resulProducto = consultarProducto.executeQuery();
             if (resulProducto.next()) {
                 resultado = resulProducto.getInt("count");
+                consultarProducto.close();
+                resulProducto.close();
                 return resultado;
             } else {
                 return 0;
@@ -311,6 +330,8 @@ public class Usuario {
             PreparedStatement consultarProducto = conex.obtenerConnexion().prepareStatement(sql);
             ResultSet resulProducto = consultarProducto.executeQuery();
             if (resulProducto.next()) {
+                consultarProducto.close();
+                resulProducto.close();
                 return true;
             } else {
                 return false;
@@ -341,6 +362,7 @@ public class Usuario {
                 Rol_Usuario rol = new Rol_Usuario();
                 arreglo_servicio[cuenta][6] = rol.obtenerNombreRol(resulProducto.getString("id_usuario"));
             }
+            
             return arreglo_servicio;
         } catch (Exception e) {
             e.printStackTrace();
@@ -359,6 +381,8 @@ public class Usuario {
             ResultSet resulProducto = consultarProducto.executeQuery();
             if (resulProducto.next()) {
                 resultado = resulProducto.getInt("count");
+                consultarProducto.close();
+                resulProducto.close();
                 return resultado;
             } else {
                 return 0;
@@ -377,6 +401,8 @@ public class Usuario {
             consultarProducto.setInt(1, getId_usuario());
             ResultSet resulProducto = consultarProducto.executeQuery();
             if (resulProducto.next()) {
+                consultarProducto.close();
+                resulProducto.close();
                 return true;
             } else {
                 return false;

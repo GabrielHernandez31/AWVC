@@ -49,6 +49,8 @@ public class Rol_Usuario {
                 nombre_rol = resulUsuario.getString("nombre_rol");
                 descripcion_rol = resulUsuario.getString("descripcion_rol");
             }
+            buscarUsuario.close();
+            resulUsuario.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -57,16 +59,20 @@ public class Rol_Usuario {
 
     public String obtenerNombreRol(String id) {
         try {
-            final String sql = "Select * from rol where id_usuario = ?";
+            final String sql = "Select * from rol_usuario where id_rol = ?";
             Conexion conex = new Conexion();
             PreparedStatement existenCategorias = conex.obtenerConnexion().prepareStatement(sql);
             existenCategorias.setInt(1, Integer.parseInt(id));
             ResultSet resulExistenCategorias = existenCategorias.executeQuery();
             if (resulExistenCategorias.next()) {
-                String nombre = resulExistenCategorias.getString("nombre_rol") + " " + resulExistenCategorias.getString("app_usuario");
+                String nombre = resulExistenCategorias.getString("nombre_rol");
+                existenCategorias.close();
+                resulExistenCategorias.close();
                 return nombre;
             } else {
                 String nombre2 = "Sin asignar aun.";
+                existenCategorias.close();
+                resulExistenCategorias.close();
                 return nombre2;
             }
         } catch (Exception e) {

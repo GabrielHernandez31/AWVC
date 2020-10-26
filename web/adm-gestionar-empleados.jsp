@@ -31,13 +31,23 @@
     /*
     ACCIONES
     */
-    String accion = "";
+    String accion = "", nombre = "", app = "";
+    int id_us = 0;
     if(request.getParameter("accion")!=null){
         accion = request.getParameter("accion");
     }
+    if(request.getParameter("nombre")!=null){
+        nombre = request.getParameter("nombre");
+    }
+    if(request.getParameter("app")!=null){
+        app = request.getParameter("app");
+    }
+    if(request.getParameter("id_us")!=null){
+        id_us = Integer.parseInt(request.getParameter("id_us"));
+    }
     switch(accion){
         case "eliminar":
-            out.print("<script>alert('hola')</script>");
+            out.print("<script>cancelar=confirm('Se eliminará a: "+nombre+" "+app+" ¿Deseas continuar?'); if(cancelar){ window.location.href='adm-eliminar-empleados.jsp?id_us="+id_us+"'; }else{ window.location.href='adm-gestionar-empleados.jsp'; }</script>");
         break;
         default:
             
@@ -173,7 +183,7 @@
                                                 </svg>
                                             </a> 
                                         </td>
-                                        <td class="text-center"><a href="adm-gestionar-empleados.jsp?accion='eliminar'" class="text-danger">
+                                        <td class="text-center"><a href="adm-gestionar-empleados.jsp?accion=eliminar&id_us=<% out.print(usuarios[cuenta][0]); %>&nombre=<% out.print(usuarios[cuenta][1]); %>&app=<% out.print(usuarios[cuenta][2]); %>" class="text-danger">
                                                 <svg width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-trash-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                                                 <path fill-rule="evenodd" d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5a.5.5 0 0 0-1 0v7a.5.5 0 0 0 1 0v-7z"/>
                                                 </svg>
