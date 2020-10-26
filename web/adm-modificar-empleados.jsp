@@ -37,7 +37,7 @@
                                     <a class="nav-link" href="home.jsp" style="font-size: 3vh">Home</a>
                                 </li>
 
-                                <li class="nav-item dropdown show ">
+                                <li class="nav-item dropdown show">
                                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="font-size: 3vh">
                                         Menu</a>
                                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
