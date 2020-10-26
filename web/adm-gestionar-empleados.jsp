@@ -26,11 +26,11 @@
                 <div class="col">
                     <!-- INTRODUCE AQUI TODO LO DEL HEADER -->
                     <nav class="navbar navbar-expand-lg navbar-dark">
-                        <a class="navbar-brand"><h3>AWCV</h3></a>
+                        <a class="navbar-brand" style="font-size: 4vh">AWCV</a>
                         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                             <span class="navbar-toggler-icon"></span>
                         </button>
-                        <div class="collapse navbar-collapse" id="navbarSupportedContent" style="margin-right: 2%;">
+                        <div class="collapse navbar-collapse" id="navbarSupportedContent">
                             <ul class="navbar-nav ml-auto">
                                 <li class="nav-item active">
                                     <a class="nav-link" href="home.jsp" style="font-size: 3vh">Home</a>
@@ -69,10 +69,10 @@
             <!-- // HEADER DE LA PAGINA -->
             <!-- ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- -->
             <!-- CUERPO DE LA PAGINA -->
-            <div class="row justify-content-center " style="min-height: 80vh">
+            <div class="row justify-content-center" style="min-height: 80vh">
 
-                <div class="container">
-                    <div class="row">
+                <div class="container col-md-12 col-lg-10">
+                    <div class="row col-12">
                         <div class="col-xl-12 text-center">
                             <h1 class="text-dark">Gestionar Empleado</h1>
                         </div>
@@ -95,7 +95,7 @@
                     </div>
 
                     <div class="row justify-content-center align-content-center" >
-                        <div class="col-xl-12 table-responsive"  style="padding-top: 1vh;padding-bottom: 1vh; font-size: 2.5vh">
+                        <div class="col-12-block table-responsive"  style="padding-top: 1vh;padding-bottom: 1vh; font-size: 2.5vh">
                             <table class="table">
                                 <thead class="thead-dark">
                                     <tr>
