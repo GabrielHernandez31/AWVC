@@ -15,7 +15,7 @@
     Retoma datos del usuario para poder utilizarlos más adelante
     */
     Usuario usuario = new Usuario(email);
-    String nombre_usu = usuario.getNombre_usuario();
+    String nom_usu = usuario.getNombre_usuario();
     String app_usu = usuario.getApp_usuario();
     int id_usu = usuario.getId_usuario();
     int id_rol = usuario.getId_rol();

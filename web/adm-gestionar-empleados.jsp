@@ -1,15 +1,54 @@
-<%-- 
-    Document   : adm-registrar-empleados
-    Created on : 25/10/2020, 02:31:02 PM
-    Author     : Juan J. Medina
---%>
-
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page import="Modelo.Usuario" %>
+<%@page import="java.util.List" %>
+<%@page import="java.util.Arrays" %>
+<%
+    /*
+    Asigna un valor a la variable email en caso de que se haya iniciado sesion
+    De lo contrario, deja la variable nula
+    */
+    HttpSession sesion = request.getSession();
+    String email=(String)sesion.getAttribute("email");
+    
+    /*
+    Asigna valores a las variables si existe una sesion.
+    Retoma datos del usuario para poder utilizarlos más adelante
+    */
+    Usuario usuario = new Usuario(email);
+    String nombre_usu = usuario.getNombre_usuario();
+    String app_usu = usuario.getApp_usuario();
+    int id_usu = usuario.getId_usuario();
+    int id_rol = usuario.getId_rol();
+    
+    /*
+    Valida si hay una sesion activa.
+    En caso de que no exista una sesion activa, se redirige al index
+    */
+    if(email==null){
+        response.sendRedirect("index.jsp");
+    }
+    
+    /*
+    ACCIONES
+    */
+    String accion = "";
+    if(request.getParameter("accion")!=null){
+        accion = request.getParameter("accion");
+    }
+    switch(accion){
+        case "eliminar":
+            out.print("<script>alert('hola')</script>");
+        break;
+        default:
+            
+        break;
+    }
+%>
 <!DOCTYPE html>
 <html lang="es">
     <head>
         <!-- Required meta tags -->
-        <meta charset="utf-8">
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
         <!-- Bootstrap CSS -->
@@ -35,7 +74,7 @@
                                 <li class="nav-item active">
                                     <a class="nav-link" href="home.jsp" style="font-size: 3vh">Home</a>
                                 </li>
-                                <li class="nav-item dropdown show ">
+                                <li class="nav-item dropleft show ">
                                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="font-size: 3vh">
                                         Menu</a>
                                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -46,8 +85,8 @@
                                         <a class="dropdown-item" href="adm-gestionar-serv" style="font-size: 2vh">Servicio</a>
                                     </div>
                                 </li>
-                                
-                                <li class="nav-item dropdown">
+
+                                <li class="nav-item dropleft">
                                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="font-size: 3vh">
                                         <svg width="1.5em" height="1.5em" viewBox="0 0 16 16" class="bi bi-person-circle" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                                         <path d="M13.468 12.37C12.758 11.226 11.195 10 8 10s-4.757 1.225-5.468 2.37A6.987 6.987 0 0 0 8 15a6.987 6.987 0 0 0 5.468-2.63z"/>
@@ -105,33 +144,52 @@
                                         <th scope="col">A. Materno</th>
                                         <th scope="col">Telefono</th>
                                         <th scope="col">Correo</th>
+                                        <th scope="col">Rol</th>
                                         <th scope="col" class="text-center">Editar</th>
                                         <th scope="col" class="text-center">Eliminar</th>
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    <%  
+                                    usuario.setId_usuario(id_usu);
+                                    if(usuario.existenUsuariosAdm()){
+                                        usuario.setId_usuario(id_usu);
+                                        String[][] usuarios = usuario.consultarUsuariosAdm();
+                                        
+                                        for( int cuenta = 0; cuenta<usuario.contarUsuariosAdm(); cuenta++){
+                                    %>  
                                     <tr>
-                                        <td>1</td>
-                                        <td>Juan</td>
-                                        <td>Medina</td>
-                                        <td>Montes</td>
-                                        <td>5555555555</td>
-                                        <td>putoelquelolea@me.la.pelas</td>
-                                        <td class="text-center"><a href="#" class="text-primary">
+                                        <td><% out.print(usuarios[cuenta][0]); %></td>
+                                        <td><% out.print(usuarios[cuenta][1]); %></td>
+                                        <td><% out.print(usuarios[cuenta][2]); %></td>
+                                        <td><% out.print(usuarios[cuenta][3]); %></td>
+                                        <td><% out.print(usuarios[cuenta][4]); %></td>
+                                        <td><% out.print(usuarios[cuenta][5]); %></td>
+                                        <td><% out.print(usuarios[cuenta][6]); %></td>
+                                         <td class="text-center"><a href="#" class="text-primary">
                                                 <svg width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-pencil-square" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                                                 <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456l-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
                                                 <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/>
                                                 </svg>
                                             </a> 
                                         </td>
-                                        <td class="text-center"><a href="#" class="text-danger">
+                                        <td class="text-center"><a href="adm-gestionar-empleados.jsp?accion='eliminar'" class="text-danger">
                                                 <svg width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-trash-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                                                 <path fill-rule="evenodd" d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5a.5.5 0 0 0-1 0v7a.5.5 0 0 0 1 0v-7z"/>
                                                 </svg>
                                             </a>
                                         </td>
                                     </tr>
-
+                                    <%
+                                        }      
+                                    %>
+                                    <%   
+                                     }else{  
+                                    %>
+                                    <tr>
+                                        <th colspan="9" style="text-align: center;">No existen productos aún.</th>
+                                    </tr>
+                                    <%  } %>
                                 </tbody>
                             </table>
                         </div>

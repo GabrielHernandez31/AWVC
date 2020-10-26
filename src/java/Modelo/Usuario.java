@@ -306,7 +306,7 @@ public class Usuario {
 
     public boolean existenUsuariosAdm() {
         try {
-            final String sql = "Select * from usuaeio";
+            final String sql = "Select * from usuario";
             Conexion conex = new Conexion();
             PreparedStatement consultarProducto = conex.obtenerConnexion().prepareStatement(sql);
             ResultSet resulProducto = consultarProducto.executeQuery();
