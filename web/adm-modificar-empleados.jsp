@@ -1,10 +1,149 @@
-<%-- 
-    Document   : adm-registrar-empleados
-    Created on : 25/10/2020, 02:31:02 PM
-    Author     : Juan J. Medina
---%>
-
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page import="Modelo.Usuario" %>
+<%@page import="java.util.List" %>
+<%@page import="java.util.Arrays" %>
+<%
+    /*
+    Asigna un valor a la variable email en caso de que se haya iniciado sesion
+    De lo contrario, deja la variable nula
+    */
+    HttpSession sesion = request.getSession();
+    String email=(String)sesion.getAttribute("email");
+    
+    /*
+    Asigna valores a las variables si existe una sesion.
+    Retoma datos del usuario para poder utilizarlos más adelante
+    */
+    Usuario usuario = new Usuario(email);
+    int id_usu = usuario.getId_usuario();
+    int id_rol = usuario.getId_rol();
+    
+    /*
+    Valida si hay una sesion activa.
+    En caso de que no exista una sesion activa, se redirige al index
+    */
+    if(email==null){
+        response.sendRedirect("index.jsp");
+    }
+    
+    /*
+    ACCIONES
+    */
+    int id_us = 0;
+    if(request.getParameter("id_us")!=null){
+        id_us = Integer.parseInt(request.getParameter("id_us"));
+    }
+    
+    /*
+    MODIFICAR EMPLEADO
+    */
+    Usuario usuario1 = new Usuario();    
+    String accion="", nombre="", app="", apm="", tel="", correo="", password="";
+    int rol=0;
+    
+    if(request.getParameter("accion")!=null){
+        accion = request.getParameter("accion");
+    }
+    if(request.getParameter("txtNombre")!=null){
+        nombre = request.getParameter("txtNombre");
+    }
+    if(request.getParameter("txtAp_pat")!=null){
+        app = request.getParameter("txtAp_pat");
+    }
+    if(request.getParameter("txtAp_mat")!=null){
+        apm = request.getParameter("txtAp_mat");
+    }
+    if(request.getParameter("txtTel")!=null){
+        tel = request.getParameter("txtTel");
+    }
+    if(request.getParameter("txtCorreo")!=null){
+        correo = request.getParameter("txtCorreo");
+    }
+    if(request.getParameter("txtContra")!=null){
+        password = request.getParameter("txtContra");
+    }
+    if(request.getParameter("txtRol")!=null){
+        rol = Integer.parseInt(request.getParameter("txtRol"));
+    }
+    
+    switch(accion){
+        case "Guardar":
+            
+            usuario1.setId_usuario(id_us);
+            String[][] datos = usuario1.consultarUsuariosEmp();
+            
+            
+            if(tel.equals(datos[0][4])){
+                if(correo.equals(datos[0][5])){
+                    usuario1.setNombre_usuario(nombre);
+                    usuario1.setApp_usuario(app);
+                    usuario1.setApm_usuario(apm);
+                    usuario1.setPassword_usuario(password);
+                    usuario1.setId_rol(rol);
+                    usuario1.setId_usuario(Integer.parseInt(datos[0][0]));
+                    usuario1.updateUsuarioSCST();
+                    out.print("<script>cancelar=confirm('¡Registro Exitoso!'); if(cancelar){ window.location.href='adm-gestionar-empleados.jsp'; }else{ window.location.href='adm-gestionar-empleados.jsp'; }</script>");
+                }else{
+                    usuario1.setCorreo_usuario(correo);
+                    if(usuario1.validarCorreoRegistro()){
+                        usuario1.setNombre_usuario(nombre);
+                        usuario1.setApp_usuario(app);
+                        usuario1.setApm_usuario(apm);
+                        usuario1.setCorreo_usuario(correo);
+                        usuario1.setPassword_usuario(password);
+                        usuario1.setId_rol(rol);
+                        usuario1.setId_usuario(Integer.parseInt(datos[0][0]));
+                        usuario1.updateUsuarioCCST();
+                        out.print("<script>cancelar=confirm('¡Registro Exitoso!'); if(cancelar){ window.location.href='adm-gestionar-empleados.jsp'; }else{ window.location.href='adm-gestionar-empleados.jsp'; }</script>");
+                    }else{
+                        out.print("<script>cancelar=confirm('El correo ya está en uso'); if(cancelar){ window.location.href='adm-gestionar-empleados.jsp'; }else{ window.location.href='adm-gestionar-empleados.jsp'; }</script>");
+                    }
+                }
+            }else{
+                if(correo.equals(datos[0][5])){
+                    usuario1.setTelefono_usuario(tel);
+                    if(usuario1.validarTelefonoRegistro()){
+                        usuario1.setNombre_usuario(nombre);
+                        usuario1.setApp_usuario(app);
+                        usuario1.setApm_usuario(apm);
+                        usuario1.setTelefono_usuario(tel);
+                        usuario1.setPassword_usuario(password);
+                        usuario1.setId_rol(rol);
+                        usuario1.setId_usuario(Integer.parseInt(datos[0][0]));
+                        usuario1.updateUsuarioSCCT();
+                        out.print("<script>cancelar=confirm('¡Registro Exitoso!'); if(cancelar){ window.location.href='adm-gestionar-empleados.jsp'; }else{ window.location.href='adm-gestionar-empleados.jsp'; }</script>");
+                    }else{
+                        out.print("<script>cancelar=confirm('El teléfono ya está en uso'); if(cancelar){ window.location.href='adm-gestionar-empleados.jsp'; }else{ window.location.href='adm-gestionar-empleados.jsp'; }</script>");
+                    }
+                }else{
+                    usuario1.setTelefono_usuario(tel);
+                    if(usuario1.validarTelefonoRegistro()){
+                        usuario1.setCorreo_usuario(correo);
+                        if(usuario1.validarCorreoRegistro()){
+                            usuario1.setNombre_usuario(nombre);
+                            usuario1.setApp_usuario(app);
+                            usuario1.setApm_usuario(apm);
+                            usuario1.setTelefono_usuario(tel);
+                            usuario1.setCorreo_usuario(correo);
+                            usuario1.setPassword_usuario(password);
+                            usuario1.setId_rol(rol);
+                            usuario1.setId_usuario(Integer.parseInt(datos[0][0]));
+                            usuario1.updateUsuarioCCCT();
+                            out.print("<script>cancelar=confirm('¡Registro Exitoso!'); if(cancelar){ window.location.href='adm-gestionar-empleados.jsp'; }else{ window.location.href='adm-gestionar-empleados.jsp'; }</script>");
+                        }else{
+                            out.print("<script>cancelar=confirm('El correo ya está en uso'); if(cancelar){ window.location.href='adm-gestionar-empleados.jsp'; }else{ window.location.href='adm-gestionar-empleados.jsp'; }</script>");
+                        }
+                    }else{
+                        out.print("<script>cancelar=confirm('El teléfono ya está en uso'); if(cancelar){ window.location.href='adm-gestionar-empleados.jsp'; }else{ window.location.href='adm-gestionar-empleados.jsp'; }</script>");
+                    }
+                }
+            }
+        break;
+        default:
+            
+        break;
+    }
+%>
 <!DOCTYPE html>
 <html lang="es">
     <head>
@@ -47,7 +186,7 @@
                                         <a class="dropdown-item" href="adm-gestionar-serv" style="font-size: 2vh">Servicio</a>
                                     </div>
                                 </li>
-                                
+
                                 <li class="nav-item dropdown">
                                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="font-size: 3vh">
                                         <svg width="1.5em" height="1.5em" viewBox="0 0 16 16" class="bi bi-person-circle" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
@@ -89,37 +228,44 @@
                                     </div>
                                 </div>
 
-
-                                <form action="registrarParticipante.jsp" id="" name="formulario" method="POST">
+                                <%  
+                                    usuario.setId_usuario(id_us);
+                                    String[][] usuarios = usuario.consultarUsuariosEmp();
+                                %>
+                                <form action="adm-modificar-empleados.jsp?id_us="<% out.print(usuarios[0][4]); %> id="" name="formulario" method="POST">
                                     <div class="form-row mb">
                                         <div class="form-group col-md-4">
                                             <label class="font-weight-bold">Nombre: <span class="text-danger">*</span></label>
-                                            <input name="txtNombre" type="text" class="form-control" placeholder="Nombre" required>
+                                            <input name="txtNombre" type="text" class="form-control" placeholder="Nombre" value="<% out.print(usuarios[0][1]); %>" disabled>
                                         </div>
                                         <div class="form-group col-md-4">
                                             <label class="font-weight-bold">A. Paterno <span class="text-danger">*</span></label>
-                                            <input name="txtAp_pat" type="text" class="form-control" placeholder="Apellido M" required>
+                                            <input name="txtAp_pat" type="text" class="form-control" placeholder="Apellido M" value="<% out.print(usuarios[0][2]); %>" disabled>
                                         </div>
                                         <div class="form-group col-md-4">
                                             <label class="font-weight-bold">A. Materno <span class="text-danger">*</span></label>
-                                            <input name="txtAp_mat" type="text" class="form-control" placeholder="Apellido M" required>
+                                            <input name="txtAp_mat" type="text" class="form-control" placeholder="Apellido M" value="<% out.print(usuarios[0][3]); %>" disabled>
                                         </div>
                                     </div>
                                     <div class="form-group mb-3">
                                         <label  class="font-weight-bold">Rol<span class="text-danger">*</span></label>
-                                        <select name="select" class="form-control">
-                                            <option value="0" disabled selected>Elegir</option> 
-                                            <option value="1">Administrador</option>
+                                        <select name="txtRol" class="form-control">
+                                            <% if(usuarios[0][6].equals("Administrador")){ %>
+                                            <option value="1" selected>Administrador</option>
                                             <option value="2">Empleado</option>
+                                            <% }else { %>
+                                            <option value="1">Administrador</option>
+                                            <option value="2" selected>Empleado</option>
+                                            <% } %>
                                         </select>
                                     </div>
                                     <div class="form-group mb-3">
                                         <label  class="font-weight-bold">Telefono<span class="text-danger">*</span></label>
-                                        <input name="txtTel" type="text" class="form-control" placeholder="Telefono" required  pattern="[0-9]" title="Ingresa tu telefono">
+                                        <input name="txtTel" type="text" class="form-control" placeholder="Telefono" value="<% out.print(usuarios[0][4]); %>" required pattern="[0-9]{10}" title="Ingresa tu telefono">
                                     </div>
                                     <div class="form-group mb-3">
                                         <label  class="font-weight-bold">Correo electrónico <span class="text-danger">*</span></label>
-                                        <input name="txtCorreo" type="email" class="form-control" placeholder="Correo electrónico" required  pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" title=gresa tu correo electrónico"Muestre un correo valido">
+                                        <input name="txtCorreo" type="email" class="form-control" placeholder="Correo electrónico" value="<% out.print(usuarios[0][5]); %>" required  pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" title=gresa tu correo electrónico"Muestre un correo valido">
                                     </div>
                                     <div class="form-group mb-3">
                                         <label class="font-weight-bold">Contraseña Nueva<span class="text-danger">*</span></label>
@@ -132,10 +278,10 @@
 
                                     <div class="form-row mb justify-content-center">
                                         <div class="col-12 col-lg-6 text-center">
-                                            <input type="submit" name="btnRegistrar" class="btn btn-primary" value="Guardar">
+                                            <input type="submit" name="accion" class="btn btn-primary" value="Guardar">
                                         </div>
                                         <div class="col-12 col-lg-6 text-center">
-                                            <input type="button" name="btnRegresar" class="btn btn-secondary" value="Regresar" onclick="location = 'adm_gestionar_empleado.jsp'" >
+                                            <input type="button" name="btnRegresar" class="btn btn-secondary" value="Regresar" onclick="location = 'adm-gestionar-empleado.jsp'" >
                                         </div>
                                     </div>
                                 </form>
