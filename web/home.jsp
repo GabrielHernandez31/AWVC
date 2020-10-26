@@ -79,7 +79,7 @@
                 <!-- ESTO ES LO DE EMPLEADO -->
                 <div class="col-12 col-sm-6 col-md-6 col-lg-6">
                     <p>
-                        <a href="#"><button type="button" class="btn btn-primary" style="border-radius: 5rem; width: 100%; font-size: 3vh;">Gestionar Empleados</button></a>
+                        <a href="adm-gestionar-empleados.jsp"><button type="button" class="btn btn-primary" style="border-radius: 5rem; width: 100%; font-size: 3vh;">Gestionar Empleados</button></a>
                     <p>
                         <a href="#"><button type="button" class="btn btn-primary" style="border-radius: 5rem; width: 100%; font-size: 3vh;">Gestionar Automóviles</button></a>
                     <p>
@@ -99,7 +99,7 @@
                     <p><br>
                         <a href="#"><button type="button" class="btn btn-primary" style="border-radius: 5rem; width: 100%; font-size: 3vh;">Gestionar Automovil</button></a>
                     <p><br>
-                        <a href="#"><button type="button" class="btn btn-primary" style="border-radius: 5rem; width: 100%; font-size: 3vh;">Gestionar Cuenta</button></a>
+                        <a href="adm-gestionar-empleados.jsp"><button type="button" class="btn btn-primary" style="border-radius: 5rem; width: 100%; font-size: 3vh;">Gestionar Cuenta</button></a>
                     </p>
                 </div>
                 <!-- // ESTO ES LO DE EMPLEADO-->
