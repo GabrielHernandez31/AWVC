@@ -45,7 +45,7 @@
             <!-- CUERPO DE LA PAGINA -->
             <div class="row justify-content-center align-content-center" style="min-height: 80vh">
                 <!-- INTRODUCE AQUI TODO LO DEL CUERPO -->
-                
+
                 <!-- // INTRODUCE AQUI TODO LO DEL CUERPO -->
             </div>
             <!-- // CUERPO DE LA PAGINA -->
