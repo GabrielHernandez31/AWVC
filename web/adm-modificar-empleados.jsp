@@ -254,19 +254,19 @@
                                     usuario1.setId_usuario(id_us);
                                     String[][] usuarios = usuario1.consultarUsuariosEmp();
                                 %>
-                                <form action="registrarParticipante.jsp" id="" name="formulario" method="POST">
+                                <form action="adm-modificar-empleados.jsp" id="" name="formulario" method="POST">
                                     <div class="form-row mb">
                                         <div class="form-group col-md-4">
                                             <label class="font-weight-bold">Nombre: <span class="text-danger">*</span></label>
-                                            <input name="txtNombre" type="text" class="form-control" placeholder="Nombre" required>
+                                            <input name="txtNombre" type="text" class="form-control" placeholder="Nombre" required value="<% out.print(usuarios[0][1]); %>">
                                         </div>
                                         <div class="form-group col-md-4">
                                             <label class="font-weight-bold">A. Paterno <span class="text-danger">*</span></label>
-                                            <input name="txtAp_pat" type="text" class="form-control" placeholder="Apellido M" required>
+                                            <input name="txtAp_pat" type="text" class="form-control" placeholder="Apellido M" required value="<% out.print(usuarios[0][2]); %>">
                                         </div>
                                         <div class="form-group col-md-4">
                                             <label class="font-weight-bold">A. Materno <span class="text-danger">*</span></label>
-                                            <input name="txtAp_mat" type="text" class="form-control" placeholder="Apellido M" required>
+                                            <input name="txtAp_mat" type="text" class="form-control" placeholder="Apellido M" required value="<% out.print(usuarios[0][3]); %>">
                                         </div>
                                     </div>
                                     <div class="form-group mb-3">
@@ -283,27 +283,27 @@
                                     </div>
                                     <div class="form-group mb-3">
                                         <label  class="font-weight-bold">Telefono<span class="text-danger">*</span></label>
-                                        <input name="txtTel" type="text" class="form-control" placeholder="Telefono" required  pattern="[0-9]" title="Ingresa tu telefono">
+                                        <input name="txtTel" type="text" class="form-control" placeholder="Telefono" required pattern="[0-9]{10}" title="Ingresa tu telefono" value="<% out.print(usuarios[0][4]); %>">
                                     </div>
                                     <div class="form-group mb-3">
                                         <label  class="font-weight-bold">Correo electrónico <span class="text-danger">*</span></label>
-                                        <input name="txtCorreo" type="email" class="form-control" placeholder="Correo electrónico" required  pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" title=gresa tu correo electrónico"Muestre un correo valido">
+                                        <input name="txtCorreo" type="email" class="form-control" placeholder="Correo electrónico" required  pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" title="Ingresa tu correo electrónico Muestre un correo valido" value="<% out.print(usuarios[0][5]); %>">
                                     </div>
                                     <div class="form-group mb-3">
                                         <label class="font-weight-bold">Contraseña Nueva<span class="text-danger">*</span></label>
-                                        <input name="txtContra" type="password" class="form-control" placeholder="Contraseña Nueva" required>
+                                        <input name="txtContra" type="password" class="form-control" placeholder="Contraseña Nueva">
                                     </div>
                                     <div class="form-group mb-3">
                                         <label class="font-weight-bold">Confirmar Contraseña Nueva <span class="text-danger">*</span></label>
-                                        <input name="txtVContra" type="password" class="form-control" placeholder="Confirmar Contraseña Nueva" required>
+                                        <input name="txtVContra" type="password" class="form-control" placeholder="Confirmar Contraseña Nueva">
                                     </div>
 
                                     <div class="form-row mb justify-content-center">
                                         <div class="col-12 col-lg-6 text-center">
-                                            <input type="submit" name="btnRegistrar" class="btn btn-primary" value="Guardar">
+                                            <input type="submit" name="accion" class="btn btn-primary" value="Guardar">
                                         </div>
                                         <div class="col-12 col-lg-6 text-center">
-                                            <input type="button" name="btnRegresar" class="btn btn-secondary" value="Regresar" onclick="location = 'adm_gestionar_empleado.jsp'" >
+                                            <input type="button" name="btnRegresar" class="btn btn-secondary" value="Regresar" onclick="location = 'adm-gestionar-empleado.jsp'" >
                                         </div>
                                     </div>
                                 </form>
