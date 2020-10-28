@@ -41,7 +41,7 @@
             <div class="row justify-content-center align-content-center" style="min-height: 80vh;">
                 <!-- INTRODUCE AQUI TODO LO DEL CUERPO -->
                 <!-- DIV BIENVENIDA -->
-                <div class="row col-12 bg-info">
+                <div class="row col-12 d-none d-sm-block bg-info">
                     <div class="col-12 text-center">
                         <p style="font-size: 4vh">Bienvenido a AWCV, ten el control a tu alcance.</p>
                         <p style="color: #FFFFFF; font-size: 3vh">Controla los viatico en <cite title="Source Title">AWCV</cite></p>
@@ -54,21 +54,21 @@
                         <div id="carouselExampleCaptions" class="carousel slide" data-ride="carousel">
                             <div class="carousel-inner">
                                 <div class="carousel-item active">
-                                    <img src="img/pista.jpg" class="d-block w-100" >
+                                    <img src="img/pista.gif" class="d-block w-100" >
                                     <div class="carousel-caption d-none d-md-block" style="color: #FFFFFF">
-                                        <h5>Gestiona tu empresa</h5>
-                                        <p>El orden es fundamental para tener una empresa.</p>
+                                        <h5 style="font-size: 4vh;">Gestiona tu empresa</h5>
+                                        <p style="font-size: 4vh;">El orden es fundamental para tener una empresa.</p>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="row">
+                <div class="row" style="padding-top: 5vh; padding-bottom: 5vh;">
                     <!-- ITEMS INFORMATIVOS -->
                     <div class="col-sm-12 col-md-4 col-lg-4">
                         <div class="card text-center bg-info">
-                            <img src="img/grupo.png" class="card-img-top im-fluid">
+                            <img src="img/index_gestiona_empleados.jpg" class="card-img-top im-fluid">
                             <div class="card-body">
                                 <h4 class="card-text">¡Gestiona a tus empleados!</h4>
                             </div>
@@ -76,7 +76,7 @@
                     </div>
                     <div class="col-sm-12 col-md-4 col-lg-4">
                         <div class="card text-center bg-info">
-                            <img src="img/lista.png" class="card-img-top im-fluid">
+                            <img src="img/index_controla_servicios.jpg" class="card-img-top im-fluid">
                             <div class="card-body">
                                 <h4 class="card-text">Ten el control de los servicios</h4>
                             </div>
@@ -84,7 +84,7 @@
                     </div>
                     <div class="col-sm-12 col-md-4 col-lg-4">
                         <div class="card text-center bg-info">
-                            <img src="img/formulario.png" class="card-img-top im-fluid">
+                            <img src="img/index_actualiza_datos.jpg" class="card-img-top im-fluid">
                             <div class="card-body">
                                 <h4 class="card-text">Actualiza los datos en segundos</h4>
                             </div>
