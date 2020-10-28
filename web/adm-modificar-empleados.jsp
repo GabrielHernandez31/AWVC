@@ -203,10 +203,10 @@
                                         Menu</a>
                                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                                         <a class="dropdown-item" href="adm-gestionar-auto.jsp" style="font-size: 2vh">Automoviles</a>
-                                        <a class="dropdown-item" href="adm-gestionar-casetas" style="font-size: 2vh">Casetas</a>
+                                        <a class="dropdown-item" href="adm-gestionar-casetas.jsp" style="font-size: 2vh">Casetas</a>
                                         <a class="dropdown-item" href="adm-gestionar-empleados.jsp" style="font-size: 2vh">Empleados</a>
-                                        <a class="dropdown-item" href="adm-gestionar-rfid" style="font-size: 2vh">RFID</a>
-                                        <a class="dropdown-item" href="adm-gestionar-serv" style="font-size: 2vh">Servicio</a>
+                                        <a class="dropdown-item" href="adm-gestionar-rfid.jsp" style="font-size: 2vh">RFID</a>
+                                        <a class="dropdown-item" href="adm-gestionar-serv.jsp" style="font-size: 2vh">Servicio</a>
                                     </div>
                                 </li>
                                 
