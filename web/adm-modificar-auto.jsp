@@ -14,7 +14,7 @@
 
         <link href="css/are.css" rel="stylesheet">
        <script src="script/validar.js"></script>
-        <title>Registrar Automovil</title>
+        <title>Modificar Automovil</title>
     </head>
     <body>
 
@@ -76,30 +76,11 @@
                             <div class="container align-self-center p-6">
                                 <div class="form-row justify-content-center align-content-center"">
                                     <div class="col-md-12">
-                                        <h1 class="font-weight-bold">Registrar un Automovil</h1>
-                                        <p class="text-dark mb-3">Ingresa la siguiente información. </p>
+                                        <h1 class="font-weight-bold">Modificar Automovil</h1>
+                                        <p class="text-dark mb-3">Se puede cambiar la siguiente información. </p>
                                     </div>
                                 </div>
                                 <form action="adm-registrar-auto.jsp" id="formulario" name="formulario" method="POST">
-                                    <div class="form-row mb">
-                                        <div class="form-group col-md-4">
-                                            <label class="font-weight-bold">No. Placa: <span class="text-danger">*</span></label>
-                                            <input name="placa" type="text" class="form-control" placeholder="PLACA" required onblur="">
-                                        </div>
-                                        <div class="form-group col-md-4">
-                                            <label class="font-weight-bold">Marca: <span class="text-danger">*</span></label>
-                                             <input name="marca" type="text" class="form-control" placeholder="MARCA" required onblur="">
-                                        </div>
-                                        <div class="form-group col-md-4">
-                                            <label class="font-weight-bold">Color: <span class="text-danger">*</span></label>
-                                            <input name="colora" type="text" class="form-control" placeholder="PLACA" required onblur="">
-                                        </div>
-                                    </div>
-                                    
-                                    <div class="form-group mb-3">
-                                        <label  class="font-weight-bold">Modelo: <span class="text-danger">*</span></label>
-                                        <input name="modelo" type="email" class="form-control" placeholder="Ingresa el modelo del auto" required onblur="">
-                                    </div>
                                     
                                     <div class="form-group mb-3">
                                         <label class="font-weight-bold">Estado: <span class="text-danger">*</span></label>
@@ -108,9 +89,6 @@
                                             <option value="2">Inactivo</option>
                                         </select>
                                     </div>
-                                    
-                                    
-                                    
                                     <div class="form-group mb-3">
                                         <label class="font-weight-bold">Empleado:</label>
                                         <input name="empleado"  type="text" class="form-control" placeholder="Ingresar Empleado" required onblur="">

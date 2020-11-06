@@ -179,24 +179,6 @@
                                     <div class="form-group mb-3" id="messagec" hidden>
                                         <span class="text-dark">El formato del correo no es valido verifique sus datos</span>
                                     </div>
-                                    
-                                    <div class="form-group mb-3">
-                                        <label class="font-weight-bold">Contraseña <span class="text-danger">*</span></label>
-                                        <input name="txtContra" id="pass" type="password" class="form-control" placeholder="Ingresa una Contraseña" required onblur="vpass(this)">
-                                    </div>
-                                    
-                                    <div class="form-group mb-3" id="messagepa" hidden>
-                                        <span class="text-dark">La contraseña debe ser mayor o igual a 8 caracteres y menor igual a 15, debe contener mayusculas,minusculas,numeros y caracteres especiales</span>
-                                    </div>
-                                    
-                                    <div class="form-group mb-3">
-                                        <label class="font-weight-bold">Confirmar Contraseña <span class="text-danger">*</span></label>
-                                        <input name="txtVContra"  type="password" class="form-control" placeholder="Confirmar Contraseña" required onblur="vpass2(this)">
-                                    </div>
-                                    
-                                    <div class="form-group mb-3" id="messageppa" hidden>
-                                        <span class="text-dark">La contraseña no coinciden </span>
-                                    </div>
 
                                     <div class="form-row mb justify-content-center">
                                         <div class="col-12 col-lg-6 text-center">

@@ -97,6 +97,7 @@
                                         <th scope="col">ID</th>
                                         <th scope="col">Serial</th>
                                         <th scope="col">Estatus</th>
+                                        <th scope="col">Fecha Alta</th>
                                         <th scope="col">Placa Auto</th>
                                         <th scope="col">Editar</th>
                                         <th scope="col">Eliminar</th>
@@ -105,6 +106,7 @@
                                 <tbody>
                                      
                                     <tr>
+                                        <td></td>
                                         <td></td>
                                         <td></td>
                                         <td></td>
