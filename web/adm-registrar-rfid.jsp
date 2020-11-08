@@ -70,7 +70,7 @@
             <div class="row justify-content-center align-content-center" style="min-height: 80vh;padding-top: 2vh;padding-bottom: 2vh">
                 <div class="container">
                     <div class="row  bg-info">
-                        <div class="d-none d-md-block col-12 col-lg-5 register-bgrfid">
+                        <div class="d-none d-md-block col-12 col-lg-5 register-bgrfid" >
                         </div>
                         <div class="col-12 col-lg-7 d-flex">
                             <div class="container align-self-center p-6">
@@ -89,7 +89,10 @@
 
                                     <div class="form-group mb-3">
                                         <label  class="font-weight-bold">Auto Asignado (Placa):</label>
-                                        <input name="placa" type="email" class="form-control" placeholder="Ingresa el modelo del auto" required onblur="">
+                                        <select name="auto" class="form-control">
+                                            <option value="1" selected>Opcion 1</option>
+                                            <option value="2">Opcion 2</option>
+                                        </select>
                                     </div>
 
                                     <div class="form-group mb-3">

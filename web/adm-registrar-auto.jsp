@@ -109,16 +109,20 @@
                                         </select>
                                     </div>
                                     
-                                    
-                                    
                                     <div class="form-group mb-3">
                                         <label class="font-weight-bold">Empleado:</label>
-                                        <input name="empleado"  type="text" class="form-control" placeholder="Ingresar Empleado" required onblur="">
+                                       <select name="Empleado" class="form-control">
+                                            <option value="1" selected>Opcion 1</option>
+                                            <option value="2">Opcion 2</option>
+                                        </select>
                                     </div>
                                     
                                     <div class="form-group mb-3">
                                         <label class="font-weight-bold">RFID:</label>
-                                        <input name="rfid"  type="text" class="form-control" placeholder="Ingresar RFID" required onblur="">
+                                        <select name="rfid" class="form-control">
+                                            <option value="1" selected>Opcion 1</option>
+                                            <option value="2">Opcion 2</option>
+                                        </select>
                                     </div>
 
                                     <div class="form-row mb justify-content-center">

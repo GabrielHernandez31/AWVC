@@ -91,11 +91,11 @@
                                     </div>
                                     <div class="form-group mb-3">
                                         <label class="font-weight-bold">Placa de Automovil:</label>
-                                        <input name="placa"  type="text" class="form-control" placeholder="Ingresar Empleado" required onblur="">
+                                        <select name="auto" class="form-control">
+                                            <option value="1" selected>Opcion 1</option>
+                                            <option value="2">Opcion 2</option>
+                                        </select>
                                     </div>
-                                    
-                                   
-
                                     <div class="form-row mb justify-content-center">
                                         <div class="col-12 col-lg-6 text-center">
                                             <input type="submit" name="accion" class="btn btn-primary" value="Modificar" onclick="Comprobar();">

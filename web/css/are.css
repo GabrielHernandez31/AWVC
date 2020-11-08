@@ -86,6 +86,20 @@ body {
     min-height: 100vh;
 }
 
+.register-bgserv {
+    background-image: url('../img/serv.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    min-height: 100vh;
+}
+
+.register-bgcas {
+    background-image: url('../img/cas.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    min-height: 100vh;
+}
+
 .testiomonial {
     bottom: 10px;
 }
