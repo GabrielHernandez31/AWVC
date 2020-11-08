@@ -13,8 +13,8 @@
         <script src="https://kit.fontawesome.com/2c36e9b7b1.js" crossorigin="anonymous"></script>
 
         <link href="css/are.css" rel="stylesheet">
-       <script src="script/validar.js"></script>
-        <title>Registrar Automovil</title>
+        <script src="script/validar.js"></script>
+        <title>Registrar Servicio</title>
     </head>
     <body>
 
@@ -70,56 +70,39 @@
             <div class="row justify-content-center align-content-center" style="min-height: 80vh;padding-top: 2vh;padding-bottom: 2vh">
                 <div class="container">
                     <div class="row  bg-info">
-                        <div class="d-none d-md-block col-12 col-lg-5 register-bgau">
+                        <div class="d-none d-md-block col-12 col-lg-5 register-bgserv">
                         </div>
                         <div class="col-12 col-lg-7 d-flex">
                             <div class="container align-self-center p-6">
                                 <div class="form-row justify-content-center align-content-center"">
                                     <div class="col-md-12">
-                                        <h1 class="font-weight-bold">Registrar un Automovil</h1>
-                                        <p class="text-dark mb-3">Ingresa la siguiente información. </p>
+                                        <h1 class="font-weight-bold">Registrar un Servicio</h1>
+                                        <p class="text-dark mb-3">Ingresa la siguiente información.</p>
                                     </div>
                                 </div>
-                                <form action="adm-registrar-auto.jsp" id="formulario" name="formulario" method="POST">
-                                    <div class="form-row mb">
-                                        <div class="form-group col-md-4">
-                                            <label class="font-weight-bold">No. Placa: <span class="text-danger">*</span></label>
-                                            <input name="placa" type="text" class="form-control" placeholder="PLACA" required onblur="">
-                                        </div>
-                                        <div class="form-group col-md-4">
-                                            <label class="font-weight-bold">Marca: <span class="text-danger">*</span></label>
-                                             <input name="marca" type="text" class="form-control" placeholder="MARCA" required onblur="">
-                                        </div>
-                                        <div class="form-group col-md-4">
-                                            <label class="font-weight-bold">Color: <span class="text-danger">*</span></label>
-                                            <input name="colora" type="text" class="form-control" placeholder="PLACA" required onblur="">
-                                        </div>
-                                    </div>
-                                    
+                                <form action="adm-registrar-serv.jsp" id="formulario" name="formulario" method="POST">
+
                                     <div class="form-group mb-3">
-                                        <label  class="font-weight-bold">Modelo: <span class="text-danger">*</span></label>
-                                        <input name="modelo" type="text" class="form-control" placeholder="Ingresa el modelo del auto" required onblur="">
+                                        <label  class="font-weight-bold">Nombre: <span class="text-danger">*</span></label>
+                                        <input name="nom-serv" type="text" class="form-control" placeholder="Ingresa el nombre del servicio" required onblur="">
                                     </div>
-                                    
+
+                                    <div class="form-group mb-3">
+                                        <label  class="font-weight-bold">Descripción: <span class="text-danger">*</span></label>
+                                        <textarea class="form-control" name='descripcion' rows="3" required="Ingre la descripción del servicio por favor"></textarea>
+                                    </div>
+
                                     <div class="form-group mb-3">
                                         <label class="font-weight-bold">Estado: <span class="text-danger">*</span></label>
-                                        <select name="estatus" class="form-control"> 
+                                        <select name="estatusserv" class="form-control"> 
                                             <option value="1" selected>Activo</option>
-                                            <option value="2">Inactivo</option>
+                                            <option value="2">Finalizado</option>
                                         </select>
                                     </div>
-                                    
+
                                     <div class="form-group mb-3">
                                         <label class="font-weight-bold">Empleado:</label>
-                                       <select name="Empleado" class="form-control">
-                                            <option value="1" selected>Opcion 1</option>
-                                            <option value="2">Opcion 2</option>
-                                        </select>
-                                    </div>
-                                    
-                                    <div class="form-group mb-3">
-                                        <label class="font-weight-bold">RFID:</label>
-                                        <select name="rfid" class="form-control">
+                                        <select name="empleado" class="form-control">
                                             <option value="1" selected>Opcion 1</option>
                                             <option value="2">Opcion 2</option>
                                         </select>
@@ -130,7 +113,7 @@
                                             <input type="submit" name="accion" class="btn btn-primary" value="Registrar" onclick="Comprobar();">
                                         </div>
                                         <div class="col-12 col-lg-6 text-center">
-                                            <input type="button" name="btnRegresar" class="btn btn-secondary" value="Regresar" onclick="location = 'adm-gestionar-auto.jsp'" >
+                                            <input type="button" name="btnRegresar" class="btn btn-secondary" value="Regresar" onclick="location = 'adm-gestionar-serv.jsp'" >
                                         </div>
                                     </div>
                                 </form>
