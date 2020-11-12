@@ -1,4 +1,4 @@
-
+//Validar que en campos de texto se ingrese solo texto ***********************************************************************************
 function vtxt(cat) {
 
     let isValid = false;
@@ -49,7 +49,7 @@ function vtxt(cat) {
     }
 }
 
-//Validar un corre electronico *************************************************************************
+//Validar un corre electronico ***********************************************************************************
 function vemail(mail) {
 
     const input = mail;
@@ -73,16 +73,14 @@ function vemail(mail) {
         } else if (reg.test(input.value)) {
             input.style.borderColor = 'green';
             messagec.hidden = true;
-
         } else {
             input.style.borderColor = 'red';
             messagec.hidden = false;
-
         }
     }
 }
 
-//Validar campo telefonico*************************************************************************
+//Validar campo telefonico*************************************************************************************
 
 function vtel(tel) {
 
@@ -105,7 +103,6 @@ function vtel(tel) {
             isValid = false;
         } else {
             if (!pattern.test(input.value)) {
-
                 isValid = false;
             } else {
                 isValid = true;
@@ -114,23 +111,15 @@ function vtel(tel) {
     }
 
     if (!isValid) {
-        // rojo: no es valido
         input.style.borderColor = 'red';
         messaget.hidden = false;
     } else {
-
         input.style.borderColor = 'green';
         messaget.hidden = true;
     }
 }
 
-
-
-//Verificar campos llenos ***************************************************************************************
-
-
-//Verificar contraseña******************************************************************************************
-
+//Verificar formato de contraseña******************************************************************************************
 
 function vpass(pass) {
 
@@ -145,13 +134,12 @@ function vpass(pass) {
 
     regex = /^(?=.*\d)(?=.*[a-záéíóúüñ]).*[A-ZÁÉÍÓÚÜÑ].*[0-9]/;
 
-   
     const messagepa = document.getElementById('messagepa');
 
     if (!input.value) {
         isValid = false;
     } else {
-       
+        //Verifica el maximo y el minimo de caracteres para establecer una contraseña
         if (input.value.length > maximo && input.value.length > minimo) {
             isValid = false;
         } else {
@@ -175,6 +163,8 @@ function vpass(pass) {
     }
 }
 
+//Verificar que las contraseñas coincidan**********************************************************************************
+
 function vpass2(passv) {
 
     let isValid = false;
@@ -183,13 +173,14 @@ function vpass2(passv) {
 
     input.willValidate = false;
 
+    //Mandamos a llamar al dato de la contraseña que se ingrso previamente 
     const messagepa = document.getElementById('messageppa');
     var pass = document.getElementById('pass');
-
 
     if (!input.value) {
         isValid = false;
     } else {
+        //Se comparan las contraseñas
         if (input.value != pass) {
             isValid = false;
         } else {
@@ -207,6 +198,27 @@ function vpass2(passv) {
         messageppa.hidden = true;
     }
 }
+
+//##############################Modificar Empleado########################################################################
+
+function newpass() {
+
+    //Mandamos a llamar al dato de la contraseña que se ingrso previamente 
+    const messagecn = document.getElementById('messagecan');
+    const messageccn = document.getElementById('messageccan');
+
+
+    if (document.getElementById('si').checked===true) {
+        messagecn.hidden = true;
+        messageccn.hidden = true;
+    } 
+    if (document.getElementsById('no').checked===true) {
+        messagecn.hidden = false;
+        messageccn.hidden = false;
+    }
+}
+
+
 
 
 

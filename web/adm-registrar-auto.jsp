@@ -80,55 +80,49 @@
                                         <p class="text-dark mb-3">Ingresa la siguiente información. </p>
                                     </div>
                                 </div>
-                                <form action="adm-registrar-empleados.jsp" id="formulario" name="formulario" method="POST">
+                                <form action="adm-registrar-auto.jsp" id="formulario" name="formulario" method="POST">
                                     <div class="form-row mb">
                                         <div class="form-group col-md-4">
                                             <label class="font-weight-bold">No. Placa: <span class="text-danger">*</span></label>
-                                            <input name="placa" type="number" class="form-control" placeholder="PLACA" required onblur="">
+                                            <input name="placa" type="text" class="form-control" placeholder="PLACA" required onblur="">
                                         </div>
                                         <div class="form-group col-md-4">
                                             <label class="font-weight-bold">Marca: <span class="text-danger">*</span></label>
-                                             <select name="marca" class="form-control"> 
-                                            <option value="1">Renol</option>
-                                            <option value="2" selected>Mazda</option>
-                                            <option value="3">Ford</option>
-                                        </select>
+                                             <input name="marca" type="text" class="form-control" placeholder="MARCA" required onblur="">
                                         </div>
                                         <div class="form-group col-md-4">
                                             <label class="font-weight-bold">Color: <span class="text-danger">*</span></label>
-                                            <select name="color" class="form-control"> 
-                                            <option value="1">Rojo</option>
-                                            <option value="2" selected>Negro</option>
-                                            <option value="3">Arena</option>
-                                            <option value="4">Azul</option>
-                                            <option value="5">Blanco</option>
-                                        </select>
+                                            <input name="colora" type="text" class="form-control" placeholder="PLACA" required onblur="">
                                         </div>
                                     </div>
                                     
                                     <div class="form-group mb-3">
                                         <label  class="font-weight-bold">Modelo: <span class="text-danger">*</span></label>
-                                        <input name="modelo" type="email" class="form-control" placeholder="Ingresa el modelo del auto" required onblur="">
+                                        <input name="modelo" type="text" class="form-control" placeholder="Ingresa el modelo del auto" required onblur="">
                                     </div>
                                     
                                     <div class="form-group mb-3">
-                                        <label class="font-weight-bold">Contraseña: <span class="text-danger">*</span></label>
+                                        <label class="font-weight-bold">Estado: <span class="text-danger">*</span></label>
                                         <select name="estatus" class="form-control"> 
                                             <option value="1" selected>Activo</option>
                                             <option value="2">Inactivo</option>
                                         </select>
                                     </div>
                                     
-                                    
-                                    
                                     <div class="form-group mb-3">
                                         <label class="font-weight-bold">Empleado:</label>
-                                        <input name="empleado"  type="text" class="form-control" placeholder="Ingresar Empleado" required onblur="">
+                                       <select name="Empleado" class="form-control">
+                                            <option value="1" selected>Opcion 1</option>
+                                            <option value="2">Opcion 2</option>
+                                        </select>
                                     </div>
                                     
                                     <div class="form-group mb-3">
                                         <label class="font-weight-bold">RFID:</label>
-                                        <input name="rfid"  type="text" class="form-control" placeholder="Ingresar RFID" required onblur="">
+                                        <select name="rfid" class="form-control">
+                                            <option value="1" selected>Opcion 1</option>
+                                            <option value="2">Opcion 2</option>
+                                        </select>
                                     </div>
 
                                     <div class="form-row mb justify-content-center">

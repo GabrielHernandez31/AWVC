@@ -3,14 +3,18 @@
 <html lang="es">
     <head>
         <!-- Required meta tags -->
-        <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+        <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
         <!-- Bootstrap CSS -->
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
-        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+
+        <!--FontAwesome-->
+        <script src="https://kit.fontawesome.com/2c36e9b7b1.js" crossorigin="anonymous"></script>
+
         <link href="css/are.css" rel="stylesheet">
-        <title>Gestionar Casetas</title>
+       <script src="script/validar.js"></script>
+        <title>Modificar Caseta</title>
     </head>
     <body>
 
@@ -63,78 +67,50 @@
             <!-- // HEADER DE LA PAGINA -->
             <!-- ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- -->
             <!-- CUERPO DE LA PAGINA -->
-            <div class="row justify-content-center" style="min-height: 80vh">
-
-                <div class="container col-md-12 col-lg-10">
-                    <div class="row col-12">
-                        <div class="col-xl-12 text-center">
-                            <h1 class="text-dark">Gestionar Casetas</h1>
+            <div class="row justify-content-center align-content-center" style="min-height: 80vh;padding-top: 2vh;padding-bottom: 2vh">
+                <div class="container">
+                    <div class="row  bg-info">
+                        <div class="d-none d-md-block col-12 col-lg-5 register-bgcas">
                         </div>
-                    </div>
-
-                    <div class="row  bg-info justify-content-center">
-                        <div class="col-12 col-md-8" style="padding-top: 1vh;padding-bottom: 1vh">
-                            <label class="font-weight-bold col-12 col-md-2">Buscar:</label>
-                            <input name="txtBusGE" type="password" class="form-con col-12 col-md-3" placeholder="Buscar..." required>
-                            <label  class="font-weight-bold col-2 col-md-1">Por:</label>
-                            <select name="selectge" class="form-con col-9 col-md-4">
-                                <option value="0" disabled selected>Elegir</option> 
-                                <option value="1">ID</option>
-                                <option value="2">Nombre</option>
-                            </select>
-                        </div>
-                        <div class="col-12 col-md-4 text-center" style="padding-top: 1vh;padding-bottom: 1vh">
-                            <a href="adm-registrar-caseta.jsp" class="btn btn-success"><i class="fas fa-plus-circle"></i> Agregar </a>
-                        </div>
-                    </div>
-
-                    <div class="row justify-content-center align-content-center" >
-                        <div class="col-12-block table-responsive"  style="padding-top: 1vh;padding-bottom: 1vh; font-size: 2.5vh">
-                            <table class="table text-center">
-                                <thead class="thead-dark">
-                                    <tr>
-                                        <th scope="col">ID</th>
-                                        <th scope="col">Nombre</th>
-                                        <th scope="col">Ubicacion</th>
-                                        <th scope="col">Costo</th>
-                                        <th scope="col">Editar</th>
-                                        <th scope="col">Eliminar</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                     
-                                    <tr>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td class="text-center"><a href="adm-modificar-caseta.jsp" class="text-primary">
-                                                <svg width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-pencil-square" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                                                <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456l-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
-                                                <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/>
-                                                </svg>
-                                            </a> 
-                                        </td>
-                                        <td class="text-center"><a href="#" class="text-danger">
-                                                <svg width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-trash-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                                                <path fill-rule="evenodd" d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5a.5.5 0 0 0-1 0v7a.5.5 0 0 0 1 0v-7z"/>
-                                                </svg>
-                                            </a>
-                                        </td>
-                                       
-                                    </tr>
-                                   
-                                    <tr>
-                                        <th colspan="9" style="text-align: center;">No hay casetas aún.</th>
-                                    </tr>
+                        <div class="col-12 col-lg-7 d-flex">
+                            <div class="container align-self-center p-6">
+                                <div class="form-row justify-content-center align-content-center"">
+                                    <div class="col-md-12">
+                                        <h1 class="font-weight-bold">Modificar Caseta</h1>
+                                        <p class="text-dark mb-3">Se puede cambiar la siguiente información. </p>
+                                    </div>
+                                </div>
+                                <form action="adm-modificar-caseta.jsp" id="formulario" name="formulario" method="POST">
                                     
-                                </tbody>
-                            </table>
+                                    
+                                    <div class="form-group col-mb-3">
+                                        <label class="font-weight-bold">Nombre Caseta:</label>
+                                        <input name="nombre-cas" type="text" class="form-control" placeholder="Nombre de la caseta" required onblur="">
+                                    </div>
+
+                                    <div class="form-group mb-3">
+                                        <label  class="font-weight-bold">Ubicación:</label>
+                                        <input name="ubicacion" type="text" class="form-control" placeholder="Ubicacion de la caseta" required onblur="">
+                                    </div>
+
+                                    <div class="form-group mb-3">
+                                        <label class="font-weight-bold">Costo:</label>
+                                        <input name="costo" type="text" class="form-control" placeholder="Costo de la caseta $" required onblur="">
+                                    </div>
+                                    
+                                    <div class="form-row mb justify-content-center">
+                                        <div class="col-12 col-lg-6 text-center">
+                                            <input type="submit" name="accion" class="btn btn-primary" value="Modificar" onclick="Comprobar();">
+                                        </div>
+                                        <div class="col-12 col-lg-6 text-center">
+                                            <input type="button" name="btnRegresar" class="btn btn-secondary" value="Regresar" onclick="location = 'adm-gestionar-casetas.jsp'" >
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
                         </div>
                     </div>
                 </div>
-
-
             </div>
             <!-- // CUERPO DE LA PAGINA -->
             <!-- ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- -->
