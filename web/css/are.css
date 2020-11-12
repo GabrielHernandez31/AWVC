@@ -59,21 +59,21 @@ body {
 }
 
 .register-bg {
-    background-image: url('../img/RE.jpg');
+    background-image: url('../img/registro_empleado.jpg');
     background-size: cover;
     background-repeat: no-repeat;
     min-height: 100vh;
 }
 
 .register-bgau {
-    background-image: url('../img/AU.jpg');
+    background-image: url('../img/registrar_automovil.jpg');
     background-size: cover;
     background-repeat: no-repeat;
     min-height: 100vh;
 }
 
 .register-bgge {
-    background-image: url('../img/ge.jpg');
+    background-image: url('../img/modificar_empleado.jpg');
     background-size: cover;
     background-repeat: no-repeat;
     min-height: 100vh;

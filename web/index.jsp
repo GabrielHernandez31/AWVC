@@ -49,7 +49,7 @@
                 </div>
                 <!-- // DIV BIENVENIDA -->
                 <!-- CARROUSEL -->
-                <div class="row">
+                <div class="row col-12">
                     <div class="col-12">
                         <div id="carouselExampleCaptions" class="carousel slide" data-ride="carousel">
                             <div class="carousel-inner">

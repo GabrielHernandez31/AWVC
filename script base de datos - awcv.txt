@@ -10,19 +10,19 @@ create database awcv;
 create table rol_usuario(id_rol serial primary key, nombre_rol varchar(20) unique, descripcion_rol varchar(500));
 
 // SE CREA LA TABLA SE USUARIO CON FK DE ROL
-create table usuario(id_usuario serial primary key, nombre_usuario varchar(50), app_usuario varchar(20), apm_usuario varchar(20), telefono_usuario varchar(10) unique, correo_usuario varchar(50) unique, password_usuario varchar(20), id_rol int, foreign key(id_rol) references rol_usuario(id_rol));
+create table usuario(id_usuario serial primary key, nombre_usuario varchar(50), app_usuario varchar(20), apm_usuario varchar(20), telefono_usuario varchar(10) unique, correo_usuario varchar(50) unique, password_usuario varchar(20), estado_usuario varchar(50), id_rol int, foreign key(id_rol) references rol_usuario(id_rol));
 
 // SE CREA LA TABLA DE SERVICIO CON FK DE USUARIO
-create table servicio(id_servicio serial primary key, nombre_servicio varchar(50), descipcion_servicio varchar(200), ubicacion_servicio varchar(200), estatus_servicio varchar(50), fecha_servicio varchar(20) default 'Sin asignar aún.', id_usuario int, foreign key(id_usuario) references usuario(id_usuario));
+create table servicio(id_servicio serial primary key, nombre_servicio varchar(50), descipcion_servicio varchar(200), ubicacion_servicio varchar(200), fecha_servicio varchar(20), estado_servicio varchar(50), id_usuario int, foreign key(id_usuario) references usuario(id_usuario));
 
 // SE CREA LA TABLA DE RFID
-create table rfid(id_rfid serial primary key, serial_rfid varchar(50) unique, estatus_rfid varchar(20) default 'Sin asignar aún.');
+create table rfid(id_rfid serial primary key, serial_rfid varchar(50) unique, estado_rfid varchar(50));
 
 // SE CREA LA TABLA AUTOMOVIL CON FK DE USUARIO Y RFID
-create table automovil(id_auto serial primary key, placa_auto varchar(15) unique, marca_auto varchar(50), modelo_auto varchar(50), color_auto varchar(20), estatus_auto varchar(20) default 'Sin asignar aun', id_usuario int, foreign key(id_usuario) references usuario(id_usuario), id_rfid int, foreign key(id_rfid) references rfid(id_rfid));
+create table automovil(id_auto serial primary key, placa_auto varchar(15) unique, marca_auto varchar(50), modelo_auto varchar(50), color_auto varchar(20), estado_auto varchar(50), id_usuario int, foreign key(id_usuario) references usuario(id_usuario), id_rfid int, foreign key(id_rfid) references rfid(id_rfid));
 
 // SE CREA LA TABLA DE CASETA
-create table caseta(id_caseta serial primary key, nombre_caseta varchar(50), ubicacion_caseta varchar(200) unique, costo_caseta int);
+create table caseta(id_caseta serial primary key, nombre_caseta varchar(50), ubicacion_caseta varchar(200) unique, costo_caseta int, estado_servicio varchar(50));
 
 // SE CREA LA TABLA REGISTRO_PASO CON PK & FK DE CASETA Y RFID
 create table registro_paso(id_rfid int, id_caseta int, primary key(id_rfid,id_caseta), fecha_paso varchar(50), hora_paso varchar(50), foreign key(id_rfid) references rfid(id_rfid), foreign key(id_caseta) references caseta(id_caseta));
