@@ -99,7 +99,7 @@ function vtel(tel) {
     if (!input.value) {
         isValid = false;
     } else {
-        if (input.value.length > maximo) {
+        if (input.value.length != maximo) {
             isValid = false;
         } else {
             if (!pattern.test(input.value)) {
