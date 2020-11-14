@@ -1,4 +1,66 @@
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page import="Modelo.Usuario" %>
+<%@page import="Modelo.Automovil" %>
+<%@page import="Modelo.RFID" %>
+<%
+    Usuario usuario = new Usuario();
+    Automovil auto = new Automovil();
+    RFID Rfid = new RFID();
+    
+    String accion="", placa="", marca="", color="", modelo="", estatus="";
+    int empleado=0, rfid=0;
 
+    if (request.getParameter("accion") != null) {
+        accion = request.getParameter("accion");
+    }
+    if (request.getParameter("placa") != null) {
+        placa = request.getParameter("placa");
+    }
+    if (request.getParameter("marca") != null) {
+        marca = request.getParameter("marca");
+    }
+    if (request.getParameter("color") != null) {
+        color = request.getParameter("color");
+    }
+    if (request.getParameter("modelo") != null) {
+        modelo = request.getParameter("modelo");
+    }
+    if (request.getParameter("estatus") != null) {
+        estatus = request.getParameter("estatus");
+    }
+    if (request.getParameter("empleado") != null) {
+        empleado = Integer.parseInt(request.getParameter("empleado"));
+    }
+    if (request.getParameter("rfid") != null) {
+        rfid = Integer.parseInt(request.getParameter("rfid"));
+    }
+
+    switch (accion) {
+        case "Registrar":
+            
+            auto.setPlaca_auto(placa);
+            if (auto.validarPlacaRegistro()){
+                auto.setPlaca_auto(placa);
+                auto.setMarca_auto(marca);
+                auto.setColor_auto(color);
+                auto.setModelo_auto(modelo);
+                auto.setEstatus_auto(estatus);
+                auto.setId_usuario(empleado);
+                auto.setId_rfid(rfid);
+                if(auto.createAutomovil()){
+                    out.print("<script>cancelar=confirm('¡Registro Exitoso!'); if(cancelar){ window.location.href='adm-gestionar-auto.jsp'; }else{ window.location.href='adm-gestionar-auto.jsp'; }</script>");
+                }else{
+                    out.print("<script>cancelar=confirm('Error al registrar, intente más tarde!'); if(cancelar){ window.location.href='adm-registrar-auto.jsp'; }else{ window.location.href='adm-registrar-auto.jsp'; }</script>");
+                }
+            } else {
+                out.print("<script>cancelar=confirm('La placa del automóvil ya existe!'); if(cancelar){ window.location.href='adm-registrar-auto.jsp'; }else{ window.location.href='adm-registrar-auto.jsp'; }</script>");
+            }
+            break;
+        default:
+
+            break;
+    }
+%>
 <!DOCTYPE html>
 <html lang="es">
     <head>
@@ -55,7 +117,7 @@
                                     </a>
                                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                                         <a class="dropdown-item" href="miCuenta.jsp" style="font-size: 2vh">Consultar</a>
-                                        <a class="dropdown-item" href="cerrarSesion.jsp" style="font-size: 2vh">Cerrar sesi�n</a>
+                                        <a class="dropdown-item" href="cerrarSesion.jsp" style="font-size: 2vh">Cerrar sesión</a>
                                     </div>
                                 </li>
                             </ul>
@@ -77,7 +139,7 @@
                                 <div class="form-row justify-content-center align-content-center"">
                                     <div class="col-md-12">
                                         <h1 class="font-weight-bold">Registrar un Automovil</h1>
-                                        <p class="text-dark mb-3">Ingresa la siguiente informaci�n. </p>
+                                        <p class="text-dark mb-3">Ingresa la siguiente información. </p>
                                     </div>
                                 </div>
                                 <form action="adm-registrar-auto.jsp" id="formulario" name="formulario" method="POST">
@@ -92,7 +154,7 @@
                                         </div>
                                         <div class="form-group col-md-4">
                                             <label class="font-weight-bold">Color: <span class="text-danger">*</span></label>
-                                            <input name="colora" type="text" class="form-control" placeholder="PLACA" required onblur="">
+                                            <input name="color" type="text" class="form-control" placeholder="PLACA" required onblur="">
                                         </div>
                                     </div>
                                     
@@ -104,24 +166,43 @@
                                     <div class="form-group mb-3">
                                         <label class="font-weight-bold">Estado: <span class="text-danger">*</span></label>
                                         <select name="estatus" class="form-control"> 
-                                            <option value="1" selected>Activo</option>
-                                            <option value="2">Inactivo</option>
+                                            <option value="Activo" selected>Activo</option>
+                                            <option value="Mantenimiento">Mantenimiento</option>
+                                            <option value="Inactivo">Inactivo</option>
                                         </select>
                                     </div>
                                     
                                     <div class="form-group mb-3">
                                         <label class="font-weight-bold">Empleado:</label>
-                                       <select name="Empleado" class="form-control">
-                                            <option value="1" selected>Opcion 1</option>
-                                            <option value="2">Opcion 2</option>
+                                       <select name="empleado" class="form-control">
+                                            <%
+                                                if(usuario.existenUsuariosAuto()){
+                                                    String[][] emple = usuario.consultarUsuariosAuto();
+                                                    for( int cuenta = 0; cuenta<usuario.contarUsuariosAuto(); cuenta++){
+                                            %>
+                                                        <option value="<% out.print(emple[cuenta][0]); %>"><% out.print(emple[cuenta][1] + " " + emple[cuenta][1] + " " + emple[cuenta][1].charAt(0)); %></option>
+                                            <%      } %>
+                                            <%  }else{ %>
+                                            <option disabled>No existen empleados</option>
+                                            <option value="0">Sin asignar aún.</option>
+                                            <%  } %>
                                         </select>
                                     </div>
                                     
                                     <div class="form-group mb-3">
                                         <label class="font-weight-bold">RFID:</label>
                                         <select name="rfid" class="form-control">
-                                            <option value="1" selected>Opcion 1</option>
-                                            <option value="2">Opcion 2</option>
+                                            <%
+                                                if(Rfid.existenRFID()){
+                                                    String[][] rfids = Rfid.consultarRFID();
+                                                    for( int cuenta = 0; cuenta<Rfid.contarRFID(); cuenta++){
+                                            %>
+                                                        <option value="<% out.print(rfids[cuenta][0]); %>"><% out.print(rfids[cuenta][1]); %></option>
+                                            <%      } %>
+                                            <%  }else{ %>
+                                            <option disabled>No existen Tarjetas RFID</option>
+                                            <option value="0">Sin asignar aún.</option>
+                                            <%  } %>
                                         </select>
                                     </div>
 
@@ -146,7 +227,7 @@
                 <div class="col">
                     <!-- INTRODUCE AQUI TODO LO DEL FOOTER -->
                     <footer class="page-footer font-small">
-                        <div class="footer-copyright text-center">� 2020 Copyright:
+                        <div class="footer-copyright text-center">© 2020 Copyright:
                             <a> Derechos Reservados AWCV</a>
                         </div>
                     </footer>

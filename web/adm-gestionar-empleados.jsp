@@ -203,7 +203,7 @@
                                      }else{  
                                     %>
                                     <tr>
-                                        <th colspan="9" style="text-align: center;">No existen productos aún.</th>
+                                        <th colspan="9" style="text-align: center;">No existen empleados aún.</th>
                                     </tr>
                                     <%  } %>
                                 </tbody>

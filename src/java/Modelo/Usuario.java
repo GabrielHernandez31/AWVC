@@ -523,4 +523,68 @@ public class Usuario {
         }
         return false;
     }
+    
+    public String[][] consultarUsuariosAuto() {
+        try {
+            final String sql = "Select * from usuario where id_rol = 2";
+            Conexion conex = new Conexion();
+            PreparedStatement consultarProducto = conex.obtenerConnexion().prepareStatement(sql);
+            ResultSet resulProducto = consultarProducto.executeQuery();
+            int cuenta = -1;
+            String[][] arreglo_servicio = new String[contarUsuariosAdm()][4];
+            while (resulProducto.next()) {
+                cuenta++;
+                arreglo_servicio[cuenta][0] = resulProducto.getString("id_usuario");
+                arreglo_servicio[cuenta][1] = resulProducto.getString("nombre_usuario");
+                arreglo_servicio[cuenta][2] = resulProducto.getString("app_usuario");
+                arreglo_servicio[cuenta][3] = resulProducto.getString("apm_usuario");
+            }
+            
+            return arreglo_servicio;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        String[][] arreglo_sinDatos = new String[0][0];
+        return arreglo_sinDatos;
+    }
+
+    public int contarUsuariosAuto() {
+        try {
+            int resultado;
+            final String sql = "Select count(*) from usuario where id_rol=2";
+            Conexion conex = new Conexion();
+            PreparedStatement consultarProducto = conex.obtenerConnexion().prepareStatement(sql);
+            ResultSet resulProducto = consultarProducto.executeQuery();
+            if (resulProducto.next()) {
+                resultado = resulProducto.getInt("count");
+                consultarProducto.close();
+                resulProducto.close();
+                return resultado;
+            } else {
+                return 0;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return 0;
+    }
+
+    public boolean existenUsuariosAuto() {
+        try {
+            final String sql = "Select * from usuario where id_rol = 2";
+            Conexion conex = new Conexion();
+            PreparedStatement consultarProducto = conex.obtenerConnexion().prepareStatement(sql);
+            ResultSet resulProducto = consultarProducto.executeQuery();
+            if (resulProducto.next()) {
+                consultarProducto.close();
+                resulProducto.close();
+                return true;
+            } else {
+                return false;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
 }

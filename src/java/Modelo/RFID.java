@@ -136,7 +136,7 @@ public class RFID {
             PreparedStatement consultarProducto = conex.obtenerConnexion().prepareStatement(sql);
             ResultSet resulProducto = consultarProducto.executeQuery();
             int cuenta = -1;
-            String[][] arreglo_servicio = new String[contarCasetas()][3];
+            String[][] arreglo_servicio = new String[contarRFID()][3];
             while (resulProducto.next()) {
                 cuenta++;
                 arreglo_servicio[cuenta][0] = resulProducto.getString("id_rfid");
@@ -151,7 +151,7 @@ public class RFID {
         return arreglo_sinDatos;
     }
 
-    public int contarCasetas() {
+    public int contarRFID() {
         try {
             int resultado;
             final String sql = "Select count(*) from rfid";
@@ -170,7 +170,7 @@ public class RFID {
         return 0;
     }
 
-    public boolean existenCasetas() {
+    public boolean existenRFID() {
         try {
             final String sql = "Select * from rfid";
             Conexion conex = new Conexion();
