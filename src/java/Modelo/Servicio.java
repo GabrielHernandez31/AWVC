@@ -90,6 +90,7 @@ public class Servicio {
             insertarUsuario.setString(5, getFecha_servicio());
             insertarUsuario.setInt(6, getId_usuario());
             insertarUsuario.executeUpdate();
+            insertarUsuario.close();
             return true;
         } catch (Exception e) {
             e.printStackTrace();
@@ -110,6 +111,7 @@ public class Servicio {
             actualizarUsuario.setInt(6, id_usuario);
             actualizarUsuario.setInt(7, id_servicio);
             actualizarUsuario.executeUpdate();
+            actualizarUsuario.close();
             return true;
         } catch (Exception e) {
             e.printStackTrace();
@@ -126,6 +128,7 @@ public class Servicio {
             actualizarUsuario.setString(2, fecha_servicio);
             actualizarUsuario.setInt(3, id_servicio);
             actualizarUsuario.executeUpdate();
+            actualizarUsuario.close();
             return true;
         } catch (Exception e) {
             e.printStackTrace();
@@ -140,6 +143,7 @@ public class Servicio {
             PreparedStatement eliminarUsuario = conex.obtenerConnexion().prepareStatement(sql);
             eliminarUsuario.setInt(1, getId_servicio());
             eliminarUsuario.executeUpdate();
+            eliminarUsuario.close();
             return true;
         } catch (Exception e) {
             e.printStackTrace();
@@ -170,6 +174,8 @@ public class Servicio {
                     arreglo_servicio[cuenta][6] = usuario.obtenerNombreUsuario(resulProducto.getString("id_usuario"));
                 }
             }
+            consultarProducto.close();
+            resulProducto.close();
             return arreglo_servicio;
         } catch (Exception e) {
             e.printStackTrace();
@@ -187,8 +193,12 @@ public class Servicio {
             ResultSet resulProducto = consultarProducto.executeQuery();
             if (resulProducto.next()) {
                 resultado = resulProducto.getInt("count");
+                consultarProducto.close();
+                resulProducto.close();
                 return resultado;
             } else {
+                consultarProducto.close();
+                resulProducto.close();
                 return 0;
             }
         } catch (Exception e) {
@@ -204,8 +214,12 @@ public class Servicio {
             PreparedStatement consultarProducto = conex.obtenerConnexion().prepareStatement(sql);
             ResultSet resulProducto = consultarProducto.executeQuery();
             if (resulProducto.next()) {
+                consultarProducto.close();
+                resulProducto.close();
                 return true;
             } else {
+                consultarProducto.close();
+                resulProducto.close();
                 return false;
             }
         } catch (Exception e) {
@@ -232,6 +246,8 @@ public class Servicio {
                 arreglo_servicio[cuenta][4] = resulProducto.getString("estatus_servicio");
                 arreglo_servicio[cuenta][5] = resulProducto.getString("fecha_servicio");
             }
+            consultarProducto.close();
+            resulProducto.close();
             return arreglo_servicio;
         } catch (Exception e) {
             e.printStackTrace();
@@ -250,8 +266,12 @@ public class Servicio {
             ResultSet resulProducto = consultarProducto.executeQuery();
             if (resulProducto.next()) {
                 resultado = resulProducto.getInt("count");
+                consultarProducto.close();
+                resulProducto.close();
                 return resultado;
             } else {
+                consultarProducto.close();
+                resulProducto.close();
                 return 0;
             }
         } catch (Exception e) {
@@ -268,8 +288,12 @@ public class Servicio {
             consultarProducto.setInt(1, getId_usuario());
             ResultSet resulProducto = consultarProducto.executeQuery();
             if (resulProducto.next()) {
+                consultarProducto.close();
+                resulProducto.close();
                 return true;
             } else {
+                consultarProducto.close();
+                resulProducto.close();
                 return false;
             }
         } catch (Exception e) {

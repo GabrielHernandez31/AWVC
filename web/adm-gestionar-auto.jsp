@@ -31,27 +31,24 @@
     /*
     ACCIONES
     */
-    String accion = "", nombre = "", app = "", id_us="";
+    String accion = "", placa = "", id_auto="";
     if(request.getParameter("accion")!=null){
         accion = request.getParameter("accion");
     }
-    if(request.getParameter("nombre")!=null){
-        nombre = request.getParameter("nombre");
+    if(request.getParameter("placa")!=null){
+        placa = request.getParameter("placa");
     }
-    if(request.getParameter("app")!=null){
-        app = request.getParameter("app");
-    }
-    if(request.getParameter("id_us")!=null){
-        id_us = request.getParameter("id_us");
+    if(request.getParameter("id_auto")!=null){
+        id_auto = request.getParameter("id_auto");
     }
     switch(accion){
         case "eliminar":
-            out.print("<script>cancelar=confirm('Se eliminará a: "+nombre+" "+app+" ¿Deseas continuar?'); if(cancelar){ window.location.href='adm-eliminar-empleados.jsp?id_us="+id_us+"'; }else{ window.location.href='adm-gestionar-empleados.jsp'; }</script>");
+            out.print("<script>cancelar=confirm('Se eliminará el auto con placa: "+placa+" ¿Deseas continuar?'); if(cancelar){ window.location.href='adm-eliminar-auto.jsp?id_auto="+id_auto+"'; }else{ window.location.href='adm-gestionar-auto.jsp'; }</script>");
         break;
         case "modificar":
             HttpSession sesion_act = request.getSession();
-            sesion_act.setAttribute("id_usuario", id_us);
-            response.sendRedirect("adm-modificar-empleados.jsp");
+            sesion_act.setAttribute("id_automovil", id_auto);
+            response.sendRedirect("adm-modificar-auto.jsp");
         break;
         default:
             
@@ -169,7 +166,6 @@
                                     <%  
                                     if(auto.existenAutomovilesAdm()){
                                         String[][] automoviles = auto.consultarAutomovilesAdm();
-                                        
                                         for( int cuenta = 0; cuenta<auto.contarAutomovilesAdm(); cuenta++){
                                     %>  
                                     <tr>
@@ -181,14 +177,14 @@
                                         <td><% out.print(automoviles[cuenta][5]); %></td>
                                         <td><% out.print(automoviles[cuenta][6]); %></td>
                                         <td><% out.print(automoviles[cuenta][7]); %></td>
-                                        <td class="text-center"><a href="adm-gestionar-empleados.jsp?accion=modificar&id_us=<% out.print(automoviles[cuenta][0]); %>" class="text-primary">
+                                        <td class="text-center"><a href="adm-gestionar-auto.jsp?accion=modificar&id_auto=<% out.print(automoviles[cuenta][0]); %>" class="text-primary">
                                                 <svg width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-pencil-square" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                                                 <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456l-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
                                                 <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/>
                                                 </svg>
                                             </a> 
                                         </td>
-                                        <td class="text-center"><a href="adm-gestionar-empleados.jsp?accion=eliminar&id_us=<% out.print(automoviles[cuenta][0]); %>&nombre=<% out.print(automoviles[cuenta][1]); %>&app=<% out.print(automoviles[cuenta][2]); %>" class="text-danger">
+                                        <td class="text-center"><a href="adm-gestionar-auto.jsp?accion=eliminar&id_auto=<% out.print(automoviles[cuenta][0]); %>&placa=<% out.print(automoviles[cuenta][1]); %>" class="text-danger">
                                                 <svg width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-trash-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                                                 <path fill-rule="evenodd" d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5a.5.5 0 0 0-1 0v7a.5.5 0 0 0 1 0v-7z"/>
                                                 </svg>

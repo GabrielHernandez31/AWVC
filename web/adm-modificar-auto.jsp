@@ -1,4 +1,118 @@
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page import="Modelo.Usuario" %>
+<%@page import="Modelo.Automovil" %>
+<%@page import="Modelo.RFID" %>
+<%
+    /*
+    Asigna un valor a la variable email en caso de que se haya iniciado sesion
+    De lo contrario, deja la variable nula
+     */
+    HttpSession sesion = request.getSession();
+    String email = (String) sesion.getAttribute("email");
+    String id_automovil = (String) sesion.getAttribute("id_automovil");
+    int id_auto = Integer.parseInt(id_automovil);
+    
+    /*
+    Asigna valores a las variables si existe una sesion.
+    Retoma datos del usuario para poder utilizarlos más adelante
+     */
+    Usuario usuario = new Usuario(email);
+    int id_usu = usuario.getId_usuario();
+    int id_rol = usuario.getId_rol();
+    
+    Automovil auto = new Automovil();
+    RFID Rfid = new RFID();
 
+    /*
+    Valida si hay una sesion activa.
+    En caso de que no exista una sesion activa, se redirige al index
+     */
+    if (email == null) {
+        response.sendRedirect("index.jsp");
+    }
+
+    /*
+    MODIFICAR AUTO
+     */
+    String accion="", placa="", marca="", color="", modelo="", estatus="", empleado="", rfid="";
+
+    if (request.getParameter("accion") != null) {
+        accion = request.getParameter("accion");
+    }
+    if (request.getParameter("placa") != null) {
+        placa = request.getParameter("placa");
+    }
+    if (request.getParameter("marca") != null) {
+        marca = request.getParameter("marca");
+    }
+    if (request.getParameter("color") != null) {
+        color = request.getParameter("color");
+    }
+    if (request.getParameter("modelo") != null) {
+        modelo = request.getParameter("modelo");
+    }
+    if (request.getParameter("estatus") != null) {
+        estatus = request.getParameter("estatus");
+    }
+    if (request.getParameter("empleado") != null) {
+        empleado = request.getParameter("empleado");
+    }
+    if (request.getParameter("rfid") != null) {
+        rfid = request.getParameter("rfid");
+    }
+    
+    switch (accion) {
+        case "Guardar":
+            auto.setId_auto(id_auto);
+            String[][] autos1 = auto.consultarAutomovilesModificar();
+            auto.setEstatus_auto(estatus);
+            if(empleado.equals("0")){ // SIN EMPLEADO
+                if(rfid.equals("0")){ // SIN RFID
+                    auto.updateAutomovilSinER();
+                    out.print("<script>cancelar=confirm('¡Registro Exitoso!'); if(cancelar){ window.location.href='adm-gestionar-auto.jsp'; }else{ window.location.href='adm-gestionar-auto.jsp'; }</script>");
+                }else if(rfid.equals(autos1[0][7])){ // SIN RFID
+                    auto.updateAutomovilSinER();
+                    out.print("<script>cancelar=confirm('¡Registro Exitoso!'); if(cancelar){ window.location.href='adm-gestionar-auto.jsp'; }else{ window.location.href='adm-gestionar-auto.jsp'; }</script>");
+                }else{ // CON RFID
+                    auto.setId_rfid(Integer.parseInt(rfid));
+                    auto.updateAutomovilR();
+                    out.print("<script>cancelar=confirm('¡Registro Exitoso!'); if(cancelar){ window.location.href='adm-gestionar-auto.jsp'; }else{ window.location.href='adm-gestionar-auto.jsp'; }</script>");
+                }
+            }else if(empleado.equals(autos1[0][6])){ // SIN EMPLEADO
+                if(rfid.equals("0")){ // SIN RFID
+                    auto.updateAutomovilSinER();
+                    out.print("<script>cancelar=confirm('¡Registro Exitoso!'); if(cancelar){ window.location.href='adm-gestionar-auto.jsp'; }else{ window.location.href='adm-gestionar-auto.jsp'; }</script>");
+                }else if(rfid.equals(autos1[0][7])){ // SIN RFID
+                    auto.updateAutomovilSinER();
+                    out.print("<script>cancelar=confirm('¡Registro Exitoso!'); if(cancelar){ window.location.href='adm-gestionar-auto.jsp'; }else{ window.location.href='adm-gestionar-auto.jsp'; }</script>");
+                }else{ // CON RFID
+                    auto.setId_rfid(Integer.parseInt(rfid));
+                    auto.updateAutomovilR();
+                    out.print("<script>cancelar=confirm('¡Registro Exitoso!'); if(cancelar){ window.location.href='adm-gestionar-auto.jsp'; }else{ window.location.href='adm-gestionar-auto.jsp'; }</script>");
+                }
+            }else{ // CON EMPLEADO
+                if(rfid.equals("0")){ // SIN RFID
+                    auto.setId_usuario(Integer.parseInt(empleado));
+                    auto.updateAutomovilE();
+                    out.print("<script>cancelar=confirm('¡Registro Exitoso!'); if(cancelar){ window.location.href='adm-gestionar-auto.jsp'; }else{ window.location.href='adm-gestionar-auto.jsp'; }</script>");
+                }else if(rfid.equals(autos1[0][7])){ // SIN RFID
+                    auto.setId_usuario(Integer.parseInt(empleado));
+                    auto.updateAutomovilE();
+                    out.print("<script>cancelar=confirm('¡Registro Exitoso!'); if(cancelar){ window.location.href='adm-gestionar-auto.jsp'; }else{ window.location.href='adm-gestionar-auto.jsp'; }</script>");
+                }else{ // CON RFID
+                    auto.setId_usuario(Integer.parseInt(empleado));
+                    auto.setId_rfid(Integer.parseInt(rfid));
+                    auto.updateAutomovilConER();
+                    out.print("<script>cancelar=confirm('¡Registro Exitoso!'); if(cancelar){ window.location.href='adm-gestionar-auto.jsp'; }else{ window.location.href='adm-gestionar-auto.jsp'; }</script>");
+                }
+            }
+
+            break;
+        default:
+
+            break;
+    }
+%>
 <!DOCTYPE html>
 <html lang="es">
     <head>
@@ -55,7 +169,7 @@
                                     </a>
                                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                                         <a class="dropdown-item" href="miCuenta.jsp" style="font-size: 2vh">Consultar</a>
-                                        <a class="dropdown-item" href="cerrarSesion.jsp" style="font-size: 2vh">Cerrar sesi�n</a>
+                                        <a class="dropdown-item" href="cerrarSesion.jsp" style="font-size: 2vh">Cerrar sesión</a>
                                     </div>
                                 </li>
                             </ul>
@@ -76,37 +190,104 @@
                             <div class="container align-self-center p-6">
                                 <div class="form-row justify-content-center align-content-center"">
                                     <div class="col-md-12">
-                                        <h1 class="font-weight-bold">Modificar Automovil</h1>
-                                        <p class="text-dark mb-3">Se puede cambiar la siguiente informaci�n. </p>
+                                        <h1 class="font-weight-bold">Modificar un Automovil</h1>
+                                        <p class="text-dark mb-3">Ingresa la siguiente información. </p>
                                     </div>
                                 </div>
-                                <form action="adm-registrar-auto.jsp" id="formulario" name="formulario" method="POST">
+                                <%
+                                    auto.setId_auto(id_auto);
+                                    String[][] autos = auto.consultarAutomovilesModificar();
+                                %>
+                                <form action="adm-modificar-auto.jsp" id="formulario" name="formulario" method="POST">
+                                    <div class="form-row mb">
+                                        <div class="form-group col-md-4">
+                                            <label class="font-weight-bold">No. Placa: <span class="text-danger">*</span></label>
+                                            <input name="placa" type="text" class="form-control" placeholder="PLACA" required onblur="" value="<% out.print(autos[0][1]); %>" disabled="">
+                                        </div>
+                                        <div class="form-group col-md-4">
+                                            <label class="font-weight-bold">Marca: <span class="text-danger">*</span></label>
+                                             <input name="marca" type="text" class="form-control" placeholder="MARCA" required onblur="" value="<% out.print(autos[0][2]); %>" disabled="">
+                                        </div>
+                                        <div class="form-group col-md-4">
+                                            <label class="font-weight-bold">Color: <span class="text-danger">*</span></label>
+                                            <input name="color" type="text" class="form-control" placeholder="COLOR" required onblur="" value="<% out.print(autos[0][3]); %>" disabled="">
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="form-group mb-3">
+                                        <label  class="font-weight-bold">Modelo: <span class="text-danger">*</span></label>
+                                        <input name="modelo" type="text" class="form-control" placeholder="Ingresa el modelo del auto" required onblur="" value="<% out.print(autos[0][4]); %>" disabled="">
+                                    </div>
                                     
                                     <div class="form-group mb-3">
                                         <label class="font-weight-bold">Estado: <span class="text-danger">*</span></label>
-                                        <select name="estatus" class="form-control"> 
-                                            <option value="1" selected>Activo</option>
-                                            <option value="2">Inactivo</option>
+                                        <select name="estatus" class="form-control">
+                                            <%  switch(autos[0][5]) { 
+                                                case "Activo": %>
+                                                    <option value="Activo" selected>Activo</option>
+                                                    <option value="Mantenimiento">Mantenimiento</option>
+                                                    <option value="Inactivo">Inactivo</option>
+                                                <% break;
+                                                case "Mantenimiento": %>
+                                                    <option value="Activo" >Activo</option>
+                                                    <option value="Mantenimiento"selected>Mantenimiento</option>
+                                                    <option value="Inactivo">Inactivo</option>
+                                                <% break;
+                                                case "Inactivo": %>
+                                                    <option value="Activo" selected>Activo</option>
+                                                    <option value="Mantenimiento">Mantenimiento</option>
+                                                    <option value="Inactivo"selected>Inactivo</option>
+                                                <% break;  }   %>
                                         </select>
                                     </div>
+                                    
                                     <div class="form-group mb-3">
                                         <label class="font-weight-bold">Empleado:</label>
-                                        <select name="empleado" class="form-control">
-                                            <option value="1" selected>Opcion 1</option>
-                                            <option value="2">Opcion 2</option>
-                                        </select>                                    </div>
+                                       <select name="empleado" class="form-control">
+                                            <%
+                                                if(usuario.existenUsuariosAuto()){
+                                                    String[][] emple = usuario.consultarUsuariosAuto();
+                                                    for( int cuenta = 0; cuenta<usuario.contarUsuariosAuto(); cuenta++){
+                                            %>
+                                                        <option value="<% out.print(emple[cuenta][0]); %>"><% out.print(emple[cuenta][1] + " " + emple[cuenta][2] + " " + emple[cuenta][3].charAt(0)+"."); %></option>
+                                            <%      } 
+                                                    if(autos[0][6]=="Sin asignar aun."){ %>
+                                                    <option value="0" selected="">Sin asignar aún.</option>
+                                                <%  }else{ %>
+                                                        <option value="<% out.print(autos[0][6]); %>" selected=""><% out.print(autos[0][6]); %></option>
+                                                <%  } %>          
+                                            <%  }else{ %>
+                                                    <option disabled>No existen empleados</option>
+                                                    <option value="0">Sin asignar aún.</option>
+                                            <%  } %>
+                                        </select>
+                                    </div>
                                     
                                     <div class="form-group mb-3">
                                         <label class="font-weight-bold">RFID:</label>
                                         <select name="rfid" class="form-control">
-                                            <option value="1" selected>Opcion 1</option>
-                                            <option value="2">Opcion 2</option>
+                                            <%
+                                                if(Rfid.existenRFID()){
+                                                    String[][] rfids = Rfid.consultarRFID();
+                                                    for( int cuenta = 0; cuenta<Rfid.contarRFID(); cuenta++){
+                                            %>
+                                                        <option value="<% out.print(rfids[cuenta][0]); %>"><% out.print(rfids[cuenta][1]); %></option>
+                                            <%      } 
+                                                    if(autos[0][7]=="Sin asignar aun."){ %>
+                                                        <option value="0" selected="">Sin asignar aún.</option>
+                                                <%  }else{ %>
+                                                        <option value="<% out.print(autos[0][7]); %>" selected=""><% out.print(autos[0][7]); %></option>
+                                                <%  } %> 
+                                            <%  }else{ %>
+                                                    <option disabled>No existen Tarjetas RFID</option>
+                                                    <option value="0">Sin asignar aún.</option>
+                                            <%  } %>
                                         </select>
                                     </div>
 
                                     <div class="form-row mb justify-content-center">
                                         <div class="col-12 col-lg-6 text-center">
-                                            <input type="submit" name="accion" class="btn btn-primary" value="Registrar" onclick="Comprobar();">
+                                            <input type="submit" name="accion" class="btn btn-primary" value="Guardar" onclick="Comprobar();">
                                         </div>
                                         <div class="col-12 col-lg-6 text-center">
                                             <input type="button" name="btnRegresar" class="btn btn-secondary" value="Regresar" onclick="location = 'adm-gestionar-auto.jsp'" >
@@ -125,7 +306,7 @@
                 <div class="col">
                     <!-- INTRODUCE AQUI TODO LO DEL FOOTER -->
                     <footer class="page-footer font-small">
-                        <div class="footer-copyright text-center">� 2020 Copyright:
+                        <div class="footer-copyright text-center">© 2020 Copyright:
                             <a> Derechos Reservados AWCV</a>
                         </div>
                     </footer>

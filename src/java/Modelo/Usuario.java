@@ -340,7 +340,7 @@ public class Usuario {
             existenCategorias.setInt(1, Integer.parseInt(id));
             ResultSet resulExistenCategorias = existenCategorias.executeQuery();
             if (resulExistenCategorias.next()) {
-                String nombre = resulExistenCategorias.getString("nombre_usuario") + " " + resulExistenCategorias.getString("app_usuario");
+                String nombre = resulExistenCategorias.getString("nombre_usuario") + " " + resulExistenCategorias.getString("app_usuario") + " " + resulExistenCategorias.getString("apm_usuario").charAt(0) + ".";
                 resulExistenCategorias.close();
                 existenCategorias.close();
                 return nombre;

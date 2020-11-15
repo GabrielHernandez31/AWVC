@@ -62,8 +62,9 @@ public class Caseta {
             PreparedStatement insertarUsuario = conex.obtenerConnexion().prepareStatement(sql);
             insertarUsuario.setString(1, getNombre_caseta());
             insertarUsuario.setString(2, getUbicacion_caseta());
-            insertarUsuario.setString(3, getCosto_caseta());
+            insertarUsuario.setInt(3, Integer.parseInt(getCosto_caseta()));
             insertarUsuario.executeUpdate();
+            insertarUsuario.close();
             return true;
         } catch (Exception e) {
             e.printStackTrace();
@@ -79,8 +80,12 @@ public class Caseta {
             validarCorreo.setString(1, getUbicacion_caseta());
             ResultSet validar = validarCorreo.executeQuery();
             if (validar.next()) {
+                validarCorreo.close();
+                validar.close();
                 return false;
             } else {
+                validarCorreo.close();
+                validar.close();
                 return true;
             }
         } catch (Exception e) {
@@ -94,10 +99,11 @@ public class Caseta {
             final String sql = "Update caseta set nombre_caseta=?, costo_caseta=? where id_caseta= ?";
             Conexion conex = new Conexion();
             PreparedStatement actualizarUsuario = conex.obtenerConnexion().prepareStatement(sql);
-            actualizarUsuario.setString(1, nombre_caseta);
-            actualizarUsuario.setString(2, costo_caseta);
-            actualizarUsuario.setInt(3, id_caseta);
+            actualizarUsuario.setString(1, getNombre_caseta());
+            actualizarUsuario.setInt(2, Integer.parseInt(getCosto_caseta()));
+            actualizarUsuario.setInt(3, getId_caseta());
             actualizarUsuario.executeUpdate();
+            actualizarUsuario.close();
             return true;
         } catch (Exception e) {
             e.printStackTrace();
@@ -112,6 +118,7 @@ public class Caseta {
             PreparedStatement eliminarUsuario = conex.obtenerConnexion().prepareStatement(sql);
             eliminarUsuario.setInt(1, getId_caseta());
             eliminarUsuario.executeUpdate();
+            eliminarUsuario.close();
             return true;
         } catch (Exception e) {
             e.printStackTrace();
@@ -132,8 +139,10 @@ public class Caseta {
                 arreglo_servicio[cuenta][0] = resulProducto.getString("id_caseta");
                 arreglo_servicio[cuenta][1] = resulProducto.getString("nombre_caseta");
                 arreglo_servicio[cuenta][2] = resulProducto.getString("ubicacion_caseta");
-                arreglo_servicio[cuenta][3] = resulProducto.getString("costos_caseta");
+                arreglo_servicio[cuenta][3] = resulProducto.getString("costo_caseta");
             }
+            consultarProducto.close();
+            resulProducto.close();
             return arreglo_servicio;
         } catch (Exception e) {
             e.printStackTrace();
@@ -151,8 +160,12 @@ public class Caseta {
             ResultSet resulProducto = consultarProducto.executeQuery();
             if (resulProducto.next()) {
                 resultado = resulProducto.getInt("count");
+                consultarProducto.close();
+                resulProducto.close();
                 return resultado;
             } else {
+                consultarProducto.close();
+                resulProducto.close();
                 return 0;
             }
         } catch (Exception e) {
@@ -168,13 +181,21 @@ public class Caseta {
             PreparedStatement consultarProducto = conex.obtenerConnexion().prepareStatement(sql);
             ResultSet resulProducto = consultarProducto.executeQuery();
             if (resulProducto.next()) {
+                consultarProducto.close();
+                resulProducto.close();
                 return true;
             } else {
+                consultarProducto.close();
+                resulProducto.close();
                 return false;
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
         return false;
+    }
+    public static void main(String[] args) {
+        Caseta cs = new Caseta();
+        cs.updateCaseta();
     }
 }

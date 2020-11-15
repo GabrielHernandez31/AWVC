@@ -45,12 +45,26 @@
                 auto.setColor_auto(color);
                 auto.setModelo_auto(modelo);
                 auto.setEstatus_auto(estatus);
-                auto.setId_usuario(empleado);
-                auto.setId_rfid(rfid);
-                if(auto.createAutomovil()){
-                    out.print("<script>cancelar=confirm('¡Registro Exitoso!'); if(cancelar){ window.location.href='adm-gestionar-auto.jsp'; }else{ window.location.href='adm-gestionar-auto.jsp'; }</script>");
+                if(empleado==0){
+                    if(rfid==0){//Sin empleado y sin RFID / 0-0
+                        auto.createAutomovilSinER();
+                        out.print("<script>cancelar=confirm('¡Registro Exitoso!'); if(cancelar){ window.location.href='adm-gestionar-auto.jsp'; }else{ window.location.href='adm-gestionar-auto.jsp'; }</script>");
+                    }else{//Sin empleado y con RFID / 0-1
+                        auto.setId_rfid(rfid);
+                        auto.createAutomovilR();
+                        out.print("<script>cancelar=confirm('¡Registro Exitoso!'); if(cancelar){ window.location.href='adm-gestionar-auto.jsp'; }else{ window.location.href='adm-gestionar-auto.jsp'; }</script>");
+                    }
                 }else{
-                    out.print("<script>cancelar=confirm('Error al registrar, intente más tarde!'); if(cancelar){ window.location.href='adm-registrar-auto.jsp'; }else{ window.location.href='adm-registrar-auto.jsp'; }</script>");
+                    if(rfid==0){//Con empleado y sin RFID / 1-0
+                        auto.setId_usuario(empleado);
+                        auto.createAutomovilE();
+                        out.print("<script>cancelar=confirm('¡Registro Exitoso!'); if(cancelar){ window.location.href='adm-gestionar-auto.jsp'; }else{ window.location.href='adm-gestionar-auto.jsp'; }</script>");
+                    }else{//Con empleado y con RFID / 1-1
+                        auto.setId_usuario(empleado);
+                        auto.setId_rfid(rfid);
+                        auto.createAutomovilConER();
+                        out.print("<script>cancelar=confirm('¡Registro Exitoso!'); if(cancelar){ window.location.href='adm-gestionar-auto.jsp'; }else{ window.location.href='adm-gestionar-auto.jsp'; }</script>");
+                    }
                 }
             } else {
                 out.print("<script>cancelar=confirm('La placa del automóvil ya existe!'); if(cancelar){ window.location.href='adm-registrar-auto.jsp'; }else{ window.location.href='adm-registrar-auto.jsp'; }</script>");
@@ -154,7 +168,7 @@
                                         </div>
                                         <div class="form-group col-md-4">
                                             <label class="font-weight-bold">Color: <span class="text-danger">*</span></label>
-                                            <input name="color" type="text" class="form-control" placeholder="PLACA" required onblur="">
+                                            <input name="color" type="text" class="form-control" placeholder="COLOR" required onblur="">
                                         </div>
                                     </div>
                                     
@@ -180,11 +194,12 @@
                                                     String[][] emple = usuario.consultarUsuariosAuto();
                                                     for( int cuenta = 0; cuenta<usuario.contarUsuariosAuto(); cuenta++){
                                             %>
-                                                        <option value="<% out.print(emple[cuenta][0]); %>"><% out.print(emple[cuenta][1] + " " + emple[cuenta][1] + " " + emple[cuenta][1].charAt(0)); %></option>
+                                                        <option value="<% out.print(emple[cuenta][0]); %>"><% out.print(emple[cuenta][1] + " " + emple[cuenta][2] + " " + emple[cuenta][3].charAt(0)+"."); %></option>
                                             <%      } %>
+                                                        <option value="0">Sin asignar aún.</option>
                                             <%  }else{ %>
-                                            <option disabled>No existen empleados</option>
-                                            <option value="0">Sin asignar aún.</option>
+                                                    <option disabled>No existen empleados</option>
+                                                    <option value="0">Sin asignar aún.</option>
                                             <%  } %>
                                         </select>
                                     </div>
@@ -199,9 +214,10 @@
                                             %>
                                                         <option value="<% out.print(rfids[cuenta][0]); %>"><% out.print(rfids[cuenta][1]); %></option>
                                             <%      } %>
+                                                        <option value="0">Sin asignar aún.</option>
                                             <%  }else{ %>
-                                            <option disabled>No existen Tarjetas RFID</option>
-                                            <option value="0">Sin asignar aún.</option>
+                                                    <option disabled>No existen Tarjetas RFID</option>
+                                                    <option value="0">Sin asignar aún.</option>
                                             <%  } %>
                                         </select>
                                     </div>

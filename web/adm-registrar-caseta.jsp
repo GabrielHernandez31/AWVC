@@ -1,4 +1,43 @@
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page import="Modelo.Usuario" %>
+<%@page import="Modelo.Caseta" %>
+<%
+    Usuario usuario = new Usuario();
+    String accion = "", nombre = "", ubicacion="", costo="";
+    
+    Caseta caseta = new Caseta();
+    
+    if (request.getParameter("accion") != null) {
+        accion = request.getParameter("accion");
+    }
+    if (request.getParameter("nombre-cas") != null) {
+        nombre = request.getParameter("nombre-cas");
+    }
+    if (request.getParameter("ubicacion") != null) {
+        ubicacion = request.getParameter("ubicacion");
+    }
+    if (request.getParameter("costo") != null) {
+        costo = request.getParameter("costo");
+    }
 
+    switch (accion) {
+        case "Registrar":
+            caseta.setUbicacion_caseta(ubicacion);
+            if (caseta.validarUbicacionRegistro()) {
+                caseta.setNombre_caseta(nombre);
+                caseta.setUbicacion_caseta(ubicacion);
+                caseta.setCosto_caseta(costo);
+                caseta.createCaseta();
+                out.print("<script>cancelar=confirm('Â¡Registro Exitoso!'); if(cancelar){ window.location.href='adm-gestionar-casetas.jsp'; }else{ window.location.href='adm-gestionar-casetas.jsp'; }</script>");
+            } else {
+                out.print("<script>cancelar=confirm('El correo ya existe!'); if(cancelar){ window.location.href='adm-registrar-caseta.jsp'; }else{ window.location.href='adm-registrar-caseta.jsp'; }</script>");
+            }
+            break;
+        default:
+
+            break;
+    }
+%>
 <!DOCTYPE html>
 <html lang="es">
     <head>
@@ -55,7 +94,7 @@
                                     </a>
                                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                                         <a class="dropdown-item" href="miCuenta.jsp" style="font-size: 2vh">Consultar</a>
-                                        <a class="dropdown-item" href="cerrarSesion.jsp" style="font-size: 2vh">Cerrar sesión</a>
+                                        <a class="dropdown-item" href="cerrarSesion.jsp" style="font-size: 2vh">Cerrar sesiÃ³n</a>
                                     </div>
                                 </li>
                             </ul>
@@ -77,7 +116,7 @@
                                 <div class="form-row justify-content-center align-content-center"">
                                     <div class="col-md-12">
                                         <h1 class="font-weight-bold">Registrar Caseta</h1>
-                                        <p class="text-dark mb-3">Ingresa la siguiente información. </p>
+                                        <p class="text-dark mb-3">Ingresa la siguiente informaciÃ³n. </p>
                                     </div>
                                 </div>
                                 <form action="adm-registrar-caseta.jsp" id="formulario" name="formulario" method="POST">
@@ -88,7 +127,7 @@
                                     </div>
 
                                     <div class="form-group mb-3">
-                                        <label  class="font-weight-bold">Ubicación: <span class="text-danger">*</span></label>
+                                        <label  class="font-weight-bold">UbicaciÃ³n: <span class="text-danger">*</span></label>
                                         <input name="ubicacion" type="text" class="form-control" placeholder="Ubicacion de la caseta" required onblur="">
                                     </div>
 
@@ -118,7 +157,7 @@
                 <div class="col">
                     <!-- INTRODUCE AQUI TODO LO DEL FOOTER -->
                     <footer class="page-footer font-small">
-                        <div class="footer-copyright text-center">© 2020 Copyright:
+                        <div class="footer-copyright text-center">Â© 2020 Copyright:
                             <a> Derechos Reservados AWCV</a>
                         </div>
                     </footer>

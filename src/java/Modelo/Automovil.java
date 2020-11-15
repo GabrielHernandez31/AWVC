@@ -91,7 +91,7 @@ public class Automovil {
 
     }
 
-    public boolean createAutomovil() {
+    public boolean createAutomovilConER() {
         try {
             final String sql = "Insert into automovil values (default,?,?,?,?,?,?,?)";
             Conexion conex = new Conexion();
@@ -104,6 +104,66 @@ public class Automovil {
             insertarUsuario.setInt(6, getId_usuario());
             insertarUsuario.setInt(7, getId_rfid());
             insertarUsuario.executeUpdate();
+            insertarUsuario.close();
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+    
+    public boolean createAutomovilE() {
+        try {
+            final String sql = "Insert into automovil values (default,?,?,?,?,?,?,null)";
+            Conexion conex = new Conexion();
+            PreparedStatement insertarUsuario = conex.obtenerConnexion().prepareStatement(sql);
+            insertarUsuario.setString(1, getPlaca_auto());
+            insertarUsuario.setString(2, getMarca_auto());
+            insertarUsuario.setString(3, getModelo_auto());
+            insertarUsuario.setString(4, getColor_auto());
+            insertarUsuario.setString(5, getEstatus_auto());
+            insertarUsuario.setInt(6, getId_usuario());
+            insertarUsuario.executeUpdate();
+            insertarUsuario.close();
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+    
+    public boolean createAutomovilR() {
+        try {
+            final String sql = "Insert into automovil values (default,?,?,?,?,?,null,?)";
+            Conexion conex = new Conexion();
+            PreparedStatement insertarUsuario = conex.obtenerConnexion().prepareStatement(sql);
+            insertarUsuario.setString(1, getPlaca_auto());
+            insertarUsuario.setString(2, getMarca_auto());
+            insertarUsuario.setString(3, getModelo_auto());
+            insertarUsuario.setString(4, getColor_auto());
+            insertarUsuario.setString(5, getEstatus_auto());
+            insertarUsuario.setInt(6, getId_rfid());
+            insertarUsuario.executeUpdate();
+            insertarUsuario.close();
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+    
+    public boolean createAutomovilSinER() {
+        try {
+            final String sql = "Insert into automovil values (default,?,?,?,?,?,null,null)";
+            Conexion conex = new Conexion();
+            PreparedStatement insertarUsuario = conex.obtenerConnexion().prepareStatement(sql);
+            insertarUsuario.setString(1, getPlaca_auto());
+            insertarUsuario.setString(2, getMarca_auto());
+            insertarUsuario.setString(3, getModelo_auto());
+            insertarUsuario.setString(4, getColor_auto());
+            insertarUsuario.setString(5, getEstatus_auto());
+            insertarUsuario.executeUpdate();
+            insertarUsuario.close();
             return true;
         } catch (Exception e) {
             e.printStackTrace();
@@ -119,8 +179,12 @@ public class Automovil {
             validarCorreo.setString(1, getPlaca_auto());
             ResultSet validar = validarCorreo.executeQuery();
             if (validar.next()) {
+                validarCorreo.close();
+                validar.close();
                 return false;
             } else {
+                validarCorreo.close();
+                validar.close();
                 return true;
             }
         } catch (Exception e) {
@@ -129,7 +193,7 @@ public class Automovil {
         return false;
     }
 
-    public boolean updateAutomovil() {
+    public boolean updateAutomovilConER() {
         try {
             final String sql = "Update automovil set estatus_auto=?, id_usuario=?, id_rfid=? where id_auto= ?";
             Conexion conex = new Conexion();
@@ -139,6 +203,57 @@ public class Automovil {
             actualizarUsuario.setInt(3, id_rfid);
             actualizarUsuario.setInt(4, getId_auto());
             actualizarUsuario.executeUpdate();
+            actualizarUsuario.close();
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+    
+    public boolean updateAutomovilSinER() {
+        try {
+            final String sql = "Update automovil set estatus_auto=? where id_auto= ?";
+            Conexion conex = new Conexion();
+            PreparedStatement actualizarUsuario = conex.obtenerConnexion().prepareStatement(sql);
+            actualizarUsuario.setString(1, estatus_auto);
+            actualizarUsuario.setInt(2, getId_auto());
+            actualizarUsuario.executeUpdate();
+            actualizarUsuario.close();
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+    
+    public boolean updateAutomovilE() {
+        try {
+            final String sql = "Update automovil set estatus_auto=?, id_usuario=? where id_auto= ?";
+            Conexion conex = new Conexion();
+            PreparedStatement actualizarUsuario = conex.obtenerConnexion().prepareStatement(sql);
+            actualizarUsuario.setString(1, estatus_auto);
+            actualizarUsuario.setInt(2, id_usuario);
+            actualizarUsuario.setInt(3, getId_auto());
+            actualizarUsuario.executeUpdate();
+            actualizarUsuario.close();
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+    
+    public boolean updateAutomovilR() {
+        try {
+            final String sql = "Update automovil set estatus_auto=?, id_rfid=? where id_auto= ?";
+            Conexion conex = new Conexion();
+            PreparedStatement actualizarUsuario = conex.obtenerConnexion().prepareStatement(sql);
+            actualizarUsuario.setString(1, estatus_auto);
+            actualizarUsuario.setInt(2, id_rfid);
+            actualizarUsuario.setInt(3, getId_auto());
+            actualizarUsuario.executeUpdate();
+            actualizarUsuario.close();
             return true;
         } catch (Exception e) {
             e.printStackTrace();
@@ -153,11 +268,59 @@ public class Automovil {
             PreparedStatement eliminarUsuario = conex.obtenerConnexion().prepareStatement(sql);
             eliminarUsuario.setInt(1, getId_auto());
             eliminarUsuario.executeUpdate();
+            eliminarUsuario.close();
             return true;
         } catch (Exception e) {
             e.printStackTrace();
         }
         return false;
+    }
+    
+    public String[][] consultarAutomovilesModificar() {
+        try {
+            final String sql = "Select * from automovil where id_auto = ?";
+            Conexion conex = new Conexion();
+            PreparedStatement consultarProducto = conex.obtenerConnexion().prepareStatement(sql);
+            consultarProducto.setInt(1, getId_auto());
+            ResultSet resulProducto = consultarProducto.executeQuery();
+            int cuenta = -1;
+            String[][] arreglo_servicio = new String[contarAutomovilesAdm()][8];
+            while (resulProducto.next()) {
+                cuenta++;
+                arreglo_servicio[cuenta][0] = resulProducto.getString("id_auto");
+                arreglo_servicio[cuenta][1] = resulProducto.getString("placa_auto");
+                arreglo_servicio[cuenta][2] = resulProducto.getString("marca_auto");
+                arreglo_servicio[cuenta][3] = resulProducto.getString("modelo_auto");
+                arreglo_servicio[cuenta][4] = resulProducto.getString("color_auto");
+                arreglo_servicio[cuenta][5] = resulProducto.getString("estatus_auto");
+                if (resulProducto.getString("id_usuario") == null) {
+                    arreglo_servicio[cuenta][6] = "Sin asignar aun.";
+                    if (resulProducto.getString("id_rfid") == null) {
+                        arreglo_servicio[cuenta][7] = "Sin asignar aun.";
+                    } else {
+                        RFID rfid = new RFID();
+                        arreglo_servicio[cuenta][7] = rfid.obtenerNombreRFID(resulProducto.getString("id_rfid"));
+                    }
+                } else {
+                    Usuario usuario = new Usuario();
+                    arreglo_servicio[cuenta][6] = usuario.obtenerNombreUsuario(resulProducto.getString("id_usuario"));
+                    
+                    if (resulProducto.getString("id_rfid") == null) {
+                        arreglo_servicio[cuenta][7] = "Sin asignar aun.";
+                    } else {
+                        RFID rfid = new RFID();
+                        arreglo_servicio[cuenta][7] = rfid.obtenerNombreRFID(resulProducto.getString("id_rfid"));
+                    }
+                }
+            }
+            consultarProducto.close();
+            resulProducto.close();
+            return arreglo_servicio;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        String[][] arreglo_sinDatos = new String[0][0];
+        return arreglo_sinDatos;
     }
 
     public String[][] consultarAutomovilesAdm() {
@@ -178,6 +341,12 @@ public class Automovil {
                 arreglo_servicio[cuenta][5] = resulProducto.getString("estatus_auto");
                 if (resulProducto.getString("id_usuario") == null) {
                     arreglo_servicio[cuenta][6] = "Sin asignar aun.";
+                    if (resulProducto.getString("id_rfid") == null) {
+                        arreglo_servicio[cuenta][7] = "Sin asignar aun.";
+                    } else {
+                        RFID rfid = new RFID();
+                        arreglo_servicio[cuenta][7] = rfid.obtenerNombreRFID(resulProducto.getString("id_rfid"));
+                    }
                 } else {
                     Usuario usuario = new Usuario();
                     arreglo_servicio[cuenta][6] = usuario.obtenerNombreUsuario(resulProducto.getString("id_usuario"));
@@ -186,10 +355,12 @@ public class Automovil {
                         arreglo_servicio[cuenta][7] = "Sin asignar aun.";
                     } else {
                         RFID rfid = new RFID();
-                        arreglo_servicio[cuenta][7] = rfid.obtenerNombreRFID(resulProducto.getString("id_usuario"));
+                        arreglo_servicio[cuenta][7] = rfid.obtenerNombreRFID(resulProducto.getString("id_rfid"));
                     }
                 }
             }
+            consultarProducto.close();
+            resulProducto.close();
             return arreglo_servicio;
         } catch (Exception e) {
             e.printStackTrace();
@@ -201,14 +372,18 @@ public class Automovil {
     public int contarAutomovilesAdm() {
         try {
             int resultado;
-            final String sql = "Select count(*) from automoviles";
+            final String sql = "Select count(*) from automovil";
             Conexion conex = new Conexion();
             PreparedStatement consultarProducto = conex.obtenerConnexion().prepareStatement(sql);
             ResultSet resulProducto = consultarProducto.executeQuery();
             if (resulProducto.next()) {
                 resultado = resulProducto.getInt("count");
+                consultarProducto.close();
+                resulProducto.close();
                 return resultado;
             } else {
+                consultarProducto.close();
+                resulProducto.close();
                 return 0;
             }
         } catch (Exception e) {
@@ -224,8 +399,12 @@ public class Automovil {
             PreparedStatement consultarProducto = conex.obtenerConnexion().prepareStatement(sql);
             ResultSet resulProducto = consultarProducto.executeQuery();
             if (resulProducto.next()) {
+                consultarProducto.close();
+                resulProducto.close();
                 return true;
             } else {
+                consultarProducto.close();
+                resulProducto.close();
                 return false;
             }
         } catch (Exception e) {
@@ -255,6 +434,8 @@ public class Automovil {
                 arreglo_servicio[cuenta][6] = usuario.obtenerNombreUsuario(resulProducto.getString("id_usuario"));
                 arreglo_servicio[cuenta][7] = resulProducto.getString("rfid_auto");
             }
+            consultarProducto.close();
+            resulProducto.close();
             return arreglo_servicio;
         } catch (Exception e) {
             e.printStackTrace();
@@ -266,15 +447,19 @@ public class Automovil {
     public int contarAutomovilesEmp() {
         try {
             int resultado;
-            final String sql = "Select count(*) from automoviles where id_usuario=?";
+            final String sql = "Select count(*) from automovil where id_usuario=?";
             Conexion conex = new Conexion();
             PreparedStatement consultarProducto = conex.obtenerConnexion().prepareStatement(sql);
             consultarProducto.setInt(1, getId_usuario());
             ResultSet resulProducto = consultarProducto.executeQuery();
             if (resulProducto.next()) {
                 resultado = resulProducto.getInt("count");
+                consultarProducto.close();
+                resulProducto.close();
                 return resultado;
             } else {
+                consultarProducto.close();
+                resulProducto.close();
                 return 0;
             }
         } catch (Exception e) {
@@ -291,8 +476,12 @@ public class Automovil {
             consultarProducto.setInt(1, getId_usuario());
             ResultSet resulProducto = consultarProducto.executeQuery();
             if (resulProducto.next()) {
+                consultarProducto.close();
+                resulProducto.close();
                 return true;
             } else {
+                consultarProducto.close();
+                resulProducto.close();
                 return false;
             }
         } catch (Exception e) {

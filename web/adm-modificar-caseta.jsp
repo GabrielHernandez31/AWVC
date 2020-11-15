@@ -1,4 +1,65 @@
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page import="Modelo.Usuario" %>
+<%@page import="Modelo.Caseta" %>
+<%
+    /*
+    Asigna un valor a la variable email en caso de que se haya iniciado sesion
+    De lo contrario, deja la variable nula
+     */
+    HttpSession sesion = request.getSession();
+    String email = (String) sesion.getAttribute("email");
+    String id_caseta1 = (String) sesion.getAttribute("id_caseta");
+    int id_caseta = Integer.parseInt(id_caseta1);
+    
+    /*
+    Asigna valores a las variables si existe una sesion.
+    Retoma datos del usuario para poder utilizarlos mÃ¡s adelante
+     */
+    Usuario usuario = new Usuario(email);
+    int id_usu = usuario.getId_usuario();
+    int id_rol = usuario.getId_rol();
+    
+    Caseta caseta = new Caseta();
 
+    /*
+    Valida si hay una sesion activa.
+    En caso de que no exista una sesion activa, se redirige al index
+     */
+    if (email == null) {
+        response.sendRedirect("index.jsp");
+    }
+
+    /*
+    MODIFICAR AUTO
+     */
+    String accion = "", nombre = "", ubicacion="", costo="";
+    
+    if (request.getParameter("accion") != null) {
+        accion = request.getParameter("accion");
+    }
+    if (request.getParameter("nombre-cas") != null) {
+        nombre = request.getParameter("nombre-cas");
+    }
+    if (request.getParameter("costo") != null) {
+        costo = request.getParameter("costo");
+    }
+
+    switch (accion) {
+        case "Guardar":
+            caseta.setId_caseta(id_caseta);
+            caseta.setNombre_caseta(nombre);
+            caseta.setCosto_caseta(costo);
+            if(caseta.updateCaseta()){
+                out.print("<script>cancelar=confirm('Â¡Registro Exitoso!'); if(cancelar){ window.location.href='adm-gestionar-casetas.jsp'; }else{ window.location.href='adm-gestionar-casetas.jsp'; }</script>");
+            } else {
+                out.print("<script>cancelar=confirm('Error al registrar!'); if(cancelar){ window.location.href='adm-registrar-caseta.jsp'; }else{ window.location.href='adm-registrar-caseta.jsp'; }</script>");
+            }
+            break;
+        default:
+
+            break;
+    }
+%>
 <!DOCTYPE html>
 <html lang="es">
     <head>
@@ -55,7 +116,7 @@
                                     </a>
                                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                                         <a class="dropdown-item" href="miCuenta.jsp" style="font-size: 2vh">Consultar</a>
-                                        <a class="dropdown-item" href="cerrarSesion.jsp" style="font-size: 2vh">Cerrar sesión</a>
+                                        <a class="dropdown-item" href="cerrarSesion.jsp" style="font-size: 2vh">Cerrar sesiÃ³n</a>
                                     </div>
                                 </li>
                             </ul>
@@ -77,30 +138,33 @@
                                 <div class="form-row justify-content-center align-content-center"">
                                     <div class="col-md-12">
                                         <h1 class="font-weight-bold">Modificar Caseta</h1>
-                                        <p class="text-dark mb-3">Se puede cambiar la siguiente información. </p>
+                                        <p class="text-dark mb-3">Se puede cambiar la siguiente informaciÃ³n. </p>
                                     </div>
                                 </div>
+                                <%
+                                    caseta.setId_caseta(id_caseta);
+                                    String[][] casetas = caseta.consultarCasetas();
+                                %>
                                 <form action="adm-modificar-caseta.jsp" id="formulario" name="formulario" method="POST">
-                                    
                                     
                                     <div class="form-group col-mb-3">
                                         <label class="font-weight-bold">Nombre Caseta:</label>
-                                        <input name="nombre-cas" type="text" class="form-control" placeholder="Nombre de la caseta" required onblur="">
+                                        <input name="nombre-cas" type="text" class="form-control" placeholder="Nombre de la caseta" required onblur="" value="<% out.print(casetas[0][1]); %>">
                                     </div>
 
                                     <div class="form-group mb-3">
-                                        <label  class="font-weight-bold">Ubicación:</label>
-                                        <input name="ubicacion" type="text" class="form-control" placeholder="Ubicacion de la caseta" required onblur="">
+                                        <label  class="font-weight-bold">UbicaciÃ³n:</label>
+                                        <input name="ubicacion" type="text" class="form-control" placeholder="Ubicacion de la caseta" required onblur="" value="<% out.print(casetas[0][2]); %>" disabled="">
                                     </div>
 
                                     <div class="form-group mb-3">
                                         <label class="font-weight-bold">Costo:</label>
-                                        <input name="costo" type="text" class="form-control" placeholder="Costo de la caseta $" required onblur="">
+                                        <input name="costo" type="text" class="form-control" placeholder="Costo de la caseta $" required onblur="" value="<% out.print(casetas[0][3]); %>">
                                     </div>
                                     
                                     <div class="form-row mb justify-content-center">
                                         <div class="col-12 col-lg-6 text-center">
-                                            <input type="submit" name="accion" class="btn btn-primary" value="Modificar" onclick="Comprobar();">
+                                            <input type="submit" name="accion" class="btn btn-primary" value="Guardar" onclick="Comprobar();">
                                         </div>
                                         <div class="col-12 col-lg-6 text-center">
                                             <input type="button" name="btnRegresar" class="btn btn-secondary" value="Regresar" onclick="location = 'adm-gestionar-casetas.jsp'" >
@@ -119,7 +183,7 @@
                 <div class="col">
                     <!-- INTRODUCE AQUI TODO LO DEL FOOTER -->
                     <footer class="page-footer font-small">
-                        <div class="footer-copyright text-center">© 2020 Copyright:
+                        <div class="footer-copyright text-center">Â© 2020 Copyright:
                             <a> Derechos Reservados AWCV</a>
                         </div>
                     </footer>

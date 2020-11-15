@@ -10,6 +10,7 @@
         Usuario us = new Usuario();
         us.setId_usuario(id);
         if(us.deleteUsuario()){
+            out.print("<script>cancelar=confirm('Se eliminó correctamente'); if(cancelar){ window.location.href='adm-gestionar-empleados.jsp'; }else{ window.location.href='adm-gestionar-empleados.jsp'; }</script>");
             response.sendRedirect("adm-gestionar-empleados.jsp");
         }else{
             out.print("<script>cancelar=confirm('Error al eliminar'); if(cancelar){ window.location.href='adm-gestionar-empleados.jsp'; }else{ window.location.href='adm-gestionar-empleados.jsp'; }</script>");
