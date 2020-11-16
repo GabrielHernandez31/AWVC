@@ -290,14 +290,12 @@
                                     </div>
                                     <div class="form-group mb-3">
                                         <label  class="font-weight-bold">¿Cambiar contraseña de usuario?</label>
-                                        <input type="Radio" name="campass" id="no" value="no" onclick="newpass()" onblur="newpass()" checked="true"> No
-                                        <input type="Radio" name="campass" id="si" value="si" onclick="newpass()" onblur="newpass()"> Si
+                                        <input type="Radio" data-toggle="collapse" data-target="#collapseMod" aria-expanded="false" aria-controls="collapseMod"> Si
+                                        
                                     </div>
-                                    <div class="form-group mb-3" id="messagecan" hidden>
+                                    <div class="form-group mb-3 collapse" id="collapseMod">
                                         <label class="font-weight-bold">Contraseña Nueva</label>
                                         <input name="txtContra" type="password" class="form-control" placeholder="Contraseña Nueva">
-                                    </div>
-                                    <div class="form-group mb-3" id="messageccan" hidden>
                                         <label class="font-weight-bold">Confirmar Contraseña Nueva</label>
                                         <input name="txtVContra" type="password" class="form-control" placeholder="Confirmar Contraseña Nueva">
                                     </div>
