@@ -13,7 +13,7 @@
             out.print("<script>cancelar=confirm('Se eliminó correctamente'); if(cancelar){ window.location.href='adm-gestionar-casetasa.jsp'; }else{ window.location.href='adm-gestionar-casetas.jsp'; }</script>");
             response.sendRedirect("adm-gestionar-casetas.jsp");
         }else{
-            out.print("<script>cancelar=confirm('Error al eliminar'); if(cancelar){ window.location.href='adm-gestionar-empleados.jsp'; }else{ window.location.href='adm-gestionar-empleados.jsp'; }</script>");
+            out.print("<script>cancelar=confirm('Error al eliminar'); if(cancelar){ window.location.href='adm-gestionar-casetas.jsp'; }else{ window.location.href='adm-gestionar-casetas.jsp'; }</script>");
         }
     }
 %>

@@ -52,7 +52,7 @@
             if(caseta.updateCaseta()){
                 out.print("<script>cancelar=confirm('¡Registro Exitoso!'); if(cancelar){ window.location.href='adm-gestionar-casetas.jsp'; }else{ window.location.href='adm-gestionar-casetas.jsp'; }</script>");
             } else {
-                out.print("<script>cancelar=confirm('Error al registrar!'); if(cancelar){ window.location.href='adm-registrar-caseta.jsp'; }else{ window.location.href='adm-registrar-caseta.jsp'; }</script>");
+                out.print("<script>cancelar=confirm('Error al registrar!'); if(cancelar){ window.location.href='adm-modificar-caseta.jsp'; }else{ window.location.href='adm-modificar-caseta.jsp'; }</script>");
             }
             break;
         default:
@@ -143,7 +143,7 @@
                                 </div>
                                 <%
                                     caseta.setId_caseta(id_caseta);
-                                    String[][] casetas = caseta.consultarCasetas();
+                                    String[][] casetas = caseta.consultarCasetasModificar();
                                 %>
                                 <form action="adm-modificar-caseta.jsp" id="formulario" name="formulario" method="POST">
                                     

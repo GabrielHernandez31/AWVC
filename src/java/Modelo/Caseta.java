@@ -150,6 +150,32 @@ public class Caseta {
         String[][] arreglo_sinDatos = new String[0][0];
         return arreglo_sinDatos;
     }
+    
+    public String[][] consultarCasetasModificar() {
+        try {
+            final String sql = "Select * from caseta where id_caseta = ?";
+            Conexion conex = new Conexion();
+            PreparedStatement consultarProducto = conex.obtenerConnexion().prepareStatement(sql);
+            consultarProducto.setInt(1, getId_caseta());
+            ResultSet resulProducto = consultarProducto.executeQuery();
+            int cuenta = -1;
+            String[][] arreglo_servicio = new String[contarCasetas()][4];
+            while (resulProducto.next()) {
+                cuenta++;
+                arreglo_servicio[cuenta][0] = resulProducto.getString("id_caseta");
+                arreglo_servicio[cuenta][1] = resulProducto.getString("nombre_caseta");
+                arreglo_servicio[cuenta][2] = resulProducto.getString("ubicacion_caseta");
+                arreglo_servicio[cuenta][3] = resulProducto.getString("costo_caseta");
+            }
+            consultarProducto.close();
+            resulProducto.close();
+            return arreglo_servicio;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        String[][] arreglo_sinDatos = new String[0][0];
+        return arreglo_sinDatos;
+    }
 
     public int contarCasetas() {
         try {
@@ -193,9 +219,5 @@ public class Caseta {
             e.printStackTrace();
         }
         return false;
-    }
-    public static void main(String[] args) {
-        Caseta cs = new Caseta();
-        cs.updateCaseta();
     }
 }

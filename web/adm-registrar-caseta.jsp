@@ -3,9 +3,9 @@
 <%@page import="Modelo.Caseta" %>
 <%
     Usuario usuario = new Usuario();
-    String accion = "", nombre = "", ubicacion="", costo="";
-    
     Caseta caseta = new Caseta();
+    
+    String accion = "", nombre = "", ubicacion="", costo="";
     
     if (request.getParameter("accion") != null) {
         accion = request.getParameter("accion");

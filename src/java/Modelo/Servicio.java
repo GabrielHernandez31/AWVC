@@ -77,8 +77,27 @@ public class Servicio {
     public void setId_usuario(int id_usuario) {
         this.id_usuario = id_usuario;
     }
+    
+    public boolean createServiciosSinEmp() {
+        try {
+            final String sql = "Insert into servicio values (default,?,?,?,?,?,null)";
+            Conexion conex = new Conexion();
+            PreparedStatement insertarUsuario = conex.obtenerConnexion().prepareStatement(sql);
+            insertarUsuario.setString(1, getNombre_servicio());
+            insertarUsuario.setString(2, getDescripcion_servicio());
+            insertarUsuario.setString(3, getUbicacion_servicio());
+            insertarUsuario.setString(4, getEstatus_servicio());
+            insertarUsuario.setString(5, getFecha_servicio());
+            insertarUsuario.executeUpdate();
+            insertarUsuario.close();
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
 
-    public boolean createServicios() {
+    public boolean createServiciosConEmp() {
         try {
             final String sql = "Insert into servicio values (default,?,?,?,?,?,?)";
             Conexion conex = new Conexion();
@@ -98,9 +117,9 @@ public class Servicio {
         return false;
     }
 
-    public boolean updateServiciosAdm() {
+    public boolean updateServiciosAdmConEmp() {
         try {
-            final String sql = "Update servicio set nombre_servicio=?, descripcion_servicio=?, ubicacion_servicio=?, estatus_servicio=?, fecha_servicio=?, id__usuario=? where id_servicio= ?";
+            final String sql = "Update servicio set nombre_servicio=?, descripcion_servicio=?, ubicacion_servicio=?, estatus_servicio=?, fecha_servicio=?, id_usuario=? where id_servicio= ?";
             Conexion conex = new Conexion();
             PreparedStatement actualizarUsuario = conex.obtenerConnexion().prepareStatement(sql);
             actualizarUsuario.setString(1, nombre_servicio);
@@ -110,6 +129,26 @@ public class Servicio {
             actualizarUsuario.setString(5, fecha_servicio);
             actualizarUsuario.setInt(6, id_usuario);
             actualizarUsuario.setInt(7, id_servicio);
+            actualizarUsuario.executeUpdate();
+            actualizarUsuario.close();
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+    
+    public boolean updateServiciosAdmSinEmp() {
+        try {
+            final String sql = "Update servicio set nombre_servicio=?, descripcion_servicio=?, ubicacion_servicio=?, estatus_servicio=?, fecha_servicio=?, id_usuario=null where id_servicio= ?";
+            Conexion conex = new Conexion();
+            PreparedStatement actualizarUsuario = conex.obtenerConnexion().prepareStatement(sql);
+            actualizarUsuario.setString(1, nombre_servicio);
+            actualizarUsuario.setString(2, descripcion_servicio);
+            actualizarUsuario.setString(3, ubicacion_servicio);
+            actualizarUsuario.setString(4, estatus_servicio);
+            actualizarUsuario.setString(5, fecha_servicio);
+            actualizarUsuario.setInt(6, id_servicio);
             actualizarUsuario.executeUpdate();
             actualizarUsuario.close();
             return true;
@@ -149,6 +188,40 @@ public class Servicio {
             e.printStackTrace();
         }
         return false;
+    }
+    
+    public String[][] consultarServiciosModificar() {
+        try {
+            final String sql = "Select * from servicio where id_servicio = ?";
+            Conexion conex = new Conexion();
+            PreparedStatement consultarProducto = conex.obtenerConnexion().prepareStatement(sql);
+            consultarProducto.setInt(1, getId_servicio());
+            ResultSet resulProducto = consultarProducto.executeQuery();
+            int cuenta = -1;
+            String[][] arreglo_servicio = new String[contarServiciosAdm()][7];
+            while (resulProducto.next()) {
+                cuenta++;
+                arreglo_servicio[cuenta][0] = resulProducto.getString("id_servicio");
+                arreglo_servicio[cuenta][1] = resulProducto.getString("nombre_servicio");
+                arreglo_servicio[cuenta][2] = resulProducto.getString("descripcion_servicio");
+                arreglo_servicio[cuenta][3] = resulProducto.getString("ubicacion_servicio");
+                arreglo_servicio[cuenta][4] = resulProducto.getString("estatus_servicio");
+                arreglo_servicio[cuenta][5] = resulProducto.getString("fecha_servicio");
+                if (resulProducto.getString("id_usuario") == null) {
+                    arreglo_servicio[cuenta][6] = "Sin asignar aun.";
+                } else {
+                    Usuario usuario = new Usuario();
+                    arreglo_servicio[cuenta][6] = usuario.obtenerNombreUsuario(resulProducto.getString("id_usuario"));
+                }
+            }
+            consultarProducto.close();
+            resulProducto.close();
+            return arreglo_servicio;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        String[][] arreglo_sinDatos = new String[0][0];
+        return arreglo_sinDatos;
     }
 
     public String[][] consultarServiciosAdm() {
@@ -300,5 +373,10 @@ public class Servicio {
             e.printStackTrace();
         }
         return false;
+    }
+    
+    public static void main(String[] args) {
+        Servicio s = new Servicio();
+        s.updateServiciosAdmConEmp();
     }
 }

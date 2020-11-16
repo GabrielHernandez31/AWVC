@@ -188,7 +188,7 @@
                                     
                                     <div class="form-group mb-3">
                                         <label class="font-weight-bold">Empleado:</label>
-                                       <select name="empleado" class="form-control">
+                                        <select name="empleado" class="form-control">
                                             <%
                                                 if(usuario.existenUsuariosAuto()){
                                                     String[][] emple = usuario.consultarUsuariosAuto();

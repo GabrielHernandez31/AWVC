@@ -1,4 +1,103 @@
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page import="Modelo.Usuario" %>
+<%@page import="Modelo.Servicio" %>
+<%@page import="java.util.Date" %>
+<%@page import="java.text.SimpleDateFormat" %>
+<%
+    /*
+    Asigna un valor a la variable email en caso de que se haya iniciado sesion
+    De lo contrario, deja la variable nula
+     */
+    HttpSession sesion = request.getSession();
+    String email = (String) sesion.getAttribute("email");
+    String id_servicio1 = (String) sesion.getAttribute("id_servicio");
+    int id_servicio = Integer.parseInt(id_servicio1);
+    
+    /*
+    Asigna valores a las variables si existe una sesion.
+    Retoma datos del usuario para poder utilizarlos más adelante
+     */
+    Usuario usuario = new Usuario(email);
+    int id_usu = usuario.getId_usuario();
+    int id_rol = usuario.getId_rol();
+    
+    Servicio servicio = new Servicio();
 
+    /*
+    Valida si hay una sesion activa.
+    En caso de que no exista una sesion activa, se redirige al index
+     */
+    if (email == null) {
+        response.sendRedirect("index.jsp");
+    }
+
+    /*
+    MODIFICAR AUTO
+     */
+    String accion = "", nombre = "", descripcion = "", ubicacion = "", estatus = "", fecha = "", empleado="";
+    
+    if (request.getParameter("accion") != null) {
+        accion = request.getParameter("accion");
+    }
+    if (request.getParameter("nom-serv") != null) {
+        nombre = request.getParameter("nom-serv");
+    }
+    if (request.getParameter("descripcion") != null) {
+        descripcion = request.getParameter("descripcion");
+    }
+    if (request.getParameter("ubicacion") != null) {
+        ubicacion = request.getParameter("ubicacion");
+    }
+    if (request.getParameter("estatusserv") != null) {
+        estatus = request.getParameter("estatusserv");
+    }
+    if (request.getParameter("fecha") != null) {
+        fecha = request.getParameter("fecha");
+    }
+    if (request.getParameter("empleado") != null) {
+        empleado = request.getParameter("empleado");
+    }
+
+    switch (accion) {
+        case "Guardar":
+            
+            servicio.setId_servicio(id_servicio);
+            servicio.setNombre_servicio(nombre);
+            servicio.setDescripcion_servicio(descripcion);
+            servicio.setUbicacion_servicio(ubicacion);
+            servicio.setEstatus_servicio(estatus);
+            servicio.setFecha_servicio(fecha);
+            
+            String[][] servi = servicio.consultarServiciosModificar();
+            
+            if(empleado.equals("0")){ // Sin Empleado
+                if (servicio.updateServiciosAdmSinEmp()) {
+                    out.print("<script>cancelar=confirm('¡Registro Exitoso!'); if(cancelar){ window.location.href='adm-gestionar-serv.jsp'; }else{ window.location.href='adm-gestionar-serv.jsp'; }</script>");
+                } else {
+                    out.print("<script>cancelar=confirm('Error al registrar!'); if(cancelar){ window.location.href='adm-modificar-serv.jsp'; }else{ window.location.href='adm-modificar-serv.jsp'; }</script>");
+                }
+            }else{
+                if(empleado.equals(servi[0][6])){ // Sin Empleado
+                    if (servicio.updateServiciosAdmSinEmp()) {
+                        out.print("<script>cancelar=confirm('¡Registro Exitoso!'); if(cancelar){ window.location.href='adm-gestionar-serv.jsp'; }else{ window.location.href='adm-gestionar-serv.jsp'; }</script>");
+                    } else {
+                        out.print("<script>cancelar=confirm('Error al registrar!'); if(cancelar){ window.location.href='adm-modificar-serv.jsp'; }else{ window.location.href='adm-modificar-serv.jsp'; }</script>");
+                    }
+                }else{ // Con Empleado
+                    servicio.setId_usuario(Integer.parseInt(empleado));
+                    if (servicio.updateServiciosAdmConEmp()) {
+                        out.print("<script>cancelar=confirm('¡Registro Exitoso!'); if(cancelar){ window.location.href='adm-gestionar-serv.jsp'; }else{ window.location.href='adm-gestionar-serv.jsp'; }</script>");
+                    } else {
+                        out.print("<script>cancelar=confirm('Error al registrar!'); if(cancelar){ window.location.href='adm-modificar-serv.jsp'; }else{ window.location.href='adm-modificar-serv.jsp'; }</script>");
+                    }
+                }
+            }
+            break;
+        default:
+
+            break;
+    }
+%>
 <!DOCTYPE html>
 <html lang="es">
     <head>
@@ -55,7 +154,7 @@
                                     </a>
                                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                                         <a class="dropdown-item" href="miCuenta.jsp" style="font-size: 2vh">Consultar</a>
-                                        <a class="dropdown-item" href="cerrarSesion.jsp" style="font-size: 2vh">Cerrar sesi�n</a>
+                                        <a class="dropdown-item" href="cerrarSesion.jsp" style="font-size: 2vh">Cerrar sesión</a>
                                     </div>
                                 </li>
                             </ul>
@@ -77,40 +176,88 @@
                                 <div class="form-row justify-content-center align-content-center"">
                                     <div class="col-md-12">
                                         <h1 class="font-weight-bold">Modificar un Servicio</h1>
-                                        <p class="text-dark mb-3">Se puede modificar la siguiente informaci�n.</p>
+                                        <p class="text-dark mb-3">Se puede modificar la siguiente información.</p>
                                     </div>
                                 </div>
+                                <%
+                                    servicio.setId_servicio(id_servicio);
+                                    String[][] servicios = servicio.consultarServiciosModificar();
+                                %>
                                 <form action="adm-modificar-serv.jsp" id="formulario" name="formulario" method="POST">
 
                                     <div class="form-group mb-3">
-                                        <label  class="font-weight-bold">Nombre:</label>
-                                        <input name="nom-serv" type="text" Value="Nombre Servicio" class="form-control" disabled required onblur="">
+                                        <label  class="font-weight-bold">Nombre: <span class="text-danger">*</span></label>
+                                        <input name="nom-serv" type="text" class="form-control" placeholder="Ingresa el nombre del servicio" required onblur="" value="<% out.print(servicios[0][1]); %>">
                                     </div>
 
                                     <div class="form-group mb-3">
-                                        <label  class="font-weight-bold">Descripci�n: </label>
-                                        <textarea class="form-control" name='descripcion' rows="3" required="Ingre la descripci�n del servicio por favor"></textarea>
+                                        <label  class="font-weight-bold">Descripción: <span class="text-danger">*</span></label>
+                                        <textarea class="form-control" name='descripcion' rows="3" required="Ingre la descripción del servicio por favor"><% out.print(servicios[0][2]); %></textarea>
+                                    </div>
+                                    
+                                    <div class="form-group mb-3">
+                                        <label  class="font-weight-bold">Ubicación: <span class="text-danger">*</span></label>
+                                        <textarea class="form-control" name='ubicacion' rows="3" required="Ingre la ubicación del servicio por favor"><% out.print(servicios[0][3]); %></textarea>
                                     </div>
 
                                     <div class="form-group mb-3">
-                                        <label class="font-weight-bold">Estado:</label>
-                                        <select name="estatusserv" class="form-control"> 
-                                            <option value="1" selected>Activo</option>
-                                            <option value="2">Finalizado</option>
+                                        <label class="font-weight-bold">Estatus: <span class="text-danger">*</span></label>
+                                        <select name="estatusserv" class="form-control">
+                                            <%  switch(servicios[0][4]) { 
+                                                case "Activo": %>
+                                                    <option value="Activo" selected>Activo</option>
+                                                    <option value="En proceso">En proceso</option>
+                                                    <option value="Finalizado">Finalizado</option>
+                                                <% break;
+                                                case "En proceso": %>
+                                                    <option value="Activo" >Activo</option>
+                                                    <option value="En proceso"selected>En proceso</option>
+                                                    <option value="Finalizado">Finalizado</option>
+                                                <% break;
+                                                case "Finalizado": %>
+                                                    <option value="Activo" >Activo</option>
+                                                    <option value="En proceso">En proceso</option>
+                                                    <option value="Finalizado"selected>Finalizado</option>
+                                                <% break;  }   %>
                                         </select>
                                     </div>
-
+                                    <!-- OBTENEMOS LA FECHA ACTUAL -->
+                                    <%
+                                        java.util.Date fecha_actual = new Date();
+                                        SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
+                                    %>
+                                    <!-- //OBTENEMOS LA FECHA ACTUAL -->
+                                    <div class="form-group mb-3">
+                                        <label  class="font-weight-bold">Fecha: <span class="text-danger">*</span></label>
+                                        <input name="fecha" type="date" min="<% out.print(formato.format(fecha_actual)); %>" value="<% out.print(servicios[0][5]); %>" class="form-control" placeholder="Ingresa la fecha para realizar el servicio" required onblur="">
+                                    </div>
+                                    
                                     <div class="form-group mb-3">
                                         <label class="font-weight-bold">Empleado:</label>
                                         <select name="empleado" class="form-control">
-                                            <option value="1" selected>Opcion 1</option>
-                                            <option value="2">Opcion 2</option>
+                                            <%
+                                                if(usuario.existenUsuariosAuto()){
+                                                    String[][] emple = usuario.consultarUsuariosAuto();
+                                                    for( int cuenta = 0; cuenta<usuario.contarUsuariosAuto(); cuenta++){
+                                            %>
+                                                        <option value="<% out.print(emple[cuenta][0]); %>"><% out.print(emple[cuenta][1] + " " + emple[cuenta][2] + " " + emple[cuenta][3].charAt(0)+"."); %></option>
+                                            <%      } 
+                                                    if(servicios[0][6]=="Sin asignar aun."){ %>
+                                                        <option value="0" selected="">Sin asignar aún.</option>
+                                                <%  }else{ %>
+                                                        <option value="<% out.print(servicios[0][6]); %>" selected=""><% out.print(servicios[0][6]); %></option>
+                                                        <option value="0">Sin asignar aún.</option>
+                                                <%  } %>          
+                                            <%  }else{ %>
+                                                    <option disabled>No existen empleados</option>
+                                                    <option value="0">Sin asignar aún.</option>
+                                            <%  } %>
                                         </select>
                                     </div>
 
                                     <div class="form-row mb justify-content-center">
                                         <div class="col-12 col-lg-6 text-center">
-                                            <input type="submit" name="accion" class="btn btn-primary" value="Registrar" onclick="Comprobar();">
+                                            <input type="submit" name="accion" class="btn btn-primary" value="Guardar" onclick="Comprobar();">
                                         </div>
                                         <div class="col-12 col-lg-6 text-center">
                                             <input type="button" name="btnRegresar" class="btn btn-secondary" value="Regresar" onclick="location = 'adm-gestionar-serv.jsp'" >
@@ -129,7 +276,7 @@
                 <div class="col">
                     <!-- INTRODUCE AQUI TODO LO DEL FOOTER -->
                     <footer class="page-footer font-small">
-                        <div class="footer-copyright text-center">� 2020 Copyright:
+                        <div class="footer-copyright text-center">© 2020 Copyright:
                             <a> Derechos Reservados AWCV</a>
                         </div>
                     </footer>
