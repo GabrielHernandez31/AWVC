@@ -30,6 +30,7 @@
     if (request.getParameter("empleado") != null) {
         empleado = request.getParameter("empleado");
     }
+    
 
     switch (accion) {
         case "Registrar":

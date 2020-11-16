@@ -1,4 +1,63 @@
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page import="Modelo.Usuario" %>
+<%@page import="Modelo.RFID" %>
+<%@page import="java.util.Date" %>
+<%@page import="java.text.SimpleDateFormat" %>
+<%
+    /*
+    Asigna un valor a la variable email en caso de que se haya iniciado sesion
+    De lo contrario, deja la variable nula
+     */
+    HttpSession sesion = request.getSession();
+    String email = (String) sesion.getAttribute("email");
+    String id_rfid1 = (String) sesion.getAttribute("id_rfid");
+    int id_rfid = Integer.parseInt(id_rfid1);
+    
+    /*
+    Asigna valores a las variables si existe una sesion.
+    Retoma datos del usuario para poder utilizarlos mÃ¡s adelante
+     */
+    Usuario usuario = new Usuario(email);
+    int id_usu = usuario.getId_usuario();
+    int id_rol = usuario.getId_rol();
+    
+    RFID rfid = new RFID();
 
+    /*
+    Valida si hay una sesion activa.
+    En caso de que no exista una sesion activa, se redirige al index
+     */
+    if (email == null) {
+        response.sendRedirect("index.jsp");
+    }
+
+    /*
+    MODIFICAR AUTO
+     */
+    String accion = "", estatus = "";
+    
+    if (request.getParameter("accion") != null) {
+        accion = request.getParameter("accion");
+    }
+    if (request.getParameter("estatusr") != null) {
+        estatus = request.getParameter("estatusr");
+    }
+
+    switch (accion) {
+        case "Guardar":
+            rfid.setId_rfid(id_rfid);
+            rfid.setEstatus_rfid(estatus);
+            if (rfid.updateRFID()) {
+                out.print("<script>cancelar=confirm('Â¡Registro Exitoso!'); if(cancelar){ window.location.href='adm-gestionar-rfid.jsp'; }else{ window.location.href='adm-gestionar-rfid.jsp'; }</script>");
+            } else {
+                out.print("<script>cancelar=confirm('Error al registrar!'); if(cancelar){ window.location.href='adm-modificar-rfid.jsp'; }else{ window.location.href='adm-modificar-rfid.jsp'; }</script>");
+            }
+            break;
+        default:
+
+            break;
+    }
+%>
 <!DOCTYPE html>
 <html lang="es">
     <head>
@@ -55,7 +114,7 @@
                                     </a>
                                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                                         <a class="dropdown-item" href="miCuenta.jsp" style="font-size: 2vh">Consultar</a>
-                                        <a class="dropdown-item" href="cerrarSesion.jsp" style="font-size: 2vh">Cerrar sesión</a>
+                                        <a class="dropdown-item" href="cerrarSesion.jsp" style="font-size: 2vh">Cerrar sesiÃ³n</a>
                                     </div>
                                 </li>
                             </ul>
@@ -77,28 +136,36 @@
                                 <div class="form-row justify-content-center align-content-center"">
                                     <div class="col-md-12">
                                         <h1 class="font-weight-bold">Modificar Tarjeta RFID</h1>
-                                        <p class="text-dark mb-3">Se puede cambiar la siguiente información. </p>
+                                        <p class="text-dark mb-3">Se puede cambiar la siguiente informaciÃ³n. </p>
                                     </div>
                                 </div>
+                                <%
+                                    rfid.setId_rfid(id_rfid);
+                                    String[][] rfids = rfid.consultarRFIDModificar();
+                                %>
                                 <form action="adm-modificar-rfid.jsp" id="formulario" name="formulario" method="POST">
-                                    
+
+                                    <div class="form-group col-mb-3">
+                                        <label class="font-weight-bold">No. de Serie.<span class="text-danger">*</span></label>
+                                        <input name="trfid" type="text" class="form-control" value="<% out.print(rfids[0][1]); %>" placeholder="NO. Serie de la RFID" required onblur="" disabled>
+                                    </div>
+
                                     <div class="form-group mb-3">
                                         <label class="font-weight-bold">Estado: <span class="text-danger">*</span></label>
-                                        <select name="estatusr" class="form-control"> 
-                                            <option value="1" selected>Activa</option>
-                                            <option value="2">Inactiva</option>
+                                        <select name="estatusr" class="form-control">
+                                        <%  if(rfids[0][2].equals("Activo")) { %>
+                                            <option value="Activo" selected>Activo</option>
+                                            <option value="Inactivo">Inactivo</option>
+                                        <%  }else { %>
+                                            <option value="Activo" >Activo</option>
+                                            <option value="Inactivo" selected>Inactivo</option>
+                                        <%  }  %>
                                         </select>
                                     </div>
-                                    <div class="form-group mb-3">
-                                        <label class="font-weight-bold">Placa de Automovil:</label>
-                                        <select name="auto" class="form-control">
-                                            <option value="1" selected>Opcion 1</option>
-                                            <option value="2">Opcion 2</option>
-                                        </select>
-                                    </div>
+
                                     <div class="form-row mb justify-content-center">
                                         <div class="col-12 col-lg-6 text-center">
-                                            <input type="submit" name="accion" class="btn btn-primary" value="Modificar" onclick="Comprobar();">
+                                            <input type="submit" name="accion" class="btn btn-primary" value="Guardar" onclick="Comprobar();">
                                         </div>
                                         <div class="col-12 col-lg-6 text-center">
                                             <input type="button" name="btnRegresar" class="btn btn-secondary" value="Regresar" onclick="location = 'adm-gestionar-rfid.jsp'" >
@@ -117,7 +184,7 @@
                 <div class="col">
                     <!-- INTRODUCE AQUI TODO LO DEL FOOTER -->
                     <footer class="page-footer font-small">
-                        <div class="footer-copyright text-center">© 2020 Copyright:
+                        <div class="footer-copyright text-center">Â© 2020 Copyright:
                             <a> Derechos Reservados AWCV</a>
                         </div>
                     </footer>
