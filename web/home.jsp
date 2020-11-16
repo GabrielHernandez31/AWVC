@@ -61,10 +61,11 @@
                                         Menu</a>
                                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                                         <a class="dropdown-item" href="adm-gestionar-auto.jsp" style="font-size: 2vh">Automoviles</a>
-                                        <a class="dropdown-item" href="adm-gestionar-casetas" style="font-size: 2vh">Casetas</a>
+                                        <a class="dropdown-item" href="adm-gestionar-casetas.jsp" style="font-size: 2vh">Casetas</a>
                                         <a class="dropdown-item" href="adm-gestionar-empleados.jsp" style="font-size: 2vh">Empleados</a>
-                                        <a class="dropdown-item" href="adm-gestionar-rfid" style="font-size: 2vh">RFID</a>
-                                        <a class="dropdown-item" href="adm-gestionar-serv" style="font-size: 2vh">Servicio</a>
+                                        <a class="dropdown-item" href="adm-gestionar-rfid.jsp" style="font-size: 2vh">RFID</a>
+                                        <a class="dropdown-item" href="adm-gestionar-serv.jsp" style="font-size: 2vh">Servicios</a>
+                                        <a class="dropdown-item" href="adm-historial-servicios.jsp" style="font-size: 2vh">Historial de Servicios</a>
                                     </div>
                                 </li>
                                 
@@ -106,6 +107,8 @@
                         <a href="adm-gestionar-casetas.jsp"><button type="button" class="btn btn-primary" style="border-radius: 5rem; width: 100%; font-size: 3vh;">Gestionar Casetas</button></a>
                     <p>
                         <a href="adm-gestionar-rfid.jsp"><button type="button" class="btn btn-primary" style="border-radius: 5rem; width: 100%; font-size: 3vh;">Gestionar Tarjetas RFID</button></a>
+                    <p>
+                        <a href="adm-historial-servicios.jsp"><button type="button" class="btn btn-primary" style="border-radius: 5rem; width: 100%; font-size: 3vh;">Consultar Historial de Servicios</button></a>
                     </p>
                 </div>
                 <!-- // ESTO ES LO DE EMPLEADO-->
