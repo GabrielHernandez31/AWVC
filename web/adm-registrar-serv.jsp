@@ -1,4 +1,64 @@
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page import="Modelo.Usuario" %>
+<%@page import="Modelo.Servicio" %>
+<%@page import="java.util.Date" %>
+<%@page import="java.text.SimpleDateFormat" %>
+<%
+    Usuario usuario = new Usuario();
+    Servicio servicio = new Servicio();
+    
+    String accion = "", nombre = "", descripcion = "", ubicacion = "", estatus = "", fecha = "", empleado="";
+    
+    if (request.getParameter("accion") != null) {
+        accion = request.getParameter("accion");
+    }
+    if (request.getParameter("nom-serv") != null) {
+        nombre = request.getParameter("nom-serv");
+    }
+    if (request.getParameter("descripcion") != null) {
+        descripcion = request.getParameter("descripcion");
+    }
+    if (request.getParameter("ubicacion") != null) {
+        ubicacion = request.getParameter("ubicacion");
+    }
+    if (request.getParameter("estatusserv") != null) {
+        estatus = request.getParameter("estatusserv");
+    }
+    if (request.getParameter("fecha") != null) {
+        fecha = request.getParameter("fecha");
+    }
+    if (request.getParameter("empleado") != null) {
+        empleado = request.getParameter("empleado");
+    }
 
+    switch (accion) {
+        case "Registrar":
+            servicio.setNombre_servicio(nombre);
+            servicio.setDescripcion_servicio(descripcion);
+            servicio.setUbicacion_servicio(ubicacion);
+            servicio.setEstatus_servicio(estatus);
+            servicio.setFecha_servicio(fecha);
+            
+            if(empleado.equals("0")){
+                if (servicio.createServiciosSinEmp()) {
+                    out.print("<script>cancelar=confirm('¡Registro Exitoso!'); if(cancelar){ window.location.href='adm-gestionar-serv.jsp'; }else{ window.location.href='adm-gestionar-serv.jsp'; }</script>");
+                } else {
+                    out.print("<script>cancelar=confirm('Error al registrar!'); if(cancelar){ window.location.href='adm-registrar-serv.jsp'; }else{ window.location.href='adm-registrar-serv.jsp'; }</script>");
+                }
+            }else{
+                servicio.setId_usuario(Integer.parseInt(empleado));
+                if (servicio.createServiciosConEmp()) {
+                    out.print("<script>cancelar=confirm('¡Registro Exitoso!'); if(cancelar){ window.location.href='adm-gestionar-serv.jsp'; }else{ window.location.href='adm-gestionar-serv.jsp'; }</script>");
+                } else {
+                    out.print("<script>cancelar=confirm('Error al registrar!'); if(cancelar){ window.location.href='adm-registrar-serv.jsp'; }else{ window.location.href='adm-registrar-serv.jsp'; }</script>");
+                }
+            }
+            break;
+        default:
+
+            break;
+    }
+%>
 <!DOCTYPE html>
 <html lang="es">
     <head>
@@ -55,7 +115,7 @@
                                     </a>
                                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                                         <a class="dropdown-item" href="miCuenta.jsp" style="font-size: 2vh">Consultar</a>
-                                        <a class="dropdown-item" href="cerrarSesion.jsp" style="font-size: 2vh">Cerrar sesi�n</a>
+                                        <a class="dropdown-item" href="cerrarSesion.jsp" style="font-size: 2vh">Cerrar sesión</a>
                                     </div>
                                 </li>
                             </ul>
@@ -77,7 +137,7 @@
                                 <div class="form-row justify-content-center align-content-center"">
                                     <div class="col-md-12">
                                         <h1 class="font-weight-bold">Registrar un Servicio</h1>
-                                        <p class="text-dark mb-3">Ingresa la siguiente informaci�n.</p>
+                                        <p class="text-dark mb-3">Ingresa la siguiente información.</p>
                                     </div>
                                 </div>
                                 <form action="adm-registrar-serv.jsp" id="formulario" name="formulario" method="POST">
@@ -88,23 +148,49 @@
                                     </div>
 
                                     <div class="form-group mb-3">
-                                        <label  class="font-weight-bold">Descripci�n: <span class="text-danger">*</span></label>
-                                        <textarea class="form-control" name='descripcion' rows="3" required="Ingre la descripci�n del servicio por favor"></textarea>
+                                        <label  class="font-weight-bold">Descripción: <span class="text-danger">*</span></label>
+                                        <textarea class="form-control" name='descripcion' rows="3" required="Ingre la descripción del servicio por favor"></textarea>
+                                    </div>
+                                    
+                                    <div class="form-group mb-3">
+                                        <label  class="font-weight-bold">Ubicación: <span class="text-danger">*</span></label>
+                                        <input name="ubicacion" type="text" class="form-control" placeholder="Ingresa la ubicación del servicio" required onblur="">
                                     </div>
 
                                     <div class="form-group mb-3">
-                                        <label class="font-weight-bold">Estado: <span class="text-danger">*</span></label>
+                                        <label class="font-weight-bold">Estatus: <span class="text-danger">*</span></label>
                                         <select name="estatusserv" class="form-control"> 
-                                            <option value="1" selected>Activo</option>
-                                            <option value="2">Finalizado</option>
+                                            <option value="Activo" selected>Activo</option>
+                                            <option value="En proceso">En proceso</option>
+                                            <option value="Finalizado">Finalizado</option>
                                         </select>
                                     </div>
-
+                                    <!-- OBTENEMOS LA FECHA ACTUAL -->
+                                    <%
+                                        java.util.Date fecha_actual = new Date();
+                                        SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
+                                    %>
+                                    <!-- //OBTENEMOS LA FECHA ACTUAL -->
+                                    <div class="form-group mb-3">
+                                        <label  class="font-weight-bold">Fecha: <span class="text-danger">*</span></label>
+                                        <input name="fecha" type="date" min="<% out.print(formato.format(fecha_actual)); %>" class="form-control" placeholder="Ingresa la fecha para realizar el servicio" required onblur="">
+                                    </div>
+                                    
                                     <div class="form-group mb-3">
                                         <label class="font-weight-bold">Empleado:</label>
                                         <select name="empleado" class="form-control">
-                                            <option value="1" selected>Opcion 1</option>
-                                            <option value="2">Opcion 2</option>
+                                            <%
+                                                if(usuario.existenUsuariosAuto()){
+                                                    String[][] emple = usuario.consultarUsuariosAuto();
+                                                    for( int cuenta = 0; cuenta<usuario.contarUsuariosAuto(); cuenta++){
+                                            %>
+                                                        <option value="<% out.print(emple[cuenta][0]); %>"><% out.print(emple[cuenta][1] + " " + emple[cuenta][2] + " " + emple[cuenta][3].charAt(0)+"."); %></option>
+                                            <%      } %>
+                                                        <option value="0">Sin asignar aún.</option>
+                                            <%  }else{ %>
+                                                    <option disabled>No existen empleados</option>
+                                                    <option value="0">Sin asignar aún.</option>
+                                            <%  } %>
                                         </select>
                                     </div>
 
@@ -129,7 +215,7 @@
                 <div class="col">
                     <!-- INTRODUCE AQUI TODO LO DEL FOOTER -->
                     <footer class="page-footer font-small">
-                        <div class="footer-copyright text-center">� 2020 Copyright:
+                        <div class="footer-copyright text-center">© 2020 Copyright:
                             <a> Derechos Reservados AWCV</a>
                         </div>
                     </footer>

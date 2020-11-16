@@ -252,7 +252,7 @@
                                                         <option value="<% out.print(emple[cuenta][0]); %>"><% out.print(emple[cuenta][1] + " " + emple[cuenta][2] + " " + emple[cuenta][3].charAt(0)+"."); %></option>
                                             <%      } 
                                                     if(autos[0][6]=="Sin asignar aun."){ %>
-                                                    <option value="0" selected="">Sin asignar aún.</option>
+                                                        <option value="0" selected="">Sin asignar aún.</option>
                                                 <%  }else{ %>
                                                         <option value="<% out.print(autos[0][6]); %>" selected=""><% out.print(autos[0][6]); %></option>
                                                 <%  } %>          
