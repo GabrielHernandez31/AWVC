@@ -374,9 +374,4 @@ public class Servicio {
         }
         return false;
     }
-    
-    public static void main(String[] args) {
-        Servicio s = new Servicio();
-        s.updateServiciosAdmConEmp();
-    }
 }

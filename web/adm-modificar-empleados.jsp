@@ -305,7 +305,7 @@
                                             <input type="submit" name="accion" class="btn btn-primary" value="Guardar">
                                         </div>
                                         <div class="col-12 col-lg-6 text-center">
-                                            <input type="button" name="btnRegresar" class="btn btn-secondary" value="Regresar" onclick="location = 'adm-gestionar-empleado.jsp'" >
+                                            <input type="button" name="btnRegresar" class="btn btn-secondary" value="Regresar" onclick="location = 'adm-gestionar-empleados.jsp'" >
                                         </div>
                                     </div>
                                 </form>

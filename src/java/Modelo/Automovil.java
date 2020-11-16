@@ -213,7 +213,7 @@ public class Automovil {
     
     public boolean updateAutomovilSinER() {
         try {
-            final String sql = "Update automovil set estatus_auto=? where id_auto= ?";
+            final String sql = "Update automovil set estatus_auto=?, id_usuario=null, id_rfid=null where id_auto= ?";
             Conexion conex = new Conexion();
             PreparedStatement actualizarUsuario = conex.obtenerConnexion().prepareStatement(sql);
             actualizarUsuario.setString(1, estatus_auto);
@@ -229,7 +229,7 @@ public class Automovil {
     
     public boolean updateAutomovilE() {
         try {
-            final String sql = "Update automovil set estatus_auto=?, id_usuario=? where id_auto= ?";
+            final String sql = "Update automovil set estatus_auto=?, id_usuario=?, id_rfid=null where id_auto= ?";
             Conexion conex = new Conexion();
             PreparedStatement actualizarUsuario = conex.obtenerConnexion().prepareStatement(sql);
             actualizarUsuario.setString(1, estatus_auto);
@@ -246,7 +246,7 @@ public class Automovil {
     
     public boolean updateAutomovilR() {
         try {
-            final String sql = "Update automovil set estatus_auto=?, id_rfid=? where id_auto= ?";
+            final String sql = "Update automovil set estatus_auto=?, id_usuario=null, id_rfid=? where id_auto= ?";
             Conexion conex = new Conexion();
             PreparedStatement actualizarUsuario = conex.obtenerConnexion().prepareStatement(sql);
             actualizarUsuario.setString(1, estatus_auto);

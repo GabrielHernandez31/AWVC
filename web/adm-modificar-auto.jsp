@@ -255,6 +255,7 @@
                                                         <option value="0" selected="">Sin asignar aún.</option>
                                                 <%  }else{ %>
                                                         <option value="<% out.print(autos[0][6]); %>" selected=""><% out.print(autos[0][6]); %></option>
+                                                        <option value="0">Sin asignar aún.</option>
                                                 <%  } %>          
                                             <%  }else{ %>
                                                     <option disabled>No existen empleados</option>
@@ -276,7 +277,8 @@
                                                     if(autos[0][7]=="Sin asignar aun."){ %>
                                                         <option value="0" selected="">Sin asignar aún.</option>
                                                 <%  }else{ %>
-                                                        <option value="<% out.print(autos[0][7]); %>" selected=""><% out.print(autos[0][7]); %></option>
+                                                        <option value="<% out.print(autos[0][7]); %>" selected="" ><% out.print(autos[0][7]); %></option>
+                                                        <option value="0">Sin asignar aún.</option>
                                                 <%  } %> 
                                             <%  }else{ %>
                                                     <option disabled>No existen Tarjetas RFID</option>

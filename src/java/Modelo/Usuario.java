@@ -171,6 +171,7 @@ public class Usuario {
                 return false;
             } else {
                 validar.close();
+                validarCorreo.close();
                 return true;
             }
         } catch (Exception e) {
@@ -197,6 +198,7 @@ public class Usuario {
                 return false;
             } else {
                 validar.close();
+                validarCorreo.close();
                 return true;
             }
         } catch (Exception e) {
@@ -222,6 +224,7 @@ public class Usuario {
                 return true;
             } else {
                 validar.close();
+                validarCorreo.close();
                 return false;
             }
         } catch (Exception e) {
@@ -444,6 +447,8 @@ public class Usuario {
                 resulProducto.close();
                 return true;
             } else {
+                consultarProducto.close();
+                resulProducto.close();
                 return false;
             }
         } catch (Exception e) {
@@ -473,7 +478,8 @@ public class Usuario {
                 arreglo_servicio[cuenta][6] = rol.obtenerNombreRol(resulProducto.getString("id_rol"));
                 arreglo_servicio[cuenta][7] = resulProducto.getString("password_usuario");
             }
-            
+            consultarProducto.close();
+            resulProducto.close();
             return arreglo_servicio;
         } catch (Exception e) {
             e.printStackTrace();
@@ -496,6 +502,8 @@ public class Usuario {
                 resulProducto.close();
                 return resultado;
             } else {
+                consultarProducto.close();
+                resulProducto.close();
                 return 0;
             }
         } catch (Exception e) {
@@ -516,6 +524,8 @@ public class Usuario {
                 resulProducto.close();
                 return true;
             } else {
+                consultarProducto.close();
+                resulProducto.close();
                 return false;
             }
         } catch (Exception e) {
@@ -539,7 +549,8 @@ public class Usuario {
                 arreglo_servicio[cuenta][2] = resulProducto.getString("app_usuario");
                 arreglo_servicio[cuenta][3] = resulProducto.getString("apm_usuario");
             }
-            
+            consultarProducto.close();
+            resulProducto.close();
             return arreglo_servicio;
         } catch (Exception e) {
             e.printStackTrace();
@@ -561,6 +572,8 @@ public class Usuario {
                 resulProducto.close();
                 return resultado;
             } else {
+                consultarProducto.close();
+                resulProducto.close();
                 return 0;
             }
         } catch (Exception e) {
@@ -580,6 +593,8 @@ public class Usuario {
                 resulProducto.close();
                 return true;
             } else {
+                consultarProducto.close();
+                resulProducto.close();
                 return false;
             }
         } catch (Exception e) {
