@@ -1,4 +1,51 @@
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page import="Modelo.Usuario" %>
+<%@page import="Modelo.RFID" %>
+<%@page import="java.util.Date" %>
+<%@page import="java.text.SimpleDateFormat" %>
+<%
+    Usuario usuario = new Usuario();
+    RFID rfid = new RFID();
+    
+    String accion = "", serial = "", estatus = "", fecha = "";
+    
+    if (request.getParameter("accion") != null) {
+        accion = request.getParameter("accion");
+    }
+    if (request.getParameter("trfid") != null) {
+        serial = request.getParameter("trfid");
+    }
+    if (request.getParameter("estatusr") != null) {
+        estatus = request.getParameter("estatusr");
+    }
+    
+    java.util.Date fecha_actual = new Date();
+    SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
+    
+    fecha = formato.format(fecha_actual);
 
+    switch (accion) {
+        case "Registrar":
+            
+            rfid.setSerial_rfid(serial);
+            
+            if(rfid.validarSerialRegistro()){
+                rfid.setEstatus_rfid(estatus);
+                rfid.setFecha_alta_rfid(fecha);
+                if (rfid.createRFID()) {
+                    out.print("<script>cancelar=confirm('Â¡Registro Exitoso!'); if(cancelar){ window.location.href='adm-gestionar-rfid.jsp'; }else{ window.location.href='adm-gestionar-rfid.jsp'; }</script>");
+                } else {
+                    out.print("<script>cancelar=confirm('Error al registrar!'); if(cancelar){ window.location.href='adm-registrar-rfid.jsp'; }else{ window.location.href='adm-registrar-rfid.jsp'; }</script>");
+                }
+            }else{
+                out.print("<script>cancelar=confirm('El No. de Serie ya estÃ¡ en uso!'); if(cancelar){ window.location.href='adm-registrar-rfid.jsp'; }else{ window.location.href='adm-registrar-rfid.jsp'; }</script>");
+            }
+            break;
+        default:
+
+            break;
+    }
+%>
 <!DOCTYPE html>
 <html lang="es">
     <head>
@@ -55,7 +102,7 @@
                                     </a>
                                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                                         <a class="dropdown-item" href="miCuenta.jsp" style="font-size: 2vh">Consultar</a>
-                                        <a class="dropdown-item" href="cerrarSesion.jsp" style="font-size: 2vh">Cerrar sesión</a>
+                                        <a class="dropdown-item" href="cerrarSesion.jsp" style="font-size: 2vh">Cerrar sesiÃ³n</a>
                                     </div>
                                 </li>
                             </ul>
@@ -77,10 +124,10 @@
                                 <div class="form-row justify-content-center align-content-center"">
                                     <div class="col-md-12">
                                         <h1 class="font-weight-bold">Registrar Tarjeta RFID</h1>
-                                        <p class="text-dark mb-3">Ingresa la siguiente información. </p>
+                                        <p class="text-dark mb-3">Ingresa la siguiente informaciÃ³n. </p>
                                     </div>
                                 </div>
-                                <form action="adm-registrar-auto.jsp" id="formulario" name="formulario" method="POST">
+                                <form action="adm-registrar-rfid.jsp" id="formulario" name="formulario" method="POST">
 
                                     <div class="form-group col-mb-3">
                                         <label class="font-weight-bold">No. Tarjeta: <span class="text-danger">*</span></label>
@@ -88,18 +135,10 @@
                                     </div>
 
                                     <div class="form-group mb-3">
-                                        <label  class="font-weight-bold">Auto Asignado (Placa):</label>
-                                        <select name="auto" class="form-control">
-                                            <option value="1" selected>Opcion 1</option>
-                                            <option value="2">Opcion 2</option>
-                                        </select>
-                                    </div>
-
-                                    <div class="form-group mb-3">
                                         <label class="font-weight-bold">Estado: <span class="text-danger">*</span></label>
                                         <select name="estatusr" class="form-control"> 
-                                            <option value="1" selected>Activo</option>
-                                            <option value="2">Inactivo</option>
+                                            <option value="Activo" selected>Activo</option>
+                                            <option value="Inactivo">Inactivo</option>
                                         </select>
                                     </div>
 
@@ -124,7 +163,7 @@
                 <div class="col">
                     <!-- INTRODUCE AQUI TODO LO DEL FOOTER -->
                     <footer class="page-footer font-small">
-                        <div class="footer-copyright text-center">© 2020 Copyright:
+                        <div class="footer-copyright text-center">Â© 2020 Copyright:
                             <a> Derechos Reservados AWCV</a>
                         </div>
                     </footer>

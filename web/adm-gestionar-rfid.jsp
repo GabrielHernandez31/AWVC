@@ -1,4 +1,64 @@
-
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page import="Modelo.Usuario" %>
+<%@page import="Modelo.RFID" %>
+<%@page import="java.util.List" %>
+<%@page import="java.util.Arrays" %>
+<%
+    /*
+    Asigna un valor a la variable email en caso de que se haya iniciado sesion
+    De lo contrario, deja la variable nula
+    */
+    HttpSession sesion = request.getSession();
+    String email=(String)sesion.getAttribute("email");
+    
+    /*
+    Asigna valores a las variables si existe una sesion.
+    Retoma datos del usuario para poder utilizarlos más adelante
+    */
+    Usuario usuario = new Usuario(email);
+    int id_usu = usuario.getId_usuario();
+    int id_rol = usuario.getId_rol();
+    
+    RFID rfid = new RFID();
+    /*
+    Valida si hay una sesion activa.
+    En caso de que no exista una sesion activa, se redirige al index
+    */
+    if(email==null){
+        response.sendRedirect("index.jsp");
+    }
+    
+    /*
+    ACCIONES
+    */
+    String accion = "", nombre = "", id_rfid="", ubicacion="";
+    
+    if(request.getParameter("accion")!=null){
+        accion = request.getParameter("accion");
+    }
+    if(request.getParameter("nombre")!=null){
+        nombre = request.getParameter("nombre");
+    }
+    if(request.getParameter("ubicacion")!=null){
+        ubicacion = request.getParameter("ubicacion");
+    }
+    if(request.getParameter("id_rfid")!=null){
+        id_rfid = request.getParameter("id_rfid");
+    }
+    switch(accion){
+        case "eliminar":
+            out.print("<script>cancelar=confirm('Se eliminará la RFID con No. de Serie: "+nombre+" ¿Deseas continuar?'); if(cancelar){ window.location.href='adm-eliminar-rfid.jsp?id_rfid="+id_rfid+"'; }else{ window.location.href='adm-gestionar-rfid.jsp'; }</script>");
+        break;
+        case "modificar":
+            HttpSession sesion_act = request.getSession();
+            sesion_act.setAttribute("id_rfid", id_rfid);
+            response.sendRedirect("adm-modificar-rfid.jsp");
+        break;
+        default:
+            
+        break;
+    }
+%>
 <!DOCTYPE html>
 <html lang="es">
     <head>
@@ -51,7 +111,7 @@
                                     </a>
                                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                                         <a class="dropdown-item" href="miCuenta.jsp" style="font-size: 2vh">Consultar</a>
-                                        <a class="dropdown-item" href="cerrarSesion.jsp" style="font-size: 2vh">Cerrar sesi�n</a>
+                                        <a class="dropdown-item" href="cerrarSesion.jsp" style="font-size: 2vh">Cerrar sesión</a>
                                     </div>
                                 </li>
                             </ul>
@@ -98,39 +158,44 @@
                                         <th scope="col">Serial</th>
                                         <th scope="col">Estatus</th>
                                         <th scope="col">Fecha Alta</th>
-                                        <th scope="col">Placa Auto</th>
                                         <th scope="col">Editar</th>
                                         <th scope="col">Eliminar</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                     
+                                    <%  
+                                    if(rfid.existenRFID()){
+                                        String[][] rfids = rfid.consultarRFID();
+                                        
+                                        for( int cuenta = 0; cuenta<rfid.contarRFID(); cuenta++){
+                                    %>  
                                     <tr>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td class="text-center"><a href="#" class="text-primary">
+                                        <td><% out.print(rfids[cuenta][0]); %></td>
+                                        <td><% out.print(rfids[cuenta][1]); %></td>
+                                        <td><% out.print(rfids[cuenta][2]); %></td>
+                                        <td><% out.print(rfids[cuenta][3]); %></td>
+                                        <td class="text-center"><a href="adm-gestionar-rfid.jsp?accion=modificar&id_rfid=<% out.print(rfids[cuenta][0]); %>" class="text-primary">
                                                 <svg width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-pencil-square" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                                                 <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456l-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
                                                 <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/>
                                                 </svg>
                                             </a> 
                                         </td>
-                                        <td class="text-center"><a href="#" class="text-danger">
+                                        <td class="text-center"><a href="adm-gestionar-rfid.jsp?accion=eliminar&id_rfid=<% out.print(rfids[cuenta][0]); %>&nombre=<% out.print(rfids[cuenta][1]); %>" class="text-danger">
                                                 <svg width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-trash-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                                                 <path fill-rule="evenodd" d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5a.5.5 0 0 0-1 0v7a.5.5 0 0 0 1 0v-7z"/>
                                                 </svg>
                                             </a>
                                         </td>
-                                       
                                     </tr>
-                                   
+                                    <%
+                                        } 
+                                     }else{  
+                                    %>
                                     <tr>
-                                        <th colspan="9" style="text-align: center;">No hay tarjetas RFID a�n.</th>
+                                        <th colspan="9" style="text-align: center;">No existen tarjetas RFID aún.</th>
                                     </tr>
-                                    
+                                    <%  } %>
                                 </tbody>
                             </table>
                         </div>
@@ -146,7 +211,7 @@
                 <div class="col">
                     <!-- INTRODUCE AQUI TODO LO DEL FOOTER -->
                     <footer class="page-footer font-small">
-                        <div class="footer-copyright text-center">� 2020 Copyright:
+                        <div class="footer-copyright text-center">© 2020 Copyright:
                             <a> Derechos Reservados AWCV</a>
                         </div>
                     </footer>
