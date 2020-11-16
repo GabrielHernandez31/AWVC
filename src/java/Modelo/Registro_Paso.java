@@ -50,7 +50,7 @@ public class Registro_Paso {
 
     }
 
-    public boolean createCaseta() {
+    public boolean createRegistroPaso() {
         try {
             final String sql = "Insert into registro_paso values (?,?,?,?)";
             Conexion conex = new Conexion();
@@ -61,6 +61,75 @@ public class Registro_Paso {
             insertarUsuario.setString(4, getHora_paso());
             insertarUsuario.executeUpdate();
             return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+    
+    public String[][] consultarRegistrosPasos() {
+        try {
+            final String sql = "Select * from registro_paso";
+            Conexion conex = new Conexion();
+            PreparedStatement consultarProducto = conex.obtenerConnexion().prepareStatement(sql);
+            ResultSet resulProducto = consultarProducto.executeQuery();
+            int cuenta = -1;
+            String[][] arreglo_servicio = new String[contarRegistrosPasos()][4];
+            while (resulProducto.next()) {
+                cuenta++;
+                arreglo_servicio[cuenta][0] = resulProducto.getString("id_rfid");
+                arreglo_servicio[cuenta][1] = resulProducto.getString("id_caseta");
+                arreglo_servicio[cuenta][2] = resulProducto.getString("fecha_paso");
+                arreglo_servicio[cuenta][3] = resulProducto.getString("hora_paso");
+            }
+            consultarProducto.close();
+            resulProducto.close();
+            return arreglo_servicio;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        String[][] arreglo_sinDatos = new String[0][0];
+        return arreglo_sinDatos;
+    }
+
+    public int contarRegistrosPasos() {
+        try {
+            int resultado;
+            final String sql = "Select count(*) from registro_paso";
+            Conexion conex = new Conexion();
+            PreparedStatement consultarProducto = conex.obtenerConnexion().prepareStatement(sql);
+            ResultSet resulProducto = consultarProducto.executeQuery();
+            if (resulProducto.next()) {
+                resultado = resulProducto.getInt("count");
+                consultarProducto.close();
+                resulProducto.close();
+                return resultado;
+            } else {
+                consultarProducto.close();
+                resulProducto.close();
+                return 0;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return 0;
+    }
+
+    public boolean existenRegistrosPasos() {
+        try {
+            final String sql = "Select * from registro_paso";
+            Conexion conex = new Conexion();
+            PreparedStatement consultarProducto = conex.obtenerConnexion().prepareStatement(sql);
+            ResultSet resulProducto = consultarProducto.executeQuery();
+            if (resulProducto.next()) {
+                consultarProducto.close();
+                resulProducto.close();
+                return true;
+            } else {
+                consultarProducto.close();
+                resulProducto.close();
+                return false;
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
