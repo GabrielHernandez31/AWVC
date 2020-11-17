@@ -71,7 +71,7 @@
         case "Guardar":
 
             usuario1.setId_usuario(id_us);
-            String[][] datos = usuario1.consultarUsuariosEmp();
+            String[][] datos = usuario1.consultarUsuariosAdmModificar();
 
             if (tel.equals(datos[0][4])) {
                 if (correo.equals(datos[0][5])) {

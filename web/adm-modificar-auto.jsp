@@ -66,47 +66,40 @@
             auto.setId_auto(id_auto);
             String[][] autos1 = auto.consultarAutomovilesModificar();
             auto.setEstatus_auto(estatus);
+            
             if(empleado.equals("0")){ // SIN EMPLEADO
                 if(rfid.equals("0")){ // SIN RFID
-                    auto.updateAutomovilSinER();
-                    out.print("<script>cancelar=confirm('¡Registro Exitoso!'); if(cancelar){ window.location.href='adm-gestionar-auto.jsp'; }else{ window.location.href='adm-gestionar-auto.jsp'; }</script>");
-                }else if(rfid.equals(autos1[0][7])){ // SIN RFID
-                    auto.updateAutomovilSinER();
-                    out.print("<script>cancelar=confirm('¡Registro Exitoso!'); if(cancelar){ window.location.href='adm-gestionar-auto.jsp'; }else{ window.location.href='adm-gestionar-auto.jsp'; }</script>");
+                    if(auto.updateAutomovilSinER()){
+                        out.print("<script>cancelar=confirm('¡Registro Exitoso!'); if(cancelar){ window.location.href='adm-gestionar-auto.jsp'; }else{ window.location.href='adm-gestionar-auto.jsp'; }</script>");
+                    }else{
+                        out.print("<script>cancelar=confirm('¡Error al registrar SESR!'); if(cancelar){ window.location.href='adm-modificar-auto.jsp'; }else{ window.location.href='adm-modificar-auto.jsp'; }</script>");
+                    }
                 }else{ // CON RFID
                     auto.setId_rfid(Integer.parseInt(rfid));
-                    auto.updateAutomovilR();
-                    out.print("<script>cancelar=confirm('¡Registro Exitoso!'); if(cancelar){ window.location.href='adm-gestionar-auto.jsp'; }else{ window.location.href='adm-gestionar-auto.jsp'; }</script>");
-                }
-            }else if(empleado.equals(autos1[0][6])){ // SIN EMPLEADO
-                if(rfid.equals("0")){ // SIN RFID
-                    auto.updateAutomovilSinER();
-                    out.print("<script>cancelar=confirm('¡Registro Exitoso!'); if(cancelar){ window.location.href='adm-gestionar-auto.jsp'; }else{ window.location.href='adm-gestionar-auto.jsp'; }</script>");
-                }else if(rfid.equals(autos1[0][7])){ // SIN RFID
-                    auto.updateAutomovilSinER();
-                    out.print("<script>cancelar=confirm('¡Registro Exitoso!'); if(cancelar){ window.location.href='adm-gestionar-auto.jsp'; }else{ window.location.href='adm-gestionar-auto.jsp'; }</script>");
-                }else{ // CON RFID
-                    auto.setId_rfid(Integer.parseInt(rfid));
-                    auto.updateAutomovilR();
-                    out.print("<script>cancelar=confirm('¡Registro Exitoso!'); if(cancelar){ window.location.href='adm-gestionar-auto.jsp'; }else{ window.location.href='adm-gestionar-auto.jsp'; }</script>");
+                    if(auto.updateAutomovilR()){
+                        out.print("<script>cancelar=confirm('¡Registro Exitoso!'); if(cancelar){ window.location.href='adm-gestionar-auto.jsp'; }else{ window.location.href='adm-gestionar-auto.jsp'; }</script>");
+                    }else{
+                        out.print("<script>cancelar=confirm('¡Error al registrar SECR!'); if(cancelar){ window.location.href='adm-modificar-auto.jsp'; }else{ window.location.href='adm-modificar-auto.jsp'; }</script>");
+                    }
                 }
             }else{ // CON EMPLEADO
                 if(rfid.equals("0")){ // SIN RFID
                     auto.setId_usuario(Integer.parseInt(empleado));
-                    auto.updateAutomovilE();
-                    out.print("<script>cancelar=confirm('¡Registro Exitoso!'); if(cancelar){ window.location.href='adm-gestionar-auto.jsp'; }else{ window.location.href='adm-gestionar-auto.jsp'; }</script>");
-                }else if(rfid.equals(autos1[0][7])){ // SIN RFID
-                    auto.setId_usuario(Integer.parseInt(empleado));
-                    auto.updateAutomovilE();
-                    out.print("<script>cancelar=confirm('¡Registro Exitoso!'); if(cancelar){ window.location.href='adm-gestionar-auto.jsp'; }else{ window.location.href='adm-gestionar-auto.jsp'; }</script>");
+                    if(auto.updateAutomovilE()){
+                        out.print("<script>cancelar=confirm('¡Registro Exitoso!'); if(cancelar){ window.location.href='adm-gestionar-auto.jsp'; }else{ window.location.href='adm-gestionar-auto.jsp'; }</script>");
+                    }else{
+                        out.print("<script>cancelar=confirm('¡Error al registrar SECR!'); if(cancelar){ window.location.href='adm-modificar-auto.jsp'; }else{ window.location.href='adm-modificar-auto.jsp'; }</script>");
+                    }
                 }else{ // CON RFID
                     auto.setId_usuario(Integer.parseInt(empleado));
                     auto.setId_rfid(Integer.parseInt(rfid));
-                    auto.updateAutomovilConER();
-                    out.print("<script>cancelar=confirm('¡Registro Exitoso!'); if(cancelar){ window.location.href='adm-gestionar-auto.jsp'; }else{ window.location.href='adm-gestionar-auto.jsp'; }</script>");
+                    if(auto.updateAutomovilConER()){
+                        out.print("<script>cancelar=confirm('¡Registro Exitoso!'); if(cancelar){ window.location.href='adm-gestionar-auto.jsp'; }else{ window.location.href='adm-gestionar-auto.jsp'; }</script>");
+                    }else{
+                        out.print("<script>cancelar=confirm('¡Error al registrar SECR!'); if(cancelar){ window.location.href='adm-modificar-auto.jsp'; }else{ window.location.href='adm-modificar-auto.jsp'; }</script>");
+                    }
                 }
             }
-
             break;
         default:
 
@@ -261,10 +254,10 @@
                                             %>
                                                         <option value="<% out.print(emple[cuenta][0]); %>"><% out.print(emple[cuenta][1] + " " + emple[cuenta][2] + " " + emple[cuenta][3].charAt(0)+"."); %></option>
                                             <%      } 
-                                                    if(autos[0][6]=="Sin asignar aun."){ %>
+                                                    if(usuario.obtenerNombreUsuario(autos[0][6]).equals("Sin asignar aun.")){ %>
                                                         <option value="0" selected="">Sin asignar aún.</option>
                                                 <%  }else{ %>
-                                                        <option value="<% out.print(autos[0][6]); %>" selected=""><% out.print(autos[0][6]); %></option>
+                                                        <option value="<% out.print(autos[0][6]); %>" selected=""><% out.print(usuario.obtenerNombreUsuario(autos[0][6])); %></option>
                                                         <option value="0">Sin asignar aún.</option>
                                                 <%  } %>          
                                             <%  }else{ %>
@@ -284,10 +277,10 @@
                                             %>
                                                         <option value="<% out.print(rfids[cuenta][0]); %>"><% out.print(rfids[cuenta][1]); %></option>
                                             <%      } 
-                                                    if(autos[0][7]=="Sin asignar aun."){ %>
+                                                    if(Rfid.obtenerNombreRFID(autos[0][7]).equals("Sin asignar aun.")){ %>
                                                         <option value="0" selected="">Sin asignar aún.</option>
                                                 <%  }else{ %>
-                                                        <option value="<% out.print(autos[0][7]); %>" selected="" ><% out.print(autos[0][7]); %></option>
+                                                        <option value="<% out.print(autos[0][7]); %>" selected="" ><% out.print(Rfid.obtenerNombreRFID(autos[0][7])); %></option>
                                                         <option value="0">Sin asignar aún.</option>
                                                 <%  } %> 
                                             <%  }else{ %>

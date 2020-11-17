@@ -156,7 +156,7 @@ public class Usuario {
             insertarUsuario.setString(3, getApm_usuario());
             insertarUsuario.setString(4, getTelefono_usuario());
             insertarUsuario.setString(5, getCorreo_usuario());
-            insertarUsuario.setString(6, getPassword_usuario());
+            insertarUsuario.setString(6, generarPassword());
             insertarUsuario.setInt(7, getId_rol());
             insertarUsuario.executeUpdate();
             insertarUsuario.close();
@@ -166,6 +166,33 @@ public class Usuario {
             e.printStackTrace();
         }
         return false;
+    }
+    
+    public int obtenerIdUsuarioRegistro() {
+        try {
+            final String sql = "Select * from usuario where correo_usuario = ?";
+            Conexion con = new Conexion();
+            PreparedStatement existenCategorias = con.obtenerConnexion().prepareStatement(sql);
+            existenCategorias.setString(1, getCorreo_usuario());
+            ResultSet resulExistenCategorias = existenCategorias.executeQuery();
+            if (resulExistenCategorias.next()) {
+                int nombre = resulExistenCategorias.getInt("id_usuario");
+                resulExistenCategorias.close();
+                existenCategorias.close();
+                con.obtenerConnexion().close();
+                return nombre;
+            } else {
+                int nombre2 = 0;
+                resulExistenCategorias.close();
+                existenCategorias.close();
+                con.obtenerConnexion().close();
+                return nombre2;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        int nombre3 = 0;
+        return nombre3;
     }
 
     /*
@@ -421,7 +448,7 @@ public class Usuario {
 
     public String[][] consultarUsuariosAdm() {
         try {
-            final String sql = "Select * from usuario";
+            final String sql = "Select * from usuario where estado_usuario NOT LIKE '%Baja%' and id_rol=2";
             Conexion con = new Conexion();
             PreparedStatement consultarProducto = con.obtenerConnexion().prepareStatement(sql);
             ResultSet resulProducto = consultarProducto.executeQuery();
@@ -458,7 +485,7 @@ public class Usuario {
             consultarProducto.setInt(1, id_usuario);
             ResultSet resulProducto = consultarProducto.executeQuery();
             int cuenta = -1;
-            String[][] arreglo_servicio = new String[contarUsuariosAdm()][8];
+            String[][] arreglo_servicio = new String[contarUsuariosAdm()][9];
             while (resulProducto.next()) {
                 cuenta++;
                 arreglo_servicio[cuenta][0] = resulProducto.getString("id_usuario");
@@ -469,7 +496,8 @@ public class Usuario {
                 arreglo_servicio[cuenta][5] = resulProducto.getString("correo_usuario");
                 Rol_Usuario rol = new Rol_Usuario();
                 arreglo_servicio[cuenta][6] = rol.obtenerNombreRol(resulProducto.getString("id_rol"));
-                arreglo_servicio[cuenta][7] = resulProducto.getString("estado_usuario");
+                arreglo_servicio[cuenta][7] = desencriptarPasswordUsuario();
+                arreglo_servicio[cuenta][8] = resulProducto.getString("estado_usuario");
             }
             consultarProducto.close();
             resulProducto.close();
@@ -481,11 +509,38 @@ public class Usuario {
         String[][] arreglo_sinDatos = new String[0][0];
         return arreglo_sinDatos;
     }
+    
+        public String desencriptarPasswordUsuario(){
+        try {
+            final String sql = "Select pgp_sym_decrypt(password_usuario::bytea, 'AES_KEY') as password from usuario where id_usuario = ?";
+            Conexion con = new Conexion();
+            PreparedStatement existenCategorias = con.obtenerConnexion().prepareStatement(sql);
+            existenCategorias.setInt(1, id_usuario);
+            ResultSet resulExistenCategorias = existenCategorias.executeQuery();
+            if (resulExistenCategorias.next()) {
+                String password = resulExistenCategorias.getString("password");
+                resulExistenCategorias.close();
+                existenCategorias.close();
+                con.obtenerConnexion().close();
+                return password;
+            } else {
+                String error = "error";
+                resulExistenCategorias.close();
+                existenCategorias.close();
+                con.obtenerConnexion().close();
+                return error;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        String er1 = "error";
+        return er1;
+    }
 
     public int contarUsuariosAdm() {
         try {
             int resultado;
-            final String sql = "Select count(*) from usuario";
+            final String sql = "Select count(*) from usuario where estado_usuario NOT LIKE '%Baja%' and id_rol=2";
             Conexion con = new Conexion();
             PreparedStatement consultarProducto = con.obtenerConnexion().prepareStatement(sql);
             ResultSet resulProducto = consultarProducto.executeQuery();
@@ -506,7 +561,7 @@ public class Usuario {
 
     public boolean existenUsuariosAdm() {
         try {
-            final String sql = "Select * from usuario";
+            final String sql = "Select * from usuario where estado_usuario NOT LIKE '%Baja%' and id_rol=2";
             Conexion con = new Conexion();
             PreparedStatement consultarProducto = con.obtenerConnexion().prepareStatement(sql);
             ResultSet resulProducto = consultarProducto.executeQuery();
@@ -611,7 +666,7 @@ public class Usuario {
     
     public String[][] consultarUsuariosAuto() {
         try {
-            final String sql = "Select * from usuario as usu where estado_usuario NOT LIKE 'Baja' and id_rol = 2 and not exists (select id_usuario from automovil as auto where usu.id_usuario=auto.id_usuario);";
+            final String sql = "Select * from usuario as usu where estado_usuario NOT LIKE '%Baja%' and id_rol = 2 and not exists (select id_usuario from automovil as auto where usu.id_usuario=auto.id_usuario)";
             Conexion con = new Conexion();
             PreparedStatement consultarProducto = con.obtenerConnexion().prepareStatement(sql);
             ResultSet resulProducto = consultarProducto.executeQuery();
@@ -638,7 +693,7 @@ public class Usuario {
     public int contarUsuariosAuto() {
         try {
             int resultado;
-            final String sql = "Select count(*) from usuario as usu where estado_usuario NOT LIKE 'Baja' and id_rol = 2 and not exists (select id_usuario from automovil as auto where usu.id_usuario=auto.id_usuario);";
+            final String sql = "Select count(*) from usuario as usu where estado_usuario NOT LIKE '%Baja%' and id_rol = 2 and not exists (select id_usuario from automovil as auto where usu.id_usuario=auto.id_usuario)";
             Conexion con = new Conexion();
             PreparedStatement consultarProducto = con.obtenerConnexion().prepareStatement(sql);
             ResultSet resulProducto = consultarProducto.executeQuery();
@@ -662,7 +717,7 @@ public class Usuario {
 
     public boolean existenUsuariosAuto() {
         try {
-            final String sql = "Select * from usuario as usu where estado_usuario NOT LIKE 'Baja' and id_rol = 2 and not exists (select id_usuario from automovil as auto where usu.id_usuario=auto.id_usuario);";
+            final String sql = "Select * from usuario where estado_usuario NOT LIKE '%Baja%' and id_rol = 2";
             Conexion con = new Conexion();
             PreparedStatement consultarProducto = con.obtenerConnexion().prepareStatement(sql);
             ResultSet resulProducto = consultarProducto.executeQuery();

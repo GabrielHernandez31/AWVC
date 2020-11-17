@@ -66,7 +66,7 @@ public class Caseta {
 
     public boolean createCaseta() {
         try {
-            final String sql = "Insert into caseta values (default,?,?,?)";
+            final String sql = "Insert into caseta values (default,?,?,?,default)";
             Conexion conex = new Conexion();
             PreparedStatement insertarUsuario = conex.obtenerConnexion().prepareStatement(sql);
             insertarUsuario.setString(1, getNombre_caseta());
@@ -108,7 +108,7 @@ public class Caseta {
 
     public boolean updateCaseta() {
         try {
-            final String sql = "Update caseta set nombre_caseta=?, costo_caseta=? where id_caseta= ?";
+            final String sql = "Update caseta set nombre_caseta=?, costo_caseta=?, estado_caseta=? where id_caseta= ?";
             Conexion conex = new Conexion();
             PreparedStatement actualizarUsuario = conex.obtenerConnexion().prepareStatement(sql);
             actualizarUsuario.setString(1, getNombre_caseta());
@@ -147,13 +147,14 @@ public class Caseta {
             PreparedStatement consultarProducto = conex.obtenerConnexion().prepareStatement(sql);
             ResultSet resulProducto = consultarProducto.executeQuery();
             int cuenta = -1;
-            String[][] arreglo_servicio = new String[contarCasetas()][4];
+            String[][] arreglo_servicio = new String[contarCasetas()][5];
             while (resulProducto.next()) {
                 cuenta++;
                 arreglo_servicio[cuenta][0] = resulProducto.getString("id_caseta");
                 arreglo_servicio[cuenta][1] = resulProducto.getString("nombre_caseta");
                 arreglo_servicio[cuenta][2] = resulProducto.getString("ubicacion_caseta");
                 arreglo_servicio[cuenta][3] = resulProducto.getString("costo_caseta");
+                arreglo_servicio[cuenta][4] = resulProducto.getString("estado_caseta");
             }
             consultarProducto.close();
             resulProducto.close();
@@ -174,13 +175,14 @@ public class Caseta {
             consultarProducto.setInt(1, getId_caseta());
             ResultSet resulProducto = consultarProducto.executeQuery();
             int cuenta = -1;
-            String[][] arreglo_servicio = new String[contarCasetas()][4];
+            String[][] arreglo_servicio = new String[contarCasetas()][5];
             while (resulProducto.next()) {
                 cuenta++;
                 arreglo_servicio[cuenta][0] = resulProducto.getString("id_caseta");
                 arreglo_servicio[cuenta][1] = resulProducto.getString("nombre_caseta");
                 arreglo_servicio[cuenta][2] = resulProducto.getString("ubicacion_caseta");
                 arreglo_servicio[cuenta][3] = resulProducto.getString("costo_caseta");
+                arreglo_servicio[cuenta][4] = resulProducto.getString("estado_caseta");
             }
             consultarProducto.close();
             resulProducto.close();

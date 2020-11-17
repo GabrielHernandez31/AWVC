@@ -141,7 +141,7 @@
                                         <label class="font-weight-bold">Estatus: <span class="text-danger">*</span></label>
                                         <select name="estatusCas" class="form-control">
                                             <option value="Activo" selected>Activa</option>
-                                            <option value="Inactivo" selected>Inactiva</option>
+                                            <option value="Inactivo">Inactiva</option>
                                             <option value="Baja">Baja</option>
                                         </select>
                                     </div>
