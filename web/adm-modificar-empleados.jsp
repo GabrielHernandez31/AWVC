@@ -31,7 +31,7 @@
     /*
     MODIFICAR EMPLEADO
      */
-    String accion = "", nombre = "", app = "", apm = "", tel = "", correo = "", password = "";
+    String accion = "", nombre = "", app = "", apm = "", tel = "", correo = "", password = "", estatus="";
     int rol = 0;
 
     if (request.getParameter("accion") != null) {
@@ -55,6 +55,9 @@
     if (request.getParameter("txtContra") != null) {
         password = request.getParameter("txtContra");
     }
+    if (request.getParameter("txtEstatusUs") != null) {
+        estatus = request.getParameter("txtEstatusUs");
+    }
     if (request.getParameter("txtRol") != null) {
         rol = Integer.parseInt(request.getParameter("txtRol"));
     }
@@ -75,12 +78,14 @@
                     if (password.equals("")) {
                         usuario1.setPassword_usuario(datos[0][7]);
                         usuario1.setId_rol(rol);
+                        usuario1.setEstatus_usuario(estatus);
                         usuario1.setId_usuario(Integer.parseInt(datos[0][0]));
                         usuario1.updateUsuarioSCST();
                         out.print("<script>cancelar=confirm('¡Registro Exitoso!'); if(cancelar){ window.location.href='adm-gestionar-empleados.jsp'; }else{ window.location.href='adm-gestionar-empleados.jsp'; }</script>");
                     } else {
                         usuario1.setPassword_usuario(password);
                         usuario1.setId_rol(rol);
+                        usuario1.setEstatus_usuario(estatus);
                         usuario1.setId_usuario(Integer.parseInt(datos[0][0]));
                         usuario1.updateUsuarioSCST();
                         out.print("<script>cancelar=confirm('¡Registro Exitoso!'); if(cancelar){ window.location.href='adm-gestionar-empleados.jsp'; }else{ window.location.href='adm-gestionar-empleados.jsp'; }</script>");
@@ -92,6 +97,7 @@
                             usuario1.setCorreo_usuario(correo);
                             usuario1.setPassword_usuario(datos[0][7]);
                             usuario1.setId_rol(rol);
+                            usuario1.setEstatus_usuario(estatus);
                             usuario1.setId_usuario(Integer.parseInt(datos[0][0]));
                             usuario1.updateUsuarioCCST();
                             out.print("<script>cancelar=confirm('¡Registro Exitoso!'); if(cancelar){ window.location.href='adm-gestionar-empleados.jsp'; }else{ window.location.href='adm-gestionar-empleados.jsp'; }</script>");
@@ -99,6 +105,7 @@
                             usuario1.setCorreo_usuario(correo);
                             usuario1.setPassword_usuario(password);
                             usuario1.setId_rol(rol);
+                            usuario1.setEstatus_usuario(estatus);
                             usuario1.setId_usuario(Integer.parseInt(datos[0][0]));
                             usuario1.updateUsuarioCCST();
                             out.print("<script>cancelar=confirm('¡Registro Exitoso!'); if(cancelar){ window.location.href='adm-gestionar-empleados.jsp'; }else{ window.location.href='adm-gestionar-empleados.jsp'; }</script>");
@@ -115,6 +122,7 @@
                             usuario1.setTelefono_usuario(tel);
                             usuario1.setPassword_usuario(datos[0][7]);
                             usuario1.setId_rol(rol);
+                            usuario1.setEstatus_usuario(estatus);
                             usuario1.setId_usuario(Integer.parseInt(datos[0][0]));
                             usuario1.updateUsuarioSCCT();
                             out.print("<script>cancelar=confirm('¡Registro Exitoso!'); if(cancelar){ window.location.href='adm-gestionar-empleados.jsp'; }else{ window.location.href='adm-gestionar-empleados.jsp'; }</script>");
@@ -122,6 +130,7 @@
                             usuario1.setTelefono_usuario(tel);
                             usuario1.setPassword_usuario(password);
                             usuario1.setId_rol(rol);
+                            usuario1.setEstatus_usuario(estatus);
                             usuario1.setId_usuario(Integer.parseInt(datos[0][0]));
                             usuario1.updateUsuarioSCCT();
                             out.print("<script>cancelar=confirm('¡Registro Exitoso!'); if(cancelar){ window.location.href='adm-gestionar-empleados.jsp'; }else{ window.location.href='adm-gestionar-empleados.jsp'; }</script>");
@@ -139,6 +148,7 @@
                                 usuario1.setCorreo_usuario(correo);
                                 usuario1.setPassword_usuario(datos[0][7]);
                                 usuario1.setId_rol(rol);
+                                usuario1.setEstatus_usuario(estatus);
                                 usuario1.setId_usuario(Integer.parseInt(datos[0][0]));
                                 usuario1.updateUsuarioCCCT();
                                 out.print("<script>cancelar=confirm('¡Registro Exitoso!'); if(cancelar){ window.location.href='adm-gestionar-empleados.jsp'; }else{ window.location.href='adm-gestionar-empleados.jsp'; }</script>");
@@ -147,6 +157,7 @@
                                 usuario1.setCorreo_usuario(correo);
                                 usuario1.setPassword_usuario(password);
                                 usuario1.setId_rol(rol);
+                                usuario1.setEstatus_usuario(estatus);
                                 usuario1.setId_usuario(Integer.parseInt(datos[0][0]));
                                 usuario1.updateUsuarioCCCT();
                                 out.print("<script>cancelar=confirm('¡Registro Exitoso!'); if(cancelar){ window.location.href='adm-gestionar-empleados.jsp'; }else{ window.location.href='adm-gestionar-empleados.jsp'; }</script>");
@@ -252,7 +263,7 @@
                                 </div>
                                 <%
                                     usuario1.setId_usuario(id_us);
-                                    String[][] usuarios = usuario1.consultarUsuariosEmp();
+                                    String[][] usuarios = usuario1.consultarUsuariosAdmModificar();
                                 %>
                                 <form action="adm-modificar-empleados.jsp" id="" name="formulario" method="POST">
                                     <div class="form-row mb">
@@ -291,9 +302,14 @@
                                     </div>
                                     <div class="form-group mb-3">
                                         <label  class="font-weight-bold">Estatus:</label>
-                                        <select name="txtEstatusUs" class="form-control"> 
-                                            <option value="1" selected>Activo</option>
-                                            <option value="2">Baja</option>
+                                        <select name="txtEstatusUs" class="form-control">
+                                            <% if (usuarios[0][7].equals("Activo")) { %>
+                                            <option value="Activo" selected>Activo</option>
+                                            <option value="Baja" >Baja</option>
+                                            <% } else { %>
+                                            <option value="Activo" >Activo</option>
+                                            <option value="Baja" selected>Baja</option>
+                                            <% } %>
                                         </select>
                                     </div>
                                     <div class="form-group mb-3">

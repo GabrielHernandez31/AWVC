@@ -148,7 +148,7 @@ public class Usuario {
      */
     public boolean createUsuario() {
         try {
-            final String sql = "Insert into usuario values (default,?,?,?,?,?,?,?)";
+            final String sql = "Insert into usuario values (default,?,?,?,?,?,PGP_SYM_ENCRYPT(?,'AES_KEY'),default,?)";
             Conexion conex = new Conexion();
             PreparedStatement insertarUsuario = conex.obtenerConnexion().prepareStatement(sql);
             insertarUsuario.setString(1, getNombre_usuario());
@@ -259,7 +259,7 @@ public class Usuario {
      */
     public boolean updateUsuarioCCCT() {
         try {
-            final String sql = "Update usuario set telefono_usuario = ?, correo_usuario = ?, password_usuario = ?, estado_usuario = ?, id_rol = ? where id_usuario = ?";
+            final String sql = "Update usuario set telefono_usuario = ?, correo_usuario = ?, password_usuario = PGP_SYM_ENCRYPT(?,'AES_KEY'), estado_usuario = ?, id_rol = ? where id_usuario = ?";
             Conexion con = new Conexion();
             PreparedStatement actualizarUsuario = con.obtenerConnexion().prepareStatement(sql);
             actualizarUsuario.setString(1, telefono_usuario);
@@ -283,7 +283,7 @@ public class Usuario {
      */
     public boolean updateUsuarioCCST() {
         try {
-            final String sql = "Update usuario set correo_usuario = ?, password_usuario = ?, estado_usuario = ?, id_rol = ? where id_usuario = ?";
+            final String sql = "Update usuario set correo_usuario = ?, password_usuario = PGP_SYM_ENCRYPT(?,'AES_KEY'), estado_usuario = ?, id_rol = ? where id_usuario = ?";
             Conexion con = new Conexion();
             PreparedStatement actualizarUsuario = con.obtenerConnexion().prepareStatement(sql);
             actualizarUsuario.setString(1, correo_usuario);
@@ -306,7 +306,7 @@ public class Usuario {
      */
     public boolean updateUsuarioSCST() {
         try {
-            final String sql = "Update usuario set password_usuario = ?, estado_usuario = ?, id_rol = ? where id_usuario = ?";
+            final String sql = "Update usuario set password_usuario = PGP_SYM_ENCRYPT(?,'AES_KEY'), estado_usuario = ?, id_rol = ? where id_usuario = ?";
             Conexion con = new Conexion();
             PreparedStatement actualizarUsuario = con.obtenerConnexion().prepareStatement(sql);
             actualizarUsuario.setString(1, password_usuario);
@@ -328,7 +328,7 @@ public class Usuario {
      */
     public boolean updateUsuarioSCCT() {
         try {
-            final String sql = "Update usuario set telefono_usuario = ?, password_usuario = ?, estado_usuario = ?, id_rol = ? where id_usuario = ?";
+            final String sql = "Update usuario set telefono_usuario = ?, password_usuario = PGP_SYM_ENCRYPT(?,'AES_KEY'), estado_usuario = ?, id_rol = ? where id_usuario = ?";
             Conexion con = new Conexion();
             PreparedStatement actualizarUsuario = con.obtenerConnexion().prepareStatement(sql);
             actualizarUsuario.setString(1, telefono_usuario);
@@ -437,7 +437,39 @@ public class Usuario {
                 arreglo_servicio[cuenta][5] = resulProducto.getString("correo_usuario");
                 Rol_Usuario rol = new Rol_Usuario();
                 arreglo_servicio[cuenta][6] = rol.obtenerNombreRol(resulProducto.getString("id_rol"));
-                arreglo_servicio[cuenta][7] = resulProducto.getString("password_usuario");
+                arreglo_servicio[cuenta][7] = resulProducto.getString("estado_usuario");
+            }
+            consultarProducto.close();
+            resulProducto.close();
+            con.obtenerConnexion().close();
+            return arreglo_servicio;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        String[][] arreglo_sinDatos = new String[0][0];
+        return arreglo_sinDatos;
+    }
+    
+    public String[][] consultarUsuariosAdmModificar() {
+        try {
+            final String sql = "Select * from usuario where id_usuario = ?";
+            Conexion con = new Conexion();
+            PreparedStatement consultarProducto = con.obtenerConnexion().prepareStatement(sql);
+            consultarProducto.setInt(1, id_usuario);
+            ResultSet resulProducto = consultarProducto.executeQuery();
+            int cuenta = -1;
+            String[][] arreglo_servicio = new String[contarUsuariosAdm()][8];
+            while (resulProducto.next()) {
+                cuenta++;
+                arreglo_servicio[cuenta][0] = resulProducto.getString("id_usuario");
+                arreglo_servicio[cuenta][1] = resulProducto.getString("nombre_usuario");
+                arreglo_servicio[cuenta][2] = resulProducto.getString("app_usuario");
+                arreglo_servicio[cuenta][3] = resulProducto.getString("apm_usuario");
+                arreglo_servicio[cuenta][4] = resulProducto.getString("telefono_usuario");
+                arreglo_servicio[cuenta][5] = resulProducto.getString("correo_usuario");
+                Rol_Usuario rol = new Rol_Usuario();
+                arreglo_servicio[cuenta][6] = rol.obtenerNombreRol(resulProducto.getString("id_rol"));
+                arreglo_servicio[cuenta][7] = resulProducto.getString("estado_usuario");
             }
             consultarProducto.close();
             resulProducto.close();
@@ -651,8 +683,8 @@ public class Usuario {
         return false;
     }
     
-    public String GenerarContraseña(){
-        String[] symbols = {"0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z", "!", "#", "$", "%", "&", "*", "-", "_", "@", "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"};             
+    public String generarPassword(){
+        String[] symbols = {"0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z", "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"};             
         int length = 10;
         Random random;
         try {

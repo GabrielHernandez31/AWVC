@@ -167,7 +167,7 @@
                                         <td><% out.print(usuarios[cuenta][4]); %></td>
                                         <td><% out.print(usuarios[cuenta][5]); %></td>
                                         <td><% out.print(usuarios[cuenta][6]); %></td>
-                                        <td></td>
+                                        <td><% out.print(usuarios[cuenta][7]); %></td>
                                         <% if(usuarios[cuenta][5].equals(email)){ %>
                                         <td colspan="2" class="bg-warning"><a href="#">(Tu cuenta)</a></td>
                                         <% }else{ %>

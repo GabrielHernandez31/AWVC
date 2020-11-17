@@ -23,8 +23,8 @@
     if (request.getParameter("txtCorreo") != null) {
         correo = request.getParameter("txtCorreo");
     }
-    if (request.getParameter("txtContra") != null) {
-        password = request.getParameter("txtContra");
+    if (request.getParameter("txtPass") != null) {
+        password = request.getParameter("txtPass");
     }
     if (request.getParameter("txtRol") != null) {
         rol = Integer.parseInt(request.getParameter("txtRol"));
@@ -42,9 +42,11 @@
                 usuario.setPassword_usuario(password);
                 usuario.setId_rol(rol);
 
-                usuario.createUsuario();
-
-                out.print("<script>cancelar=confirm('¡Registro Exitoso!'); if(cancelar){ window.location.href='adm-gestionar-empleados.jsp'; }else{ window.location.href='adm-gestionar-empleados.jsp'; }</script>");
+                if(usuario.createUsuario()){
+                    out.print("<script>cancelar=confirm('¡Registro Exitoso!'); if(cancelar){ window.location.href='adm-gestionar-empleados.jsp'; }else{ window.location.href='adm-gestionar-empleados.jsp'; }</script>");
+                }else{
+                    out.print("<script>cancelar=confirm('¡Error al registrar!'); if(cancelar){ window.location.href='adm-registrar-empleados.jsp'; }else{ window.location.href='adm-registrar-empleados.jsp'; }</script>");
+                }
             } else {
                 out.print("<script>cancelar=confirm('El correo ya existe!'); if(cancelar){ window.location.href='adm-registrar-empleados.jsp'; }else{ window.location.href='adm-registrar-empleados.jsp'; }</script>");
             }
@@ -183,7 +185,7 @@
                                     
                                     <div class="form-group mb-3">
                                         <label  class="font-weight-bold">Password: <span class="text-danger">*</span></label>
-                                        <input name="txtPass" type="text" class="form-control" placeholder="Ingresa tu correo electrónico" disabled=""/>
+                                        <input name="txtPass" type="text" class="form-control" value="<% out.print(usuario.generarPassword()); %>" disabled=""/>
                                     </div>
 
                                     <div class="form-row mb justify-content-center">
