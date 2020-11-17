@@ -128,7 +128,7 @@
 
         <link href="css/are.css" rel="stylesheet">
        <script src="script/validar.js"></script>
-        <title>Modificar Automovil</title>
+        <title>Modificar Automóvil</title>
     </head>
     <body>
 

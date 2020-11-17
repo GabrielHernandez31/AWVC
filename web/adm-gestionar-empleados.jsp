@@ -123,23 +123,10 @@
             <!-- CUERPO DE LA PAGINA -->
             <div class="row justify-content-center" style="min-height: 80vh">
 
-                <div class="container col-md-12 col-lg-10">
-                    <div class="row col-12">
-                        <div class="col-xl-12 text-center">
-                            <h1 class="text-dark">Gestionar Empleado</h1>
-                        </div>
-                    </div>
-
+                <div class="container col-md-12 col-lg-10" style="margin-top: 10px">
                     <div class="row  bg-info justify-content-center">
                         <div class="col-12 col-md-8" style="padding-top: 1vh;padding-bottom: 1vh">
-                            <label class="font-weight-bold col-12 col-md-2">Buscar:</label>
-                            <input name="txtBusGE" type="password" class="form-con col-12 col-md-3" placeholder="Buscar..." required>
-                            <label  class="font-weight-bold col-2 col-md-1">Por:</label>
-                            <select name="selectge" class="form-con col-9 col-md-4">
-                                <option value="0" disabled selected>Elegir</option> 
-                                <option value="1">ID</option>
-                                <option value="2">Correo</option>
-                            </select>
+                           <h1 class="text-withe">Gestionar Empleado</h1>
                         </div>
                         <div class="col-12 col-md-4 text-center" style="padding-top: 1vh;padding-bottom: 1vh">
                             <a href="adm-registrar-empleados.jsp" class="btn btn-success"><i class="fas fa-user-plus text-secondary-lg" style="width: 5vh"></i>Agregar </a>
@@ -158,6 +145,7 @@
                                         <th scope="col">Telefono</th>
                                         <th scope="col">Correo</th>
                                         <th scope="col">Rol</th>
+                                        <th scope="col">Estatus</th>
                                         <th scope="col">Editar</th>
                                         <th scope="col">Eliminar</th>
                                     </tr>
@@ -179,6 +167,7 @@
                                         <td><% out.print(usuarios[cuenta][4]); %></td>
                                         <td><% out.print(usuarios[cuenta][5]); %></td>
                                         <td><% out.print(usuarios[cuenta][6]); %></td>
+                                        <td></td>
                                         <% if(usuarios[cuenta][5].equals(email)){ %>
                                         <td colspan="2" class="bg-warning"><a href="#">(Tu cuenta)</a></td>
                                         <% }else{ %>

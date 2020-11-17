@@ -152,14 +152,16 @@
                                     </div>
 
                                     <div class="form-group mb-3">
-                                        <label class="font-weight-bold">Estado: <span class="text-danger">*</span></label>
+                                        <label class="font-weight-bold">Estatus: <span class="text-danger">*</span></label>
                                         <select name="estatusr" class="form-control">
                                         <%  if(rfids[0][2].equals("Activo")) { %>
                                             <option value="Activo" selected>Activo</option>
                                             <option value="Inactivo">Inactivo</option>
+                                            <option value="Baja">Baja</option>
                                         <%  }else { %>
                                             <option value="Activo" >Activo</option>
                                             <option value="Inactivo" selected>Inactivo</option>
+                                            <option value="Baja">Baja</option>
                                         <%  }  %>
                                         </select>
                                     </div>

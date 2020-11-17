@@ -143,11 +143,11 @@
                                             <input name="txtNombre" type="text" class="form-control" placeholder="Tu nombre" required onblur="vtxt(this)">
                                         </div>
                                         <div class="form-group col-md-4">
-                                            <label class="font-weight-bold">A. Paterno <span class="text-danger">*</span></label>
+                                            <label class="font-weight-bold">A. Paterno: <span class="text-danger">*</span></label>
                                             <input name="txtAp_pat" type="text" class="form-control" placeholder="Tu apellido" required onblur="vtxt(this)">
                                         </div>
                                         <div class="form-group col-md-4">
-                                            <label class="font-weight-bold">A. Materno <span class="text-danger">*</span></label>
+                                            <label class="font-weight-bold">A. Materno: <span class="text-danger">*</span></label>
                                             <input name="txtAp_mat" type="text" class="form-control" placeholder="Tu apellido" required  onblur="vtxt(this)">
                                         </div>
                                     </div>
@@ -156,14 +156,14 @@
                                         <span class="text-dark">Debe ingresar solo letras de "A-Z" y no mas de 35 letras</span>
                                     </div>
                                     <div class="form-group mb-3">
-                                        <label  class="font-weight-bold">Rol<span class="text-danger">*</span></label>
+                                        <label  class="font-weight-bold">Rol:<span class="text-danger">*</span></label>
                                         <select name="txtRol" class="form-control"> 
                                             <option value="1">Administrador</option>
                                             <option value="2" selected>Empleado</option>
                                         </select>
                                     </div>
                                     <div class="form-group mb-3">
-                                        <label  class="font-weight-bold">Telefono<span class="text-danger">*</span></label>
+                                        <label  class="font-weight-bold">Telefono:<span class="text-danger">*</span></label>
                                         <input name="txtTel" type="text" class="form-control" placeholder="Ingresa tu telefono" required onblur="vtel(this)">
                                     </div>
                                     
@@ -173,12 +173,17 @@
                                     </div>
                                     
                                     <div class="form-group mb-3">
-                                        <label  class="font-weight-bold">Correo electrónico <span class="text-danger">*</span></label>
+                                        <label  class="font-weight-bold">Correo electrónico: <span class="text-danger">*</span></label>
                                         <input name="txtCorreo" type="email" class="form-control" placeholder="Ingresa tu correo electrónico" required onblur="vemail(this)">
                                     </div>
                                     
                                     <div class="form-group mb-3" id="messagec" hidden>
                                         <span class="text-dark">El formato del correo no es valido verifique sus datos</span>
+                                    </div>
+                                    
+                                    <div class="form-group mb-3">
+                                        <label  class="font-weight-bold">Password: <span class="text-danger">*</span></label>
+                                        <input name="txtPass" type="text" class="form-control" placeholder="Ingresa tu correo electrónico" disabled=""/>
                                     </div>
 
                                     <div class="form-row mb justify-content-center">

@@ -179,10 +179,9 @@
                                     </div>
                                     
                                     <div class="form-group mb-3">
-                                        <label class="font-weight-bold">Estado: <span class="text-danger">*</span></label>
+                                        <label class="font-weight-bold">Estatus: <span class="text-danger">*</span></label>
                                         <select name="estatus" class="form-control"> 
                                             <option value="Activo" selected>Activo</option>
-                                            <option value="Mantenimiento">Mantenimiento</option>
                                             <option value="Inactivo">Inactivo</option>
                                         </select>
                                     </div>
