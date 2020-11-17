@@ -153,7 +153,7 @@
                             <div class="container align-self-center p-6">
                                 <div class="form-row justify-content-center align-content-center"">
                                     <div class="col-md-12">
-                                        <h1 class="font-weight-bold">Registrar un Automovil</h1>
+                                        <h1 class="font-weight-bold">Registrar un Automóvil</h1>
                                         <p class="text-dark mb-3">Ingresa la siguiente información. </p>
                                     </div>
                                 </div>
@@ -183,7 +183,6 @@
                                         <select name="estatus" class="form-control"> 
                                             <option value="Activo" selected>Activo</option>
                                             <option value="Inactivo">Inactivo</option>
-                                            <option value="Baja">Baja</option>
                                         </select>
                                     </div>
                                     
