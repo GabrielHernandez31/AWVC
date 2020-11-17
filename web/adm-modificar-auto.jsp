@@ -228,16 +228,25 @@
                                                     <option value="Activo" selected>Activo</option>
                                                     <option value="Mantenimiento">Mantenimiento</option>
                                                     <option value="Inactivo">Inactivo</option>
+                                                    <option value="Baja">Baja</option>
                                                 <% break;
                                                 case "Mantenimiento": %>
                                                     <option value="Activo" >Activo</option>
                                                     <option value="Mantenimiento"selected>Mantenimiento</option>
                                                     <option value="Inactivo">Inactivo</option>
+                                                    <option value="Baja">Baja</option>
                                                 <% break;
                                                 case "Inactivo": %>
-                                                    <option value="Activo" selected>Activo</option>
+                                                    <option value="Activo">Activo</option>
                                                     <option value="Mantenimiento">Mantenimiento</option>
                                                     <option value="Inactivo"selected>Inactivo</option>
+                                                    <option value="Baja">Baja</option>
+                                                <% break;
+                                                case "Baja": %>
+                                                    <option value="Activo">Activo</option>
+                                                    <option value="Mantenimiento">Mantenimiento</option>
+                                                    <option value="Inactivo">Inactivo</option>
+                                                    <option value="Baja" selected>Baja</option>
                                                 <% break;  }   %>
                                         </select>
                                     </div>

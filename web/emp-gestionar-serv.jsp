@@ -122,7 +122,7 @@
 
                 <div class="container col-md-12 col-lg-10" style="margin-top: 10px">
                     <div class="row  bg-info justify-content-center">
-                        <div class="col-12 col-md-8" style="padding-top: 1vh;padding-bottom: 1vh">
+                        <div class="col-12" style="padding-top: 1vh;padding-bottom: 1vh">
                             <h1 class="text-withe">Servicios</h1>
                         </div>
 
@@ -170,7 +170,7 @@
                                     } else {
                                     %>
                                     <tr>
-                                        <th colspan="9" style="text-align: center;">No existen servicios aÃºn.</th>
+                                        <th colspan="9" style="text-align: center;">No existen servicios aún.</th>
                                     </tr>
                                     <%  }%>
                                 </tbody>

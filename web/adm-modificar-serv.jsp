@@ -12,7 +12,7 @@
     String email = (String) sesion.getAttribute("email");
     String id_servicio1 = (String) sesion.getAttribute("id_servicio");
     int id_servicio = Integer.parseInt(id_servicio1);
-    
+
     /*
     Asigna valores a las variables si existe una sesion.
     Retoma datos del usuario para poder utilizarlos más adelante
@@ -20,7 +20,7 @@
     Usuario usuario = new Usuario(email);
     int id_usu = usuario.getId_usuario();
     int id_rol = usuario.getId_rol();
-    
+
     Servicio servicio = new Servicio();
 
     /*
@@ -34,8 +34,8 @@
     /*
     MODIFICAR AUTO
      */
-    String accion = "", nombre = "", descripcion = "", ubicacion = "", estatus = "", fecha = "", empleado="";
-    
+    String accion = "", nombre = "", descripcion = "", ubicacion = "", estatus = "", fecha = "", empleado = "";
+
     if (request.getParameter("accion") != null) {
         accion = request.getParameter("accion");
     }
@@ -60,30 +60,30 @@
 
     switch (accion) {
         case "Guardar":
-            
+
             servicio.setId_servicio(id_servicio);
             servicio.setNombre_servicio(nombre);
             servicio.setDescripcion_servicio(descripcion);
             servicio.setUbicacion_servicio(ubicacion);
             servicio.setEstatus_servicio(estatus);
             servicio.setFecha_servicio(fecha);
-            
+
             String[][] servi = servicio.consultarServiciosModificar();
-            
-            if(empleado.equals("0")){ // Sin Empleado
+
+            if (empleado.equals("0")) { // Sin Empleado
                 if (servicio.updateServiciosAdmSinEmp()) {
                     out.print("<script>cancelar=confirm('¡Registro Exitoso!'); if(cancelar){ window.location.href='adm-gestionar-serv.jsp'; }else{ window.location.href='adm-gestionar-serv.jsp'; }</script>");
                 } else {
                     out.print("<script>cancelar=confirm('Error al registrar!'); if(cancelar){ window.location.href='adm-modificar-serv.jsp'; }else{ window.location.href='adm-modificar-serv.jsp'; }</script>");
                 }
-            }else{
-                if(empleado.equals(servi[0][6])){ // Sin Empleado
+            } else {
+                if (empleado.equals(servi[0][6])) { // Sin Empleado
                     if (servicio.updateServiciosAdmSinEmp()) {
                         out.print("<script>cancelar=confirm('¡Registro Exitoso!'); if(cancelar){ window.location.href='adm-gestionar-serv.jsp'; }else{ window.location.href='adm-gestionar-serv.jsp'; }</script>");
                     } else {
                         out.print("<script>cancelar=confirm('Error al registrar!'); if(cancelar){ window.location.href='adm-modificar-serv.jsp'; }else{ window.location.href='adm-modificar-serv.jsp'; }</script>");
                     }
-                }else{ // Con Empleado
+                } else { // Con Empleado
                     servicio.setId_usuario(Integer.parseInt(empleado));
                     if (servicio.updateServiciosAdmConEmp()) {
                         out.print("<script>cancelar=confirm('¡Registro Exitoso!'); if(cancelar){ window.location.href='adm-gestionar-serv.jsp'; }else{ window.location.href='adm-gestionar-serv.jsp'; }</script>");
@@ -195,7 +195,7 @@
                                         <label  class="font-weight-bold">Descripción: <span class="text-danger">*</span></label>
                                         <textarea class="form-control" name='descripcion' rows="3" required="Ingre la descripción del servicio por favor"><% out.print(servicios[0][2]); %></textarea>
                                     </div>
-                                    
+
                                     <div class="form-group mb-3">
                                         <label  class="font-weight-bold">Ubicación: <span class="text-danger">*</span></label>
                                         <textarea class="form-control" name='ubicacion' rows="3" required="Ingre la ubicación del servicio por favor"><% out.print(servicios[0][3]); %></textarea>
@@ -204,22 +204,32 @@
                                     <div class="form-group mb-3">
                                         <label class="font-weight-bold">Estatus: <span class="text-danger">*</span></label>
                                         <select name="estatusserv" class="form-control">
-                                            <%  switch(servicios[0][4]) { 
-                                                case "Activo": %>
-                                                    <option value="Activo" selected>Activo</option>
-                                                    <option value="En proceso">En proceso</option>
-                                                    <option value="Finalizado">Finalizado</option>
-                                                <% break;
-                                                case "En proceso": %>
-                                                    <option value="Activo" >Activo</option>
-                                                    <option value="En proceso"selected>En proceso</option>
-                                                    <option value="Finalizado">Finalizado</option>
-                                                <% break;
-                                                case "Finalizado": %>
-                                                    <option value="Activo" >Activo</option>
-                                                    <option value="En proceso">En proceso</option>
-                                                    <option value="Finalizado"selected>Finalizado</option>
-                                                <% break;  }   %>
+                                            <%  switch (servicios[0][4]) {
+                                                    case "Activo": %>
+                                            <option value="Activo" selected>Activo</option>
+                                            <option value="En proceso">En proceso</option>
+                                            <option value="Finalizado">Finalizado</option>
+                                            <option value="Cancelado">Cancelado</option>
+                                            <% break;
+                                                    case "En proceso": %>
+                                            <option value="Activo" >Activo</option>
+                                            <option value="En proceso"selected>En proceso</option>
+                                            <option value="Finalizado">Finalizado</option>
+                                            <option value="Cancelado">Cancelado</option>
+                                            <% break;
+                                                    case "Finalizado": %>
+                                            <option value="Activo" >Activo</option>
+                                            <option value="En proceso">En proceso</option>
+                                            <option value="Finalizado"selected>Finalizado</option>
+                                            <option value="Cancelado">Cancelado</option>
+                                            <% break;
+                                                    case "Cancelado": %>
+                                            <option value="Activo" >Activo</option>
+                                            <option value="En proceso">En proceso</option>
+                                            <option value="Finalizado">Finalizado</option>
+                                            <option value="Cancelado" selected>Cancelado</option>
+                                            <% break;
+                                                    }   %>
                                         </select>
                                     </div>
                                     <!-- OBTENEMOS LA FECHA ACTUAL -->
@@ -232,27 +242,27 @@
                                         <label  class="font-weight-bold">Fecha: <span class="text-danger">*</span></label>
                                         <input name="fecha" type="date" min="<% out.print(formato.format(fecha_actual)); %>" value="<% out.print(servicios[0][5]); %>" class="form-control" placeholder="Ingresa la fecha para realizar el servicio" required onblur="">
                                     </div>
-                                    
+
                                     <div class="form-group mb-3">
                                         <label class="font-weight-bold">Empleado:</label>
                                         <select name="empleado" class="form-control">
                                             <%
-                                                if(usuario.existenUsuariosAuto()){
+                                                if (usuario.existenUsuariosAuto()) {
                                                     String[][] emple = usuario.consultarUsuariosAuto();
-                                                    for( int cuenta = 0; cuenta<usuario.contarUsuariosAuto(); cuenta++){
+                                                    for (int cuenta = 0; cuenta < usuario.contarUsuariosAuto(); cuenta++) {
                                             %>
-                                                        <option value="<% out.print(emple[cuenta][0]); %>"><% out.print(emple[cuenta][1] + " " + emple[cuenta][2] + " " + emple[cuenta][3].charAt(0)+"."); %></option>
-                                            <%      } 
-                                                    if(servicios[0][6]=="Sin asignar aun."){ %>
-                                                        <option value="0" selected="">Sin asignar aún.</option>
-                                                <%  }else{ %>
-                                                        <option value="<% out.print(servicios[0][6]); %>" selected=""><% out.print(servicios[0][6]); %></option>
-                                                        <option value="0">Sin asignar aún.</option>
-                                                <%  } %>          
-                                            <%  }else{ %>
-                                                    <option disabled>No existen empleados</option>
-                                                    <option value="0">Sin asignar aún.</option>
-                                            <%  } %>
+                                            <option value="<% out.print(emple[cuenta][0]); %>"><% out.print(emple[cuenta][1] + " " + emple[cuenta][2] + " " + emple[cuenta][3].charAt(0) + "."); %></option>
+                                            <%      }
+                                                if (servicios[0][6] == "Sin asignar aun.") { %>
+                                            <option value="0" selected="">Sin asignar aún.</option>
+                                            <%  } else { %>
+                                            <option value="<% out.print(servicios[0][6]); %>" selected=""><% out.print(servicios[0][6]); %></option>
+                                            <option value="0">Sin asignar aún.</option>
+                                            <%  } %>          
+                                            <%  } else { %>
+                                            <option disabled>No existen empleados</option>
+                                            <option value="0">Sin asignar aún.</option>
+                                            <%  }%>
                                         </select>
                                     </div>
 

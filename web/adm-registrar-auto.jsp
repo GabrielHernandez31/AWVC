@@ -183,6 +183,7 @@
                                         <select name="estatus" class="form-control"> 
                                             <option value="Activo" selected>Activo</option>
                                             <option value="Inactivo">Inactivo</option>
+                                            <option value="Baja">Baja</option>
                                         </select>
                                     </div>
                                     
