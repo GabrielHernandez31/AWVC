@@ -2,7 +2,7 @@
 <%@page import="Modelo.Usuario" %>
 <%
     Usuario usuario = new Usuario();
-    String accion = "", nombre = "", app = "", apm = "", tel = "", correo = "", password = "";
+    String accion = "", nombre = "", app = "", apm = "", tel = "", correo = "";
     int rol = 0;
 
     if (request.getParameter("accion") != null) {
@@ -23,9 +23,6 @@
     if (request.getParameter("txtCorreo") != null) {
         correo = request.getParameter("txtCorreo");
     }
-    if (request.getParameter("txtPass") != null) {
-        password = request.getParameter("txtPass");
-    }
     if (request.getParameter("txtRol") != null) {
         rol = Integer.parseInt(request.getParameter("txtRol"));
     }
@@ -39,11 +36,11 @@
                 usuario.setApm_usuario(apm);
                 usuario.setTelefono_usuario(tel);
                 usuario.setCorreo_usuario(correo);
-                usuario.setPassword_usuario(password);
                 usuario.setId_rol(rol);
-
                 if(usuario.createUsuario()){
-                    out.print("<script>cancelar=confirm('¡Registro Exitoso!'); if(cancelar){ window.location.href='adm-gestionar-empleados.jsp'; }else{ window.location.href='adm-gestionar-empleados.jsp'; }</script>");
+                    usuario.setId_usuario(usuario.obtenerIdUsuarioRegistro());
+                    String password = usuario.desencriptarPasswordUsuario();
+                    out.print("<script>cancelar=confirm('¡Registro Exitoso!, La contraseña es: "+password+"'); if(cancelar){ window.location.href='adm-gestionar-empleados.jsp'; }else{ window.location.href='adm-gestionar-empleados.jsp'; }</script>");
                 }else{
                     out.print("<script>cancelar=confirm('¡Error al registrar!'); if(cancelar){ window.location.href='adm-registrar-empleados.jsp'; }else{ window.location.href='adm-registrar-empleados.jsp'; }</script>");
                 }
@@ -181,11 +178,6 @@
                                     
                                     <div class="form-group mb-3" id="messagec" hidden>
                                         <span class="text-dark">El formato del correo no es valido verifique sus datos</span>
-                                    </div>
-                                    
-                                    <div class="form-group mb-3">
-                                        <label  class="font-weight-bold">Password: <span class="text-danger">*</span></label>
-                                        <input name="txtPass" type="text" class="form-control" value="<% out.print(usuario.generarPassword()); %>" disabled=""/>
                                     </div>
 
                                     <div class="form-row mb justify-content-center">

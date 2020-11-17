@@ -76,20 +76,12 @@
                 } else {
                     out.print("<script>cancelar=confirm('Error al registrar!'); if(cancelar){ window.location.href='adm-modificar-serv.jsp'; }else{ window.location.href='adm-modificar-serv.jsp'; }</script>");
                 }
-            } else {
-                if (empleado.equals(servi[0][6])) { // Sin Empleado
-                    if (servicio.updateServiciosAdmSinEmp()) {
-                        out.print("<script>cancelar=confirm('¡Registro Exitoso!'); if(cancelar){ window.location.href='adm-gestionar-serv.jsp'; }else{ window.location.href='adm-gestionar-serv.jsp'; }</script>");
-                    } else {
-                        out.print("<script>cancelar=confirm('Error al registrar!'); if(cancelar){ window.location.href='adm-modificar-serv.jsp'; }else{ window.location.href='adm-modificar-serv.jsp'; }</script>");
-                    }
-                } else { // Con Empleado
-                    servicio.setId_usuario(Integer.parseInt(empleado));
-                    if (servicio.updateServiciosAdmConEmp()) {
-                        out.print("<script>cancelar=confirm('¡Registro Exitoso!'); if(cancelar){ window.location.href='adm-gestionar-serv.jsp'; }else{ window.location.href='adm-gestionar-serv.jsp'; }</script>");
-                    } else {
-                        out.print("<script>cancelar=confirm('Error al registrar!'); if(cancelar){ window.location.href='adm-modificar-serv.jsp'; }else{ window.location.href='adm-modificar-serv.jsp'; }</script>");
-                    }
+            } else { // Con Empleado
+                servicio.setId_usuario(Integer.parseInt(empleado));
+                if (servicio.updateServiciosAdmConEmp()) {
+                    out.print("<script>cancelar=confirm('¡Registro Exitoso!'); if(cancelar){ window.location.href='adm-gestionar-serv.jsp'; }else{ window.location.href='adm-gestionar-serv.jsp'; }</script>");
+                } else {
+                    out.print("<script>cancelar=confirm('Error al registrar!'); if(cancelar){ window.location.href='adm-modificar-serv.jsp'; }else{ window.location.href='adm-modificar-serv.jsp'; }</script>");
                 }
             }
             break;
@@ -204,32 +196,10 @@
                                     <div class="form-group mb-3">
                                         <label class="font-weight-bold">Estatus: <span class="text-danger">*</span></label>
                                         <select name="estatusserv" class="form-control">
-                                            <%  switch (servicios[0][4]) {
-                                                    case "Activo": %>
                                             <option value="Activo" selected>Activo</option>
                                             <option value="En proceso">En proceso</option>
                                             <option value="Finalizado">Finalizado</option>
                                             <option value="Cancelado">Cancelado</option>
-                                            <% break;
-                                                    case "En proceso": %>
-                                            <option value="Activo" >Activo</option>
-                                            <option value="En proceso"selected>En proceso</option>
-                                            <option value="Finalizado">Finalizado</option>
-                                            <option value="Cancelado">Cancelado</option>
-                                            <% break;
-                                                    case "Finalizado": %>
-                                            <option value="Activo" >Activo</option>
-                                            <option value="En proceso">En proceso</option>
-                                            <option value="Finalizado"selected>Finalizado</option>
-                                            <option value="Cancelado">Cancelado</option>
-                                            <% break;
-                                                    case "Cancelado": %>
-                                            <option value="Activo" >Activo</option>
-                                            <option value="En proceso">En proceso</option>
-                                            <option value="Finalizado">Finalizado</option>
-                                            <option value="Cancelado" selected>Cancelado</option>
-                                            <% break;
-                                                    }   %>
                                         </select>
                                     </div>
                                     <!-- OBTENEMOS LA FECHA ACTUAL -->
@@ -247,16 +217,16 @@
                                         <label class="font-weight-bold">Empleado:</label>
                                         <select name="empleado" class="form-control">
                                             <%
-                                                if (usuario.existenUsuariosAuto()) {
-                                                    String[][] emple = usuario.consultarUsuariosAuto();
-                                                    for (int cuenta = 0; cuenta < usuario.contarUsuariosAuto(); cuenta++) {
+                                                if (usuario.existenUsuariosAdm()) {
+                                                    String[][] emple = usuario.consultarUsuariosAdm();
+                                                    for (int cuenta = 0; cuenta < usuario.contarUsuariosAdm(); cuenta++) {
                                             %>
                                             <option value="<% out.print(emple[cuenta][0]); %>"><% out.print(emple[cuenta][1] + " " + emple[cuenta][2] + " " + emple[cuenta][3].charAt(0) + "."); %></option>
                                             <%      }
-                                                if (servicios[0][6] == "Sin asignar aun.") { %>
+                                                if (usuario.obtenerNombreUsuario(servicios[0][6]).equals("Sin asignar aun.")) { %>
                                             <option value="0" selected="">Sin asignar aún.</option>
                                             <%  } else { %>
-                                            <option value="<% out.print(servicios[0][6]); %>" selected=""><% out.print(servicios[0][6]); %></option>
+                                            <option value="<% out.print(servicios[0][6]); %>" selected=""><% out.print(usuario.obtenerNombreUsuario(servicios[0][6])); %></option>
                                             <option value="0">Sin asignar aún.</option>
                                             <%  } %>          
                                             <%  } else { %>

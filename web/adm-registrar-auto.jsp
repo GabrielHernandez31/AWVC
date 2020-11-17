@@ -179,10 +179,12 @@
                                     </div>
                                     
                                     <div class="form-group mb-3">
-                                        <label class="font-weight-bold">Estatus: <span class="text-danger">*</span></label>
-                                        <select name="estatus" class="form-control"> 
+                                        <label class="font-weight-bold">Estado: <span class="text-danger">*</span></label>
+                                        <select name="estatus" class="form-control">
                                             <option value="Activo" selected>Activo</option>
+                                            <option value="Mantenimiento">Mantenimiento</option>
                                             <option value="Inactivo">Inactivo</option>
+                                            <option value="Baja">Baja</option>
                                         </select>
                                     </div>
                                     
@@ -196,7 +198,7 @@
                                             %>
                                                         <option value="<% out.print(emple[cuenta][0]); %>"><% out.print(emple[cuenta][1] + " " + emple[cuenta][2] + " " + emple[cuenta][3].charAt(0)+"."); %></option>
                                             <%      } %>
-                                                        <option value="0">Sin asignar aún.</option>
+                                                    <option value="0" selected="">Sin asignar aún.</option>
                                             <%  }else{ %>
                                                     <option disabled>No existen empleados</option>
                                                     <option value="0">Sin asignar aún.</option>
@@ -214,7 +216,7 @@
                                             %>
                                                         <option value="<% out.print(rfids[cuenta][0]); %>"><% out.print(rfids[cuenta][1]); %></option>
                                             <%      } %>
-                                                        <option value="0">Sin asignar aún.</option>
+                                                        <option value="0" selected>Sin asignar aún.</option>
                                             <%  }else{ %>
                                                     <option disabled>No existen Tarjetas RFID</option>
                                                     <option value="0">Sin asignar aún.</option>

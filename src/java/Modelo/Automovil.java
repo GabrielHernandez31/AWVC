@@ -201,7 +201,7 @@ public class Automovil {
 
     public boolean updateAutomovilConER() {
         try {
-            final String sql = "Update automovil set estatus_auto=?, id_usuario=?, id_rfid=? where id_auto= ?";
+            final String sql = "Update automovil set estado_auto=?, id_usuario=?, id_rfid=? where id_auto= ?";
             Conexion conex = new Conexion();
             PreparedStatement actualizarUsuario = conex.obtenerConnexion().prepareStatement(sql);
             actualizarUsuario.setString(1, estatus_auto);
@@ -220,7 +220,7 @@ public class Automovil {
     
     public boolean updateAutomovilSinER() {
         try {
-            final String sql = "Update automovil set estatus_auto=?, id_usuario=null, id_rfid=null where id_auto= ?";
+            final String sql = "Update automovil set estado_auto=?, id_usuario=null, id_rfid=null where id_auto= ?";
             Conexion conex = new Conexion();
             PreparedStatement actualizarUsuario = conex.obtenerConnexion().prepareStatement(sql);
             actualizarUsuario.setString(1, estatus_auto);
@@ -237,7 +237,7 @@ public class Automovil {
     
     public boolean updateAutomovilE() {
         try {
-            final String sql = "Update automovil set estatus_auto=?, id_usuario=?, id_rfid=null where id_auto= ?";
+            final String sql = "Update automovil set estado_auto=?, id_usuario=?, id_rfid=null where id_auto= ?";
             Conexion conex = new Conexion();
             PreparedStatement actualizarUsuario = conex.obtenerConnexion().prepareStatement(sql);
             actualizarUsuario.setString(1, estatus_auto);
@@ -255,7 +255,7 @@ public class Automovil {
     
     public boolean updateAutomovilR() {
         try {
-            final String sql = "Update automovil set estatus_auto=?, id_usuario=null, id_rfid=? where id_auto= ?";
+            final String sql = "Update automovil set estado_auto=?, id_usuario=null, id_rfid=? where id_auto= ?";
             Conexion conex = new Conexion();
             PreparedStatement actualizarUsuario = conex.obtenerConnexion().prepareStatement(sql);
             actualizarUsuario.setString(1, estatus_auto);
@@ -273,7 +273,7 @@ public class Automovil {
 
     public boolean deleteAutomovil() {
         try {
-            final String sql = "Update automovil set estatus_auto='Baja' where id_auto= ?";
+            final String sql = "Update automovil set estado_auto='Baja' where id_auto= ?";
             Conexion conex = new Conexion();
             PreparedStatement eliminarUsuario = conex.obtenerConnexion().prepareStatement(sql);
             eliminarUsuario.setInt(1, getId_auto());
@@ -303,24 +303,21 @@ public class Automovil {
                 arreglo_servicio[cuenta][2] = resulProducto.getString("marca_auto");
                 arreglo_servicio[cuenta][3] = resulProducto.getString("modelo_auto");
                 arreglo_servicio[cuenta][4] = resulProducto.getString("color_auto");
-                arreglo_servicio[cuenta][5] = resulProducto.getString("estatus_auto");
+                arreglo_servicio[cuenta][5] = resulProducto.getString("estado_auto");
                 if (resulProducto.getString("id_usuario") == null) {
                     arreglo_servicio[cuenta][6] = "Sin asignar aun.";
                     if (resulProducto.getString("id_rfid") == null) {
                         arreglo_servicio[cuenta][7] = "Sin asignar aun.";
                     } else {
-                        RFID rfid = new RFID();
-                        arreglo_servicio[cuenta][7] = rfid.obtenerNombreRFID(resulProducto.getString("id_rfid"));
+                        arreglo_servicio[cuenta][7] = resulProducto.getString("id_rfid");
                     }
                 } else {
-                    Usuario usuario = new Usuario();
-                    arreglo_servicio[cuenta][6] = usuario.obtenerNombreUsuario(resulProducto.getString("id_usuario"));
+                    arreglo_servicio[cuenta][6] = resulProducto.getString("id_usuario");
                     
                     if (resulProducto.getString("id_rfid") == null) {
                         arreglo_servicio[cuenta][7] = "Sin asignar aun.";
                     } else {
-                        RFID rfid = new RFID();
-                        arreglo_servicio[cuenta][7] = rfid.obtenerNombreRFID(resulProducto.getString("id_rfid"));
+                        arreglo_servicio[cuenta][7] = resulProducto.getString("id_rfid");
                     }
                 }
             }
@@ -350,7 +347,7 @@ public class Automovil {
                 arreglo_servicio[cuenta][2] = resulProducto.getString("marca_auto");
                 arreglo_servicio[cuenta][3] = resulProducto.getString("modelo_auto");
                 arreglo_servicio[cuenta][4] = resulProducto.getString("color_auto");
-                arreglo_servicio[cuenta][5] = resulProducto.getString("estatus_auto");
+                arreglo_servicio[cuenta][5] = resulProducto.getString("estado_auto");
                 if (resulProducto.getString("id_usuario") == null) {
                     arreglo_servicio[cuenta][6] = "Sin asignar aun.";
                     if (resulProducto.getString("id_rfid") == null) {
@@ -432,7 +429,7 @@ public class Automovil {
 
     public String[][] consultarAutomovilesEmp() {
         try {
-            final String sql = "Select * from automovil where id_usuario = ? and estatus_auto NOT LIKE 'Baja'";
+            final String sql = "Select * from automovil where id_usuario = ? and estado_auto NOT LIKE 'Baja'";
             Conexion conex = new Conexion();
             PreparedStatement consultarProducto = conex.obtenerConnexion().prepareStatement(sql);
             consultarProducto.setInt(1, getId_usuario());
@@ -446,7 +443,7 @@ public class Automovil {
                 arreglo_servicio[cuenta][2] = resulProducto.getString("marca_auto");
                 arreglo_servicio[cuenta][3] = resulProducto.getString("modelo_auto");
                 arreglo_servicio[cuenta][4] = resulProducto.getString("color_auto");
-                arreglo_servicio[cuenta][5] = resulProducto.getString("estatus_auto");
+                arreglo_servicio[cuenta][5] = resulProducto.getString("estado_auto");
                 Usuario usuario = new Usuario();
                 arreglo_servicio[cuenta][6] = usuario.obtenerNombreUsuario(resulProducto.getString("id_usuario"));
                 arreglo_servicio[cuenta][7] = resulProducto.getString("rfid_auto");
@@ -465,7 +462,7 @@ public class Automovil {
     public int contarAutomovilesEmp() {
         try {
             int resultado;
-            final String sql = "Select count(*) from automovil where id_usuario=? and estatus_auto NOT LIKE 'Baja'";
+            final String sql = "Select count(*) from automovil where id_usuario=? and estado_auto NOT LIKE 'Baja'";
             Conexion conex = new Conexion();
             PreparedStatement consultarProducto = conex.obtenerConnexion().prepareStatement(sql);
             consultarProducto.setInt(1, getId_usuario());
@@ -490,7 +487,7 @@ public class Automovil {
 
     public boolean existenAutomovilesEmp() {
         try {
-            final String sql = "Select * from automovil where id_usuario and estatus_auto NOT LIKE 'Baja'";
+            final String sql = "Select * from automovil where id_usuario and estado_auto NOT LIKE 'Baja'";
             Conexion conex = new Conexion();
             PreparedStatement consultarProducto = conex.obtenerConnexion().prepareStatement(sql);
             consultarProducto.setInt(1, getId_usuario());
