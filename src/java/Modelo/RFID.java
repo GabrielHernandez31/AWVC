@@ -65,6 +65,7 @@ public class RFID {
             insertarUsuario.setString(3, getFecha_alta_rfid());
             insertarUsuario.executeUpdate();
             insertarUsuario.close();
+            conex.obtenerConnexion().close();
             return true;
         } catch (Exception e) {
             e.printStackTrace();
@@ -75,17 +76,19 @@ public class RFID {
     public boolean validarSerialRegistro() {
         try {
             final String sql = "Select * from rfid where serial_rfid = ?";
-            Conexion con = new Conexion();
-            PreparedStatement validarCorreo = con.obtenerConnexion().prepareStatement(sql);
+            Conexion conex = new Conexion();
+            PreparedStatement validarCorreo = conex.obtenerConnexion().prepareStatement(sql);
             validarCorreo.setString(1, serial_rfid);
             ResultSet validar = validarCorreo.executeQuery();
             if (validar.next()) {
                 validarCorreo.close();
                 validar.close();
+                conex.obtenerConnexion().close();
                 return false;
             } else {
                 validarCorreo.close();
                 validar.close();
+                conex.obtenerConnexion().close();
                 return true;
             }
         } catch (Exception e) {
@@ -103,6 +106,7 @@ public class RFID {
             actualizarUsuario.setInt(2, id_rfid);
             actualizarUsuario.executeUpdate();
             actualizarUsuario.close();
+            conex.obtenerConnexion().close();
             return true;
         } catch (Exception e) {
             e.printStackTrace();
@@ -112,12 +116,13 @@ public class RFID {
 
     public boolean deleteRFID() {
         try {
-            final String sql = "Delete from rfid where id_rfid= ?";
+            final String sql = "Update rfid set estatus_rfid='Baja' where id_rfid= ?";
             Conexion conex = new Conexion();
             PreparedStatement eliminarUsuario = conex.obtenerConnexion().prepareStatement(sql);
             eliminarUsuario.setInt(1, getId_rfid());
             eliminarUsuario.executeUpdate();
             eliminarUsuario.close();
+            conex.obtenerConnexion().close();
             return true;
         } catch (Exception e) {
             e.printStackTrace();
@@ -136,11 +141,13 @@ public class RFID {
                 String nombre = resulExistenCategorias.getString("serial_rfid");
                 existenCategorias.close();
                 resulExistenCategorias.close();
+                conex.obtenerConnexion().close();
                 return nombre;
             } else {
                 String nombre2 = "Sin asignar aun.";
                 existenCategorias.close();
                 resulExistenCategorias.close();
+                conex.obtenerConnexion().close();
                 return nombre2;
             }
         } catch (Exception e) {
@@ -168,6 +175,7 @@ public class RFID {
             }
             consultarProducto.close();
             resulProducto.close();
+            conex.obtenerConnexion().close();
             return arreglo_servicio;
         } catch (Exception e) {
             e.printStackTrace();
@@ -193,6 +201,7 @@ public class RFID {
             }
             consultarProducto.close();
             resulProducto.close();
+            conex.obtenerConnexion().close();
             return arreglo_servicio;
         } catch (Exception e) {
             e.printStackTrace();
@@ -212,10 +221,12 @@ public class RFID {
                 resultado = resulProducto.getInt("count");
                 consultarProducto.close();
                 resulProducto.close();
+                conex.obtenerConnexion().close();
                 return resultado;
             } else {
                 consultarProducto.close();
                 resulProducto.close();
+                conex.obtenerConnexion().close();
                 return 0;
             }
         } catch (Exception e) {
@@ -233,6 +244,7 @@ public class RFID {
             if (resulProducto.next()) {
                 consultarProducto.close();
                 resulProducto.close();
+                conex.obtenerConnexion().close();
                 return true;
             } else {
                 consultarProducto.close();
@@ -247,7 +259,7 @@ public class RFID {
     
     public String[][] consultarRFIDAutos() {
         try {
-            final String sql = "Select * from rfid as rfid where not exists (select id_rfid from automovil as auto where rfid.id_rfid=auto.id_rfid)";
+            final String sql = "Select * from rfid as rfid where estatus_rfid NOT LIKE 'Baja' and not exists (select id_rfid from automovil as auto where rfid.id_rfid=auto.id_rfid)";
             Conexion conex = new Conexion();
             PreparedStatement consultarProducto = conex.obtenerConnexion().prepareStatement(sql);
             ResultSet resulProducto = consultarProducto.executeQuery();
@@ -262,6 +274,7 @@ public class RFID {
             }
             consultarProducto.close();
             resulProducto.close();
+            conex.obtenerConnexion().close();
             return arreglo_servicio;
         } catch (Exception e) {
             e.printStackTrace();
@@ -273,7 +286,7 @@ public class RFID {
     public int contarRFIDAutos() {
         try {
             int resultado;
-            final String sql = "Select count(*) from rfid as rfid where not exists (select id_rfid from automovil as auto where rfid.id_rfid=auto.id_rfid)";
+            final String sql = "Select count(*) from rfid as rfid where estatus_rfid NOT LIKE 'Baja' and not exists (select id_rfid from automovil as auto where rfid.id_rfid=auto.id_rfid)";
             Conexion conex = new Conexion();
             PreparedStatement consultarProducto = conex.obtenerConnexion().prepareStatement(sql);
             ResultSet resulProducto = consultarProducto.executeQuery();
@@ -281,10 +294,12 @@ public class RFID {
                 resultado = resulProducto.getInt("count");
                 consultarProducto.close();
                 resulProducto.close();
+                conex.obtenerConnexion().close();
                 return resultado;
             } else {
                 consultarProducto.close();
                 resulProducto.close();
+                conex.obtenerConnexion().close();
                 return 0;
             }
         } catch (Exception e) {
@@ -295,17 +310,19 @@ public class RFID {
 
     public boolean existenRFIDAutos() {
         try {
-            final String sql = "Select * from rfid as rfid where not exists (select id_rfid from automovil as auto where rfid.id_rfid=auto.id_rfid)";
+            final String sql = "Select * from rfid as rfid where estatus_rfid NOT LIKE 'Baja' and not exists (select id_rfid from automovil as auto where rfid.id_rfid=auto.id_rfid)";
             Conexion conex = new Conexion();
             PreparedStatement consultarProducto = conex.obtenerConnexion().prepareStatement(sql);
             ResultSet resulProducto = consultarProducto.executeQuery();
             if (resulProducto.next()) {
                 consultarProducto.close();
                 resulProducto.close();
+                conex.obtenerConnexion().close();
                 return true;
             } else {
                 consultarProducto.close();
                 resulProducto.close();
+                conex.obtenerConnexion().close();
                 return false;
             }
         } catch (Exception e) {

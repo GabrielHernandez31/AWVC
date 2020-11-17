@@ -105,6 +105,7 @@ public class Automovil {
             insertarUsuario.setInt(7, getId_rfid());
             insertarUsuario.executeUpdate();
             insertarUsuario.close();
+            conex.obtenerConnexion().close();
             return true;
         } catch (Exception e) {
             e.printStackTrace();
@@ -125,6 +126,7 @@ public class Automovil {
             insertarUsuario.setInt(6, getId_usuario());
             insertarUsuario.executeUpdate();
             insertarUsuario.close();
+            conex.obtenerConnexion().close();
             return true;
         } catch (Exception e) {
             e.printStackTrace();
@@ -145,6 +147,7 @@ public class Automovil {
             insertarUsuario.setInt(6, getId_rfid());
             insertarUsuario.executeUpdate();
             insertarUsuario.close();
+            conex.obtenerConnexion().close();
             return true;
         } catch (Exception e) {
             e.printStackTrace();
@@ -164,6 +167,7 @@ public class Automovil {
             insertarUsuario.setString(5, getEstatus_auto());
             insertarUsuario.executeUpdate();
             insertarUsuario.close();
+            conex.obtenerConnexion().close();
             return true;
         } catch (Exception e) {
             e.printStackTrace();
@@ -174,17 +178,19 @@ public class Automovil {
     public boolean validarPlacaRegistro() {
         try {
             final String sql = "Select * from automovil where placa_auto = ?";
-            Conexion con = new Conexion();
-            PreparedStatement validarCorreo = con.obtenerConnexion().prepareStatement(sql);
+            Conexion conex = new Conexion();
+            PreparedStatement validarCorreo = conex.obtenerConnexion().prepareStatement(sql);
             validarCorreo.setString(1, getPlaca_auto());
             ResultSet validar = validarCorreo.executeQuery();
             if (validar.next()) {
                 validarCorreo.close();
                 validar.close();
+                conex.obtenerConnexion().close();
                 return false;
             } else {
                 validarCorreo.close();
                 validar.close();
+                conex.obtenerConnexion().close();
                 return true;
             }
         } catch (Exception e) {
@@ -204,6 +210,7 @@ public class Automovil {
             actualizarUsuario.setInt(4, getId_auto());
             actualizarUsuario.executeUpdate();
             actualizarUsuario.close();
+            conex.obtenerConnexion().close();
             return true;
         } catch (Exception e) {
             e.printStackTrace();
@@ -220,6 +227,7 @@ public class Automovil {
             actualizarUsuario.setInt(2, getId_auto());
             actualizarUsuario.executeUpdate();
             actualizarUsuario.close();
+            conex.obtenerConnexion().close();
             return true;
         } catch (Exception e) {
             e.printStackTrace();
@@ -237,6 +245,7 @@ public class Automovil {
             actualizarUsuario.setInt(3, getId_auto());
             actualizarUsuario.executeUpdate();
             actualizarUsuario.close();
+            conex.obtenerConnexion().close();
             return true;
         } catch (Exception e) {
             e.printStackTrace();
@@ -254,6 +263,7 @@ public class Automovil {
             actualizarUsuario.setInt(3, getId_auto());
             actualizarUsuario.executeUpdate();
             actualizarUsuario.close();
+            conex.obtenerConnexion().close();
             return true;
         } catch (Exception e) {
             e.printStackTrace();
@@ -263,12 +273,13 @@ public class Automovil {
 
     public boolean deleteAutomovil() {
         try {
-            final String sql = "Delete from automovil where id_auto= ?";
+            final String sql = "Update automovil set estatus_auto='Baja' where id_auto= ?";
             Conexion conex = new Conexion();
             PreparedStatement eliminarUsuario = conex.obtenerConnexion().prepareStatement(sql);
             eliminarUsuario.setInt(1, getId_auto());
             eliminarUsuario.executeUpdate();
             eliminarUsuario.close();
+            conex.obtenerConnexion().close();
             return true;
         } catch (Exception e) {
             e.printStackTrace();
@@ -315,6 +326,7 @@ public class Automovil {
             }
             consultarProducto.close();
             resulProducto.close();
+            conex.obtenerConnexion().close();
             return arreglo_servicio;
         } catch (Exception e) {
             e.printStackTrace();
@@ -361,6 +373,7 @@ public class Automovil {
             }
             consultarProducto.close();
             resulProducto.close();
+            conex.obtenerConnexion().close();
             return arreglo_servicio;
         } catch (Exception e) {
             e.printStackTrace();
@@ -380,10 +393,12 @@ public class Automovil {
                 resultado = resulProducto.getInt("count");
                 consultarProducto.close();
                 resulProducto.close();
+                conex.obtenerConnexion().close();
                 return resultado;
             } else {
                 consultarProducto.close();
                 resulProducto.close();
+                conex.obtenerConnexion().close();
                 return 0;
             }
         } catch (Exception e) {
@@ -401,10 +416,12 @@ public class Automovil {
             if (resulProducto.next()) {
                 consultarProducto.close();
                 resulProducto.close();
+                conex.obtenerConnexion().close();
                 return true;
             } else {
                 consultarProducto.close();
                 resulProducto.close();
+                conex.obtenerConnexion().close();
                 return false;
             }
         } catch (Exception e) {
@@ -415,7 +432,7 @@ public class Automovil {
 
     public String[][] consultarAutomovilesEmp() {
         try {
-            final String sql = "Select * from automovil where id_usuario = ?";
+            final String sql = "Select * from automovil where id_usuario = ? and estatus_auto NOT LIKE 'Baja'";
             Conexion conex = new Conexion();
             PreparedStatement consultarProducto = conex.obtenerConnexion().prepareStatement(sql);
             consultarProducto.setInt(1, getId_usuario());
@@ -436,6 +453,7 @@ public class Automovil {
             }
             consultarProducto.close();
             resulProducto.close();
+            conex.obtenerConnexion().close();
             return arreglo_servicio;
         } catch (Exception e) {
             e.printStackTrace();
@@ -447,7 +465,7 @@ public class Automovil {
     public int contarAutomovilesEmp() {
         try {
             int resultado;
-            final String sql = "Select count(*) from automovil where id_usuario=?";
+            final String sql = "Select count(*) from automovil where id_usuario=? and estatus_auto NOT LIKE 'Baja'";
             Conexion conex = new Conexion();
             PreparedStatement consultarProducto = conex.obtenerConnexion().prepareStatement(sql);
             consultarProducto.setInt(1, getId_usuario());
@@ -456,10 +474,12 @@ public class Automovil {
                 resultado = resulProducto.getInt("count");
                 consultarProducto.close();
                 resulProducto.close();
+                conex.obtenerConnexion().close();
                 return resultado;
             } else {
                 consultarProducto.close();
                 resulProducto.close();
+                conex.obtenerConnexion().close();
                 return 0;
             }
         } catch (Exception e) {
@@ -470,7 +490,7 @@ public class Automovil {
 
     public boolean existenAutomovilesEmp() {
         try {
-            final String sql = "Select * from automovil where id_usuario";
+            final String sql = "Select * from automovil where id_usuario and estatus_auto NOT LIKE 'Baja'";
             Conexion conex = new Conexion();
             PreparedStatement consultarProducto = conex.obtenerConnexion().prepareStatement(sql);
             consultarProducto.setInt(1, getId_usuario());
@@ -478,10 +498,12 @@ public class Automovil {
             if (resulProducto.next()) {
                 consultarProducto.close();
                 resulProducto.close();
+                conex.obtenerConnexion().close();
                 return true;
             } else {
                 consultarProducto.close();
                 resulProducto.close();
+                conex.obtenerConnexion().close();
                 return false;
             }
         } catch (Exception e) {

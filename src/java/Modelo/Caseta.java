@@ -18,6 +18,7 @@ public class Caseta {
     private String nombre_caseta;
     private String ubicacion_caseta;
     private String costo_caseta;
+    private String estatus_caseta;
 
     public int getId_caseta() {
         return id_caseta;
@@ -51,6 +52,14 @@ public class Caseta {
         this.costo_caseta = costo_caseta;
     }
 
+    public String getEstatus_caseta() {
+        return estatus_caseta;
+    }
+
+    public void setEstatus_caseta(String estatus_caseta) {
+        this.estatus_caseta = estatus_caseta;
+    }
+
     public Caseta() {
 
     }
@@ -65,6 +74,7 @@ public class Caseta {
             insertarUsuario.setInt(3, Integer.parseInt(getCosto_caseta()));
             insertarUsuario.executeUpdate();
             insertarUsuario.close();
+            conex.obtenerConnexion().close();
             return true;
         } catch (Exception e) {
             e.printStackTrace();
@@ -75,17 +85,19 @@ public class Caseta {
     public boolean validarUbicacionRegistro() {
         try {
             final String sql = "Select * from caseta where ubicacion_caseta = ?";
-            Conexion con = new Conexion();
-            PreparedStatement validarCorreo = con.obtenerConnexion().prepareStatement(sql);
+            Conexion conex = new Conexion();
+            PreparedStatement validarCorreo = conex.obtenerConnexion().prepareStatement(sql);
             validarCorreo.setString(1, getUbicacion_caseta());
             ResultSet validar = validarCorreo.executeQuery();
             if (validar.next()) {
                 validarCorreo.close();
                 validar.close();
+                conex.obtenerConnexion().close();
                 return false;
             } else {
                 validarCorreo.close();
                 validar.close();
+                conex.obtenerConnexion().close();
                 return true;
             }
         } catch (Exception e) {
@@ -104,6 +116,7 @@ public class Caseta {
             actualizarUsuario.setInt(3, getId_caseta());
             actualizarUsuario.executeUpdate();
             actualizarUsuario.close();
+            conex.obtenerConnexion().close();
             return true;
         } catch (Exception e) {
             e.printStackTrace();
@@ -113,12 +126,13 @@ public class Caseta {
 
     public boolean deleteCaseta() {
         try {
-            final String sql = "Delete from caseta where id_caseta= ?";
+            final String sql = "Update caseta set estado_caseta='Baja' where id_caseta= ?";
             Conexion conex = new Conexion();
             PreparedStatement eliminarUsuario = conex.obtenerConnexion().prepareStatement(sql);
             eliminarUsuario.setInt(1, getId_caseta());
             eliminarUsuario.executeUpdate();
             eliminarUsuario.close();
+            conex.obtenerConnexion().close();
             return true;
         } catch (Exception e) {
             e.printStackTrace();
@@ -143,6 +157,7 @@ public class Caseta {
             }
             consultarProducto.close();
             resulProducto.close();
+            conex.obtenerConnexion().close();
             return arreglo_servicio;
         } catch (Exception e) {
             e.printStackTrace();
@@ -169,6 +184,7 @@ public class Caseta {
             }
             consultarProducto.close();
             resulProducto.close();
+            conex.obtenerConnexion().close();
             return arreglo_servicio;
         } catch (Exception e) {
             e.printStackTrace();
@@ -188,10 +204,12 @@ public class Caseta {
                 resultado = resulProducto.getInt("count");
                 consultarProducto.close();
                 resulProducto.close();
+                conex.obtenerConnexion().close();
                 return resultado;
             } else {
                 consultarProducto.close();
                 resulProducto.close();
+                conex.obtenerConnexion().close();
                 return 0;
             }
         } catch (Exception e) {
@@ -209,10 +227,12 @@ public class Caseta {
             if (resulProducto.next()) {
                 consultarProducto.close();
                 resulProducto.close();
+                conex.obtenerConnexion().close();
                 return true;
             } else {
                 consultarProducto.close();
                 resulProducto.close();
+                conex.obtenerConnexion().close();
                 return false;
             }
         } catch (Exception e) {

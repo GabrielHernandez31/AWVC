@@ -90,6 +90,7 @@ public class Servicio {
             insertarUsuario.setString(5, getFecha_servicio());
             insertarUsuario.executeUpdate();
             insertarUsuario.close();
+            conex.obtenerConnexion().close();
             return true;
         } catch (Exception e) {
             e.printStackTrace();
@@ -110,6 +111,7 @@ public class Servicio {
             insertarUsuario.setInt(6, getId_usuario());
             insertarUsuario.executeUpdate();
             insertarUsuario.close();
+            conex.obtenerConnexion().close();
             return true;
         } catch (Exception e) {
             e.printStackTrace();
@@ -131,6 +133,7 @@ public class Servicio {
             actualizarUsuario.setInt(7, id_servicio);
             actualizarUsuario.executeUpdate();
             actualizarUsuario.close();
+            conex.obtenerConnexion().close();
             return true;
         } catch (Exception e) {
             e.printStackTrace();
@@ -151,6 +154,7 @@ public class Servicio {
             actualizarUsuario.setInt(6, id_servicio);
             actualizarUsuario.executeUpdate();
             actualizarUsuario.close();
+            conex.obtenerConnexion().close();
             return true;
         } catch (Exception e) {
             e.printStackTrace();
@@ -167,6 +171,7 @@ public class Servicio {
             actualizarUsuario.setInt(2, id_servicio);
             actualizarUsuario.executeUpdate();
             actualizarUsuario.close();
+            conex.obtenerConnexion().close();
             return true;
         } catch (Exception e) {
             e.printStackTrace();
@@ -176,12 +181,13 @@ public class Servicio {
 
     public boolean deleteServicios() {
         try {
-            final String sql = "Delete from servicio where id_servicio= ?";
+            final String sql = "Update servicio set estatus_servicio='Baja' where id_servicio= ?";
             Conexion conex = new Conexion();
             PreparedStatement eliminarUsuario = conex.obtenerConnexion().prepareStatement(sql);
             eliminarUsuario.setInt(1, getId_servicio());
             eliminarUsuario.executeUpdate();
             eliminarUsuario.close();
+            conex.obtenerConnexion().close();
             return true;
         } catch (Exception e) {
             e.printStackTrace();
@@ -215,6 +221,7 @@ public class Servicio {
             }
             consultarProducto.close();
             resulProducto.close();
+            conex.obtenerConnexion().close();
             return arreglo_servicio;
         } catch (Exception e) {
             e.printStackTrace();
@@ -248,6 +255,7 @@ public class Servicio {
             }
             consultarProducto.close();
             resulProducto.close();
+            conex.obtenerConnexion().close();
             return arreglo_servicio;
         } catch (Exception e) {
             e.printStackTrace();
@@ -267,10 +275,12 @@ public class Servicio {
                 resultado = resulProducto.getInt("count");
                 consultarProducto.close();
                 resulProducto.close();
+                conex.obtenerConnexion().close();
                 return resultado;
             } else {
                 consultarProducto.close();
                 resulProducto.close();
+                conex.obtenerConnexion().close();
                 return 0;
             }
         } catch (Exception e) {
@@ -288,10 +298,12 @@ public class Servicio {
             if (resulProducto.next()) {
                 consultarProducto.close();
                 resulProducto.close();
+                conex.obtenerConnexion().close();
                 return true;
             } else {
                 consultarProducto.close();
                 resulProducto.close();
+                conex.obtenerConnexion().close();
                 return false;
             }
         } catch (Exception e) {
@@ -320,6 +332,7 @@ public class Servicio {
             }
             consultarProducto.close();
             resulProducto.close();
+            conex.obtenerConnexion().close();
             return arreglo_servicio;
         } catch (Exception e) {
             e.printStackTrace();
@@ -340,10 +353,12 @@ public class Servicio {
                 resultado = resulProducto.getInt("count");
                 consultarProducto.close();
                 resulProducto.close();
+                conex.obtenerConnexion().close();
                 return resultado;
             } else {
                 consultarProducto.close();
                 resulProducto.close();
+                conex.obtenerConnexion().close();
                 return 0;
             }
         } catch (Exception e) {
@@ -362,10 +377,12 @@ public class Servicio {
             if (resulProducto.next()) {
                 consultarProducto.close();
                 resulProducto.close();
+                conex.obtenerConnexion().close();
                 return true;
             } else {
                 consultarProducto.close();
                 resulProducto.close();
+                conex.obtenerConnexion().close();
                 return false;
             }
         } catch (Exception e) {

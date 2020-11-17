@@ -51,6 +51,7 @@ public class Rol_Usuario {
             }
             buscarUsuario.close();
             resulUsuario.close();
+            conex.obtenerConnexion().close();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -68,11 +69,13 @@ public class Rol_Usuario {
                 String nombre = resulExistenCategorias.getString("nombre_rol");
                 existenCategorias.close();
                 resulExistenCategorias.close();
+                conex.obtenerConnexion().close();
                 return nombre;
             } else {
                 String nombre2 = "Sin asignar aun.";
                 existenCategorias.close();
                 resulExistenCategorias.close();
+                conex.obtenerConnexion().close();
                 return nombre2;
             }
         } catch (Exception e) {

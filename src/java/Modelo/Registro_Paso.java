@@ -70,6 +70,7 @@ public class Registro_Paso {
             insertarUsuario.setString(4, getHora_paso());
             insertarUsuario.executeUpdate();
             insertarUsuario.close();
+            conex.obtenerConnexion().close();
             return true;
         } catch (Exception e) {
             e.printStackTrace();
@@ -106,6 +107,7 @@ public class Registro_Paso {
             }
             consultarProducto.close();
             resulProducto.close();
+            conex.obtenerConnexion().close();
             return arreglo_servicio;
         } catch (Exception e) {
             e.printStackTrace();
@@ -125,10 +127,12 @@ public class Registro_Paso {
                 resultado = resulProducto.getInt("count");
                 consultarProducto.close();
                 resulProducto.close();
+                conex.obtenerConnexion().close();
                 return resultado;
             } else {
                 consultarProducto.close();
                 resulProducto.close();
+                conex.obtenerConnexion().close();
                 return 0;
             }
         } catch (Exception e) {
@@ -146,10 +150,12 @@ public class Registro_Paso {
             if (resulProducto.next()) {
                 consultarProducto.close();
                 resulProducto.close();
+                conex.obtenerConnexion().close();
                 return true;
             } else {
                 consultarProducto.close();
                 resulProducto.close();
+                conex.obtenerConnexion().close();
                 return false;
             }
         } catch (Exception e) {
