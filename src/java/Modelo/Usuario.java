@@ -7,6 +7,9 @@ package Modelo;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.security.NoSuchAlgorithmException;
+import java.security.SecureRandom;
+import java.util.Random;
 
 /**
  *
@@ -212,7 +215,7 @@ public class Usuario {
      */
     public boolean iniciarSesion() {
         try {
-            final String sql = "Select * from usuario where correo_usuario = ? and password_usuario = ?";
+            final String sql = "Select * from usuario where correo_usuario = ? and pgp_sym_decrypt(password_usuario::bytea,'AES_KEY') = ?";
             Conexion con = new Conexion();
             PreparedStatement validarCorreo = con.obtenerConnexion().prepareStatement(sql);
             validarCorreo.setString(1, getCorreo_usuario());
@@ -536,7 +539,7 @@ public class Usuario {
     
     public String[][] consultarUsuariosAuto() {
         try {
-            final String sql = "Select * from usuario where id_rol = 2";
+            final String sql = "Select * from usuario as usu where id_rol = 2 and not exists (select id_usuario from automovil as auto where usu.id_usuario=auto.id_usuario);";
             Conexion conex = new Conexion();
             PreparedStatement consultarProducto = conex.obtenerConnexion().prepareStatement(sql);
             ResultSet resulProducto = consultarProducto.executeQuery();
@@ -562,7 +565,7 @@ public class Usuario {
     public int contarUsuariosAuto() {
         try {
             int resultado;
-            final String sql = "Select count(*) from usuario where id_rol=2";
+            final String sql = "Select count(*) from usuario as usu where id_rol = 2 and not exists (select id_usuario from automovil as auto where usu.id_usuario=auto.id_usuario);";
             Conexion conex = new Conexion();
             PreparedStatement consultarProducto = conex.obtenerConnexion().prepareStatement(sql);
             ResultSet resulProducto = consultarProducto.executeQuery();
@@ -584,7 +587,7 @@ public class Usuario {
 
     public boolean existenUsuariosAuto() {
         try {
-            final String sql = "Select * from usuario where id_rol = 2";
+            final String sql = "Select * from usuario as usu where id_rol = 2 and not exists (select id_usuario from automovil as auto where usu.id_usuario=auto.id_usuario);";
             Conexion conex = new Conexion();
             PreparedStatement consultarProducto = conex.obtenerConnexion().prepareStatement(sql);
             ResultSet resulProducto = consultarProducto.executeQuery();
@@ -601,5 +604,24 @@ public class Usuario {
             e.printStackTrace();
         }
         return false;
+    }
+    
+    public String GenerarContraseña(){
+        String[] symbols = {"0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z", "!", "#", "$", "%", "&", "*", "-", "_", "@", "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"};             
+        int length = 10;
+        Random random;
+        try {
+            random = SecureRandom.getInstanceStrong();
+            StringBuilder sb = new StringBuilder(length);
+            for (int i = 0; i < length; i++) {
+                 int indexRandom = random.nextInt ( symbols.length );
+                 sb.append( symbols[indexRandom] );
+            }
+            String password = sb.toString();
+            return password;
+          } catch (NoSuchAlgorithmException e){
+              String error = "error";
+              return error;
+          }
     }
 }

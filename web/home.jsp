@@ -119,11 +119,13 @@
                 <!-- ESTO ES LO DE EMPLEADO -->
                 <div class="col-12 col-sm-6 col-md-6 col-lg-6">
                     <p>
-                        <a href="#"><button type="button" class="btn btn-primary" style="border-radius: 5rem; width: 100%; font-size: 3vh;">Gestionar Servicios</button></a>
-                    <p><br>
-                        <a href="#"><button type="button" class="btn btn-primary" style="border-radius: 5rem; width: 100%; font-size: 3vh;">Gestionar Automovil</button></a>
-                    <p><br>
-                        <a href="adm-gestionar-empleados.jsp"><button type="button" class="btn btn-primary" style="border-radius: 5rem; width: 100%; font-size: 3vh;">Gestionar Cuenta</button></a>
+                        <a href="emp-gestionar-serv.jsp"><button type="button" class="btn btn-primary" style="border-radius: 5rem; width: 100%; font-size: 3vh;">Consultar mis servicios.</button></a>
+                    </p><br>
+                    <p>
+                        <a href="emp-gestionar-auto.jsp"><button type="button" class="btn btn-primary" style="border-radius: 5rem; width: 100%; font-size: 3vh;">Consultar mi auto.</button></a>
+                    </p><br>
+                    <p>
+                        <a href="emp-gestionar-casetas.jsp"><button type="button" class="btn btn-primary" style="border-radius: 5rem; width: 100%; font-size: 3vh;">Consultar casetas.</button></a>
                     </p>
                 </div>
                 <!-- // ESTO ES LO DE EMPLEADO-->

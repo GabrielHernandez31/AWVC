@@ -1,4 +1,61 @@
-
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page import="Modelo.Usuario" %>
+<%@page import="Modelo.Servicio" %>
+<%@page import="java.util.List" %>
+<%@page import="java.util.Arrays" %>
+<%
+    /*
+    Asigna un valor a la variable email en caso de que se haya iniciado sesion
+    De lo contrario, deja la variable nula
+    */
+    HttpSession sesion = request.getSession();
+    String email=(String)sesion.getAttribute("email");
+    
+    /*
+    Asigna valores a las variables si existe una sesion.
+    Retoma datos del usuario para poder utilizarlos mÃ¡s adelante
+    */
+    Usuario usuario = new Usuario(email);
+    int id_usu = usuario.getId_usuario();
+    int id_rol = usuario.getId_rol();
+    
+    Servicio servicio = new Servicio();
+    /*
+    Valida si hay una sesion activa.
+    En caso de que no exista una sesion activa, se redirige al index
+    */
+    if(email==null){
+        response.sendRedirect("index.jsp");
+    }
+    
+    /*
+    ACCIONES
+    */
+    String accion = "", nombre = "", id_servicio="", ubicacion="";
+    
+    if(request.getParameter("accion")!=null){
+        accion = request.getParameter("accion");
+    }
+    if(request.getParameter("nombre")!=null){
+        nombre = request.getParameter("nombre");
+    }
+    if(request.getParameter("ubicacion")!=null){
+        ubicacion = request.getParameter("ubicacion");
+    }
+    if(request.getParameter("id_servicio")!=null){
+        id_servicio = request.getParameter("id_servicio");
+    }
+    switch(accion){
+        case "modificar":
+            HttpSession sesion_act = request.getSession();
+            sesion_act.setAttribute("id_servicio", id_servicio);
+            response.sendRedirect("emp-modificar-serv.jsp");
+        break;
+        default:
+            
+        break;
+    }
+%>
 <!DOCTYPE html>
 <html lang="es">
     <head>
@@ -33,7 +90,7 @@
                                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="font-size: 3vh">
                                         Menu</a>
                                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                        <a class="dropdown-item" href="emp-gestionar-auto.jsp" style="font-size: 2vh">Automóvil</a>
+                                        <a class="dropdown-item" href="emp-gestionar-auto.jsp" style="font-size: 2vh">AutomÃ³vil</a>
                                         <a class="dropdown-item" href="emp-gestionar-serv.jsp" style="font-size: 2vh">Servicios</a>
                                         <a class="dropdown-item" href="emp-gestionar-casetas.jsp" style="font-size: 2vh">Casetas</a>
                                     </div>
@@ -49,7 +106,7 @@
                                     </a>
                                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                                         <a class="dropdown-item" href="emp-mi-cuenta.jsp" style="font-size: 2vh">Mi Cuenta</a>
-                                        <a class="dropdown-item" href="cerrarSesion.jsp" style="font-size: 2vh">Cerrar sesión</a>
+                                        <a class="dropdown-item" href="cerrarSesion.jsp" style="font-size: 2vh">Cerrar sesiÃ³n</a>
                                     </div>
                                 </li>
                             </ul>
@@ -91,37 +148,44 @@
                                     <tr>
                                         <th scope="col">ID</th>
                                         <th scope="col">Nombre</th>
-                                        <th scope="col">Descripción</th>
-                                        <th scope="col">Ubicación</th>
+                                        <th scope="col">DescripciÃ³n</th>
+                                        <th scope="col">UbicaciÃ³n</th>
                                         <th scope="col">Estatus</th>
                                         <th scope="col">Fecha</th>
                                         <th scope="col">Editar</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                     
+                                    <%  
+                                    servicio.setId_usuario(id_usu);
+                                    if(servicio.existenServiciosEmp()){
+                                        String[][] servicios = servicio.consultarServiciosEmp();
+                                        
+                                        for( int cuenta = 0; cuenta<servicio.contarServiciosEmp(); cuenta++){
+                                    %>  
                                     <tr>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td class="text-center"><a href="emp-modificar-serv.jsp" class="text-primary">
+                                        <td><% out.print(servicios[cuenta][0]); %></td>
+                                        <td><% out.print(servicios[cuenta][1]); %></td>
+                                        <td><% out.print(servicios[cuenta][2]); %></td>
+                                        <td><% out.print(servicios[cuenta][3]); %></td>
+                                        <td><% out.print(servicios[cuenta][4]); %></td>
+                                        <td><% out.print(servicios[cuenta][5]); %></td>
+                                        <td class="text-center"><a href="emp-gestionar-serv.jsp?accion=modificar&id_servicio=<% out.print(servicios[cuenta][0]); %>" class="text-primary">
                                                 <svg width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-pencil-square" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                                                 <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456l-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
                                                 <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/>
                                                 </svg>
                                             </a> 
                                         </td>
-                                       
                                     </tr>
-                                   
+                                    <%
+                                        } 
+                                     }else{  
+                                    %>
                                     <tr>
-                                        <th colspan="9" style="text-align: center;">No tienes servicios aún.</th>
+                                        <th colspan="9" style="text-align: center;">No existen servicios aÃºn.</th>
                                     </tr>
-                                    
+                                    <%  } %>
                                 </tbody>
                             </table>
                         </div>
@@ -137,7 +201,7 @@
                 <div class="col">
                     <!-- INTRODUCE AQUI TODO LO DEL FOOTER -->
                     <footer class="page-footer font-small">
-                        <div class="footer-copyright text-center">© 2020 Copyright:
+                        <div class="footer-copyright text-center">Â© 2020 Copyright:
                             <a> Derechos Reservados AWCV</a>
                         </div>
                     </footer>

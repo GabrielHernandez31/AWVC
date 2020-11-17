@@ -244,4 +244,73 @@ public class RFID {
         }
         return false;
     }
+    
+    public String[][] consultarRFIDAutos() {
+        try {
+            final String sql = "Select * from rfid as rfid where not exists (select id_rfid from automovil as auto where rfid.id_rfid=auto.id_rfid)";
+            Conexion conex = new Conexion();
+            PreparedStatement consultarProducto = conex.obtenerConnexion().prepareStatement(sql);
+            ResultSet resulProducto = consultarProducto.executeQuery();
+            int cuenta = -1;
+            String[][] arreglo_servicio = new String[contarRFID()][4];
+            while (resulProducto.next()) {
+                cuenta++;
+                arreglo_servicio[cuenta][0] = resulProducto.getString("id_rfid");
+                arreglo_servicio[cuenta][1] = resulProducto.getString("serial_rfid");
+                arreglo_servicio[cuenta][2] = resulProducto.getString("estatus_rfid");
+                arreglo_servicio[cuenta][3] = resulProducto.getString("fecha_alta_rfid");
+            }
+            consultarProducto.close();
+            resulProducto.close();
+            return arreglo_servicio;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        String[][] arreglo_sinDatos = new String[0][0];
+        return arreglo_sinDatos;
+    }
+
+    public int contarRFIDAutos() {
+        try {
+            int resultado;
+            final String sql = "Select count(*) from rfid as rfid where not exists (select id_rfid from automovil as auto where rfid.id_rfid=auto.id_rfid)";
+            Conexion conex = new Conexion();
+            PreparedStatement consultarProducto = conex.obtenerConnexion().prepareStatement(sql);
+            ResultSet resulProducto = consultarProducto.executeQuery();
+            if (resulProducto.next()) {
+                resultado = resulProducto.getInt("count");
+                consultarProducto.close();
+                resulProducto.close();
+                return resultado;
+            } else {
+                consultarProducto.close();
+                resulProducto.close();
+                return 0;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return 0;
+    }
+
+    public boolean existenRFIDAutos() {
+        try {
+            final String sql = "Select * from rfid as rfid where not exists (select id_rfid from automovil as auto where rfid.id_rfid=auto.id_rfid)";
+            Conexion conex = new Conexion();
+            PreparedStatement consultarProducto = conex.obtenerConnexion().prepareStatement(sql);
+            ResultSet resulProducto = consultarProducto.executeQuery();
+            if (resulProducto.next()) {
+                consultarProducto.close();
+                resulProducto.close();
+                return true;
+            } else {
+                consultarProducto.close();
+                resulProducto.close();
+                return false;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
 }

@@ -160,12 +160,11 @@ public class Servicio {
 
     public boolean updateServiciosEmp() {
         try {
-            final String sql = "Update servicio set estatus_servicio=?, fecha_servicio=? where id_servicio= ?";
+            final String sql = "Update servicio set estatus_servicio=? where id_servicio= ?";
             Conexion conex = new Conexion();
             PreparedStatement actualizarUsuario = conex.obtenerConnexion().prepareStatement(sql);
-            actualizarUsuario.setString(1, nombre_servicio);
-            actualizarUsuario.setString(2, fecha_servicio);
-            actualizarUsuario.setInt(3, id_servicio);
+            actualizarUsuario.setString(1, estatus_servicio);
+            actualizarUsuario.setInt(2, id_servicio);
             actualizarUsuario.executeUpdate();
             actualizarUsuario.close();
             return true;
@@ -303,16 +302,16 @@ public class Servicio {
 
     public String[][] consultarServiciosEmp() {
         try {
-            final String sql = "Select * from servicio where id_usuario = ?";
+            final String sql = "Select * from servicio where id_usuario = ? and estatus_servicio NOT LIKE '%Finalizado%'";
             Conexion conex = new Conexion();
             PreparedStatement consultarProducto = conex.obtenerConnexion().prepareStatement(sql);
             consultarProducto.setInt(1, getId_usuario());
             ResultSet resulProducto = consultarProducto.executeQuery();
             int cuenta = -1;
-            String[][] arreglo_servicio = new String[contarServiciosEmp()][7];
+            String[][] arreglo_servicio = new String[contarServiciosEmp()][6];
             while (resulProducto.next()) {
                 cuenta++;
-                arreglo_servicio[cuenta][0] = resulProducto.getString("id_servidio");
+                arreglo_servicio[cuenta][0] = resulProducto.getString("id_servicio");
                 arreglo_servicio[cuenta][1] = resulProducto.getString("nombre_servicio");
                 arreglo_servicio[cuenta][2] = resulProducto.getString("descripcion_servicio");
                 arreglo_servicio[cuenta][3] = resulProducto.getString("ubicacion_servicio");
@@ -332,7 +331,7 @@ public class Servicio {
     public int contarServiciosEmp() {
         try {
             int resultado;
-            final String sql = "Select count(*) from servicio where id_usuario = ?";
+            final String sql = "Select count(*) from servicio where id_usuario = ? and estatus_servicio NOT LIKE '%Finalizado%'";
             Conexion conex = new Conexion();
             PreparedStatement consultarProducto = conex.obtenerConnexion().prepareStatement(sql);
             consultarProducto.setInt(1, getId_usuario());
@@ -355,7 +354,7 @@ public class Servicio {
 
     public boolean existenServiciosEmp() {
         try {
-            final String sql = "Select * from servicio where id_usuario = ?";
+            final String sql = "Select * from servicio where id_usuario = ? and estatus_servicio NOT LIKE '%Finalizado%'";
             Conexion conex = new Conexion();
             PreparedStatement consultarProducto = conex.obtenerConnexion().prepareStatement(sql);
             consultarProducto.setInt(1, getId_usuario());
@@ -374,4 +373,5 @@ public class Servicio {
         }
         return false;
     }
+    
 }
