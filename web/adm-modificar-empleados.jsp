@@ -261,16 +261,16 @@
                                             <input name="txtNombre" type="text" class="form-control" placeholder="Nombre" required value="<% out.print(usuarios[0][1]); %>">
                                         </div>
                                         <div class="form-group col-md-4">
-                                            <label class="font-weight-bold">A. Paterno</label>
+                                            <label class="font-weight-bold">A. Paterno:</label>
                                             <input name="txtAp_pat" type="text" class="form-control" placeholder="Apellido M" required value="<% out.print(usuarios[0][2]); %>">
                                         </div>
                                         <div class="form-group col-md-4">
-                                            <label class="font-weight-bold">A. Materno</label>
+                                            <label class="font-weight-bold">A. Materno:</label>
                                             <input name="txtAp_mat" type="text" class="form-control" placeholder="Apellido M" required value="<% out.print(usuarios[0][3]); %>">
                                         </div>
                                     </div>
                                     <div class="form-group mb-3">
-                                        <label  class="font-weight-bold">Rol</label>
+                                        <label  class="font-weight-bold">Rol:</label>
                                         <select name="txtRol" class="form-control">
                                             <% if (usuarios[0][6].equals("Administrador")) { %>
                                             <option value="1" selected>Administrador</option>
@@ -290,8 +290,15 @@
                                         <input name="txtCorreo" type="email" class="form-control" placeholder="Correo electrónico" required  pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" title="Ingresa tu correo electrónico Muestre un correo valido" value="<% out.print(usuarios[0][5]);%>">
                                     </div>
                                     <div class="form-group mb-3">
+                                        <label  class="font-weight-bold">Estatus:</label>
+                                        <select name="txtEstatusUs" class="form-control"> 
+                                            <option value="1" selected>Activo</option>
+                                            <option value="2">Baja</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group mb-3">
                                         <label  class="font-weight-bold">¿Cambiar contraseña de usuario?</label>
-                                        <input type="Radio" data-toggle="collapse" data-target="#collapseMod" aria-expanded="false" aria-controls="collapseMod"> Si
+                                        <input type="button" class="btn btn-secondary" value="Si" data-toggle="collapse" data-target="#collapseMod" aria-expanded="false" aria-controls="collapseMod">
                                         
                                     </div>
                                     <div class="form-group mb-3 collapse" id="collapseMod">

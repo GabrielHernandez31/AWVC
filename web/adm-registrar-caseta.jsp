@@ -136,6 +136,15 @@
                                         <label class="font-weight-bold">Costo: <span class="text-danger">*</span></label>
                                         <input name="costo" type="text" class="form-control" placeholder="Costo de la caseta $" required onblur="">
                                     </div>
+                                    
+                                    <div class="form-group mb-3">
+                                        <label class="font-weight-bold">Estatus: <span class="text-danger">*</span></label>
+                                        <select name="estatusCas" class="form-control">
+                                            <option value="Activo" selected>Activa</option>
+                                            <option value="Inactivo" selected>Inactiva</option>
+                                            <option value="Baja">Baja</option>
+                                        </select>
+                                    </div>
 
                                     <div class="form-row mb justify-content-center">
                                         <div class="col-12 col-lg-6 text-center">
