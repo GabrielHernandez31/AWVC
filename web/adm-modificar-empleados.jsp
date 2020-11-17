@@ -303,7 +303,7 @@
                                     <div class="form-group mb-3">
                                         <label  class="font-weight-bold">Estatus:</label>
                                         <select name="txtEstatusUs" class="form-control">
-                                            <% if (usuarios[0][7].equals("Activo")) { %>
+                                            <% if (usuarios[0][8].equals("Activo")) { %>
                                             <option value="Activo" selected>Activo</option>
                                             <option value="Baja" >Baja</option>
                                             <% } else { %>
