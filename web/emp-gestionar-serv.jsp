@@ -7,53 +7,53 @@
     /*
     Asigna un valor a la variable email en caso de que se haya iniciado sesion
     De lo contrario, deja la variable nula
-    */
+     */
     HttpSession sesion = request.getSession();
-    String email=(String)sesion.getAttribute("email");
-    
+    String email = (String) sesion.getAttribute("email");
+
     /*
     Asigna valores a las variables si existe una sesion.
-    Retoma datos del usuario para poder utilizarlos más adelante
-    */
+    Retoma datos del usuario para poder utilizarlos mÃ¡s adelante
+     */
     Usuario usuario = new Usuario(email);
     int id_usu = usuario.getId_usuario();
     int id_rol = usuario.getId_rol();
-    
+
     Servicio servicio = new Servicio();
     /*
     Valida si hay una sesion activa.
     En caso de que no exista una sesion activa, se redirige al index
-    */
-    if(email==null){
+     */
+    if (email == null) {
         response.sendRedirect("index.jsp");
     }
-    
+
     /*
     ACCIONES
-    */
-    String accion = "", nombre = "", id_servicio="", ubicacion="";
-    
-    if(request.getParameter("accion")!=null){
+     */
+    String accion = "", nombre = "", id_servicio = "", ubicacion = "";
+
+    if (request.getParameter("accion") != null) {
         accion = request.getParameter("accion");
     }
-    if(request.getParameter("nombre")!=null){
+    if (request.getParameter("nombre") != null) {
         nombre = request.getParameter("nombre");
     }
-    if(request.getParameter("ubicacion")!=null){
+    if (request.getParameter("ubicacion") != null) {
         ubicacion = request.getParameter("ubicacion");
     }
-    if(request.getParameter("id_servicio")!=null){
+    if (request.getParameter("id_servicio") != null) {
         id_servicio = request.getParameter("id_servicio");
     }
-    switch(accion){
+    switch (accion) {
         case "modificar":
             HttpSession sesion_act = request.getSession();
             sesion_act.setAttribute("id_servicio", id_servicio);
             response.sendRedirect("emp-modificar-serv.jsp");
-        break;
+            break;
         default:
-            
-        break;
+
+            break;
     }
 %>
 <!DOCTYPE html>
@@ -90,7 +90,7 @@
                                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="font-size: 3vh">
                                         Menu</a>
                                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                        <a class="dropdown-item" href="emp-gestionar-auto.jsp" style="font-size: 2vh">Automóvil</a>
+                                        <a class="dropdown-item" href="emp-gestionar-auto.jsp" style="font-size: 2vh">AutomÃ³vil</a>
                                         <a class="dropdown-item" href="emp-gestionar-serv.jsp" style="font-size: 2vh">Servicios</a>
                                         <a class="dropdown-item" href="emp-gestionar-casetas.jsp" style="font-size: 2vh">Casetas</a>
                                     </div>
@@ -106,7 +106,7 @@
                                     </a>
                                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                                         <a class="dropdown-item" href="emp-mi-cuenta.jsp" style="font-size: 2vh">Mi Cuenta</a>
-                                        <a class="dropdown-item" href="cerrarSesion.jsp" style="font-size: 2vh">Cerrar sesión</a>
+                                        <a class="dropdown-item" href="cerrarSesion.jsp" style="font-size: 2vh">Cerrar sesiÃ³n</a>
                                     </div>
                                 </li>
                             </ul>
@@ -120,25 +120,12 @@
             <!-- CUERPO DE LA PAGINA -->
             <div class="row justify-content-center" style="min-height: 80vh">
 
-                <div class="container col-md-12 col-lg-10">
-                    <div class="row col-12">
-                        <div class="col-xl-12 text-center">
-                            <h1 class="text-dark">Gestiona Tus Servicios</h1>
-                        </div>
-                    </div>
-
+                <div class="container col-md-12 col-lg-10" style="margin-top: 10px">
                     <div class="row  bg-info justify-content-center">
                         <div class="col-12 col-md-8" style="padding-top: 1vh;padding-bottom: 1vh">
-                            <label class="font-weight-bold col-12 col-md-2">Buscar:</label>
-                            <input name="txtBusGE" type="text" class="form-con col-12 col-md-3" placeholder="Buscar..." required>
-                            <label  class="font-weight-bold col-2 col-md-1">Por:</label>
-                            <select name="selectge" class="form-con col-9 col-md-4">
-                                <option value="0" disabled selected>Elegir</option> 
-                                <option value="1">ID</option>
-                                <option value="2">Estatus</option>
-                            </select>
+                            <h1 class="text-withe">Servicios</h1>
                         </div>
-                        
+
                     </div>
 
                     <div class="row justify-content-center align-content-center" >
@@ -148,20 +135,20 @@
                                     <tr>
                                         <th scope="col">ID</th>
                                         <th scope="col">Nombre</th>
-                                        <th scope="col">Descripción</th>
-                                        <th scope="col">Ubicación</th>
+                                        <th scope="col">DescripciÃ³n</th>
+                                        <th scope="col">UbicaciÃ³n</th>
                                         <th scope="col">Estatus</th>
                                         <th scope="col">Fecha</th>
                                         <th scope="col">Editar</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <%  
-                                    servicio.setId_usuario(id_usu);
-                                    if(servicio.existenServiciosEmp()){
-                                        String[][] servicios = servicio.consultarServiciosEmp();
-                                        
-                                        for( int cuenta = 0; cuenta<servicio.contarServiciosEmp(); cuenta++){
+                                    <%
+                                        servicio.setId_usuario(id_usu);
+                                        if (servicio.existenServiciosEmp()) {
+                                            String[][] servicios = servicio.consultarServiciosEmp();
+
+                                            for (int cuenta = 0; cuenta < servicio.contarServiciosEmp(); cuenta++) {
                                     %>  
                                     <tr>
                                         <td><% out.print(servicios[cuenta][0]); %></td>
@@ -179,13 +166,13 @@
                                         </td>
                                     </tr>
                                     <%
-                                        } 
-                                     }else{  
+                                        }
+                                    } else {
                                     %>
                                     <tr>
-                                        <th colspan="9" style="text-align: center;">No existen servicios aún.</th>
+                                        <th colspan="9" style="text-align: center;">No existen servicios aÃºn.</th>
                                     </tr>
-                                    <%  } %>
+                                    <%  }%>
                                 </tbody>
                             </table>
                         </div>
@@ -201,7 +188,7 @@
                 <div class="col">
                     <!-- INTRODUCE AQUI TODO LO DEL FOOTER -->
                     <footer class="page-footer font-small">
-                        <div class="footer-copyright text-center">© 2020 Copyright:
+                        <div class="footer-copyright text-center">Â© 2020 Copyright:
                             <a> Derechos Reservados AWCV</a>
                         </div>
                     </footer>

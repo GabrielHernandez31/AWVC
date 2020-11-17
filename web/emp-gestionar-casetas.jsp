@@ -119,10 +119,10 @@
             <!-- CUERPO DE LA PAGINA -->
             <div class="row justify-content-center" style="min-height: 80vh">
 
-                <div class="container col-md-12 col-lg-10">
-                    <div class="row col-12">
-                        <div class="col-xl-12 text-center">
-                            <h1 class="text-dark">Gestionar Casetas</h1>
+                <div class="container col-md-12 col-lg-10" style="margin-top: 10px">
+                    <div class="row  bg-info justify-content-center">
+                        <div class="col-12 col-md-8" style="padding-top: 1vh;padding-bottom: 1vh">
+                             <h1 class="text-withe">Gestionar Casetas</h1>
                         </div>
                     </div>
 
