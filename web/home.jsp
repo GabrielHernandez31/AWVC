@@ -60,12 +60,18 @@
                                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="font-size: 3vh">
                                         Menu</a>
                                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                        <% if (id_rol == 1) { %>
                                         <a class="dropdown-item" href="adm-gestionar-auto.jsp" style="font-size: 2vh">Automoviles</a>
                                         <a class="dropdown-item" href="adm-gestionar-casetas.jsp" style="font-size: 2vh">Casetas</a>
                                         <a class="dropdown-item" href="adm-gestionar-empleados.jsp" style="font-size: 2vh">Empleados</a>
                                         <a class="dropdown-item" href="adm-gestionar-rfid.jsp" style="font-size: 2vh">RFID</a>
                                         <a class="dropdown-item" href="adm-gestionar-serv.jsp" style="font-size: 2vh">Servicios</a>
                                         <a class="dropdown-item" href="adm-historial-servicios.jsp" style="font-size: 2vh">Historial de Servicios</a>
+                                        <% } else { %>
+                                        <a class="dropdown-item" href="emp-gestionar-auto.jsp" style="font-size: 2vh">Automovil</a>
+                                        <a class="dropdown-item" href="emp-gestionar-casetas.jsp" style="font-size: 2vh">Casetas</a>
+                                        <a class="dropdown-item" href="emp-gestionar-serv.jsp" style="font-size: 2vh">Servicios</a>
+                                        <% } %>
                                     </div>
                                 </li>
 
