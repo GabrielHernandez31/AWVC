@@ -157,6 +157,33 @@ public class RFID {
         return nombre3;
     }
     
+    public int obtenerIdAuto() {
+        try {
+            final String sql = "Select id_auto from automovil where id_rfid = ?";
+            Conexion conex = new Conexion();
+            PreparedStatement existenCategorias = conex.obtenerConnexion().prepareStatement(sql);
+            existenCategorias.setInt(1, getId_rfid());
+            ResultSet resulExistenCategorias = existenCategorias.executeQuery();
+            if (resulExistenCategorias.next()) {
+                int nombre = resulExistenCategorias.getInt("id_auto");
+                existenCategorias.close();
+                resulExistenCategorias.close();
+                conex.obtenerConnexion().close();
+                return nombre;
+            } else {
+                int nombre2 = 0;
+                existenCategorias.close();
+                resulExistenCategorias.close();
+                conex.obtenerConnexion().close();
+                return nombre2;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        int nombre3 = 0;
+        return nombre3;
+    }
+    
     public String[][] consultarRFIDModificar() {
         try {
             final String sql = "Select * from rfid where id_rfid = ?";

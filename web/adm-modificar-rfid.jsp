@@ -1,6 +1,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import="Modelo.Usuario" %>
 <%@page import="Modelo.RFID" %>
+<%@page import="Modelo.Automovil" %>
 <%@page import="java.util.Date" %>
 <%@page import="java.text.SimpleDateFormat" %>
 <%
@@ -22,6 +23,7 @@
     int id_rol = usuario.getId_rol();
     
     RFID rfid = new RFID();
+    Automovil auto = new Automovil();
 
     /*
     Valida si hay una sesion activa.
@@ -47,10 +49,23 @@
         case "Guardar":
             rfid.setId_rfid(id_rfid);
             rfid.setEstatus_rfid(estatus);
-            if (rfid.updateRFID()) {
-                out.print("<script>cancelar=confirm('¡Registro Exitoso!'); if(cancelar){ window.location.href='adm-gestionar-rfid.jsp'; }else{ window.location.href='adm-gestionar-rfid.jsp'; }</script>");
-            } else {
-                out.print("<script>cancelar=confirm('Error al registrar!'); if(cancelar){ window.location.href='adm-modificar-rfid.jsp'; }else{ window.location.href='adm-modificar-rfid.jsp'; }</script>");
+            if(estatus.equals("Inactivo") || estatus.equals("Baja")){
+                if (rfid.updateRFID()) {
+                    auto.setId_auto(rfid.obtenerIdAuto());
+                    if(auto.deleteRFIDAutomovil()){
+                        out.print("<script>cancelar=confirm('¡Registro Exitoso!'); if(cancelar){ window.location.href='adm-gestionar-rfid.jsp'; }else{ window.location.href='adm-gestionar-rfid.jsp'; }</script>");
+                    }else{
+                        out.print("<script>cancelar=confirm('Error al registrar!'); if(cancelar){ window.location.href='adm-modificar-rfid.jsp'; }else{ window.location.href='adm-modificar-rfid.jsp'; }</script>");
+                    }
+                } else {
+                    out.print("<script>cancelar=confirm('Error al registrar!'); if(cancelar){ window.location.href='adm-modificar-rfid.jsp'; }else{ window.location.href='adm-modificar-rfid.jsp'; }</script>");
+                }
+            }else{
+                if (rfid.updateRFID()) {
+                    out.print("<script>cancelar=confirm('¡Registro Exitoso!'); if(cancelar){ window.location.href='adm-gestionar-rfid.jsp'; }else{ window.location.href='adm-gestionar-rfid.jsp'; }</script>");
+                } else {
+                    out.print("<script>cancelar=confirm('Error al registrar!'); if(cancelar){ window.location.href='adm-modificar-rfid.jsp'; }else{ window.location.href='adm-modificar-rfid.jsp'; }</script>");
+                }        
             }
             break;
         default:

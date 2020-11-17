@@ -194,6 +194,33 @@ public class Usuario {
         int nombre3 = 0;
         return nombre3;
     }
+    
+    public int obtenerIdAuto() {
+        try {
+            final String sql = "Select id_auto from automovil where id_usuario = ?";
+            Conexion conex = new Conexion();
+            PreparedStatement existenCategorias = conex.obtenerConnexion().prepareStatement(sql);
+            existenCategorias.setInt(1, getId_usuario());
+            ResultSet resulExistenCategorias = existenCategorias.executeQuery();
+            if (resulExistenCategorias.next()) {
+                int nombre = resulExistenCategorias.getInt("id_auto");
+                existenCategorias.close();
+                resulExistenCategorias.close();
+                conex.obtenerConnexion().close();
+                return nombre;
+            } else {
+                int nombre2 = 0;
+                existenCategorias.close();
+                resulExistenCategorias.close();
+                conex.obtenerConnexion().close();
+                return nombre2;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        int nombre3 = 0;
+        return nombre3;
+    }
 
     /*
     Valida que el correo electronico no este en uso.
@@ -444,6 +471,82 @@ public class Usuario {
         }
         int nombre3 = 0;
         return nombre3;
+    }
+    
+    public String[][] consultarUsuariosAdmGestionar() {
+        try {
+            final String sql = "Select * from usuario where id_rol=2";
+            Conexion con = new Conexion();
+            PreparedStatement consultarProducto = con.obtenerConnexion().prepareStatement(sql);
+            ResultSet resulProducto = consultarProducto.executeQuery();
+            int cuenta = -1;
+            String[][] arreglo_servicio = new String[contarUsuariosAdmGestionar()][8];
+            while (resulProducto.next()) {
+                cuenta++;
+                arreglo_servicio[cuenta][0] = resulProducto.getString("id_usuario");
+                arreglo_servicio[cuenta][1] = resulProducto.getString("nombre_usuario");
+                arreglo_servicio[cuenta][2] = resulProducto.getString("app_usuario");
+                arreglo_servicio[cuenta][3] = resulProducto.getString("apm_usuario");
+                arreglo_servicio[cuenta][4] = resulProducto.getString("telefono_usuario");
+                arreglo_servicio[cuenta][5] = resulProducto.getString("correo_usuario");
+                Rol_Usuario rol = new Rol_Usuario();
+                arreglo_servicio[cuenta][6] = rol.obtenerNombreRol(resulProducto.getString("id_rol"));
+                arreglo_servicio[cuenta][7] = resulProducto.getString("estado_usuario");
+            }
+            consultarProducto.close();
+            resulProducto.close();
+            con.obtenerConnexion().close();
+            return arreglo_servicio;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        String[][] arreglo_sinDatos = new String[0][0];
+        return arreglo_sinDatos;
+    }
+    
+    public int contarUsuariosAdmGestionar() {
+        try {
+            int resultado;
+            final String sql = "Select count(*) from usuario where id_rol=2";
+            Conexion con = new Conexion();
+            PreparedStatement consultarProducto = con.obtenerConnexion().prepareStatement(sql);
+            ResultSet resulProducto = consultarProducto.executeQuery();
+            if (resulProducto.next()) {
+                resultado = resulProducto.getInt("count");
+                consultarProducto.close();
+                resulProducto.close();
+                con.obtenerConnexion().close();
+                return resultado;
+            } else {
+                return 0;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return 0;
+    }
+
+    public boolean existenUsuariosAdmGestionar() {
+        try {
+            final String sql = "Select * from usuario where id_rol=2";
+            Conexion con = new Conexion();
+            PreparedStatement consultarProducto = con.obtenerConnexion().prepareStatement(sql);
+            ResultSet resulProducto = consultarProducto.executeQuery();
+            if (resulProducto.next()) {
+                consultarProducto.close();
+                resulProducto.close();
+                con.obtenerConnexion().close();
+                return true;
+            } else {
+                consultarProducto.close();
+                resulProducto.close();
+                con.obtenerConnexion().close();
+                return false;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
     }
 
     public String[][] consultarUsuariosAdm() {

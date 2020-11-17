@@ -287,6 +287,38 @@ public class Automovil {
         return false;
     }
     
+    public boolean deleteRFIDAutomovil() {
+        try {
+            final String sql = "Update automovil set id_rfid=null where id_auto= ?";
+            Conexion conex = new Conexion();
+            PreparedStatement eliminarUsuario = conex.obtenerConnexion().prepareStatement(sql);
+            eliminarUsuario.setInt(1, getId_auto());
+            eliminarUsuario.executeUpdate();
+            eliminarUsuario.close();
+            conex.obtenerConnexion().close();
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+    
+    public boolean deleteUsuarioAutomovil() {
+        try {
+            final String sql = "Update automovil set id_usuario=null where id_auto= ?";
+            Conexion conex = new Conexion();
+            PreparedStatement eliminarUsuario = conex.obtenerConnexion().prepareStatement(sql);
+            eliminarUsuario.setInt(1, getId_auto());
+            eliminarUsuario.executeUpdate();
+            eliminarUsuario.close();
+            conex.obtenerConnexion().close();
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+    
     public String[][] consultarAutomovilesModificar() {
         try {
             final String sql = "Select * from automovil where id_auto = ?";

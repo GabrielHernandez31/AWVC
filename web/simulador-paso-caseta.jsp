@@ -1,4 +1,40 @@
-<!DOCTYPE html>
+
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page import="Modelo.Usuario" %>
+<%@page import="Modelo.Servicio" %>
+<%@page import="java.util.Date" %>
+<%@page import="java.text.SimpleDateFormat" %>
+<%
+    /*
+    Asigna un valor a la variable email en caso de que se haya iniciado sesion
+    De lo contrario, deja la variable nula
+     */
+    HttpSession sesion = request.getSession();
+    String email = (String) sesion.getAttribute("email");
+    
+    String id_servicio1 = (String) sesion.getAttribute("id_servicio");
+    int id_servicio = Integer.parseInt(id_servicio1);
+    String id_auto = (String) sesion.getAttribute("id_auto");
+    String id_usuario = (String) sesion.getAttribute("id_usuario");
+
+    /*
+    Asigna valores a las variables si existe una sesion.
+    Retoma datos del usuario para poder utilizarlos mÃƒÂ¡s adelante
+     */
+    Usuario usuario = new Usuario(email);
+    int id_usu = usuario.getId_usuario();
+    int id_rol = usuario.getId_rol();
+
+    Servicio servicio = new Servicio();
+
+    /*
+    Valida si hay una sesion activa.
+    En caso de que no exista una sesion activa, se redirige al index
+     */
+    if (email == null) {
+        response.sendRedirect("index.jsp");
+    }
+%><!DOCTYPE html>
 <html lang="es">
     <head>
         <!-- Required meta tags -->
@@ -55,7 +91,7 @@
                                     </a>
                                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                                         <a class="dropdown-item" href="adm-mi-cuenta.jsp" style="font-size: 2vh">Mi Cuenta</a>
-                                        <a class="dropdown-item" href="cerrarSesion.jsp" style="font-size: 2vh">Cerrar sesión</a>
+                                        <a class="dropdown-item" href="cerrarSesion.jsp" style="font-size: 2vh">Cerrar sesiÃ³n</a>
                                     </div>
                                 </li>
                             </ul>
@@ -77,7 +113,7 @@
                                 <div class="form-row justify-content-center align-content-center"">
                                     <div class="col-md-12">
                                         <h1 class="font-weight-bold">Simulador de Paso Por Caseta</h1>
-                                        <p class="text-dark mb-3">Ingresa la siguiente información de paso por caseta. </p>
+                                        <p class="text-dark mb-3">Ingresa la siguiente informaciÃ³n de paso por caseta. </p>
                                     </div>
                                 </div>
                                 <form action="simulador-paso-caseta.jsp" id="formulario" name="formulario" method="POST">
@@ -92,17 +128,17 @@
                                         </div>
                                         <div class="form-group col-md-4">
                                             <label class="font-weight-bold">Servicio:</label>
-                                            <input name="txtServ" type="text" class="form-control" placeholder="Reparación" disabled="">
+                                            <input name="txtServ" type="text" class="form-control" placeholder="ReparaciÃ³n" disabled="">
                                         </div>
                                     </div>
 
                                     <div class="form-group mb-3">
-                                        <label  class="font-weight-bold">Ubicación:</label>
+                                        <label  class="font-weight-bold">UbicaciÃ³n:</label>
                                         <textarea class="form-control" name='Ubicacion' rows="3" disabled ></textarea>
                                     </div>
 
                                     <div class="form-group mb-3">
-                                        <label  class="font-weight-bold">¿Añadir un paso por caseta?</label>
+                                        <label  class="font-weight-bold">Â¿AÃ±adir un paso por caseta?</label>
                                         <input type="button" class="btn btn-secondary" value="Si" data-toggle="collapse" data-target="#collapseCas1" aria-expanded="false" aria-controls="collapseCas1">
                                     </div>
                                     <div id="collapseCas1" class="collapse">
@@ -132,7 +168,7 @@
                                         </div>
                                         <div class="form-row mb">
                                             <div class="form-group col-md-12">
-                                                <label  class="font-weight-bold">¿Añadir otro paso por caseta?</label>
+                                                <label  class="font-weight-bold">Â¿AÃ±adir otro paso por caseta?</label>
                                                 <input type="button" class="btn btn-secondary" value="Si" data-toggle="collapse" data-target="#collapseCas2" aria-expanded="false" aria-controls="collapseCas2">
                                             </div>
                                         </div>
@@ -166,7 +202,7 @@
                                         </div>
                                         <div class="form-row mb">
                                             <div class="form-group col-md-12">
-                                                <label  class="font-weight-bold">¿Añadir otro paso por caseta?</label>
+                                                <label  class="font-weight-bold">Â¿AÃ±adir otro paso por caseta?</label>
                                                 <input type="button" class="btn btn-secondary" value="Si" data-toggle="collapse" data-target="#collapseCas3" aria-expanded="false" aria-controls="collapseCas3">
                                             </div>
                                         </div>
@@ -199,7 +235,7 @@
                                         </div>
                                         <div class="form-row mb">
                                             <div class="form-group col-md-12">
-                                                <label  class="font-weight-bold">¿Añadir otro paso por caseta?</label>
+                                                <label  class="font-weight-bold">Â¿AÃ±adir otro paso por caseta?</label>
                                                 <input type="button" class="btn btn-secondary" value="Si" data-toggle="collapse" data-target="#collapseCas4" aria-expanded="false" aria-controls="collapseCas4">
                                             </div>
                                         </div>
@@ -252,7 +288,7 @@
                 <div class="col">
                     <!-- INTRODUCE AQUI TODO LO DEL FOOTER -->
                     <footer class="page-footer font-small">
-                        <div class="footer-copyright text-center">© 2020 Copyright:
+                        <div class="footer-copyright text-center">Â© 2020 Copyright:
                             <a> Derechos Reservados AWCV</a>
                         </div>
                     </footer>

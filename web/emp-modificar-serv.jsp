@@ -34,13 +34,16 @@
     /*
     MODIFICAR AUTO
      */
-    String accion = "", estatus = "";
+    String accion = "", estatus = "", empleado="";
 
     if (request.getParameter("accion") != null) {
         accion = request.getParameter("accion");
     }
     if (request.getParameter("estatusserv") != null) {
         estatus = request.getParameter("estatusserv");
+    }
+    if (request.getParameter("empleado") != null) {
+        empleado = request.getParameter("empleado");
     }
 
     switch (accion) {
@@ -49,8 +52,19 @@
             servicio.setId_servicio(id_servicio);
             servicio.setEstatus_servicio(estatus);
 
-            if (servicio.updateServiciosEmp()) {
-                out.print("<script>cancelar=confirm('Â¡Registro Exitoso!'); if(cancelar){ window.location.href='emp-gestionar-serv.jsp'; }else{ window.location.href='emp-gestionar-serv.jsp'; }</script>");
+            if (request.getParameter("estatusserv").equals("Finalizado")) {
+                if(servicio.updateServiciosEmp()){
+                    usuario.setId_usuario(Integer.parseInt(empleado));
+                    HttpSession sesion_act = request.getSession();
+                    sesion_act.setAttribute("id_usuario",Integer.parseInt(empleado));
+                    sesion_act.setAttribute("id_servicio",id_servicio);
+                    sesion_act.setAttribute("id_auto",usuario.obtenerIdAuto());
+                    
+                    response.sendRedirect("simulador-paso-caseta.jsp");
+                }else{
+                    servicio.updateServiciosEmp();
+                    out.print("<script>cancelar=confirm('Â¡Registro Exitoso!'); if(cancelar){ window.location.href='emp-gestionar-serv.jsp'; }else{ window.location.href='emp-gestionar-serv.jsp'; }</script>");
+                }
             } else {
                 out.print("<script>cancelar=confirm('Error al registrar!'); if(cancelar){ window.location.href='emp-modificar-serv.jsp'; }else{ window.location.href='emp-modificar-serv.jsp'; }</script>");
             }
@@ -212,15 +226,15 @@
                                             %>
                                             <option value="<% out.print(emple[cuenta][0]); %>"><% out.print(emple[cuenta][1] + " " + emple[cuenta][2] + " " + emple[cuenta][3].charAt(0) + "."); %></option>
                                             <%      }
-                                                if (servicios[0][6] == "Sin asignar aun.") { %>
-                                            <option value="0" selected="">Sin asignar aÃºn.</option>
+                                                if (usuario.obtenerNombreUsuario(servicios[0][6]).equals("Sin asignar aun.")) { %>
+                                            <option value="0" selected="">Sin asignar aun.</option>
                                             <%  } else { %>
-                                            <option value="<% out.print(servicios[0][6]); %>" selected=""><% out.print(servicios[0][6]); %></option>
-                                            <option value="0">Sin asignar aÃºn.</option>
+                                            <option value="<% out.print(servicios[0][6]); %>" selected=""><% out.print(usuario.obtenerNombreUsuario(servicios[0][6])); %></option>
+                                            <option value="0">Sin asignar aun.</option>
                                             <%  } %>          
                                             <%  } else { %>
                                             <option disabled>No existen empleados</option>
-                                            <option value="0">Sin asignar aÃºn.</option>
+                                            <option value="0">Sin asignar aun.</option>
                                             <%  }%>
                                         </select>
                                     </div>

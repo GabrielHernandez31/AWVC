@@ -1,5 +1,6 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import="Modelo.Usuario" %>
+<%@page import="Modelo.Automovil" %>
 <%@page import="java.util.List" %>
 <%@page import="java.util.Arrays" %>
 <%
@@ -28,6 +29,9 @@
         response.sendRedirect("index.jsp");
     }
 
+    
+    Automovil auto = new Automovil();
+    
     /*
     MODIFICAR EMPLEADO
      */
@@ -80,15 +84,43 @@
                         usuario1.setId_rol(rol);
                         usuario1.setEstatus_usuario(estatus);
                         usuario1.setId_usuario(Integer.parseInt(datos[0][0]));
-                        usuario1.updateUsuarioSCST();
-                        out.print("<script>cancelar=confirm('¡Registro Exitoso!'); if(cancelar){ window.location.href='adm-gestionar-empleados.jsp'; }else{ window.location.href='adm-gestionar-empleados.jsp'; }</script>");
+                        if(estatus.equals("Baja")){
+                            usuario1.updateUsuarioSCST();
+                            usuario1.setId_usuario(id_us);
+                            auto.setId_auto(usuario.obtenerIdAuto());
+                            if(auto.deleteUsuarioAutomovil()){
+                                out.print("<script>cancelar=confirm('¡Registro Exitoso!'); if(cancelar){ window.location.href='adm-gestionar-empleados.jsp'; }else{ window.location.href='adm-gestionar-empleados.jsp'; }</script>");
+                            }else{
+                                out.print("<script>cancelar=confirm('¡Error al registrar!'); if(cancelar){ window.location.href='adm-modificar-empleados.jsp'; }else{ window.location.href='adm-modificar-empleados.jsp'; }</script>");
+                            }
+                        }else{
+                            if(usuario1.updateUsuarioSCST()){
+                                out.print("<script>cancelar=confirm('¡Registro Exitoso!'); if(cancelar){ window.location.href='adm-gestionar-empleados.jsp'; }else{ window.location.href='adm-gestionar-empleados.jsp'; }</script>");
+                            }else{
+                                out.print("<script>cancelar=confirm('¡Error al registrar!'); if(cancelar){ window.location.href='adm-modificar-empleados.jsp'; }else{ window.location.href='adm-modificar-empleados.jsp'; }</script>");
+                            }
+                        }
                     } else {
                         usuario1.setPassword_usuario(password);
                         usuario1.setId_rol(rol);
                         usuario1.setEstatus_usuario(estatus);
                         usuario1.setId_usuario(Integer.parseInt(datos[0][0]));
-                        usuario1.updateUsuarioSCST();
-                        out.print("<script>cancelar=confirm('¡Registro Exitoso!'); if(cancelar){ window.location.href='adm-gestionar-empleados.jsp'; }else{ window.location.href='adm-gestionar-empleados.jsp'; }</script>");
+                        if(estatus.equals("Baja")){
+                            usuario1.updateUsuarioSCST();
+                            usuario1.setId_usuario(id_us);
+                            auto.setId_auto(usuario.obtenerIdAuto());
+                            if(auto.deleteUsuarioAutomovil()){
+                                out.print("<script>cancelar=confirm('¡Registro Exitoso!'); if(cancelar){ window.location.href='adm-gestionar-empleados.jsp'; }else{ window.location.href='adm-gestionar-empleados.jsp'; }</script>");
+                            }else{
+                                out.print("<script>cancelar=confirm('¡Error al registrar!'); if(cancelar){ window.location.href='adm-modificar-empleados.jsp'; }else{ window.location.href='adm-modificar-empleados.jsp'; }</script>");
+                            }
+                        }else{
+                            if(usuario1.updateUsuarioSCST()){
+                                out.print("<script>cancelar=confirm('¡Registro Exitoso!'); if(cancelar){ window.location.href='adm-gestionar-empleados.jsp'; }else{ window.location.href='adm-gestionar-empleados.jsp'; }</script>");
+                            }else{
+                                out.print("<script>cancelar=confirm('¡Error al registrar!'); if(cancelar){ window.location.href='adm-modificar-empleados.jsp'; }else{ window.location.href='adm-modificar-empleados.jsp'; }</script>");
+                            }
+                        }
                     }
                 } else {
                     usuario1.setCorreo_usuario(correo);
@@ -99,16 +131,44 @@
                             usuario1.setId_rol(rol);
                             usuario1.setEstatus_usuario(estatus);
                             usuario1.setId_usuario(Integer.parseInt(datos[0][0]));
-                            usuario1.updateUsuarioCCST();
-                            out.print("<script>cancelar=confirm('¡Registro Exitoso!'); if(cancelar){ window.location.href='adm-gestionar-empleados.jsp'; }else{ window.location.href='adm-gestionar-empleados.jsp'; }</script>");
+                            if(estatus.equals("Baja")){
+                                usuario1.setId_usuario(id_us);
+                                usuario1.updateUsuarioCCST();
+                                auto.setId_auto(usuario.obtenerIdAuto());
+                                if(auto.deleteUsuarioAutomovil()){
+                                    out.print("<script>cancelar=confirm('¡Registro Exitoso!'); if(cancelar){ window.location.href='adm-gestionar-empleados.jsp'; }else{ window.location.href='adm-gestionar-empleados.jsp'; }</script>");
+                                }else{
+                                    out.print("<script>cancelar=confirm('¡Error al registrar!'); if(cancelar){ window.location.href='adm-modificar-empleados.jsp'; }else{ window.location.href='adm-modificar-empleados.jsp'; }</script>");
+                                }
+                            }else{
+                                if(usuario1.updateUsuarioCCST()){
+                                    out.print("<script>cancelar=confirm('¡Registro Exitoso!'); if(cancelar){ window.location.href='adm-gestionar-empleados.jsp'; }else{ window.location.href='adm-gestionar-empleados.jsp'; }</script>");
+                                }else{
+                                    out.print("<script>cancelar=confirm('¡Error al registrar!'); if(cancelar){ window.location.href='adm-modificar-empleados.jsp'; }else{ window.location.href='adm-modificar-empleados.jsp'; }</script>");
+                                }
+                            }
                         } else {
                             usuario1.setCorreo_usuario(correo);
                             usuario1.setPassword_usuario(password);
                             usuario1.setId_rol(rol);
                             usuario1.setEstatus_usuario(estatus);
                             usuario1.setId_usuario(Integer.parseInt(datos[0][0]));
-                            usuario1.updateUsuarioCCST();
-                            out.print("<script>cancelar=confirm('¡Registro Exitoso!'); if(cancelar){ window.location.href='adm-gestionar-empleados.jsp'; }else{ window.location.href='adm-gestionar-empleados.jsp'; }</script>");
+                            if(estatus.equals("Baja")){
+                                usuario1.setId_usuario(id_us);
+                                usuario1.updateUsuarioCCST();
+                                auto.setId_auto(usuario.obtenerIdAuto());
+                                if(auto.deleteUsuarioAutomovil()){
+                                    out.print("<script>cancelar=confirm('¡Registro Exitoso!'); if(cancelar){ window.location.href='adm-gestionar-empleados.jsp'; }else{ window.location.href='adm-gestionar-empleados.jsp'; }</script>");
+                                }else{
+                                    out.print("<script>cancelar=confirm('¡Error al registrar!'); if(cancelar){ window.location.href='adm-modificar-empleados.jsp'; }else{ window.location.href='adm-modificar-empleados.jsp'; }</script>");
+                                }
+                            }else{
+                                if(usuario1.updateUsuarioCCST()){
+                                    out.print("<script>cancelar=confirm('¡Registro Exitoso!'); if(cancelar){ window.location.href='adm-gestionar-empleados.jsp'; }else{ window.location.href='adm-gestionar-empleados.jsp'; }</script>");
+                                }else{
+                                    out.print("<script>cancelar=confirm('¡Error al registrar!'); if(cancelar){ window.location.href='adm-modificar-empleados.jsp'; }else{ window.location.href='adm-modificar-empleados.jsp'; }</script>");
+                                }
+                            }
                         }
                     } else {
                         out.print("<script>cancelar=confirm('El correo ya está en uso'); if(cancelar){ window.location.href='adm-gestionar-empleados.jsp'; }else{ window.location.href='adm-gestionar-empleados.jsp'; }</script>");
@@ -124,16 +184,44 @@
                             usuario1.setId_rol(rol);
                             usuario1.setEstatus_usuario(estatus);
                             usuario1.setId_usuario(Integer.parseInt(datos[0][0]));
-                            usuario1.updateUsuarioSCCT();
-                            out.print("<script>cancelar=confirm('¡Registro Exitoso!'); if(cancelar){ window.location.href='adm-gestionar-empleados.jsp'; }else{ window.location.href='adm-gestionar-empleados.jsp'; }</script>");
+                            if(estatus.equals("Baja")){
+                                usuario1.setId_usuario(id_us);
+                                usuario1.updateUsuarioSCCT();
+                                auto.setId_auto(usuario.obtenerIdAuto());
+                                if(auto.deleteUsuarioAutomovil()){
+                                    out.print("<script>cancelar=confirm('¡Registro Exitoso!'); if(cancelar){ window.location.href='adm-gestionar-empleados.jsp'; }else{ window.location.href='adm-gestionar-empleados.jsp'; }</script>");
+                                }else{
+                                    out.print("<script>cancelar=confirm('¡Error al registrar!'); if(cancelar){ window.location.href='adm-modificar-empleados.jsp'; }else{ window.location.href='adm-modificar-empleados.jsp'; }</script>");
+                                }
+                            }else{
+                                if(usuario1.updateUsuarioSCCT()){
+                                    out.print("<script>cancelar=confirm('¡Registro Exitoso!'); if(cancelar){ window.location.href='adm-gestionar-empleados.jsp'; }else{ window.location.href='adm-gestionar-empleados.jsp'; }</script>");
+                                }else{
+                                    out.print("<script>cancelar=confirm('¡Error al registrar!'); if(cancelar){ window.location.href='adm-modificar-empleados.jsp'; }else{ window.location.href='adm-modificar-empleados.jsp'; }</script>");
+                                }
+                            }
                         } else {
                             usuario1.setTelefono_usuario(tel);
                             usuario1.setPassword_usuario(password);
                             usuario1.setId_rol(rol);
                             usuario1.setEstatus_usuario(estatus);
                             usuario1.setId_usuario(Integer.parseInt(datos[0][0]));
-                            usuario1.updateUsuarioSCCT();
-                            out.print("<script>cancelar=confirm('¡Registro Exitoso!'); if(cancelar){ window.location.href='adm-gestionar-empleados.jsp'; }else{ window.location.href='adm-gestionar-empleados.jsp'; }</script>");
+                            if(estatus.equals("Baja")){
+                                usuario1.setId_usuario(id_us);
+                                usuario1.updateUsuarioSCCT();
+                                auto.setId_auto(usuario.obtenerIdAuto());
+                                if(auto.deleteUsuarioAutomovil()){
+                                    out.print("<script>cancelar=confirm('¡Registro Exitoso!'); if(cancelar){ window.location.href='adm-gestionar-empleados.jsp'; }else{ window.location.href='adm-gestionar-empleados.jsp'; }</script>");
+                                }else{
+                                    out.print("<script>cancelar=confirm('¡Error al registrar!'); if(cancelar){ window.location.href='adm-modificar-empleados.jsp'; }else{ window.location.href='adm-modificar-empleados.jsp'; }</script>");
+                                }
+                            }else{
+                                if(usuario1.updateUsuarioSCCT()){
+                                    out.print("<script>cancelar=confirm('¡Registro Exitoso!'); if(cancelar){ window.location.href='adm-gestionar-empleados.jsp'; }else{ window.location.href='adm-gestionar-empleados.jsp'; }</script>");
+                                }else{
+                                    out.print("<script>cancelar=confirm('¡Error al registrar!'); if(cancelar){ window.location.href='adm-modificar-empleados.jsp'; }else{ window.location.href='adm-modificar-empleados.jsp'; }</script>");
+                                }
+                            }
                         }
                     } else {
                         out.print("<script>cancelar=confirm('El teléfono ya está en uso'); if(cancelar){ window.location.href='adm-gestionar-empleados.jsp'; }else{ window.location.href='adm-gestionar-empleados.jsp'; }</script>");
@@ -150,8 +238,22 @@
                                 usuario1.setId_rol(rol);
                                 usuario1.setEstatus_usuario(estatus);
                                 usuario1.setId_usuario(Integer.parseInt(datos[0][0]));
-                                usuario1.updateUsuarioCCCT();
-                                out.print("<script>cancelar=confirm('¡Registro Exitoso!'); if(cancelar){ window.location.href='adm-gestionar-empleados.jsp'; }else{ window.location.href='adm-gestionar-empleados.jsp'; }</script>");
+                                if(estatus.equals("Baja")){
+                                    usuario1.setId_usuario(id_us);
+                                    usuario1.updateUsuarioCCCT();
+                                    auto.setId_auto(usuario.obtenerIdAuto());
+                                    if(auto.deleteUsuarioAutomovil()){
+                                        out.print("<script>cancelar=confirm('¡Registro Exitoso!'); if(cancelar){ window.location.href='adm-gestionar-empleados.jsp'; }else{ window.location.href='adm-gestionar-empleados.jsp'; }</script>");
+                                    }else{
+                                        out.print("<script>cancelar=confirm('¡Error al registrar!'); if(cancelar){ window.location.href='adm-modificar-empleados.jsp'; }else{ window.location.href='adm-modificar-empleados.jsp'; }</script>");
+                                    }
+                                }else{
+                                    if(usuario1.updateUsuarioCCCT()){
+                                        out.print("<script>cancelar=confirm('¡Registro Exitoso!'); if(cancelar){ window.location.href='adm-gestionar-empleados.jsp'; }else{ window.location.href='adm-gestionar-empleados.jsp'; }</script>");
+                                    }else{
+                                        out.print("<script>cancelar=confirm('¡Error al registrar!'); if(cancelar){ window.location.href='adm-modificar-empleados.jsp'; }else{ window.location.href='adm-modificar-empleados.jsp'; }</script>");
+                                    }
+                                }
                             } else {
                                 usuario1.setTelefono_usuario(tel);
                                 usuario1.setCorreo_usuario(correo);
@@ -159,8 +261,22 @@
                                 usuario1.setId_rol(rol);
                                 usuario1.setEstatus_usuario(estatus);
                                 usuario1.setId_usuario(Integer.parseInt(datos[0][0]));
-                                usuario1.updateUsuarioCCCT();
-                                out.print("<script>cancelar=confirm('¡Registro Exitoso!'); if(cancelar){ window.location.href='adm-gestionar-empleados.jsp'; }else{ window.location.href='adm-gestionar-empleados.jsp'; }</script>");
+                                if(estatus.equals("Baja")){
+                                    usuario1.setId_usuario(id_us);
+                                    usuario1.updateUsuarioCCCT();
+                                    auto.setId_auto(usuario.obtenerIdAuto());
+                                    if(auto.deleteUsuarioAutomovil()){
+                                        out.print("<script>cancelar=confirm('¡Registro Exitoso!'); if(cancelar){ window.location.href='adm-gestionar-empleados.jsp'; }else{ window.location.href='adm-gestionar-empleados.jsp'; }</script>");
+                                    }else{
+                                        out.print("<script>cancelar=confirm('¡Error al registrar!'); if(cancelar){ window.location.href='adm-modificar-empleados.jsp'; }else{ window.location.href='adm-modificar-empleados.jsp'; }</script>");
+                                    }
+                                }else{
+                                    if(usuario1.updateUsuarioCCCT()){
+                                        out.print("<script>cancelar=confirm('¡Registro Exitoso!'); if(cancelar){ window.location.href='adm-gestionar-empleados.jsp'; }else{ window.location.href='adm-gestionar-empleados.jsp'; }</script>");
+                                    }else{
+                                        out.print("<script>cancelar=confirm('¡Error al registrar!'); if(cancelar){ window.location.href='adm-modificar-empleados.jsp'; }else{ window.location.href='adm-modificar-empleados.jsp'; }</script>");
+                                    }
+                                }
                             }
                         } else {
                             out.print("<script>cancelar=confirm('El correo ya está en uso'); if(cancelar){ window.location.href='adm-gestionar-empleados.jsp'; }else{ window.location.href='adm-gestionar-empleados.jsp'; }</script>");

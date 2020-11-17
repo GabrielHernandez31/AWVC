@@ -153,11 +153,11 @@
                                 <tbody>
                                     <%  
                                     usuario.setId_usuario(id_usu);
-                                    if(usuario.existenUsuariosAdm()){
+                                    if(usuario.existenUsuariosAdmGestionar()){
                                         usuario.setId_usuario(id_usu);
-                                        String[][] usuarios = usuario.consultarUsuariosAdm();
+                                        String[][] usuarios = usuario.consultarUsuariosAdmGestionar();
                                         
-                                        for( int cuenta = 0; cuenta<usuario.contarUsuariosAdm(); cuenta++){
+                                        for( int cuenta = 0; cuenta<usuario.contarUsuariosAdmGestionar(); cuenta++){
                                     %>  
                                     <tr>
                                         <td><% out.print(usuarios[cuenta][0]); %></td>
