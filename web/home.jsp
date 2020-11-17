@@ -6,25 +6,25 @@
     /*
     Asigna un valor a la variable email en caso de que se haya iniciado sesion
     De lo contrario, deja la variable nula
-    */
+     */
     HttpSession sesion = request.getSession();
-    String email=(String)sesion.getAttribute("email");
-    
+    String email = (String) sesion.getAttribute("email");
+
     /*
     Asigna valores a las variables si existe una sesion.
     Retoma datos del usuario para poder utilizarlos más adelante
-    */
+     */
     Usuario usuario = new Usuario(email);
     String nom_usu = usuario.getNombre_usuario();
     String app_usu = usuario.getApp_usuario();
     int id_usu = usuario.getId_usuario();
     int id_rol = usuario.getId_rol();
-    
+
     /*
     Valida si hay una sesion activa.
     En caso de que no exista una sesion activa, se redirige al index
-    */
-    if(email==null){
+     */
+    if (email == null) {
         response.sendRedirect("index.jsp");
     }
 %>
@@ -68,7 +68,7 @@
                                         <a class="dropdown-item" href="adm-historial-servicios.jsp" style="font-size: 2vh">Historial de Servicios</a>
                                     </div>
                                 </li>
-                                
+
                                 <li class="nav-item dropleft">
                                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="font-size: 3vh">
                                         <svg width="1.5em" height="1.5em" viewBox="0 0 16 16" class="bi bi-person-circle" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
@@ -78,9 +78,9 @@
                                         </svg>   
                                     </a>
                                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                        <% if(id_rol==1){ %>
+                                        <% if (id_rol == 1) { %>
                                         <a class="dropdown-item" href="adm-mi-cuenta.jsp" style="font-size: 2vh">Mi Cuenta</a>
-                                        <% }else { %>
+                                        <% } else { %>
                                         <a class="dropdown-item" href="emp-mi-cuenta.jsp" style="font-size: 2vh">Mi Cuenta</a>                                        
                                         <% } %>
                                         <a class="dropdown-item" href="cerrarSesion.jsp" style="font-size: 2vh">Cerrar sesión</a>
@@ -97,39 +97,111 @@
             <!-- CUERPO DE LA PAGINA -->
             <div class="row justify-content-center align-content-center" style="min-height: 80vh">
                 <!-- INTRODUCE AQUI TODO LO DEL CUERPO -->
-                <% if(id_rol==1){ %>
+                <% if (id_rol == 1) { %>
                 <!-- ESTO ES LO DE EMPLEADO -->
-                <div class="col-12 col-sm-6 col-md-6 col-lg-6">
-                    <p>
-                        <a href="adm-gestionar-empleados.jsp"><button type="button" class="btn btn-primary" style="border-radius: 5rem; width: 100%; font-size: 3vh;">Gestionar Empleados</button></a>
-                    <p>
-                        <a href="adm-gestionar-auto.jsp"><button type="button" class="btn btn-primary" style="border-radius: 5rem; width: 100%; font-size: 3vh;">Gestionar Automóviles</button></a>
-                    <p>
-                        <a href="adm-gestionar-serv.jsp"><button type="button" class="btn btn-primary" style="border-radius: 5rem; width: 100%; font-size: 3vh;">Gestionar Servicios</button></a>
-                    <p>
-                        <a href="adm-gestionar-casetas.jsp"><button type="button" class="btn btn-primary" style="border-radius: 5rem; width: 100%; font-size: 3vh;">Gestionar Casetas</button></a>
-                    <p>
-                        <a href="adm-gestionar-rfid.jsp"><button type="button" class="btn btn-primary" style="border-radius: 5rem; width: 100%; font-size: 3vh;">Gestionar Tarjetas RFID</button></a>
-                    <p>
-                        <a href="adm-historial-servicios.jsp"><button type="button" class="btn btn-primary" style="border-radius: 5rem; width: 100%; font-size: 3vh;">Consultar Historial de Servicios</button></a>
-                    </p>
+                <div class="col-12 col-sm-10 col-md-10 col-lg-10">
+                    <div class="row row-cols-1 row-cols-md-3" style="margin-top: 10px">
+                        <div class="col mb-4">
+                            <div class="card">
+                                <img src="img/empl.jpg" class="card-img-top">
+                                <a href="adm-gestionar-empleados.jsp" style="text-decoration: none;">
+                                    <div class="card-body bg-info text-center">
+                                        <h5 class="card-title text-dark">Empleados</h5>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="col mb-4">
+                            <div class="card">
+                                <img src="img/aut.jpg" class="card-img-top">
+                                <a href="adm-gestionar-auto.jsp" style="text-decoration: none;">
+                                    <div class="card-body bg-info text-center">
+                                        <h5 class="card-title text-dark">Automóviles</h5>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="col mb-4">
+                            <div class="card">
+                                <img src="img/servt.jpg" class="card-img-top">
+                                <a href="adm-gestionar-serv.jsp" style="text-decoration: none;">
+                                    <div class="card-body bg-info text-center">
+                                        <h5 class="card-title text-dark">Servicios</h5>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="col mb-4">
+                            <div class="card">
+                                <img src="img/cast.jpg" class="card-img-top">
+                                <a href="adm-gestionar-casetas.jsp" style="text-decoration: none;">
+                                    <div class="card-body bg-info text-center">
+                                        <h5 class="card-title text-dark">Casetas</h5>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="col mb-4">
+                            <div class="card">
+                                <img src="img/erf.jpg" class="card-img-top">
+                                <a href="adm-gestionar-rfid.jsp" style="text-decoration: none;">
+                                    <div class="card-body bg-info text-center">
+                                        <h5 class="card-title text-dark">RFID's</h5>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="col mb-4">
+                            <div class="card">
+                                <img src="img/ehistorial.jpg" class="card-img-top">
+                                <a href="adm-historial-servicios.jsp" style="text-decoration: none;">
+                                    <div class="card-body bg-info text-center">
+                                        <h5 class="card-title text-dark">Consultar Historial</h5>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <!-- // ESTO ES LO DE EMPLEADO-->
-                <% }else{ %>
+                <% } else { %>
                 <!-- ESTO ES LO DE EMPLEADO -->
-                <div class="col-12 col-sm-6 col-md-6 col-lg-6">
-                    <p>
-                        <a href="emp-gestionar-serv.jsp"><button type="button" class="btn btn-primary" style="border-radius: 5rem; width: 100%; font-size: 3vh;">Consultar mis servicios.</button></a>
-                    </p><br>
-                    <p>
-                        <a href="emp-gestionar-auto.jsp"><button type="button" class="btn btn-primary" style="border-radius: 5rem; width: 100%; font-size: 3vh;">Consultar mi auto.</button></a>
-                    </p><br>
-                    <p>
-                        <a href="emp-gestionar-casetas.jsp"><button type="button" class="btn btn-primary" style="border-radius: 5rem; width: 100%; font-size: 3vh;">Consultar casetas.</button></a>
-                    </p>
+                <div class="col-12 col-sm-10 col-md-10 col-lg-10">
+                    <div class="row row-cols-1 row-cols-md-3" style="margin-top: 10px">
+                        <div class="col mb-4">
+                            <div class="card">
+                                <img src="img/aut.jpg" class="card-img-top">
+                                <a href="emp-gestionar-auto.jsp" style="text-decoration: none;">
+                                    <div class="card-body bg-info text-center">
+                                        <h5 class="card-title text-dark">Automóvil</h5>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="col mb-4">
+                            <div class="card">
+                                <img src="img/servt.jpg" class="card-img-top">
+                                <a href="emp-gestionar-serv.jsp" style="text-decoration: none;">
+                                    <div class="card-body bg-info text-center">
+                                        <h5 class="card-title text-dark">Servicios</h5>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="col mb-4">
+                            <div class="card">
+                                <img src="img/cast.jpg" class="card-img-top">
+                                <a href="emp-gestionar-casetas.jsp" style="text-decoration: none;">
+                                    <div class="card-body bg-info text-center">
+                                        <h5 class="card-title text-dark">Casetas</h5>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <!-- // ESTO ES LO DE EMPLEADO-->
-                <% } %>
+                <% }%>
                 <!-- // INTRODUCE AQUI TODO LO DEL CUERPO -->
             </div>
             <!-- // CUERPO DE LA PAGINA -->

@@ -37,54 +37,86 @@
 
             <!-- CUERPO DE LA PAGINA -->
             <div class="row clearfix justify-content-center">
-                <div class="col-12 col-sm-12 col-md-8 col-lg-8">
-                    <table class="table table-hover table-light table-responsive"  style="background-color: #66A5AD; color: white">
-                        <thead>
-                            <tr>
-                                <th scope="col">#</th>
-                                <th scope="col">First</th>
-                                <th scope="col">Last</th>
-                                <th scope="col">Handle</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <th scope="row">1</th>
-                                <td>Mark</td>
-                                <td>Otto</td>
-                                <td>@mdo</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">2</th>
-                                <td>Jacob</td>
-                                <td>Thornton</td>
-                                <td>@fat</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">3</th>
-                                <td colspan="2">Larry the Bird</td>
-                                <td>@twitter</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">1</th>
-                                <td>Mark</td>
-                                <td>Otto</td>
-                                <td>@mdo</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">2</th>
-                                <td>Jacob</td>
-                                <td>Thornton</td>
-                                <td>@fat</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">3</th>
-                                <td colspan="2">Larry the Bird</td>
-                                <td>@twitter</td>
-                            </tr>
-                        </tbody>
-                    </table>
+                <!--<script type="text/javascript">
+                    function generar()
+                    {
+                        
+                        var caracteres = "abcdefghijkmnpqrtuvwxyzABCDEFGHIJKLMNPQRTUVWXYZ012346789";
+                        var contraseña = "";
+                        for (i = 0; i < 13; i++)
+                            contraseña += caracteres.charAt(Math.floor(Math.random() * caracteres.length));
+                        document.getElementById("pass").value = contraseña;
+                    }
+                </script>
+                <p ></p>
+                <form id="Form" name="aleatorio" method="post" >
+                    <input name="long" type="text" id="pass"  placeholder="contraseña">
+                    <button type="button" onclick="generar();">Generar</button>
+                </form>-->
+
+                <div class="row row-cols-1 row-cols-md-3" style="margin-top: 10px">
+                    <div class="col mb-4">
+                        <div class="card">
+                            <img src="img/empl.jpg" class="card-img-top">
+                            <a href="adm-gestionar-empleados.jsp" style="text-decoration: none;">
+                                <div class="card-body bg-info ">
+                                    <h5 class="card-title text-dark">Empleados</h5>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col mb-4">
+                        <div class="card">
+                            <img src="img/aut.jpg" class="card-img-top">
+                            <a href="adm-gestionar-auto.jsp" style="text-decoration: none;">
+                                <div class="card-body bg-info">
+                                    <h5 class="card-title text-dark">Automóviles</h5>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col mb-4">
+                        <div class="card">
+                            <img src="img/servt.jpg" class="card-img-top">
+                            <a href="adm-gestionar-serv.jsp" style="text-decoration: none;">
+                                <div class="card-body bg-info">
+                                    <h5 class="card-title text-dark">Servicios</h5>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col mb-4">
+                        <div class="card">
+                            <img src="img/cast.jpg" class="card-img-top">
+                            <a href="adm-gestionar-casetas.jsp" style="text-decoration: none;">
+                                <div class="card-body bg-info">
+                                    <h5 class="card-title text-dark">Casetas</h5>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col mb-4">
+                        <div class="card">
+                            <img src="img/erf.jpg" class="card-img-top">
+                            <a href="adm-gestionar-rfid.jsp" style="text-decoration: none;">
+                                <div class="card-body bg-info">
+                                    <h5 class="card-title text-dark">RFID's</h5>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col mb-4">
+                        <div class="card">
+                            <img src="img/ehistorial.jpg" class="card-img-top">
+                            <a href="adm-historial-servicios.jsp" style="text-decoration: none;">
+                                <div class="card-body bg-info">
+                                    <h5 class="card-title text-dark">Consultar Historial</h5>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
                 </div>
+
             </div>
             <!-- // CUERPO DE LA PAGINA -->
 
