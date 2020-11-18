@@ -66,6 +66,7 @@ public class RFID {
             insertarUsuario.executeUpdate();
             insertarUsuario.close();
             conex.obtenerConnexion().close();
+            closeDB();
             return true;
         } catch (Exception e) {
             e.printStackTrace();
@@ -89,6 +90,7 @@ public class RFID {
                 validarCorreo.close();
                 validar.close();
                 conex.obtenerConnexion().close();
+                closeDB();
                 return true;
             }
         } catch (Exception e) {
@@ -107,6 +109,7 @@ public class RFID {
             actualizarUsuario.executeUpdate();
             actualizarUsuario.close();
             conex.obtenerConnexion().close();
+            closeDB();
             return true;
         } catch (Exception e) {
             e.printStackTrace();
@@ -123,6 +126,7 @@ public class RFID {
             eliminarUsuario.executeUpdate();
             eliminarUsuario.close();
             conex.obtenerConnexion().close();
+            closeDB();
             return true;
         } catch (Exception e) {
             e.printStackTrace();
@@ -148,6 +152,7 @@ public class RFID {
                 existenCategorias.close();
                 resulExistenCategorias.close();
                 conex.obtenerConnexion().close();
+                closeDB();
                 return nombre2;
             }
         } catch (Exception e) {
@@ -169,12 +174,14 @@ public class RFID {
                 existenCategorias.close();
                 resulExistenCategorias.close();
                 conex.obtenerConnexion().close();
+                closeDB();
                 return nombre;
             } else {
                 int nombre2 = 0;
                 existenCategorias.close();
                 resulExistenCategorias.close();
                 conex.obtenerConnexion().close();
+                closeDB();
                 return nombre2;
             }
         } catch (Exception e) {
@@ -203,6 +210,7 @@ public class RFID {
             consultarProducto.close();
             resulProducto.close();
             conex.obtenerConnexion().close();
+            closeDB();
             return arreglo_servicio;
         } catch (Exception e) {
             e.printStackTrace();
@@ -229,6 +237,7 @@ public class RFID {
             consultarProducto.close();
             resulProducto.close();
             conex.obtenerConnexion().close();
+            closeDB();
             return arreglo_servicio;
         } catch (Exception e) {
             e.printStackTrace();
@@ -249,11 +258,13 @@ public class RFID {
                 consultarProducto.close();
                 resulProducto.close();
                 conex.obtenerConnexion().close();
+                closeDB();
                 return resultado;
             } else {
                 consultarProducto.close();
                 resulProducto.close();
                 conex.obtenerConnexion().close();
+                closeDB();
                 return 0;
             }
         } catch (Exception e) {
@@ -272,10 +283,12 @@ public class RFID {
                 consultarProducto.close();
                 resulProducto.close();
                 conex.obtenerConnexion().close();
+                closeDB();
                 return true;
             } else {
                 consultarProducto.close();
                 resulProducto.close();
+                closeDB();
                 return false;
             }
         } catch (Exception e) {
@@ -291,7 +304,7 @@ public class RFID {
             PreparedStatement consultarProducto = conex.obtenerConnexion().prepareStatement(sql);
             ResultSet resulProducto = consultarProducto.executeQuery();
             int cuenta = -1;
-            String[][] arreglo_servicio = new String[contarRFID()][4];
+            String[][] arreglo_servicio = new String[contarRFIDAutos()][4];
             while (resulProducto.next()) {
                 cuenta++;
                 arreglo_servicio[cuenta][0] = resulProducto.getString("id_rfid");
@@ -302,6 +315,7 @@ public class RFID {
             consultarProducto.close();
             resulProducto.close();
             conex.obtenerConnexion().close();
+            closeDB();
             return arreglo_servicio;
         } catch (Exception e) {
             e.printStackTrace();
@@ -322,11 +336,13 @@ public class RFID {
                 consultarProducto.close();
                 resulProducto.close();
                 conex.obtenerConnexion().close();
+                closeDB();
                 return resultado;
             } else {
                 consultarProducto.close();
                 resulProducto.close();
                 conex.obtenerConnexion().close();
+                closeDB();
                 return 0;
             }
         } catch (Exception e) {
@@ -345,16 +361,28 @@ public class RFID {
                 consultarProducto.close();
                 resulProducto.close();
                 conex.obtenerConnexion().close();
+                closeDB();
                 return true;
             } else {
                 consultarProducto.close();
                 resulProducto.close();
                 conex.obtenerConnexion().close();
+                closeDB();
                 return false;
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
         return false;
+    }
+    public void closeDB(){
+        try {
+            final String sql = "SELECT pg_terminate_backend(pid) FROM pg_stat_activity WHERE datname='awcv'";
+            Conexion conex = new Conexion();
+            PreparedStatement consultarProducto = conex.obtenerConnexion().prepareStatement(sql);
+            consultarProducto.executeQuery();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

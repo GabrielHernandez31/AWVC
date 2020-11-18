@@ -75,6 +75,7 @@ public class Caseta {
             insertarUsuario.executeUpdate();
             insertarUsuario.close();
             conex.obtenerConnexion().close();
+            closeDB();
             return true;
         } catch (Exception e) {
             e.printStackTrace();
@@ -94,12 +95,14 @@ public class Caseta {
                 existenCategorias.close();
                 resulExistenCategorias.close();
                 conex.obtenerConnexion().close();
+                closeDB();
                 return nombre;
             } else {
                 String nombre2 = "Sin asignar aun.";
                 existenCategorias.close();
                 resulExistenCategorias.close();
                 conex.obtenerConnexion().close();
+                closeDB();
                 return nombre2;
             }
         } catch (Exception e) {
@@ -120,11 +123,13 @@ public class Caseta {
                 validarCorreo.close();
                 validar.close();
                 conex.obtenerConnexion().close();
+                closeDB();
                 return false;
             } else {
                 validarCorreo.close();
                 validar.close();
                 conex.obtenerConnexion().close();
+                closeDB();
                 return true;
             }
         } catch (Exception e) {
@@ -144,6 +149,7 @@ public class Caseta {
             actualizarUsuario.executeUpdate();
             actualizarUsuario.close();
             conex.obtenerConnexion().close();
+            closeDB();
             return true;
         } catch (Exception e) {
             e.printStackTrace();
@@ -160,6 +166,7 @@ public class Caseta {
             eliminarUsuario.executeUpdate();
             eliminarUsuario.close();
             conex.obtenerConnexion().close();
+            closeDB();
             return true;
         } catch (Exception e) {
             e.printStackTrace();
@@ -186,6 +193,7 @@ public class Caseta {
             consultarProducto.close();
             resulProducto.close();
             conex.obtenerConnexion().close();
+            closeDB();
             return arreglo_servicio;
         } catch (Exception e) {
             e.printStackTrace();
@@ -211,6 +219,7 @@ public class Caseta {
             consultarProducto.close();
             resulProducto.close();
             conex.obtenerConnexion().close();
+            closeDB();
             return arreglo_servicio;
         } catch (Exception e) {
             e.printStackTrace();
@@ -231,11 +240,13 @@ public class Caseta {
                 consultarProducto.close();
                 resulProducto.close();
                 conex.obtenerConnexion().close();
+                closeDB();
                 return resultado;
             } else {
                 consultarProducto.close();
                 resulProducto.close();
                 conex.obtenerConnexion().close();
+                closeDB();
                 return 0;
             }
         } catch (Exception e) {
@@ -254,16 +265,29 @@ public class Caseta {
                 consultarProducto.close();
                 resulProducto.close();
                 conex.obtenerConnexion().close();
+                closeDB();
                 return true;
             } else {
                 consultarProducto.close();
                 resulProducto.close();
                 conex.obtenerConnexion().close();
+                closeDB();
                 return false;
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
         return false;
+    }
+    
+    public void closeDB(){
+        try {
+            final String sql = "SELECT pg_terminate_backend(pid) FROM pg_stat_activity WHERE datname='awcv'";
+            Conexion conex = new Conexion();
+            PreparedStatement consultarProducto = conex.obtenerConnexion().prepareStatement(sql);
+            consultarProducto.executeQuery();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

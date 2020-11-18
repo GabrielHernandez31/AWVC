@@ -137,6 +137,7 @@ public class Usuario {
             resulUsuario.close();
             buscarUsuario.close();
             conex.obtenerConnexion().close();
+            closeDB();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -161,6 +162,7 @@ public class Usuario {
             insertarUsuario.executeUpdate();
             insertarUsuario.close();
             conex.obtenerConnexion().close();
+            closeDB();
             return true;
         } catch (Exception e) {
             e.printStackTrace();
@@ -180,12 +182,14 @@ public class Usuario {
                 resulExistenCategorias.close();
                 existenCategorias.close();
                 con.obtenerConnexion().close();
+                closeDB();
                 return nombre;
             } else {
                 int nombre2 = 0;
                 resulExistenCategorias.close();
                 existenCategorias.close();
                 con.obtenerConnexion().close();
+                closeDB();
                 return nombre2;
             }
         } catch (Exception e) {
@@ -207,12 +211,14 @@ public class Usuario {
                 existenCategorias.close();
                 resulExistenCategorias.close();
                 conex.obtenerConnexion().close();
+                closeDB();
                 return nombre;
             } else {
                 String nombre2 = "0";
                 existenCategorias.close();
                 resulExistenCategorias.close();
                 conex.obtenerConnexion().close();
+                closeDB();
                 return nombre2;
             }
         } catch (Exception e) {
@@ -238,11 +244,13 @@ public class Usuario {
                 validar.close();
                 validarCorreo.close();
                 con.obtenerConnexion().close();
+                closeDB();
                 return false;
             } else {
                 validar.close();
                 validarCorreo.close();
                 con.obtenerConnexion().close();
+                closeDB();
                 return true;
             }
         } catch (Exception e) {
@@ -267,11 +275,13 @@ public class Usuario {
                 validar.close();
                 validarCorreo.close();
                 con.obtenerConnexion().close();
+                closeDB();
                 return false;
             } else {
                 validar.close();
                 validarCorreo.close();
                 con.obtenerConnexion().close();
+                closeDB();
                 return true;
             }
         } catch (Exception e) {
@@ -300,6 +310,7 @@ public class Usuario {
                 validar.close();
                 validarCorreo.close();
                 con.obtenerConnexion().close();
+                closeDB();
                 return false;
             }
         } catch (Exception e) {
@@ -325,6 +336,7 @@ public class Usuario {
             actualizarUsuario.executeUpdate();
             actualizarUsuario.close();
             con.obtenerConnexion().close();
+            closeDB();
             return true;
         } catch (Exception e) {
             e.printStackTrace();
@@ -348,6 +360,7 @@ public class Usuario {
             actualizarUsuario.executeUpdate();
             actualizarUsuario.close();
             con.obtenerConnexion().close();
+            closeDB();
             return true;
         } catch (Exception e) {
             e.printStackTrace();
@@ -370,6 +383,7 @@ public class Usuario {
             actualizarUsuario.executeUpdate();
             actualizarUsuario.close();
             con.obtenerConnexion().close();
+            closeDB();
             return true;
         } catch (Exception e) {
             e.printStackTrace();
@@ -393,6 +407,7 @@ public class Usuario {
             actualizarUsuario.executeUpdate();
             actualizarUsuario.close();
             con.obtenerConnexion().close();
+            closeDB();
             return true;
         } catch (Exception e) {
             e.printStackTrace();
@@ -412,6 +427,7 @@ public class Usuario {
             eliminarUsuario.executeUpdate();
             eliminarUsuario.close();
             con.obtenerConnexion().close();
+            closeDB();
             return true;
         } catch (Exception e) {
             e.printStackTrace();
@@ -431,12 +447,14 @@ public class Usuario {
                 resulExistenCategorias.close();
                 existenCategorias.close();
                 con.obtenerConnexion().close();
+                closeDB();
                 return nombre;
             } else {
                 String nombre2 = "Sin asignar aun.";
                 resulExistenCategorias.close();
                 existenCategorias.close();
                 con.obtenerConnexion().close();
+                closeDB();
                 return nombre2;
             }
         } catch (Exception e) {
@@ -458,12 +476,14 @@ public class Usuario {
                 resulExistenCategorias.close();
                 existenCategorias.close();
                 con.obtenerConnexion().close();
+                closeDB();
                 return nombre;
             } else {
                 int nombre2 = 0;
                 resulExistenCategorias.close();
                 existenCategorias.close();
                 con.obtenerConnexion().close();
+                closeDB();
                 return nombre2;
             }
         } catch (Exception e) {
@@ -496,6 +516,7 @@ public class Usuario {
             consultarProducto.close();
             resulProducto.close();
             con.obtenerConnexion().close();
+            closeDB();
             return arreglo_servicio;
         } catch (Exception e) {
             e.printStackTrace();
@@ -516,6 +537,7 @@ public class Usuario {
                 consultarProducto.close();
                 resulProducto.close();
                 con.obtenerConnexion().close();
+                closeDB();
                 return resultado;
             } else {
                 return 0;
@@ -536,11 +558,13 @@ public class Usuario {
                 consultarProducto.close();
                 resulProducto.close();
                 con.obtenerConnexion().close();
+                closeDB();
                 return true;
             } else {
                 consultarProducto.close();
                 resulProducto.close();
                 con.obtenerConnexion().close();
+                closeDB();
                 return false;
             }
         } catch (Exception e) {
@@ -572,6 +596,7 @@ public class Usuario {
             consultarProducto.close();
             resulProducto.close();
             con.obtenerConnexion().close();
+            closeDB();
             return arreglo_servicio;
         } catch (Exception e) {
             e.printStackTrace();
@@ -605,6 +630,7 @@ public class Usuario {
             consultarProducto.close();
             resulProducto.close();
             con.obtenerConnexion().close();
+            closeDB();
             return arreglo_servicio;
         } catch (Exception e) {
             e.printStackTrace();
@@ -625,12 +651,14 @@ public class Usuario {
                 resulExistenCategorias.close();
                 existenCategorias.close();
                 con.obtenerConnexion().close();
+                closeDB();
                 return password;
             } else {
                 String error = "error";
                 resulExistenCategorias.close();
                 existenCategorias.close();
                 con.obtenerConnexion().close();
+                closeDB();
                 return error;
             }
         } catch (Exception e) {
@@ -652,6 +680,7 @@ public class Usuario {
                 consultarProducto.close();
                 resulProducto.close();
                 con.obtenerConnexion().close();
+                closeDB();
                 return resultado;
             } else {
                 return 0;
@@ -672,11 +701,13 @@ public class Usuario {
                 consultarProducto.close();
                 resulProducto.close();
                 con.obtenerConnexion().close();
+                closeDB();
                 return true;
             } else {
                 consultarProducto.close();
                 resulProducto.close();
                 con.obtenerConnexion().close();
+                closeDB();
                 return false;
             }
         } catch (Exception e) {
@@ -709,6 +740,7 @@ public class Usuario {
             consultarProducto.close();
             resulProducto.close();
             con.obtenerConnexion().close();
+            closeDB();
             return arreglo_servicio;
         } catch (Exception e) {
             e.printStackTrace();
@@ -730,11 +762,13 @@ public class Usuario {
                 consultarProducto.close();
                 resulProducto.close();
                 con.obtenerConnexion().close();
+                closeDB();
                 return resultado;
             } else {
                 consultarProducto.close();
                 resulProducto.close();
                 con.obtenerConnexion().close();
+                closeDB();
                 return 0;
             }
         } catch (Exception e) {
@@ -754,11 +788,13 @@ public class Usuario {
                 consultarProducto.close();
                 resulProducto.close();
                 con.obtenerConnexion().close();
+                closeDB();
                 return true;
             } else {
                 consultarProducto.close();
                 resulProducto.close();
                 con.obtenerConnexion().close();
+                closeDB();
                 return false;
             }
         } catch (Exception e) {
@@ -785,6 +821,7 @@ public class Usuario {
             consultarProducto.close();
             resulProducto.close();
             con.obtenerConnexion().close();
+            closeDB();
             return arreglo_servicio;
         } catch (Exception e) {
             e.printStackTrace();
@@ -805,11 +842,13 @@ public class Usuario {
                 consultarProducto.close();
                 resulProducto.close();
                 con.obtenerConnexion().close();
+                closeDB();
                 return resultado;
             } else {
                 consultarProducto.close();
                 resulProducto.close();
                 con.obtenerConnexion().close();
+                closeDB();
                 return 0;
             }
         } catch (Exception e) {
@@ -828,11 +867,13 @@ public class Usuario {
                 consultarProducto.close();
                 resulProducto.close();
                 con.obtenerConnexion().close();
+                closeDB();
                 return true;
             } else {
                 consultarProducto.close();
                 resulProducto.close();
                 con.obtenerConnexion().close();
+                closeDB();
                 return false;
             }
         } catch (Exception e) {
@@ -858,5 +899,16 @@ public class Usuario {
               String error = "error";
               return error;
           }
+    }
+    
+    public void closeDB(){
+        try {
+            final String sql = "SELECT pg_terminate_backend(pid) FROM pg_stat_activity WHERE datname='awcv'";
+            Conexion conex = new Conexion();
+            PreparedStatement consultarProducto = conex.obtenerConnexion().prepareStatement(sql);
+            consultarProducto.executeQuery();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

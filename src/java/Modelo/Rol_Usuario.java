@@ -52,6 +52,7 @@ public class Rol_Usuario {
             buscarUsuario.close();
             resulUsuario.close();
             conex.obtenerConnexion().close();
+            closeDB();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -70,12 +71,14 @@ public class Rol_Usuario {
                 existenCategorias.close();
                 resulExistenCategorias.close();
                 conex.obtenerConnexion().close();
+                closeDB();
                 return nombre;
             } else {
                 String nombre2 = "Sin asignar aun.";
                 existenCategorias.close();
                 resulExistenCategorias.close();
                 conex.obtenerConnexion().close();
+                closeDB();
                 return nombre2;
             }
         } catch (Exception e) {
@@ -83,5 +86,16 @@ public class Rol_Usuario {
         }
         String nombre3 = "Sin asignar aun.";
         return nombre3;
+    }
+    
+    public void closeDB(){
+        try {
+            final String sql = "SELECT pg_terminate_backend(pid) FROM pg_stat_activity WHERE datname='awcv'";
+            Conexion conex = new Conexion();
+            PreparedStatement consultarProducto = conex.obtenerConnexion().prepareStatement(sql);
+            consultarProducto.executeQuery();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

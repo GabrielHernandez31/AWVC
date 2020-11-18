@@ -210,9 +210,9 @@
                                         <label class="font-weight-bold">RFID:</label>
                                         <select name="rfid" class="form-control">
                                             <%
-                                                if(Rfid.existenRFID()){
-                                                    String[][] rfids = Rfid.consultarRFID();
-                                                    for( int cuenta = 0; cuenta<Rfid.contarRFID(); cuenta++){
+                                                if(Rfid.existenRFIDAutos()){
+                                                    String[][] rfids = Rfid.consultarRFIDAutos();
+                                                    for( int cuenta = 0; cuenta<Rfid.contarRFIDAutos(); cuenta++){
                                             %>
                                                         <option value="<% out.print(rfids[cuenta][0]); %>"><% out.print(rfids[cuenta][1]); %></option>
                                             <%      } %>

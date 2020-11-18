@@ -7,6 +7,7 @@
 <%@page import="net.sf.jasperreports.view.JasperViewer"%>
 <%@page import="javax.servlet.*" %>
 <%@include file="Vista.jsp" %>
+<%@include file="Conexion.jsp" %>
 <!DOCTYPE html>
 <html lang="es">
     <head>
@@ -23,7 +24,6 @@
         
         //String valor = request.getParameter("txtparametro");
         //parameter.put("mar",new String(valor));
-        Conexion con = new Conexion();
         byte[] bytes = JasperRunManager.runReportToPdf(reporte.getPath(), parameter, con);
         
         response.setContentType("application/pdf");

@@ -1,4 +1,33 @@
-
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page import="Modelo.Usuario" %>
+<%@page import="Modelo.Automovil" %>
+<%@page import="java.util.List" %>
+<%@page import="java.util.Arrays" %>
+<%
+    /*
+    Asigna un valor a la variable email en caso de que se haya iniciado sesion
+    De lo contrario, deja la variable nula
+    */
+    HttpSession sesion = request.getSession();
+    String email=(String)sesion.getAttribute("email");
+    
+    /*
+    Asigna valores a las variables si existe una sesion.
+    Retoma datos del usuario para poder utilizarlos mÃ¡s adelante
+    */
+    Usuario usuario = new Usuario(email);
+    int id_usu = usuario.getId_usuario();
+    int id_rol = usuario.getId_rol();
+    
+    Automovil auto = new Automovil();
+    /*
+    Valida si hay una sesion activa.
+    En caso de que no exista una sesion activa, se redirige al index
+    */
+    if(email==null){
+        response.sendRedirect("index.jsp");
+    }
+%>
 <!DOCTYPE html>
 <html lang="es">
     <head>
@@ -10,7 +39,7 @@
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
         <link href="css/are.css" rel="stylesheet">
-        <title>Gestionar Automóvil</title>
+        <title>Gestionar AutomÃ³vil</title>
     </head>
     <body>
 
@@ -33,7 +62,7 @@
                                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="font-size: 3vh">
                                         Menu</a>
                                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                        <a class="dropdown-item" href="emp-gestionar-auto.jsp" style="font-size: 2vh">Automóvil</a>
+                                        <a class="dropdown-item" href="emp-gestionar-auto.jsp" style="font-size: 2vh">AutomÃ³vil</a>
                                         <a class="dropdown-item" href="emp-gestionar-serv.jsp" style="font-size: 2vh">Servicios</a>
                                         <a class="dropdown-item" href="emp-gestionar-casetas.jsp" style="font-size: 2vh">Casetas</a>
                                     </div>
@@ -49,7 +78,7 @@
                                     </a>
                                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                                         <a class="dropdown-item" href="emp-mi-cuenta.jsp" style="font-size: 2vh">Mi Cuenta</a>
-                                        <a class="dropdown-item" href="cerrarSesion.jsp" style="font-size: 2vh">Cerrar sesión</a>
+                                        <a class="dropdown-item" href="cerrarSesion.jsp" style="font-size: 2vh">Cerrar sesiÃ³n</a>
                                     </div>
                                 </li>
                             </ul>
@@ -66,7 +95,7 @@
                 <div class="container col-md-12 col-lg-10"  style="margin-top: 10px">
                     <div class="row  bg-info justify-content-center">
                         <div class="col-12" style="padding-top: 1vh;padding-bottom: 1vh">
-                            <h1 class="text-withe">Automóvil</h1>
+                            <h1 class="text-withe">AutomÃ³vil</h1>
                         </div>
                     </div>
 
@@ -85,20 +114,31 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                   
+                                  <%  
+                                    if(auto.existenAutomovilesEmp()){
+                                        String[][] automoviles = auto.consultarAutomovilesEmp();
+                                        for( int cuenta = 0; cuenta<auto.contarAutomovilesEmp(); cuenta++){
+                                    %>  
                                     <tr>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
+                                        <td><% out.print(automoviles[cuenta][0]); %></td>
+                                        <td><% out.print(automoviles[cuenta][1]); %></td>
+                                        <td><% out.print(automoviles[cuenta][2]); %></td>
+                                        <td><% out.print(automoviles[cuenta][3]); %></td>
+                                        <td><% out.print(automoviles[cuenta][4]); %></td>
+                                        <td><% out.print(automoviles[cuenta][5]); %></td>
+                                        <td><% out.print(automoviles[cuenta][6]); %></td>
+                                        <td><% out.print(automoviles[cuenta][7]); %></td>
                                     </tr>
-                                   
+                                    <%
+                                        }      
+                                    %>
+                                    <%   
+                                     }else{  
+                                    %>
                                     <tr>
-                                        <th colspan="9" style="text-align: center;">No tienes un automóvil aún.</th>
+                                        <th colspan="9" style="text-align: center;">No existen automoviles aÃºn.</th>
                                     </tr>
+                                    <%  } %>
                                 </tbody>
                             </table>
                         </div>
@@ -114,7 +154,7 @@
                 <div class="col">
                     <!-- INTRODUCE AQUI TODO LO DEL FOOTER -->
                     <footer class="page-footer font-small">
-                        <div class="footer-copyright text-center">© 2020 Copyright:
+                        <div class="footer-copyright text-center">Â© 2020 Copyright:
                             <a> Derechos Reservados AWCV</a>
                         </div>
                     </footer>

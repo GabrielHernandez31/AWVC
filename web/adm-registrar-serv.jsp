@@ -188,7 +188,7 @@
                                             %>
                                                         <option value="<% out.print(emple[cuenta][0]); %>"><% out.print(emple[cuenta][1] + " " + emple[cuenta][2] + " " + emple[cuenta][3].charAt(0)+"."); %></option>
                                             <%      } %>
-                                                        <option value="0">Sin asignar aún.</option>
+                                            <option value="0" selected="">Sin asignar aún.</option>
                                             <%  }else{ %>
                                                     <option disabled>No existen empleados</option>
                                                     <option value="0">Sin asignar aún.</option>

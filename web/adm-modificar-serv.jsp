@@ -210,7 +210,7 @@
                                     <!-- //OBTENEMOS LA FECHA ACTUAL -->
                                     <div class="form-group mb-3">
                                         <label  class="font-weight-bold">Fecha: <span class="text-danger">*</span></label>
-                                        <input name="fecha" type="date" min="<% out.print(formato.format(fecha_actual)); %>" value="<% out.print(servicios[0][5]); %>" class="form-control" placeholder="Ingresa la fecha para realizar el servicio" required onblur="">
+                                        <input name="fecha" type="date" min="<% out.print(servicios[0][5]); %>" value="<% out.print(servicios[0][5]); %>" class="form-control" placeholder="Ingresa la fecha para realizar el servicio" required onblur="">
                                     </div>
 
                                     <div class="form-group mb-3">
@@ -221,17 +221,12 @@
                                                     String[][] emple = usuario.consultarUsuariosAdm();
                                                     for (int cuenta = 0; cuenta < usuario.contarUsuariosAdm(); cuenta++) {
                                             %>
-                                            <option value="<% out.print(emple[cuenta][0]); %>"><% out.print(emple[cuenta][1] + " " + emple[cuenta][2] + " " + emple[cuenta][3].charAt(0) + "."); %></option>
-                                            <%      }
-                                                if (usuario.obtenerNombreUsuario(servicios[0][6]).equals("Sin asignar aun.")) { %>
-                                            <option value="0" selected="">Sin asignar aún.</option>
+                                                    <option value="<% out.print(emple[cuenta][0]); %>"><% out.print(emple[cuenta][1] + " " + emple[cuenta][2] + " " + emple[cuenta][3].charAt(0) + "."); %></option>
+                                            <%      }    %>
+                                                    <option value="0" selected>Sin asignar aún.</option>
                                             <%  } else { %>
-                                            <option value="<% out.print(servicios[0][6]); %>" selected=""><% out.print(usuario.obtenerNombreUsuario(servicios[0][6])); %></option>
-                                            <option value="0">Sin asignar aún.</option>
-                                            <%  } %>          
-                                            <%  } else { %>
-                                            <option disabled>No existen empleados</option>
-                                            <option value="0">Sin asignar aún.</option>
+                                                    <option disabled>No existen empleados</option>
+                                                    <option value="0">Sin asignar aún.</option>
                                             <%  }%>
                                         </select>
                                     </div>

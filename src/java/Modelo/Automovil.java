@@ -106,6 +106,7 @@ public class Automovil {
             insertarUsuario.executeUpdate();
             insertarUsuario.close();
             conex.obtenerConnexion().close();
+            closeDB();
             return true;
         } catch (Exception e) {
             e.printStackTrace();
@@ -127,6 +128,7 @@ public class Automovil {
             insertarUsuario.executeUpdate();
             insertarUsuario.close();
             conex.obtenerConnexion().close();
+            closeDB();
             return true;
         } catch (Exception e) {
             e.printStackTrace();
@@ -148,6 +150,7 @@ public class Automovil {
             insertarUsuario.executeUpdate();
             insertarUsuario.close();
             conex.obtenerConnexion().close();
+            closeDB();
             return true;
         } catch (Exception e) {
             e.printStackTrace();
@@ -168,6 +171,7 @@ public class Automovil {
             insertarUsuario.executeUpdate();
             insertarUsuario.close();
             conex.obtenerConnexion().close();
+            closeDB();
             return true;
         } catch (Exception e) {
             e.printStackTrace();
@@ -186,11 +190,13 @@ public class Automovil {
                 validarCorreo.close();
                 validar.close();
                 conex.obtenerConnexion().close();
+                closeDB();
                 return false;
             } else {
                 validarCorreo.close();
                 validar.close();
                 conex.obtenerConnexion().close();
+                closeDB();
                 return true;
             }
         } catch (Exception e) {
@@ -211,6 +217,7 @@ public class Automovil {
             actualizarUsuario.executeUpdate();
             actualizarUsuario.close();
             conex.obtenerConnexion().close();
+            closeDB();
             return true;
         } catch (Exception e) {
             e.printStackTrace();
@@ -228,6 +235,7 @@ public class Automovil {
             actualizarUsuario.executeUpdate();
             actualizarUsuario.close();
             conex.obtenerConnexion().close();
+            closeDB();
             return true;
         } catch (Exception e) {
             e.printStackTrace();
@@ -246,6 +254,7 @@ public class Automovil {
             actualizarUsuario.executeUpdate();
             actualizarUsuario.close();
             conex.obtenerConnexion().close();
+            closeDB();
             return true;
         } catch (Exception e) {
             e.printStackTrace();
@@ -264,6 +273,7 @@ public class Automovil {
             actualizarUsuario.executeUpdate();
             actualizarUsuario.close();
             conex.obtenerConnexion().close();
+            closeDB();
             return true;
         } catch (Exception e) {
             e.printStackTrace();
@@ -280,6 +290,7 @@ public class Automovil {
             eliminarUsuario.executeUpdate();
             eliminarUsuario.close();
             conex.obtenerConnexion().close();
+            closeDB();
             return true;
         } catch (Exception e) {
             e.printStackTrace();
@@ -296,6 +307,7 @@ public class Automovil {
             eliminarUsuario.executeUpdate();
             eliminarUsuario.close();
             conex.obtenerConnexion().close();
+            closeDB();
             return true;
         } catch (Exception e) {
             e.printStackTrace();
@@ -312,6 +324,7 @@ public class Automovil {
             eliminarUsuario.executeUpdate();
             eliminarUsuario.close();
             conex.obtenerConnexion().close();
+            closeDB();
             return true;
         } catch (Exception e) {
             e.printStackTrace();
@@ -337,6 +350,7 @@ public class Automovil {
             consultarProducto.close();
             resulProducto.close();
             conex.obtenerConnexion().close();
+            closeDB();
             return arreglo_servicio;
         } catch (Exception e) {
             e.printStackTrace();
@@ -382,6 +396,7 @@ public class Automovil {
             consultarProducto.close();
             resulProducto.close();
             conex.obtenerConnexion().close();
+            closeDB();
             return arreglo_servicio;
         } catch (Exception e) {
             e.printStackTrace();
@@ -429,6 +444,7 @@ public class Automovil {
             consultarProducto.close();
             resulProducto.close();
             conex.obtenerConnexion().close();
+            closeDB();
             return arreglo_servicio;
         } catch (Exception e) {
             e.printStackTrace();
@@ -449,11 +465,13 @@ public class Automovil {
                 consultarProducto.close();
                 resulProducto.close();
                 conex.obtenerConnexion().close();
+                closeDB();
                 return resultado;
             } else {
                 consultarProducto.close();
                 resulProducto.close();
                 conex.obtenerConnexion().close();
+                closeDB();
                 return 0;
             }
         } catch (Exception e) {
@@ -472,11 +490,13 @@ public class Automovil {
                 consultarProducto.close();
                 resulProducto.close();
                 conex.obtenerConnexion().close();
+                closeDB();
                 return true;
             } else {
                 consultarProducto.close();
                 resulProducto.close();
                 conex.obtenerConnexion().close();
+                closeDB();
                 return false;
             }
         } catch (Exception e) {
@@ -509,6 +529,7 @@ public class Automovil {
             consultarProducto.close();
             resulProducto.close();
             conex.obtenerConnexion().close();
+            closeDB();
             return arreglo_servicio;
         } catch (Exception e) {
             e.printStackTrace();
@@ -530,11 +551,13 @@ public class Automovil {
                 consultarProducto.close();
                 resulProducto.close();
                 conex.obtenerConnexion().close();
+                closeDB();
                 return resultado;
             } else {
                 consultarProducto.close();
                 resulProducto.close();
                 conex.obtenerConnexion().close();
+                closeDB();
                 return 0;
             }
         } catch (Exception e) {
@@ -554,16 +577,29 @@ public class Automovil {
                 consultarProducto.close();
                 resulProducto.close();
                 conex.obtenerConnexion().close();
+                closeDB();
                 return true;
             } else {
                 consultarProducto.close();
                 resulProducto.close();
                 conex.obtenerConnexion().close();
+                closeDB();
                 return false;
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
         return false;
+    }
+    
+    public void closeDB(){
+        try {
+            final String sql = "SELECT pg_terminate_backend(pid) FROM pg_stat_activity WHERE datname='awcv'";
+            Conexion conex = new Conexion();
+            PreparedStatement consultarProducto = conex.obtenerConnexion().prepareStatement(sql);
+            consultarProducto.executeQuery();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }
