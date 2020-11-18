@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="java" pageWidth="792" pageHeight="612" orientation="Landscape" columnWidth="752" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="32e81631-b607-45ab-9957-4851e05fc202">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<queryString language="SQL">
+		<![CDATA[SELECT
+     registro_paso."id_registro" AS registro_paso_id_registro,
+     registro_paso."nombre_usuario" AS registro_paso_nombre_usuario,
+     registro_paso."placa_auto" AS registro_paso_placa_auto,
+     registro_paso."rfid" AS registro_paso_rfid,
+     registro_paso."caseta" AS registro_paso_caseta,
+     registro_paso."servicio" AS registro_paso_servicio,
+     registro_paso."ubicacion_servicio" AS registro_paso_ubicacion_servicio,
+     registro_paso."fecha_de_paso" AS registro_paso_fecha_de_paso,
+     registro_paso."hora_de_paso" AS registro_paso_hora_de_paso
+FROM
+     "public"."registro_paso" registro_paso]]>
+	</queryString>
+	<field name="registro_paso_id_registro" class="java.lang.Integer"/>
+	<field name="registro_paso_nombre_usuario" class="java.lang.String"/>
+	<field name="registro_paso_placa_auto" class="java.lang.String"/>
+	<field name="registro_paso_rfid" class="java.lang.String"/>
+	<field name="registro_paso_caseta" class="java.lang.String"/>
+	<field name="registro_paso_servicio" class="java.lang.String"/>
+	<field name="registro_paso_ubicacion_servicio" class="java.lang.String"/>
+	<field name="registro_paso_fecha_de_paso" class="java.lang.String"/>
+	<field name="registro_paso_hora_de_paso" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="52" splitType="Stretch">
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="0" width="752" height="52" forecolor="#FFFFFF" backcolor="#0099CC" uuid="d3959e7e-006b-42cd-8ff6-95196f8123e9"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="24" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Historial de Paso Por Caseta]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="13" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="35" splitType="Stretch">
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="0" width="25" height="20" forecolor="#FFFFFF" backcolor="#0099CC" uuid="6d0141de-aac6-4fd0-9883-13c7371e4545"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ID]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="25" y="0" width="100" height="20" forecolor="#FFFFFF" backcolor="#0099CC" uuid="41d62e95-18d0-422e-a339-4a60737cf363"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Usuario]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="225" y="0" width="100" height="20" forecolor="#FFFFFF" backcolor="#0099CC" uuid="0b4f35b3-a198-40b0-a87f-3c3c38211aaf"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[RFID]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="325" y="0" width="100" height="20" forecolor="#FFFFFF" backcolor="#0099CC" uuid="735f2645-52fc-417b-ad80-add60c2f5014"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Caseta]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="425" y="0" width="100" height="20" forecolor="#FFFFFF" backcolor="#0099CC" uuid="8afceea2-a448-4cb4-b19c-cb1f17b30698"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Servicio]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="525" y="0" width="131" height="20" forecolor="#FFFFFF" backcolor="#0099CC" uuid="3498f0e4-4b82-4cc0-ab09-cc2d8fdba863"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Ubicacion]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="656" y="0" width="60" height="20" forecolor="#FFFFFF" backcolor="#0099CC" uuid="f231a069-df67-49a3-ba50-b83142f60b47"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Fecha]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="716" y="0" width="36" height="20" forecolor="#FFFFFF" backcolor="#0099CC" uuid="99cf6ab2-2d7a-4126-b19d-6afc6cd9ca74"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Hora]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="125" y="0" width="100" height="20" forecolor="#FFFFFF" backcolor="#0099CC" uuid="91316904-54a1-409d-9e17-7d17b013bd1a"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Placa]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="125" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="25" height="20" uuid="45b78f62-7aa8-4479-99ad-b2947d2fb791"/>
+				<textFieldExpression><![CDATA[$F{registro_paso_id_registro}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="25" y="0" width="100" height="20" uuid="ecf54c2b-a16a-423d-8360-83f34a446421"/>
+				<textFieldExpression><![CDATA[$F{registro_paso_nombre_usuario}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="125" y="0" width="100" height="20" uuid="27012a1f-ee01-4f1e-9793-3331809da250"/>
+				<textFieldExpression><![CDATA[$F{registro_paso_placa_auto}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="225" y="0" width="100" height="20" uuid="7a8afd96-4cb2-4b11-ac3e-3b6f11f213ba"/>
+				<textFieldExpression><![CDATA[$F{registro_paso_rfid}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="325" y="0" width="100" height="20" uuid="3434bc1b-373c-44d4-b79b-b6a39641f1d1"/>
+				<textFieldExpression><![CDATA[$F{registro_paso_caseta}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="425" y="0" width="100" height="20" uuid="d1acabd5-7aa0-4c4f-906c-33e5dc85f1a2"/>
+				<textFieldExpression><![CDATA[$F{registro_paso_servicio}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="525" y="0" width="131" height="20" uuid="45ae7707-ec23-483f-8405-9e4e93d10177"/>
+				<textFieldExpression><![CDATA[$F{registro_paso_ubicacion_servicio}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="656" y="0" width="60" height="20" uuid="dfb1a0db-9ab8-4f09-88f1-d251b08458b4"/>
+				<textFieldExpression><![CDATA[$F{registro_paso_fecha_de_paso}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="716" y="0" width="36" height="20" uuid="7e9da35a-9d2b-4b39-aba3-f937a91a88cd"/>
+				<textFieldExpression><![CDATA[$F{registro_paso_hora_de_paso}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

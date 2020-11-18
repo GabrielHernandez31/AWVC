@@ -1,146 +1,208 @@
-<!doctype html>
-<html lang="en">
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page import="Modelo.Usuario" %>
+<%@page import="Modelo.Registro_Paso" %>
+<%@page import="java.util.List" %>
+<%@page import="java.util.Arrays" %>
+<%
+    /*
+    Asigna un valor a la variable email en caso de que se haya iniciado sesion
+    De lo contrario, deja la variable nula
+    */
+    HttpSession sesion = request.getSession();
+    String email=(String)sesion.getAttribute("email");
+    
+    /*
+    Asigna valores a las variables si existe una sesion.
+    Retoma datos del usuario para poder utilizarlos mÃ¡s adelante
+    */
+    Usuario usuario = new Usuario(email);
+    int id_usu = usuario.getId_usuario();
+    int id_rol = usuario.getId_rol();
+    
+    Registro_Paso paso = new Registro_Paso();
+    
+    /*
+    Valida si hay una sesion activa.
+    En caso de que no exista una sesion activa, se redirige al index
+    */
+    if(email==null){
+        response.sendRedirect("index.jsp");
+    }
+    
+    /*
+    ACCIONES
+    */
+    String accion = "", nombre = "", id_caseta="";
+    if(request.getParameter("accion")!=null){
+        accion = request.getParameter("accion");
+    }
+    if(request.getParameter("nombre")!=null){
+        nombre = request.getParameter("nombre");
+    }
+    if(request.getParameter("id_caseta")!=null){
+        id_caseta = request.getParameter("id_caseta");
+    }
+    switch(accion){
+        case "eliminar":
+            out.print("<script>cancelar=confirm('Se eliminarÃ¡ a: "+nombre+" Â¿Deseas continuar?'); if(cancelar){ window.location.href='adm-eliminar-caseta.jsp?id_caseta="+id_caseta+"'; }else{ window.location.href='adm-gestionar-casetas.jsp'; }</script>");
+        break;
+        case "modificar":
+            HttpSession sesion_act = request.getSession();
+            sesion_act.setAttribute("id_caseta", id_caseta);
+            response.sendRedirect("adm-modificar-caseta.jsp");
+        break;
+        default:
+            
+        break;
+    }
+%>
+<!DOCTYPE html>
+<html lang="es">
     <head>
         <!-- Required meta tags -->
-        <meta charset="utf-8">
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
         <!-- Bootstrap CSS -->
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
-
-        <title>Hello, world!</title>
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+        <link href="css/are.css" rel="stylesheet">
+        <title>Gestionar Servicios</title>
     </head>
     <body>
+
         <div class="container-fluid">
             <!-- HEADER DE LA PAGINA -->
-            <div class="row">
+            <div class="row justify-content-center align-content-center" style="min-height: 10vh; background-color: #003B46">
                 <div class="col">
-                    <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #003B46">
-                        <a class="navbar-brand"><h3>AWCV</h3></a>
+                    <!-- INTRODUCE AQUI TODO LO DEL HEADER -->
+                    <nav class="navbar navbar-expand-lg navbar-dark">
+                        <a class="navbar-brand" style="font-size: 4vh">AWCV</a>
                         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                             <span class="navbar-toggler-icon"></span>
                         </button>
-                        <div class="collapse navbar-collapse" id="navbarSupportedContent" style="margin-right: 2%;">
+                        <div class="collapse navbar-collapse" id="navbarSupportedContent">
                             <ul class="navbar-nav ml-auto">
                                 <li class="nav-item active">
-                                    <a class="nav-link" href="index.jsp"><h5>Inicio</h5></a>
+                                    <a class="nav-link" href="home.jsp" style="font-size: 3vh">Home</a>
                                 </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="iniciarSesion.jsp"><h5>Iniciar sesión</h5></a>
+                                <li class="nav-item dropleft show ">
+                                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="font-size: 3vh">
+                                        Menu</a>
+                                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                        <a class="dropdown-item" href="adm-gestionar-auto.jsp" style="font-size: 2vh">AutomÃ³viles</a>
+                                        <a class="dropdown-item" href="adm-gestionar-casetas.jsp" style="font-size: 2vh">Casetas</a>
+                                        <a class="dropdown-item" href="adm-gestionar-empleados.jsp" style="font-size: 2vh">Empleados</a>
+                                        <a class="dropdown-item" href="adm-gestionar-rfid.jsp" style="font-size: 2vh">RFID</a>
+                                        <a class="dropdown-item" href="adm-gestionar-serv.jsp" style="font-size: 2vh">Servicios</a>
+                                        <a class="dropdown-item" href="adm-historial-servicios.jsp" style="font-size: 2vh">Historial de Servicios</a>
+                                    </div>
+                                </li>
+
+                                <li class="nav-item dropleft">
+                                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="font-size: 3vh">
+                                        <svg width="1.5em" height="1.5em" viewBox="0 0 16 16" class="bi bi-person-circle" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M13.468 12.37C12.758 11.226 11.195 10 8 10s-4.757 1.225-5.468 2.37A6.987 6.987 0 0 0 8 15a6.987 6.987 0 0 0 5.468-2.63z"/>
+                                        <path fill-rule="evenodd" d="M8 9a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
+                                        <path fill-rule="evenodd" d="M8 1a7 7 0 1 0 0 14A7 7 0 0 0 8 1zM0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8z"/>
+                                        </svg>   
+                                    </a>
+                                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                        <a class="dropdown-item" href="adm-mi-cuenta.jsp" style="font-size: 2vh">Mi Cuenta</a>
+                                        <a class="dropdown-item" href="cerrarSesion.jsp" style="font-size: 2vh">Cerrar sesiÃ³n</a>
+                                    </div>
                                 </li>
                             </ul>
                         </div>
                     </nav>
+                    <!-- // INTRODUCE AQUI TODO LO DEL HEADER -->
                 </div>
             </div>
             <!-- // HEADER DE LA PAGINA -->
-
+            <!-- ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- -->
             <!-- CUERPO DE LA PAGINA -->
-            <div class="row clearfix justify-content-center">
-                <!--<script type="text/javascript">
-                    function generar()
-                    {
-                        
-                        var caracteres = "abcdefghijkmnpqrtuvwxyzABCDEFGHIJKLMNPQRTUVWXYZ012346789";
-                        var contraseña = "";
-                        for (i = 0; i < 13; i++)
-                            contraseña += caracteres.charAt(Math.floor(Math.random() * caracteres.length));
-                        document.getElementById("pass").value = contraseña;
-                    }
-                </script>
-                <p ></p>
-                <form id="Form" name="aleatorio" method="post" >
-                    <input name="long" type="text" id="pass"  placeholder="contraseña">
-                    <button type="button" onclick="generar();">Generar</button>
-                </form>-->
+            <div class="row justify-content-center" style="min-height: 80vh">
 
-                <div class="row row-cols-1 row-cols-md-3" style="margin-top: 10px">
-                    <div class="col mb-4">
-                        <div class="card">
-                            <img src="img/empl.jpg" class="card-img-top">
-                            <a href="adm-gestionar-empleados.jsp" style="text-decoration: none;">
-                                <div class="card-body bg-info ">
-                                    <h5 class="card-title text-dark">Empleados</h5>
-                                </div>
-                            </a>
+                <div class="container col-md-12 col-lg-10" style="margin-top: 10px">
+                    <div class="row  bg-info justify-content-center">
+                        <div class="col-12" style="padding-top: 1vh;padding-bottom: 1vh">
+                           <h1 class="text-withe">Historial de Servicios</h1>
                         </div>
                     </div>
-                    <div class="col mb-4">
-                        <div class="card">
-                            <img src="img/aut.jpg" class="card-img-top">
-                            <a href="adm-gestionar-auto.jsp" style="text-decoration: none;">
-                                <div class="card-body bg-info">
-                                    <h5 class="card-title text-dark">Automóviles</h5>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="col mb-4">
-                        <div class="card">
-                            <img src="img/servt.jpg" class="card-img-top">
-                            <a href="adm-gestionar-serv.jsp" style="text-decoration: none;">
-                                <div class="card-body bg-info">
-                                    <h5 class="card-title text-dark">Servicios</h5>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="col mb-4">
-                        <div class="card">
-                            <img src="img/cast.jpg" class="card-img-top">
-                            <a href="adm-gestionar-casetas.jsp" style="text-decoration: none;">
-                                <div class="card-body bg-info">
-                                    <h5 class="card-title text-dark">Casetas</h5>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="col mb-4">
-                        <div class="card">
-                            <img src="img/erf.jpg" class="card-img-top">
-                            <a href="adm-gestionar-rfid.jsp" style="text-decoration: none;">
-                                <div class="card-body bg-info">
-                                    <h5 class="card-title text-dark">RFID's</h5>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="col mb-4">
-                        <div class="card">
-                            <img src="img/ehistorial.jpg" class="card-img-top">
-                            <a href="adm-historial-servicios.jsp" style="text-decoration: none;">
-                                <div class="card-body bg-info">
-                                    <h5 class="card-title text-dark">Consultar Historial</h5>
-                                </div>
-                            </a>
+
+                    <div class="row justify-content-center align-content-center" >
+                        <div class="col-12-block table-responsive"  style="padding-top: 1vh;padding-bottom: 1vh; font-size: 2.5vh">
+                            <table class="table text-center">
+                                <thead class="thead-dark">
+                                    <tr>
+                                        <th scope="col">ID</th>
+                                        <th scope="col">Usuario</th>
+                                        <th scope="col">Placa</th>
+                                        <th scope="col">RFID</th>
+                                        <th scope="col">Caseta</th>
+                                        <th scope="col">Servicio</th>
+                                        <th scope="col">UbicaciÃ³n Serv.</th>
+                                        <th scope="col">Fecha</th>
+                                        <th scope="col">Hora</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <%  
+                                    if(paso.existenRegistrosPasos()){
+                                        String[][] pasos = paso.consultarRegistrosPasos();
+                                        
+                                        for( int cuenta = 0; cuenta<paso.contarRegistrosPasos(); cuenta++){
+                                    %>  
+                                    <tr>
+                                        <td><% out.print(pasos[cuenta][0]); %></td>
+                                        <td><% out.print(pasos[cuenta][1]); %></td>
+                                        <td><% out.print(pasos[cuenta][2]); %></td>
+                                        <td><% out.print(pasos[cuenta][3]); %></td>
+                                        <td><% out.print(pasos[cuenta][4]); %></td>
+                                        <td><% out.print(pasos[cuenta][5]); %></td>
+                                        <td><% out.print(pasos[cuenta][6]); %></td>
+                                        <td><% out.print(pasos[cuenta][7]); %></td>
+                                        <td><% out.print(pasos[cuenta][8]); %></td>
+                                    </tr>
+                                    <%
+                                        } 
+                                     }else{  
+                                    %>
+                                    <tr>
+                                        <th colspan="9" style="text-align: center;">No existen servicios realizados aÃºn.</th>
+                                    </tr>
+                                    <%  } %>
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>
 
+
             </div>
             <!-- // CUERPO DE LA PAGINA -->
-
+            <!-- ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- -->
             <!-- FOOTER REDES -->
-            <div class="row flex">
+            <div class="row justify-content-center align-content-center" style="min-height: 10vh; background-color: #003B46; color: white">
                 <div class="col">
-                    <footer class="page-footer font-small" style="background-color: #003B46; color: white">
-                        <div class="footer-copyright text-center py-4">© 2020 Copyright:
+                    <!-- INTRODUCE AQUI TODO LO DEL FOOTER -->
+                    <footer class="page-footer font-small">
+                        <div class="footer-copyright text-center">Â© 2020 Copyright:
                             <a> Derechos Reservados AWCV</a>
                         </div>
                     </footer>
+                    <!-- // INTRODUCE AQUI TODO LO DEL FOOTER -->
                 </div>
             </div>
             <!-- //FOOTER REDES -->
         </div>
 
-        <!-- Option 1: jQuery and Bootstrap Bundle (includes Popper) -->
-        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
 
-        <!-- Option 2: jQuery, Popper.js, and Bootstrap JS
-        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" integrity="sha384-w1Q4orYjBQndcko6MimVbzY0tgp4pWB4lZ7lr30WKz0vr/aWKhXdBNmNb5D92v7s" crossorigin="anonymous"></script>
-        -->
+
+        <!-- Optional JavaScript -->
+        <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
     </body>
 </html>

@@ -7,53 +7,53 @@
     /*
     Asigna un valor a la variable email en caso de que se haya iniciado sesion
     De lo contrario, deja la variable nula
-    */
+     */
     HttpSession sesion = request.getSession();
-    String email=(String)sesion.getAttribute("email");
-    
+    String email = (String) sesion.getAttribute("email");
+
     /*
     Asigna valores a las variables si existe una sesion.
     Retoma datos del usuario para poder utilizarlos más adelante
-    */
+     */
     Usuario usuario = new Usuario(email);
     int id_usu = usuario.getId_usuario();
     int id_rol = usuario.getId_rol();
-    
+
     Registro_Paso paso = new Registro_Paso();
-    
+
     /*
     Valida si hay una sesion activa.
     En caso de que no exista una sesion activa, se redirige al index
-    */
-    if(email==null){
+     */
+    if (email == null) {
         response.sendRedirect("index.jsp");
     }
-    
+
     /*
     ACCIONES
-    */
-    String accion = "", nombre = "", id_caseta="";
-    if(request.getParameter("accion")!=null){
+     */
+    String accion = "", nombre = "", id_caseta = "";
+    if (request.getParameter("accion") != null) {
         accion = request.getParameter("accion");
     }
-    if(request.getParameter("nombre")!=null){
+    if (request.getParameter("nombre") != null) {
         nombre = request.getParameter("nombre");
     }
-    if(request.getParameter("id_caseta")!=null){
+    if (request.getParameter("id_caseta") != null) {
         id_caseta = request.getParameter("id_caseta");
     }
-    switch(accion){
+    switch (accion) {
         case "eliminar":
-            out.print("<script>cancelar=confirm('Se eliminará a: "+nombre+" ¿Deseas continuar?'); if(cancelar){ window.location.href='adm-eliminar-caseta.jsp?id_caseta="+id_caseta+"'; }else{ window.location.href='adm-gestionar-casetas.jsp'; }</script>");
-        break;
+            out.print("<script>cancelar=confirm('Se eliminará a: " + nombre + " ¿Deseas continuar?'); if(cancelar){ window.location.href='adm-eliminar-caseta.jsp?id_caseta=" + id_caseta + "'; }else{ window.location.href='adm-gestionar-casetas.jsp'; }</script>");
+            break;
         case "modificar":
             HttpSession sesion_act = request.getSession();
             sesion_act.setAttribute("id_caseta", id_caseta);
             response.sendRedirect("adm-modificar-caseta.jsp");
-        break;
+            break;
         default:
-            
-        break;
+
+            break;
     }
 %>
 <!DOCTYPE html>
@@ -125,8 +125,13 @@
 
                 <div class="container col-md-12 col-lg-10" style="margin-top: 10px">
                     <div class="row  bg-info justify-content-center">
-                        <div class="col-12" style="padding-top: 1vh;padding-bottom: 1vh">
-                           <h1 class="text-withe">Historial de Servicios</h1>
+                        <div class="col-12 col-md-8" style="padding-top: 1vh;padding-bottom: 1vh">
+                            <h1 class="text-withe">Gestionar Casetas</h1>
+                        </div>
+                        <div class="col-12 col-md-4 text-center" style="padding-top: 2vh;padding-bottom: 1vh">
+                            <form name="form1PDF" action="pdf.jsp" target="_dark">
+                                <input type="submit" class="btn btn-success" value="Generar Reporte">
+                            </form>
                         </div>
                     </div>
 
@@ -147,11 +152,11 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <%  
-                                    if(paso.existenRegistrosPasos()){
-                                        String[][] pasos = paso.consultarRegistrosPasos();
-                                        
-                                        for( int cuenta = 0; cuenta<paso.contarRegistrosPasos(); cuenta++){
+                                    <%
+                                        if (paso.existenRegistrosPasos()) {
+                                            String[][] pasos = paso.consultarRegistrosPasos();
+
+                                            for (int cuenta = 0; cuenta < paso.contarRegistrosPasos(); cuenta++) {
                                     %>  
                                     <tr>
                                         <td><% out.print(pasos[cuenta][0]); %></td>
@@ -165,13 +170,13 @@
                                         <td><% out.print(pasos[cuenta][8]); %></td>
                                     </tr>
                                     <%
-                                        } 
-                                     }else{  
+                                        }
+                                    } else {
                                     %>
                                     <tr>
                                         <th colspan="9" style="text-align: center;">No existen servicios realizados aún.</th>
                                     </tr>
-                                    <%  } %>
+                                    <%  }%>
                                 </tbody>
                             </table>
                         </div>
