@@ -19,6 +19,7 @@
     if (request.getParameter("costo") != null) {
         costo = request.getParameter("costo");
     }
+    
 
     switch (accion) {
         case "Registrar":

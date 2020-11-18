@@ -31,7 +31,6 @@
         empleado = request.getParameter("empleado");
     }
     
-
     switch (accion) {
         case "Registrar":
             servicio.setNombre_servicio(nombre);

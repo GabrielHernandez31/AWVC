@@ -91,6 +91,7 @@ public class Registro_Paso {
         this.hora_paso = hora_paso;
     }
 
+    
     public boolean createRegistroPaso() {
         try {
             final String sql = "Insert into registro_paso values (default,?,?,?,?,?,?,?,?)";

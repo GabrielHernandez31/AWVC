@@ -129,8 +129,8 @@ public class Servicio {
             actualizarUsuario.setString(1, nombre_servicio);
             actualizarUsuario.setString(2, descripcion_servicio);
             actualizarUsuario.setString(3, ubicacion_servicio);
-            actualizarUsuario.setString(5, estatus_servicio);
-            actualizarUsuario.setString(4, fecha_servicio);
+            actualizarUsuario.setString(4, estatus_servicio);
+            actualizarUsuario.setString(5, fecha_servicio);
             actualizarUsuario.setInt(6, id_usuario);
             actualizarUsuario.setInt(7, id_servicio);
             actualizarUsuario.executeUpdate();
@@ -152,8 +152,8 @@ public class Servicio {
             actualizarUsuario.setString(1, nombre_servicio);
             actualizarUsuario.setString(2, descripcion_servicio);
             actualizarUsuario.setString(3, ubicacion_servicio);
-            actualizarUsuario.setString(5, estatus_servicio);
-            actualizarUsuario.setString(4, fecha_servicio);
+            actualizarUsuario.setString(4, estatus_servicio);
+            actualizarUsuario.setString(5, fecha_servicio);
             actualizarUsuario.setInt(6, id_servicio);
             actualizarUsuario.executeUpdate();
             actualizarUsuario.close();

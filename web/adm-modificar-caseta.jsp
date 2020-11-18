@@ -11,6 +11,7 @@
     String id_caseta1 = (String) sesion.getAttribute("id_caseta");
     int id_caseta = Integer.parseInt(id_caseta1);
     
+    
     /*
     Asigna valores a las variables si existe una sesion.
     Retoma datos del usuario para poder utilizarlos más adelante

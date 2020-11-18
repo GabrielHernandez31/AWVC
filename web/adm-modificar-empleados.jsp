@@ -12,7 +12,6 @@
     String email = (String) sesion.getAttribute("email");
     String id_us = (String) sesion.getAttribute("id_usuario");
     
-
     /*
     Asigna valores a las variables si existe una sesion.
     Retoma datos del usuario para poder utilizarlos más adelante

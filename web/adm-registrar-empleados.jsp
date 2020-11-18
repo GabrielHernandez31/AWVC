@@ -27,6 +27,7 @@
         rol = Integer.parseInt(request.getParameter("txtRol"));
     }
 
+    
     switch (accion) {
         case "Registrar":
             usuario.setCorreo_usuario(correo);

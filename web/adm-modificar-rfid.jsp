@@ -14,6 +14,7 @@
     String id_rfid1 = (String) sesion.getAttribute("id_rfid");
     int id_rfid = Integer.parseInt(id_rfid1);
     
+    
     /*
     Asigna valores a las variables si existe una sesion.
     Retoma datos del usuario para poder utilizarlos más adelante
@@ -33,6 +34,7 @@
         response.sendRedirect("index.jsp");
     }
 
+    
     /*
     MODIFICAR AUTO
      */

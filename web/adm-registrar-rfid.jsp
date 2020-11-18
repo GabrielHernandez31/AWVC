@@ -19,6 +19,7 @@
         estatus = request.getParameter("estatusr");
     }
 
+    
     java.util.Date fecha_actual = new Date();
     SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
 

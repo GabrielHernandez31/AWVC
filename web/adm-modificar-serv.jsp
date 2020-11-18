@@ -13,6 +13,7 @@
     String id_servicio1 = (String) sesion.getAttribute("id_servicio");
     int id_servicio = Integer.parseInt(id_servicio1);
 
+    
     /*
     Asigna valores a las variables si existe una sesion.
     Retoma datos del usuario para poder utilizarlos más adelante

@@ -61,6 +61,7 @@
         rfid = request.getParameter("rfid");
     }
     
+    
     switch (accion) {
         case "Guardar":
             auto.setId_auto(id_auto);

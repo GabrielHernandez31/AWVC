@@ -34,7 +34,6 @@ public class Rol_Usuario {
     }
     
     public Rol_Usuario(){
-        
     }
 
     public Rol_Usuario(int id_rol) {

@@ -4,6 +4,7 @@
 <%@page import="java.util.Date" %>
 <%@page import="java.text.SimpleDateFormat" %>
 <%
+    
     /*
     Asigna un valor a la variable email en caso de que se haya iniciado sesion
     De lo contrario, deja la variable nula

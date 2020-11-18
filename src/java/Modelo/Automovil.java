@@ -88,7 +88,6 @@ public class Automovil {
     }
 
     public Automovil() {
-
     }
 
     public boolean createAutomovilConER() {

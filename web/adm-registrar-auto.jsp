@@ -7,6 +7,7 @@
     Automovil auto = new Automovil();
     RFID Rfid = new RFID();
     
+    
     String accion="", placa="", marca="", color="", modelo="", estatus="";
     int empleado=0, rfid=0;
 

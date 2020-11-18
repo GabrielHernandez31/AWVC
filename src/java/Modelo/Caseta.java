@@ -61,9 +61,9 @@ public class Caseta {
     }
 
     public Caseta() {
-
     }
 
+    
     public boolean createCaseta() {
         try {
             final String sql = "Insert into caseta values (default,?,?,?,default)";

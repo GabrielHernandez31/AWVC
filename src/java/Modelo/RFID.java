@@ -52,7 +52,6 @@ public class RFID {
     }
 
     public RFID() {
-
     }
 
     public boolean createRFID() {
