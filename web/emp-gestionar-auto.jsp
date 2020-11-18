@@ -66,7 +66,7 @@
                 <div class="container col-md-12 col-lg-10"  style="margin-top: 10px">
                     <div class="row  bg-info justify-content-center">
                         <div class="col-12" style="padding-top: 1vh;padding-bottom: 1vh">
-                            <h1 class="text-withe">Automóviles</h1>
+                            <h1 class="text-withe">Automóvil</h1>
                         </div>
                     </div>
 

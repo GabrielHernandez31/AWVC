@@ -133,7 +133,7 @@
                                     <tr>
                                         <th scope="col">ID</th>
                                         <th scope="col">Nombre</th>
-                                        <th scope="col">Ubicacion</th>
+                                        <th scope="col">Ubicación</th>
                                         <th scope="col">Costo</th>
                                     </tr>
                                 </thead>

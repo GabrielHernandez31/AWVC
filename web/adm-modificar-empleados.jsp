@@ -328,7 +328,7 @@
                                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="font-size: 3vh">
                                         Menu</a>
                                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                        <a class="dropdown-item" href="adm-gestionar-auto.jsp" style="font-size: 2vh">Automoviles</a>
+                                        <a class="dropdown-item" href="adm-gestionar-auto.jsp" style="font-size: 2vh">Automóviles</a>
                                         <a class="dropdown-item" href="adm-gestionar-casetas.jsp" style="font-size: 2vh">Casetas</a>
                                         <a class="dropdown-item" href="adm-gestionar-empleados.jsp" style="font-size: 2vh">Empleados</a>
                                         <a class="dropdown-item" href="adm-gestionar-rfid.jsp" style="font-size: 2vh">RFID</a>
@@ -374,7 +374,7 @@
                                 <div class="form-row justify-content-center align-content-center">
                                     <div class="col-md-12">
                                         <h1 class="font-weight-bold">Modificar Empleado</h1>
-                                        <p class="text-dark mb-3">Modifique los campos, que desea cambiar. </p>
+                                        <p class="text-dark mb-3">Modifique los campos que desea cambiar. </p>
                                     </div>
                                 </div>
                                 <%
@@ -409,7 +409,7 @@
                                         </select>
                                     </div>
                                     <div class="form-group mb-3">
-                                        <label  class="font-weight-bold">Telefono:</label>
+                                        <label  class="font-weight-bold">Teléfono:</label>
                                         <input name="txtTel" type="text" class="form-control" placeholder="Telefono" required pattern="[0-9]{10}" title="Ingresa tu telefono" value="<% out.print(usuarios[0][4]); %>">
                                     </div>
                                     <div class="form-group mb-3">

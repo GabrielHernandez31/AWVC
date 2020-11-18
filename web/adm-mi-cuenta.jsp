@@ -33,7 +33,7 @@
                                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="font-size: 3vh">
                                         Menu</a>
                                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                        <a class="dropdown-item" href="adm-gestionar-auto.jsp" style="font-size: 2vh">Automoviles</a>
+                                        <a class="dropdown-item" href="adm-gestionar-auto.jsp" style="font-size: 2vh">Automóviles</a>
                                         <a class="dropdown-item" href="adm-gestionar-casetas.jsp" style="font-size: 2vh">Casetas</a>
                                         <a class="dropdown-item" href="adm-gestionar-empleados.jsp" style="font-size: 2vh">Empleados</a>
                                         <a class="dropdown-item" href="adm-gestionar-rfid.jsp" style="font-size: 2vh">RFID</a>
@@ -82,7 +82,7 @@
                                         <th scope="col">Nombre</th>
                                         <th scope="col">A. Paterno</th>
                                         <th scope="col">A. Materno</th>
-                                        <th scope="col">Telefono</th>
+                                        <th scope="col">Teléfono</th>
                                         <th scope="col">Correo</th>
                                         <th scope="col">Rol</th>
                                         <th scope="col">Editar</th>
@@ -134,11 +134,11 @@
                                                 <input name="txtNombre" type="text" class="form-control" placeholder="Nombre" required value="">
                                             </div>
                                             <div class="form-group col-md-4">
-                                                <label class="font-weight-bold">A. Paterno</label>
+                                                <label class="font-weight-bold">A. Paterno:</label>
                                                 <input name="txtAp_pat" type="text" class="form-control" placeholder="Apellido P" required value="">
                                             </div>
                                             <div class="form-group col-md-4">
-                                                <label class="font-weight-bold">A. Materno</label>
+                                                <label class="font-weight-bold">A. Materno:</label>
                                                 <input name="txtAp_mat" type="text" class="form-control" placeholder="Apellido M" required value="">
                                             </div>
                                         </div>
@@ -147,7 +147,7 @@
                                             <input name="txtRol" type="text" class="form-control" placeholder="Rol" disabled=""/>
                                         </div>
                                         <div class="form-group mb-3">
-                                            <label  class="font-weight-bold">Telefono:</label>
+                                            <label  class="font-weight-bold">Teléfono:</label>
                                             <input name="txtTel" type="text" class="form-control" placeholder="Telefono" required pattern="[0-9]{10}" title="Ingresa tu telefono" value="">
                                         </div>
                                         <div class="form-group mb-3">
@@ -160,9 +160,9 @@
 
                                         </div>
                                         <div class="form-group mb-3 collapse" id="collapsePass">
-                                            <label class="font-weight-bold">Contraseña Nueva</label>
+                                            <label class="font-weight-bold">Contraseña Nueva:</label>
                                             <input name="txtContra" type="password" class="form-control" placeholder="Contraseña Nueva">
-                                            <label class="font-weight-bold">Confirmar Contraseña Nueva</label>
+                                            <label class="font-weight-bold">Confirmar Contraseña Nueva:</label>
                                             <input name="txtVContra" type="password" class="form-control" placeholder="Confirmar Contraseña Nueva">
                                         </div>
 
