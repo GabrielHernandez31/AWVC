@@ -137,7 +137,6 @@
                                             const input = rfid;
 
                                             input.willValidate = false;
-
                                             const maximo = 12;
 
                                             const pattern = new RegExp('[0-9A-F]', 'i');
