@@ -79,7 +79,7 @@
                                         <th scope="col">Nombre</th>
                                         <th scope="col">A. Paterno</th>
                                         <th scope="col">A. Materno</th>
-                                        <th scope="col">Telefono</th>
+                                        <th scope="col">Teléfono</th>
                                         <th scope="col">Correo</th>
                                         <th scope="col">Rol</th>
                                         <th scope="col">Editar</th>

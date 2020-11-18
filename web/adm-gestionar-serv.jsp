@@ -93,7 +93,7 @@
                                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="font-size: 3vh">
                                         Menu</a>
                                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                        <a class="dropdown-item" href="adm-gestionar-auto.jsp" style="font-size: 2vh">Automoviles</a>
+                                        <a class="dropdown-item" href="adm-gestionar-auto.jsp" style="font-size: 2vh">Automóviles</a>
                                         <a class="dropdown-item" href="adm-gestionar-casetas.jsp" style="font-size: 2vh">Casetas</a>
                                         <a class="dropdown-item" href="adm-gestionar-empleados.jsp" style="font-size: 2vh">Empleados</a>
                                         <a class="dropdown-item" href="adm-gestionar-rfid.jsp" style="font-size: 2vh">RFID</a>
@@ -143,8 +143,8 @@
                                     <tr>
                                         <th scope="col">ID</th>
                                         <th scope="col">Nombre</th>
-                                        <th scope="col">Descripcion</th>
-                                        <th scope="col">Ubicacion</th>
+                                        <th scope="col">Descripción</th>
+                                        <th scope="col">Ubicación</th>
                                         <th scope="col">Estatus</th>
                                         <th scope="col">Fecha</th>
                                         <th scope="col">Empleado</th>
