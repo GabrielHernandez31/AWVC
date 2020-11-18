@@ -90,7 +90,7 @@
                                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="font-size: 3vh">
                                         Menu</a>
                                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                        <a class="dropdown-item" href="emp-gestionar-auto.jsp" style="font-size: 2vh">AutomÃ³vil</a>
+                                        <a class="dropdown-item" href="emp-gestionar-auto.jsp" style="font-size: 2vh">Automóvil</a>
                                         <a class="dropdown-item" href="emp-gestionar-serv.jsp" style="font-size: 2vh">Servicios</a>
                                         <a class="dropdown-item" href="emp-gestionar-casetas.jsp" style="font-size: 2vh">Casetas</a>
                                     </div>
@@ -106,7 +106,7 @@
                                     </a>
                                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                                         <a class="dropdown-item" href="emp-mi-cuenta.jsp" style="font-size: 2vh">Mi Cuenta</a>
-                                        <a class="dropdown-item" href="cerrarSesion.jsp" style="font-size: 2vh">Cerrar sesiÃ³n</a>
+                                        <a class="dropdown-item" href="cerrarSesion.jsp" style="font-size: 2vh">Cerrar sesión</a>
                                     </div>
                                 </li>
                             </ul>
@@ -135,8 +135,8 @@
                                     <tr>
                                         <th scope="col">ID</th>
                                         <th scope="col">Nombre</th>
-                                        <th scope="col">DescripciÃ³n</th>
-                                        <th scope="col">UbicaciÃ³n</th>
+                                        <th scope="col">Descripción</th>
+                                        <th scope="col">Ubicación</th>
                                         <th scope="col">Estatus</th>
                                         <th scope="col">Fecha</th>
                                         <th scope="col">Editar</th>
@@ -188,7 +188,7 @@
                 <div class="col">
                     <!-- INTRODUCE AQUI TODO LO DEL FOOTER -->
                     <footer class="page-footer font-small">
-                        <div class="footer-copyright text-center">Â© 2020 Copyright:
+                        <div class="footer-copyright text-center">© 2020 Copyright:
                             <a> Derechos Reservados AWCV</a>
                         </div>
                     </footer>
