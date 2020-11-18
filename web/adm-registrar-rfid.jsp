@@ -6,9 +6,9 @@
 <%
     Usuario usuario = new Usuario();
     RFID rfid = new RFID();
-    
+
     String accion = "", serial = "", estatus = "", fecha = "";
-    
+
     if (request.getParameter("accion") != null) {
         accion = request.getParameter("accion");
     }
@@ -18,18 +18,18 @@
     if (request.getParameter("estatusr") != null) {
         estatus = request.getParameter("estatusr");
     }
-    
+
     java.util.Date fecha_actual = new Date();
     SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
-    
+
     fecha = formato.format(fecha_actual);
 
     switch (accion) {
         case "Registrar":
-            
+
             rfid.setSerial_rfid(serial);
-            
-            if(rfid.validarSerialRegistro()){
+
+            if (rfid.validarSerialRegistro()) {
                 rfid.setEstatus_rfid(estatus);
                 rfid.setFecha_alta_rfid(fecha);
                 if (rfid.createRFID()) {
@@ -37,7 +37,7 @@
                 } else {
                     out.print("<script>cancelar=confirm('Error al registrar!'); if(cancelar){ window.location.href='adm-registrar-rfid.jsp'; }else{ window.location.href='adm-registrar-rfid.jsp'; }</script>");
                 }
-            }else{
+            } else {
                 out.print("<script>cancelar=confirm('El No. de Serie ya está en uso!'); if(cancelar){ window.location.href='adm-registrar-rfid.jsp'; }else{ window.location.href='adm-registrar-rfid.jsp'; }</script>");
             }
             break;
@@ -60,7 +60,6 @@
         <script src="https://kit.fontawesome.com/2c36e9b7b1.js" crossorigin="anonymous"></script>
 
         <link href="css/are.css" rel="stylesheet">
-        <script src="script/validar.js"></script>
         <title>Registrar Tarjeta RFID</title>
     </head>
     <body>
@@ -129,13 +128,55 @@
                                     </div>
                                 </div>
                                 <form action="adm-registrar-rfid.jsp" id="formulario" name="formulario" method="POST">
-
+                                    
                                     <script>
-                                            
+                                        function vrfid(rfid) {
+
+                                            let isValid = false;
+
+                                            const input = rfid;
+
+                                            input.willValidate = false;
+
+                                            const maximo = 12;
+
+                                            const pattern = new RegExp('[0-9A-F]', 'i');
+
+                                            const messagerfid = document.getElementById('messagerfid');
+
+                                            if (!input.value) {
+                                                isValid = false;
+                                            } else {
+                                                if (input.value.length != maximo) {
+                                                    isValid = false;
+                                                } else {
+                                                    if (!pattern.test(input.value)) {
+                                                        isValid = false;
+                                                    } else {
+                                                        isValid = true;
+                                                    }
+                                                }
+                                            }
+                                            if (!isValid) {
+                                                input.style.borderColor = 'red';
+                                                messagerfid.hidden = false;
+                                                document.getElementById("mySubmit").disabled = true;
+                                            } else {
+                                                input.style.borderColor = 'green';
+                                                messagerfid.hidden = true;
+                                                document.getElementById("mySubmit").disabled = false;
+                                            }
+                                        }
                                     </script>
+
+
                                     <div class="form-group col-mb-3">
                                         <label class="font-weight-bold">No. Tarjeta: <span class="text-danger">*</span></label>
-                                        <input name="trfid" type="text" class="form-control" placeholder="NO. RFID" required onblur="">
+                                        <input name="trfid" type="text" class="form-control" placeholder="NO. RFID" onblur="vrfid(this);" required="Debe ingresar una tarjeta para continuar">
+                                    </div>
+
+                                    <div class="form-group mb-3" id="messagerfid" hidden>
+                                        <span class="text-dark">Debe ingresar solo valores hexadecimales de "0-9", "A-F" y no mas de 12 caracteres</span>
                                     </div>
 
                                     <div class="form-group mb-3">
@@ -148,7 +189,7 @@
 
                                     <div class="form-row mb justify-content-center">
                                         <div class="col-12 col-lg-6 text-center">
-                                            <input type="submit" name="accion" class="btn btn-primary" value="Registrar" onclick="Comprobar();">
+                                            <input type="submit" name="accion" class="btn btn-primary" value="Registrar" id="mySubmit">
                                         </div>
                                         <div class="col-12 col-lg-6 text-center">
                                             <input type="button" name="btnRegresar" class="btn btn-secondary" value="Regresar" onclick="location = 'adm-gestionar-rfid.jsp'" >

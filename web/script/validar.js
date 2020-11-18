@@ -208,15 +208,17 @@ function newpass() {
     const messageccn = document.getElementById('messageccan');
 
 
-    if (document.getElementById('si').checked===true) {
+    if (document.getElementById('si').checked === true) {
         messagecn.hidden = true;
         messageccn.hidden = true;
-    } 
-    if (document.getElementsById('no').checked===true) {
+    }
+    if (document.getElementsById('no').checked === true) {
         messagecn.hidden = false;
         messageccn.hidden = false;
     }
 }
+
+
 
 
 
