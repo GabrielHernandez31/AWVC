@@ -90,7 +90,6 @@
                                 </div>
                             </div>
                             <div class="form-group row justify-content-center align-content-center">
-                                
                                 <script>
                                     function vemail(mail) {
 
