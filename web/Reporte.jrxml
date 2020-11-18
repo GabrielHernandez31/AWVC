@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="java" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="51824bed-2251-4229-8812-d0ba5a681389">
+	<property name="ireport.zoom" value="1.6105100000000008"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<queryString>
+		<![CDATA[SELECT
+     registro_paso."id_registro" AS registro_paso_id_registro,
+     registro_paso."nombre_usuario" AS registro_paso_nombre_usuario,
+     registro_paso."placa_auto" AS registro_paso_placa_auto,
+     registro_paso."rfid" AS registro_paso_rfid,
+     registro_paso."caseta" AS registro_paso_caseta,
+     registro_paso."servicio" AS registro_paso_servicio,
+     registro_paso."ubicacion_servicio" AS registro_paso_ubicacion_servicio,
+     registro_paso."fecha_de_paso" AS registro_paso_fecha_de_paso,
+     registro_paso."hora_de_paso" AS registro_paso_hora_de_paso
+FROM
+     "public"."registro_paso" registro_paso]]>
+	</queryString>
+	<field name="registro_paso_id_registro" class="java.lang.Integer"/>
+	<field name="registro_paso_nombre_usuario" class="java.lang.String"/>
+	<field name="registro_paso_placa_auto" class="java.lang.String"/>
+	<field name="registro_paso_rfid" class="java.lang.String"/>
+	<field name="registro_paso_caseta" class="java.lang.String"/>
+	<field name="registro_paso_servicio" class="java.lang.String"/>
+	<field name="registro_paso_ubicacion_servicio" class="java.lang.String"/>
+	<field name="registro_paso_fecha_de_paso" class="java.lang.String"/>
+	<field name="registro_paso_hora_de_paso" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="71" splitType="Stretch">
+			<staticText>
+				<reportElement x="330" y="34" width="157" height="37" uuid="5cf5d12f-f4f3-4bb7-b1ac-3d1a01675e63"/>
+				<textElement>
+					<font size="16" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Titulo]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="61" splitType="Stretch">
+			<staticText>
+				<reportElement x="102" y="1" width="100" height="20" uuid="f7dbc8f4-ccad-4b3c-ac5b-dfd7f313efb6"/>
+				<text><![CDATA[registro_paso_id_registro]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="268" y="1" width="100" height="20" uuid="5a917147-1651-4f28-b845-bbbf60258020"/>
+				<text><![CDATA[registro_paso_placa_auto]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="528" y="1" width="100" height="20" uuid="81ae4776-b43b-4447-bed9-f93757a941e3"/>
+				<text><![CDATA[registro_paso_caseta]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="677" y="1" width="100" height="20" uuid="ace2155b-c132-49a7-a7e2-247ebcd1ef61"/>
+				<text><![CDATA[registro_paso_servicio]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="125" splitType="Stretch">
+			<textField>
+				<reportElement x="102" y="34" width="100" height="20" uuid="89aa034b-1174-4165-9d66-6995fb73ef0c"/>
+				<textFieldExpression><![CDATA[$F{registro_paso_id_registro}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="268" y="56" width="100" height="20" uuid="76e831e6-afaa-4ddb-bd26-c6474f05b7f7"/>
+				<textFieldExpression><![CDATA[$F{registro_paso_placa_auto}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="528" y="58" width="100" height="20" uuid="d3e0a3e7-3ebd-4363-bcc0-0bc08721801f"/>
+				<textFieldExpression><![CDATA[$F{registro_paso_caseta}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="677" y="89" width="100" height="20" uuid="0616cae6-8b3c-4d30-81d2-80d0131ff0c1"/>
+				<textFieldExpression><![CDATA[$F{registro_paso_servicio}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

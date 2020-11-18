@@ -10,8 +10,8 @@
      */
     HttpSession sesion = request.getSession();
     String email = (String) sesion.getAttribute("email");
-    String id_usuario = (String) sesion.getAttribute("id_usuario");
-    int id_us = Integer.parseInt(id_usuario);
+    String id_us = (String) sesion.getAttribute("id_usuario");
+    
 
     /*
     Asigna valores a las variables si existe una sesion.
@@ -66,15 +66,15 @@
         rol = Integer.parseInt(request.getParameter("txtRol"));
     }
 
-    int id_usu2 = 0;
+    String id_usu2 = "0";
     if (request.getParameter("id_us") != null) {
-        id_usu2 = Integer.parseInt(request.getParameter("id_us"));
+        id_usu2 = request.getParameter("id_us");
     }
     Usuario usuario1 = new Usuario();
     switch (accion) {
         case "Guardar":
 
-            usuario1.setId_usuario(id_us);
+            usuario1.setId_usuario(Integer.parseInt(id_us));
             String[][] datos = usuario1.consultarUsuariosAdmModificar();
 
             if (tel.equals(datos[0][4])) {
@@ -86,8 +86,8 @@
                         usuario1.setId_usuario(Integer.parseInt(datos[0][0]));
                         if(estatus.equals("Baja")){
                             usuario1.updateUsuarioSCST();
-                            usuario1.setId_usuario(id_us);
-                            auto.setId_auto(usuario.obtenerIdAuto());
+                            usuario1.setId_usuario(Integer.parseInt(id_us));
+                            auto.setId_auto(Integer.parseInt(usuario.obtenerIdAuto()));
                             if(auto.deleteUsuarioAutomovil()){
                                 out.print("<script>cancelar=confirm('¡Registro Exitoso!'); if(cancelar){ window.location.href='adm-gestionar-empleados.jsp'; }else{ window.location.href='adm-gestionar-empleados.jsp'; }</script>");
                             }else{
@@ -107,8 +107,8 @@
                         usuario1.setId_usuario(Integer.parseInt(datos[0][0]));
                         if(estatus.equals("Baja")){
                             usuario1.updateUsuarioSCST();
-                            usuario1.setId_usuario(id_us);
-                            auto.setId_auto(usuario.obtenerIdAuto());
+                            usuario1.setId_usuario(Integer.parseInt(id_us));
+                            auto.setId_auto(Integer.parseInt(usuario.obtenerIdAuto()));
                             if(auto.deleteUsuarioAutomovil()){
                                 out.print("<script>cancelar=confirm('¡Registro Exitoso!'); if(cancelar){ window.location.href='adm-gestionar-empleados.jsp'; }else{ window.location.href='adm-gestionar-empleados.jsp'; }</script>");
                             }else{
@@ -132,9 +132,9 @@
                             usuario1.setEstatus_usuario(estatus);
                             usuario1.setId_usuario(Integer.parseInt(datos[0][0]));
                             if(estatus.equals("Baja")){
-                                usuario1.setId_usuario(id_us);
+                                usuario1.setId_usuario(Integer.parseInt(id_us));
                                 usuario1.updateUsuarioCCST();
-                                auto.setId_auto(usuario.obtenerIdAuto());
+                                auto.setId_auto(Integer.parseInt(usuario.obtenerIdAuto()));
                                 if(auto.deleteUsuarioAutomovil()){
                                     out.print("<script>cancelar=confirm('¡Registro Exitoso!'); if(cancelar){ window.location.href='adm-gestionar-empleados.jsp'; }else{ window.location.href='adm-gestionar-empleados.jsp'; }</script>");
                                 }else{
@@ -154,9 +154,9 @@
                             usuario1.setEstatus_usuario(estatus);
                             usuario1.setId_usuario(Integer.parseInt(datos[0][0]));
                             if(estatus.equals("Baja")){
-                                usuario1.setId_usuario(id_us);
+                                usuario1.setId_usuario(Integer.parseInt(id_us));
                                 usuario1.updateUsuarioCCST();
-                                auto.setId_auto(usuario.obtenerIdAuto());
+                                auto.setId_auto(Integer.parseInt(usuario.obtenerIdAuto()));
                                 if(auto.deleteUsuarioAutomovil()){
                                     out.print("<script>cancelar=confirm('¡Registro Exitoso!'); if(cancelar){ window.location.href='adm-gestionar-empleados.jsp'; }else{ window.location.href='adm-gestionar-empleados.jsp'; }</script>");
                                 }else{
@@ -185,9 +185,9 @@
                             usuario1.setEstatus_usuario(estatus);
                             usuario1.setId_usuario(Integer.parseInt(datos[0][0]));
                             if(estatus.equals("Baja")){
-                                usuario1.setId_usuario(id_us);
+                                usuario1.setId_usuario(Integer.parseInt(id_us));
                                 usuario1.updateUsuarioSCCT();
-                                auto.setId_auto(usuario.obtenerIdAuto());
+                                auto.setId_auto(Integer.parseInt(usuario.obtenerIdAuto()));
                                 if(auto.deleteUsuarioAutomovil()){
                                     out.print("<script>cancelar=confirm('¡Registro Exitoso!'); if(cancelar){ window.location.href='adm-gestionar-empleados.jsp'; }else{ window.location.href='adm-gestionar-empleados.jsp'; }</script>");
                                 }else{
@@ -207,9 +207,9 @@
                             usuario1.setEstatus_usuario(estatus);
                             usuario1.setId_usuario(Integer.parseInt(datos[0][0]));
                             if(estatus.equals("Baja")){
-                                usuario1.setId_usuario(id_us);
+                                usuario1.setId_usuario(Integer.parseInt(id_us));
                                 usuario1.updateUsuarioSCCT();
-                                auto.setId_auto(usuario.obtenerIdAuto());
+                                auto.setId_auto(Integer.parseInt(usuario.obtenerIdAuto()));
                                 if(auto.deleteUsuarioAutomovil()){
                                     out.print("<script>cancelar=confirm('¡Registro Exitoso!'); if(cancelar){ window.location.href='adm-gestionar-empleados.jsp'; }else{ window.location.href='adm-gestionar-empleados.jsp'; }</script>");
                                 }else{
@@ -239,9 +239,9 @@
                                 usuario1.setEstatus_usuario(estatus);
                                 usuario1.setId_usuario(Integer.parseInt(datos[0][0]));
                                 if(estatus.equals("Baja")){
-                                    usuario1.setId_usuario(id_us);
+                                    usuario1.setId_usuario(Integer.parseInt(id_us));
                                     usuario1.updateUsuarioCCCT();
-                                    auto.setId_auto(usuario.obtenerIdAuto());
+                                    auto.setId_auto(Integer.parseInt(usuario.obtenerIdAuto()));
                                     if(auto.deleteUsuarioAutomovil()){
                                         out.print("<script>cancelar=confirm('¡Registro Exitoso!'); if(cancelar){ window.location.href='adm-gestionar-empleados.jsp'; }else{ window.location.href='adm-gestionar-empleados.jsp'; }</script>");
                                     }else{
@@ -262,9 +262,9 @@
                                 usuario1.setEstatus_usuario(estatus);
                                 usuario1.setId_usuario(Integer.parseInt(datos[0][0]));
                                 if(estatus.equals("Baja")){
-                                    usuario1.setId_usuario(id_us);
+                                    usuario1.setId_usuario(Integer.parseInt(id_us));
                                     usuario1.updateUsuarioCCCT();
-                                    auto.setId_auto(usuario.obtenerIdAuto());
+                                    auto.setId_auto(Integer.parseInt(usuario.obtenerIdAuto()));
                                     if(auto.deleteUsuarioAutomovil()){
                                         out.print("<script>cancelar=confirm('¡Registro Exitoso!'); if(cancelar){ window.location.href='adm-gestionar-empleados.jsp'; }else{ window.location.href='adm-gestionar-empleados.jsp'; }</script>");
                                     }else{
@@ -378,7 +378,7 @@
                                     </div>
                                 </div>
                                 <%
-                                    usuario1.setId_usuario(id_us);
+                                    usuario1.setId_usuario(Integer.parseInt(id_us));
                                     String[][] usuarios = usuario1.consultarUsuariosAdmModificar();
                                 %>
                                 <form action="adm-modificar-empleados.jsp" id="" name="formulario" method="POST">
