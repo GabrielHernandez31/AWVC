@@ -165,8 +165,7 @@
                                         <label  class="font-weight-bold">Telefono:<span class="text-danger">*</span></label>
                                         <input name="txtTel" type="text" class="form-control" placeholder="Ingresa tu telefono" required onblur="vtel(this)">
                                     </div>
-                                    
-                                                                
+                                                 
                                     <div class="form-group mb-3" id="messaget" hidden>
                                         <span class="text-dark">El formato del telefono es incorrecto, use 10 digitos entre 0 y 9</span>
                                     </div>

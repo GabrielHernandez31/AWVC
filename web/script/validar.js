@@ -118,7 +118,6 @@ function vtel(tel) {
         messaget.hidden = true;
     }
 }
-
 //Verificar formato de contraseña******************************************************************************************
 
 function vpass(pass) {
@@ -217,6 +216,8 @@ function newpass() {
         messageccn.hidden = false;
     }
 }
+
+
 
 
 
