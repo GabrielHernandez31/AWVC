@@ -2,6 +2,9 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import="Modelo.Usuario" %>
 <%@page import="Modelo.Servicio" %>
+<%@page import="Modelo.Automovil" %>
+<%@page import="Modelo.RFID" %>
+<%@page import="Modelo.Caseta" %>
 <%@page import="java.util.Date" %>
 <%@page import="java.text.SimpleDateFormat" %>
 <%
@@ -12,10 +15,9 @@
     HttpSession sesion = request.getSession();
     String email = (String) sesion.getAttribute("email");
     
-    String id_servicio1 = (String) sesion.getAttribute("id_servicio");
-    int id_servicio = Integer.parseInt(id_servicio1);
+    String id_servicio = (String) sesion.getAttribute("id_serv");
     String id_auto = (String) sesion.getAttribute("id_auto");
-    String id_usuario = (String) sesion.getAttribute("id_usuario");
+    String id_usuario = (String) sesion.getAttribute("id_usu");
 
     /*
     Asigna valores a las variables si existe una sesion.
@@ -26,6 +28,9 @@
     int id_rol = usuario.getId_rol();
 
     Servicio servicio = new Servicio();
+    Automovil auto = new Automovil();
+    RFID rfid = new RFID();
+    Caseta caseta = new Caseta();
 
     /*
     Valida si hay una sesion activa.
@@ -33,6 +38,37 @@
      */
     if (email == null) {
         response.sendRedirect("index.jsp");
+    }
+    
+    String accion = "", id_auto = "",  id_servicio="";
+    String caseta1="", fecha1="", hora1="";
+    String caseta1="", fecha1="", hora1="";
+    String caseta1="", fecha1="", hora1="";
+    String caseta1="", fecha1="", hora1="";
+    
+    if (request.getParameter("accion") != null) {
+        accion = request.getParameter("accion");
+    }
+    if (request.getParameter("caseta1") != null) {
+        caseta1 = request.getParameter("caseta1");
+    }
+
+    switch (accion) {
+        case "Registrar":
+            caseta.setUbicacion_caseta(ubicacion);
+            if (caseta.validarUbicacionRegistro()) {
+                caseta.setNombre_caseta(nombre);
+                caseta.setUbicacion_caseta(ubicacion);
+                caseta.setCosto_caseta(costo);
+                caseta.createCaseta();
+                out.print("<script>cancelar=confirm('¡Registro Exitoso!'); if(cancelar){ window.location.href='adm-gestionar-casetas.jsp'; }else{ window.location.href='adm-gestionar-casetas.jsp'; }</script>");
+            } else {
+                out.print("<script>cancelar=confirm('El correo ya existe!'); if(cancelar){ window.location.href='adm-registrar-caseta.jsp'; }else{ window.location.href='adm-registrar-caseta.jsp'; }</script>");
+            }
+            break;
+        default:
+
+            break;
     }
 %><!DOCTYPE html>
 <html lang="es">
@@ -116,25 +152,32 @@
                                         <p class="text-dark mb-3">Ingresa la siguiente información de paso por caseta. </p>
                                     </div>
                                 </div>
+                                <%
+                                    servicio.setId_servicio(Integer.parseInt(id_servicio));
+                                    String[][] servicios = servicio.consultarDatosServicioSimulacion();
+                                    auto.setId_auto(Integer.parseInt(id_auto));
+                                    String[][] autos = auto.consultarDatosAutoSimulacion();
+                                    
+                                %>
                                 <form action="simulador-paso-caseta.jsp" id="formulario" name="formulario" method="POST">
                                     <div class="form-row mb">
                                         <div class="form-group col-md-4">
                                             <label class="font-weight-bold">RFID:</label>
-                                            <input name="rfid" type="text" class="form-control" placeholder="3A678F89E" disabled="">
+                                            <input name="rfid" type="text" class="form-control" value="<% out.print(rfid.obtenerNombreRFID(autos[0][2])); %>" disabled="">
                                         </div>
                                         <div class="form-group col-md-4">
                                             <label class="font-weight-bold">Placa(Auto):</label>
-                                            <input name="placa" type="text" class="form-control" placeholder="FD7896" disabled="">
+                                            <input name="placa" value="<% out.print(autos[0][1]); %>" type="text" class="form-control"disabled="">
                                         </div>
                                         <div class="form-group col-md-4">
                                             <label class="font-weight-bold">Servicio:</label>
-                                            <input name="txtServ" type="text" class="form-control" placeholder="Reparación" disabled="">
+                                            <input name="servicio" value="<% out.print(servicios[0][2]); %>" type="text" class="form-control" disabled="">
                                         </div>
                                     </div>
 
                                     <div class="form-group mb-3">
                                         <label  class="font-weight-bold">Ubicación:</label>
-                                        <textarea class="form-control" name='Ubicacion' rows="3" disabled ></textarea>
+                                        <textarea class="form-control" name='Ubicacion' rows="3" disabled ><% out.print(servicios[0][2]); %></textarea>
                                     </div>
 
                                     <div class="form-group mb-3">
@@ -148,7 +191,12 @@
                                             </div>
                                             <div class="form-group col-md-10">
                                                 <select name="caseta1" class="form-control"> 
-                                                    <option value="1" selected>Xalpa</option>
+                                                    <%
+                                                        String[][] caseta1 =  caseta.consultarCasetas();
+                                                        for( int cuenta = 0; cuenta<caseta.contarCasetas(); cuenta++){
+                                                    %>
+                                                            <option value="<% out.print(caseta1[cuenta][0]); %>"><% out.print(caseta1[cuenta][1]); %></option>
+                                                    <%  }   %>
                                                 </select>
                                             </div>
                                         </div>
@@ -182,7 +230,12 @@
                                             </div>
                                             <div class="form-group col-md-10">
                                                 <select name="caseta2" class="form-control"> 
-                                                    <option value="1" selected>Xalpa</option>
+                                                    <%
+                                                        String[][] caseta2 =  caseta.consultarCasetas();
+                                                        for( int cuenta = 0; cuenta<caseta.contarCasetas(); cuenta++){
+                                                    %>
+                                                            <option value="<% out.print(caseta2[cuenta][0]); %>"><% out.print(caseta2[cuenta][1]); %></option>
+                                                    <%  }   %>
                                                 </select>
                                             </div>
                                         </div>
@@ -215,7 +268,12 @@
                                             </div>
                                             <div class="form-group col-md-10">
                                                 <select name="caseta3" class="form-control"> 
-                                                    <option value="1" selected>Xalpa</option>
+                                                    <%
+                                                        String[][] caseta3 =  caseta.consultarCasetas();
+                                                        for( int cuenta = 0; cuenta<caseta.contarCasetas(); cuenta++){
+                                                    %>
+                                                            <option value="<% out.print(caseta3[cuenta][0]); %>"><% out.print(caseta3[cuenta][1]); %></option>
+                                                    <%  }   %>
                                                 </select>
                                             </div>
                                         </div>
@@ -248,7 +306,12 @@
                                             </div>
                                             <div class="form-group col-md-10">
                                                 <select name="caseta4" class="form-control"> 
-                                                    <option value="1" selected>Xalpa</option>
+                                                    <%
+                                                        String[][] caseta4 =  caseta.consultarCasetas();
+                                                        for( int cuenta = 0; cuenta<caseta.contarCasetas(); cuenta++){
+                                                    %>
+                                                            <option value="<% out.print(caseta4[cuenta][0]); %>"><% out.print(caseta4[cuenta][1]); %></option>
+                                                    <%  }   %>
                                                 </select>
                                             </div>
                                         </div>
@@ -267,8 +330,6 @@
                                             </div>
                                         </div>
                                     </div>
-                                    
-                                     
                                     
                                     <div class="form-row mb justify-content-center">
                                         <div class="col-12 col-lg-6 text-center">

@@ -34,7 +34,7 @@
     /*
     MODIFICAR AUTO
      */
-    String accion = "", estatus = "", empleado="";
+    String accion = "", estatus = "", id_usuario="";
 
     if (request.getParameter("accion") != null) {
         accion = request.getParameter("accion");
@@ -42,31 +42,29 @@
     if (request.getParameter("estatusserv") != null) {
         estatus = request.getParameter("estatusserv");
     }
-    if (request.getParameter("empleado") != null) {
-        empleado = request.getParameter("empleado");
-    }
 
     switch (accion) {
         case "Guardar":
 
             servicio.setId_servicio(id_servicio);
             servicio.setEstatus_servicio(estatus);
-
-            if (request.getParameter("estatusserv").equals("Finalizado")) {
+            if (estatus.equals("Finalizado")) {
+                HttpSession sesion_act = request.getSession();
+                sesion_act.setAttribute("id_usu",servicio.obtenerIdUsuarioServicio());
+                sesion_act.setAttribute("id_serv",id_servicio1);
+                sesion_act.setAttribute("id_auto", usuario.obtenerIdAuto());
+                response.sendRedirect("simulador-paso-caseta.jsp");
                 if(servicio.updateServiciosEmp()){
-                    usuario.setId_usuario(Integer.parseInt(empleado));
-                    HttpSession sesion_act = request.getSession();
-                    sesion_act.setAttribute("id_usuario",Integer.parseInt(empleado));
-                    sesion_act.setAttribute("id_servicio",id_servicio);
-                    sesion_act.setAttribute("id_auto",usuario.obtenerIdAuto());
-                    
-                    response.sendRedirect("simulador-paso-caseta.jsp");
+                    out.print("<script>cancelar=confirm('¡Registro Exitoso!'); if(cancelar){ window.location.href='emp-gestionar-serv.jsp'; }else{ window.location.href='emp-gestionar-serv.jsp'; }</script>");
                 }else{
-                    servicio.updateServiciosEmp();
-                    out.print("<script>cancelar=confirm('Â¡Registro Exitoso!'); if(cancelar){ window.location.href='emp-gestionar-serv.jsp'; }else{ window.location.href='emp-gestionar-serv.jsp'; }</script>");
+                    out.print("<script>cancelar=confirm('Error al registrar!'); if(cancelar){ window.location.href='emp-modificar-serv.jsp'; }else{ window.location.href='emp-modificar-serv.jsp'; }</script>");
                 }
             } else {
-                out.print("<script>cancelar=confirm('Error al registrar!'); if(cancelar){ window.location.href='emp-modificar-serv.jsp'; }else{ window.location.href='emp-modificar-serv.jsp'; }</script>");
+                if(servicio.updateServiciosEmp()){
+                    out.print("<script>cancelar=confirm('¡Registro Exitoso!'); if(cancelar){ window.location.href='emp-gestionar-serv.jsp'; }else{ window.location.href='emp-gestionar-serv.jsp'; }</script>");
+                }else{
+                    out.print("<script>cancelar=confirm('Error al registrar!'); if(cancelar){ window.location.href='emp-modificar-serv.jsp'; }else{ window.location.href='emp-modificar-serv.jsp'; }</script>");
+                }
             }
             break;
         default:
@@ -165,12 +163,12 @@
                                     </div>
 
                                     <div class="form-group mb-3">
-                                        <label  class="font-weight-bold">DescripciÃ³n: <span class="text-danger">*</span></label>
+                                        <label  class="font-weight-bold">Descripción: <span class="text-danger">*</span></label>
                                         <textarea class="form-control" name='descripcion' disabled="" rows="3" required="Ingre la descripciÃ³n del servicio por favor"><% out.print(servicios[0][2]); %></textarea>
                                     </div>
 
                                     <div class="form-group mb-3">
-                                        <label  class="font-weight-bold">UbicaciÃ³n: <span class="text-danger">*</span></label>
+                                        <label  class="font-weight-bold">Ubicación: <span class="text-danger">*</span></label>
                                         <textarea class="form-control" name='ubicacion' disabled="" rows="3" required="Ingre la ubicaciÃ³n del servicio por favor"><% out.print(servicios[0][3]); %></textarea>
                                     </div>
 
@@ -182,25 +180,16 @@
                                             <option value="Activo" selected>Activo</option>
                                             <option value="En proceso">En proceso</option>
                                             <option value="Finalizado">Finalizado</option>
-                                            <option value="Cancelado">Cancelado</option>
                                             <% break;
                                                     case "En proceso": %>
                                             <option value="Activo" >Activo</option>
                                             <option value="En proceso"selected>En proceso</option>
                                             <option value="Finalizado">Finalizado</option>
-                                            <option value="Cancelado">Cancelado</option>
                                             <% break;
                                                     case "Finalizado": %>
                                             <option value="Activo" >Activo</option>
                                             <option value="En proceso">En proceso</option>
                                             <option value="Finalizado"selected>Finalizado</option>
-                                            <option value="Cancelado">Cancelado</option>
-                                            <% break;
-                                                    case "Cancelado": %>
-                                            <option value="Activo" >Activo</option>
-                                            <option value="En proceso">En proceso</option>
-                                            <option value="Finalizado">Finalizado</option>
-                                            <option value="Cancelado" selected>Cancelado</option>
                                             <% break;
                                                     }   %>
                                         </select>
@@ -218,24 +207,8 @@
 
                                     <div class="form-group mb-3">
                                         <label class="font-weight-bold">Empleado:</label>
-                                        <select name="empleado" class="form-control" disabled="">
-                                            <%
-                                                if (usuario.existenUsuariosAuto()) {
-                                                    String[][] emple = usuario.consultarUsuariosAuto();
-                                                    for (int cuenta = 0; cuenta < usuario.contarUsuariosAuto(); cuenta++) {
-                                            %>
-                                            <option value="<% out.print(emple[cuenta][0]); %>"><% out.print(emple[cuenta][1] + " " + emple[cuenta][2] + " " + emple[cuenta][3].charAt(0) + "."); %></option>
-                                            <%      }
-                                                if (usuario.obtenerNombreUsuario(servicios[0][6]).equals("Sin asignar aun.")) { %>
-                                            <option value="0" selected="">Sin asignar aun.</option>
-                                            <%  } else { %>
-                                            <option value="<% out.print(servicios[0][6]); %>" selected=""><% out.print(usuario.obtenerNombreUsuario(servicios[0][6])); %></option>
-                                            <option value="0">Sin asignar aun.</option>
-                                            <%  } %>          
-                                            <%  } else { %>
-                                            <option disabled>No existen empleados</option>
-                                            <option value="0">Sin asignar aun.</option>
-                                            <%  }%>
+                                        <select name="empleado" class="form-control" disabled>
+                                            <option value="<% out.print(servicios[0][6]); %>"><% out.print(usuario.obtenerNombreUsuario(servicios[0][6])); %></option>
                                         </select>
                                     </div>
 

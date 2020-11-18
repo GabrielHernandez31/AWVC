@@ -195,6 +195,59 @@ public class Servicio {
         return false;
     }
     
+    public String obtenerIdUsuarioServicio() {
+        try {
+            final String sql = "Select id_usuario from servicio where id_servicio = ?";
+            Conexion conex = new Conexion();
+            PreparedStatement existenCategorias = conex.obtenerConnexion().prepareStatement(sql);
+            existenCategorias.setInt(1, getId_servicio());
+            ResultSet resulExistenCategorias = existenCategorias.executeQuery();
+            if (resulExistenCategorias.next()) {
+                String nombre = resulExistenCategorias.getString("id_usuario");
+                existenCategorias.close();
+                resulExistenCategorias.close();
+                conex.obtenerConnexion().close();
+                return nombre;
+            } else {
+                String nombre2 = "0";
+                existenCategorias.close();
+                resulExistenCategorias.close();
+                conex.obtenerConnexion().close();
+                return nombre2;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        String nombre3 = "0";
+        return nombre3;
+    }
+    
+    public String[][] consultarDatosServicioSimulacion() {
+        try {
+            final String sql = "Select * from servicio where id_servicio = ?";
+            Conexion conex = new Conexion();
+            PreparedStatement consultarProducto = conex.obtenerConnexion().prepareStatement(sql);
+            consultarProducto.setInt(1, getId_servicio());
+            ResultSet resulProducto = consultarProducto.executeQuery();
+            int cuenta = -1;
+            String[][] arreglo_servicio = new String[1][8];
+            while (resulProducto.next()) {
+                cuenta++;
+                arreglo_servicio[cuenta][0] = resulProducto.getString("id_servicio");
+                arreglo_servicio[cuenta][1] = resulProducto.getString("nombre_servicio");
+                arreglo_servicio[cuenta][2] = resulProducto.getString("ubicacion_servicio");
+            }
+            consultarProducto.close();
+            resulProducto.close();
+            conex.obtenerConnexion().close();
+            return arreglo_servicio;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        String[][] arreglo_sinDatos = new String[0][0];
+        return arreglo_sinDatos;
+    }
+    
     public String[][] consultarServiciosModificar() {
         try {
             final String sql = "Select * from servicio where id_servicio = ?";

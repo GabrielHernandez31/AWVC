@@ -319,6 +319,32 @@ public class Automovil {
         return false;
     }
     
+    public String[][] consultarDatosAutoSimulacion() {
+        try {
+            final String sql = "Select * from automovil where id_auto = ?";
+            Conexion conex = new Conexion();
+            PreparedStatement consultarProducto = conex.obtenerConnexion().prepareStatement(sql);
+            consultarProducto.setInt(1, getId_auto());
+            ResultSet resulProducto = consultarProducto.executeQuery();
+            int cuenta = -1;
+            String[][] arreglo_servicio = new String[1][8];
+            while (resulProducto.next()) {
+                cuenta++;
+                arreglo_servicio[cuenta][0] = resulProducto.getString("id_auto");
+                arreglo_servicio[cuenta][1] = resulProducto.getString("placa_auto");
+                arreglo_servicio[cuenta][2] = resulProducto.getString("id_rfid");
+            }
+            consultarProducto.close();
+            resulProducto.close();
+            conex.obtenerConnexion().close();
+            return arreglo_servicio;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        String[][] arreglo_sinDatos = new String[0][0];
+        return arreglo_sinDatos;
+    }
+    
     public String[][] consultarAutomovilesModificar() {
         try {
             final String sql = "Select * from automovil where id_auto = ?";

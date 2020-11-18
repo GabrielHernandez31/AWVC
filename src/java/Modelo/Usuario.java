@@ -195,7 +195,7 @@ public class Usuario {
         return nombre3;
     }
     
-    public int obtenerIdAuto() {
+    public String obtenerIdAuto() {
         try {
             final String sql = "Select id_auto from automovil where id_usuario = ?";
             Conexion conex = new Conexion();
@@ -203,13 +203,13 @@ public class Usuario {
             existenCategorias.setInt(1, getId_usuario());
             ResultSet resulExistenCategorias = existenCategorias.executeQuery();
             if (resulExistenCategorias.next()) {
-                int nombre = resulExistenCategorias.getInt("id_auto");
+                String nombre = resulExistenCategorias.getString("id_auto");
                 existenCategorias.close();
                 resulExistenCategorias.close();
                 conex.obtenerConnexion().close();
                 return nombre;
             } else {
-                int nombre2 = 0;
+                String nombre2 = "0";
                 existenCategorias.close();
                 resulExistenCategorias.close();
                 conex.obtenerConnexion().close();
@@ -218,7 +218,7 @@ public class Usuario {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        int nombre3 = 0;
+        String nombre3 = "0";
         return nombre3;
     }
 
@@ -475,7 +475,7 @@ public class Usuario {
     
     public String[][] consultarUsuariosAdmGestionar() {
         try {
-            final String sql = "Select * from usuario where id_rol=2";
+            final String sql = "Select * from usuario";
             Conexion con = new Conexion();
             PreparedStatement consultarProducto = con.obtenerConnexion().prepareStatement(sql);
             ResultSet resulProducto = consultarProducto.executeQuery();
@@ -507,7 +507,7 @@ public class Usuario {
     public int contarUsuariosAdmGestionar() {
         try {
             int resultado;
-            final String sql = "Select count(*) from usuario where id_rol=2";
+            final String sql = "Select count(*) from usuario";
             Conexion con = new Conexion();
             PreparedStatement consultarProducto = con.obtenerConnexion().prepareStatement(sql);
             ResultSet resulProducto = consultarProducto.executeQuery();
@@ -528,7 +528,7 @@ public class Usuario {
 
     public boolean existenUsuariosAdmGestionar() {
         try {
-            final String sql = "Select * from usuario where id_rol=2";
+            final String sql = "Select * from usuario";
             Conexion con = new Conexion();
             PreparedStatement consultarProducto = con.obtenerConnexion().prepareStatement(sql);
             ResultSet resulProducto = consultarProducto.executeQuery();

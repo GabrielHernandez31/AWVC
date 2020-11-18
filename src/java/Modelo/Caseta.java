@@ -175,14 +175,11 @@ public class Caseta {
             consultarProducto.setInt(1, getId_caseta());
             ResultSet resulProducto = consultarProducto.executeQuery();
             int cuenta = -1;
-            String[][] arreglo_servicio = new String[contarCasetas()][5];
+            String[][] arreglo_servicio = new String[contarCasetas()][2];
             while (resulProducto.next()) {
                 cuenta++;
                 arreglo_servicio[cuenta][0] = resulProducto.getString("id_caseta");
                 arreglo_servicio[cuenta][1] = resulProducto.getString("nombre_caseta");
-                arreglo_servicio[cuenta][2] = resulProducto.getString("ubicacion_caseta");
-                arreglo_servicio[cuenta][3] = resulProducto.getString("costo_caseta");
-                arreglo_servicio[cuenta][4] = resulProducto.getString("estado_caseta");
             }
             consultarProducto.close();
             resulProducto.close();
