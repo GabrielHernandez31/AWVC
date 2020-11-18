@@ -5,6 +5,7 @@
 <%@page import="Modelo.Automovil" %>
 <%@page import="Modelo.RFID" %>
 <%@page import="Modelo.Caseta" %>
+<%@page import="Modelo.Registro_Paso" %>
 <%@page import="java.util.Date" %>
 <%@page import="java.text.SimpleDateFormat" %>
 <%
@@ -31,7 +32,7 @@
     Automovil auto = new Automovil();
     RFID rfid = new RFID();
     Caseta caseta = new Caseta();
-
+    Registro_Paso paso = new Registro_Paso();
     /*
     Valida si hay una sesion activa.
     En caso de que no exista una sesion activa, se redirige al index
@@ -40,31 +41,117 @@
         response.sendRedirect("index.jsp");
     }
     
-    String accion = "", id_auto = "",  id_servicio="";
+    String accion = "";
     String caseta1="", fecha1="", hora1="";
-    String caseta1="", fecha1="", hora1="";
-    String caseta1="", fecha1="", hora1="";
-    String caseta1="", fecha1="", hora1="";
+    String caseta2="", fecha2="", hora2="";
+    String caseta3="", fecha3="", hora3="";
+    String caseta4="", fecha4="", hora4="";
     
     if (request.getParameter("accion") != null) {
         accion = request.getParameter("accion");
     }
+    // CASETAS 111111111
     if (request.getParameter("caseta1") != null) {
         caseta1 = request.getParameter("caseta1");
+    }
+    if (request.getParameter("fecha1") != null) {
+        fecha1 = request.getParameter("fecha1");
+    }
+    if (request.getParameter("hora1") != null) {
+        hora1 = request.getParameter("hora1");
+    }
+    // CASETAS 22222222222
+    if (request.getParameter("caseta2") != null) {
+        caseta2 = request.getParameter("caseta2");
+    }
+    if (request.getParameter("fecha2") != null) {
+        fecha2 = request.getParameter("fecha2");
+    }
+    if (request.getParameter("hora2") != null) {
+        hora2 = request.getParameter("hora2");
+    }
+    // CASETAS 333333333333333333
+    if (request.getParameter("caseta3") != null) {
+        caseta3 = request.getParameter("caseta3");
+    }
+    if (request.getParameter("fecha3") != null) {
+        fecha3 = request.getParameter("fecha3");
+    }
+    if (request.getParameter("hora3") != null) {
+        hora3 = request.getParameter("hora3");
+    }
+    // CASETAS 444444444444
+    if (request.getParameter("caseta4") != null) {
+        caseta4 = request.getParameter("caseta4");
+    }
+    if (request.getParameter("fecha4") != null) {
+        fecha4 = request.getParameter("fecha4");
+    }
+    if (request.getParameter("hora4") != null) {
+        hora4 = request.getParameter("hora4");
     }
 
     switch (accion) {
         case "Registrar":
-            caseta.setUbicacion_caseta(ubicacion);
-            if (caseta.validarUbicacionRegistro()) {
-                caseta.setNombre_caseta(nombre);
-                caseta.setUbicacion_caseta(ubicacion);
-                caseta.setCosto_caseta(costo);
-                caseta.createCaseta();
-                out.print("<script>cancelar=confirm('¡Registro Exitoso!'); if(cancelar){ window.location.href='adm-gestionar-casetas.jsp'; }else{ window.location.href='adm-gestionar-casetas.jsp'; }</script>");
-            } else {
-                out.print("<script>cancelar=confirm('El correo ya existe!'); if(cancelar){ window.location.href='adm-registrar-caseta.jsp'; }else{ window.location.href='adm-registrar-caseta.jsp'; }</script>");
-            }
+                
+                if(caseta1.equals("No necesaria")){
+                    
+                }else{
+                    paso.setId_auto(Integer.parseInt(id_auto));
+                    paso.setId_caseta(Integer.parseInt(caseta1));
+                    paso.setId_servicio(Integer.parseInt(id_servicio));
+                    paso.setFecha_paso(fecha1);
+                    paso.setHora_paso(hora1);
+                    if(paso.createRegistroPaso()){
+                        out.print("<script>cancelar=confirm('¡Registro Exitoso!'); if(cancelar){ window.location.href='emp-gestionar-serv.jsp'; }else{ window.location.href='emp-gestionar-serv.jsp'; }</script>");
+                    }else{
+                        out.print("<script>cancelar=confirm('Error al registrar!'); if(cancelar){ window.location.href='simulador-paso-caseta.jsp'; }else{ window.location.href='simulador-paso-caseta.jsp'; }</script>");
+                    }
+                }
+                if(caseta2.equals("No necesaria")){
+                    
+                }else{
+                    paso.setId_auto(Integer.parseInt(id_auto));
+                    paso.setId_caseta(Integer.parseInt(caseta2));
+                    paso.setId_servicio(Integer.parseInt(id_servicio));
+                    paso.setFecha_paso(fecha2);
+                    paso.setHora_paso(hora2);
+                    if(paso.createRegistroPaso()){
+                        out.print("<script>cancelar=confirm('¡Registro Exitoso!'); if(cancelar){ window.location.href='emp-gestionar-serv.jsp'; }else{ window.location.href='emp-gestionar-serv.jsp'; }</script>");
+                    }else{
+                        out.print("<script>cancelar=confirm('Error al registrar!'); if(cancelar){ window.location.href='simulador-paso-caseta.jsp'; }else{ window.location.href='simulador-paso-caseta.jsp'; }</script>");
+                    }
+                }
+                
+                if(caseta3.equals("No necesaria")){
+                    
+                }else{
+                    paso.setId_auto(Integer.parseInt(id_auto));
+                    paso.setId_caseta(Integer.parseInt(caseta3));
+                    paso.setId_servicio(Integer.parseInt(id_servicio));
+                    paso.setFecha_paso(fecha3);
+                    paso.setHora_paso(hora3);
+                    if(paso.createRegistroPaso()){
+                        out.print("<script>cancelar=confirm('¡Registro Exitoso!'); if(cancelar){ window.location.href='emp-gestionar-serv.jsp'; }else{ window.location.href='emp-gestionar-serv.jsp'; }</script>");
+                    }else{
+                        out.print("<script>cancelar=confirm('Error al registrar!'); if(cancelar){ window.location.href='simulador-paso-caseta.jsp'; }else{ window.location.href='simulador-paso-caseta.jsp'; }</script>");
+                    }
+                }
+                
+                if(caseta4.equals("No necesaria")){
+                    
+                }else{
+                    paso.setId_auto(Integer.parseInt(id_auto));
+                    paso.setId_caseta(Integer.parseInt(caseta4));
+                    paso.setId_servicio(Integer.parseInt(id_servicio));
+                    paso.setFecha_paso(fecha4);
+                    paso.setHora_paso(hora4);
+                    if(paso.createRegistroPaso()){
+                        out.print("<script>cancelar=confirm('¡Registro Exitoso!'); if(cancelar){ window.location.href='emp-gestionar-serv.jsp'; }else{ window.location.href='emp-gestionar-serv.jsp'; }</script>");
+                    }else{
+                        out.print("<script>cancelar=confirm('Error al registrar!'); if(cancelar){ window.location.href='simulador-paso-caseta.jsp'; }else{ window.location.href='simulador-paso-caseta.jsp'; }</script>");
+                    }
+                }
             break;
         default:
 
@@ -171,7 +258,7 @@
                                         </div>
                                         <div class="form-group col-md-4">
                                             <label class="font-weight-bold">Servicio:</label>
-                                            <input name="servicio" value="<% out.print(servicios[0][2]); %>" type="text" class="form-control" disabled="">
+                                            <input name="servicio" value="<% out.print(servicios[0][1]); %>" type="text" class="form-control" disabled="">
                                         </div>
                                     </div>
 
@@ -192,11 +279,12 @@
                                             <div class="form-group col-md-10">
                                                 <select name="caseta1" class="form-control"> 
                                                     <%
-                                                        String[][] caseta1 =  caseta.consultarCasetas();
+                                                        String[][] outaseta1 =  caseta.consultarCasetas();
                                                         for( int cuenta = 0; cuenta<caseta.contarCasetas(); cuenta++){
                                                     %>
-                                                            <option value="<% out.print(caseta1[cuenta][0]); %>"><% out.print(caseta1[cuenta][1]); %></option>
+                                                            <option value="<% out.print(outaseta1[cuenta][0]); %>"><% out.print(outaseta1[cuenta][1]); %></option>
                                                     <%  }   %>
+                                                        <option value="No necesaria" selected>No necesaria.</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -231,11 +319,12 @@
                                             <div class="form-group col-md-10">
                                                 <select name="caseta2" class="form-control"> 
                                                     <%
-                                                        String[][] caseta2 =  caseta.consultarCasetas();
+                                                        String[][] outcaseta2 =  caseta.consultarCasetas();
                                                         for( int cuenta = 0; cuenta<caseta.contarCasetas(); cuenta++){
                                                     %>
-                                                            <option value="<% out.print(caseta2[cuenta][0]); %>"><% out.print(caseta2[cuenta][1]); %></option>
+                                                            <option value="<% out.print(outcaseta2[cuenta][0]); %>"><% out.print(outcaseta2[cuenta][1]); %></option>
                                                     <%  }   %>
+                                                        <option value="No necesaria" selected>No necesaria.</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -269,11 +358,12 @@
                                             <div class="form-group col-md-10">
                                                 <select name="caseta3" class="form-control"> 
                                                     <%
-                                                        String[][] caseta3 =  caseta.consultarCasetas();
+                                                        String[][] outcaseta3 =  caseta.consultarCasetas();
                                                         for( int cuenta = 0; cuenta<caseta.contarCasetas(); cuenta++){
                                                     %>
-                                                            <option value="<% out.print(caseta3[cuenta][0]); %>"><% out.print(caseta3[cuenta][1]); %></option>
+                                                            <option value="<% out.print(outcaseta3[cuenta][0]); %>"><% out.print(outcaseta3[cuenta][1]); %></option>
                                                     <%  }   %>
+                                                        <option value="No necesaria" selected>No necesaria.</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -307,11 +397,12 @@
                                             <div class="form-group col-md-10">
                                                 <select name="caseta4" class="form-control"> 
                                                     <%
-                                                        String[][] caseta4 =  caseta.consultarCasetas();
+                                                        String[][] outcaseta4 =  caseta.consultarCasetas();
                                                         for( int cuenta = 0; cuenta<caseta.contarCasetas(); cuenta++){
                                                     %>
-                                                            <option value="<% out.print(caseta4[cuenta][0]); %>"><% out.print(caseta4[cuenta][1]); %></option>
+                                                            <option value="<% out.print(outcaseta4[cuenta][0]); %>"><% out.print(outcaseta4[cuenta][1]); %></option>
                                                     <%  }   %>
+                                                        <option value="No necesaria" selected>No necesaria.</option>
                                                 </select>
                                             </div>
                                         </div>

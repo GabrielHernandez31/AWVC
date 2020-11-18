@@ -12,6 +12,7 @@ public class Registro_Paso {
     private int id_registro_paso;
     private int id_auto;
     private int id_caseta;
+    private int id_servicio;
     private String fecha_paso;
     private String hora_paso;
 
@@ -39,6 +40,14 @@ public class Registro_Paso {
         this.id_caseta = id_caseta;
     }
 
+    public int getId_servicio() {
+        return id_servicio;
+    }
+
+    public void setId_servicio(int id_servicio) {
+        this.id_servicio = id_servicio;
+    }
+
     public String getFecha_paso() {
         return fecha_paso;
     }
@@ -61,13 +70,14 @@ public class Registro_Paso {
 
     public boolean createRegistroPaso() {
         try {
-            final String sql = "Insert into registro_paso values (default,?,?,?,?)";
+            final String sql = "Insert into registro_paso values (default,?,?,?,?,?)";
             Conexion conex = new Conexion();
             PreparedStatement insertarUsuario = conex.obtenerConnexion().prepareStatement(sql);
             insertarUsuario.setInt(1, getId_auto());
             insertarUsuario.setInt(2, getId_caseta());
-            insertarUsuario.setString(3, getFecha_paso());
-            insertarUsuario.setString(4, getHora_paso());
+            insertarUsuario.setInt(3, getId_servicio());
+            insertarUsuario.setString(4, getFecha_paso());
+            insertarUsuario.setString(5, getHora_paso());
             insertarUsuario.executeUpdate();
             insertarUsuario.close();
             conex.obtenerConnexion().close();
