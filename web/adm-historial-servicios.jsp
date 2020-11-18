@@ -1,4 +1,61 @@
-
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page import="Modelo.Usuario" %>
+<%@page import="Modelo.Registro_Paso" %>
+<%@page import="java.util.List" %>
+<%@page import="java.util.Arrays" %>
+<%
+    /*
+    Asigna un valor a la variable email en caso de que se haya iniciado sesion
+    De lo contrario, deja la variable nula
+    */
+    HttpSession sesion = request.getSession();
+    String email=(String)sesion.getAttribute("email");
+    
+    /*
+    Asigna valores a las variables si existe una sesion.
+    Retoma datos del usuario para poder utilizarlos mÃ¡s adelante
+    */
+    Usuario usuario = new Usuario(email);
+    int id_usu = usuario.getId_usuario();
+    int id_rol = usuario.getId_rol();
+    
+    Registro_Paso paso = new Registro_Paso();
+    
+    /*
+    Valida si hay una sesion activa.
+    En caso de que no exista una sesion activa, se redirige al index
+    */
+    if(email==null){
+        response.sendRedirect("index.jsp");
+    }
+    
+    /*
+    ACCIONES
+    */
+    String accion = "", nombre = "", id_caseta="";
+    if(request.getParameter("accion")!=null){
+        accion = request.getParameter("accion");
+    }
+    if(request.getParameter("nombre")!=null){
+        nombre = request.getParameter("nombre");
+    }
+    if(request.getParameter("id_caseta")!=null){
+        id_caseta = request.getParameter("id_caseta");
+    }
+    switch(accion){
+        case "eliminar":
+            out.print("<script>cancelar=confirm('Se eliminarÃ¡ a: "+nombre+" Â¿Deseas continuar?'); if(cancelar){ window.location.href='adm-eliminar-caseta.jsp?id_caseta="+id_caseta+"'; }else{ window.location.href='adm-gestionar-casetas.jsp'; }</script>");
+        break;
+        case "modificar":
+            HttpSession sesion_act = request.getSession();
+            sesion_act.setAttribute("id_caseta", id_caseta);
+            response.sendRedirect("adm-modificar-caseta.jsp");
+        break;
+        default:
+            
+        break;
+    }
+%>
 <!DOCTYPE html>
 <html lang="es">
     <head>
@@ -33,7 +90,7 @@
                                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="font-size: 3vh">
                                         Menu</a>
                                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                        <a class="dropdown-item" href="adm-gestionar-auto.jsp" style="font-size: 2vh">Automóviles</a>
+                                        <a class="dropdown-item" href="adm-gestionar-auto.jsp" style="font-size: 2vh">AutomÃ³viles</a>
                                         <a class="dropdown-item" href="adm-gestionar-casetas.jsp" style="font-size: 2vh">Casetas</a>
                                         <a class="dropdown-item" href="adm-gestionar-empleados.jsp" style="font-size: 2vh">Empleados</a>
                                         <a class="dropdown-item" href="adm-gestionar-rfid.jsp" style="font-size: 2vh">RFID</a>
@@ -52,7 +109,7 @@
                                     </a>
                                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                                         <a class="dropdown-item" href="adm-mi-cuenta.jsp" style="font-size: 2vh">Mi Cuenta</a>
-                                        <a class="dropdown-item" href="cerrarSesion.jsp" style="font-size: 2vh">Cerrar sesión</a>
+                                        <a class="dropdown-item" href="cerrarSesion.jsp" style="font-size: 2vh">Cerrar sesiÃ³n</a>
                                     </div>
                                 </li>
                             </ul>
@@ -78,33 +135,43 @@
                             <table class="table text-center">
                                 <thead class="thead-dark">
                                     <tr>
-                                        <th scope="col">ID R-P</th>
+                                        <th scope="col">ID</th>
                                         <th scope="col">Usuario</th>
-                                        <th scope="col">Placa Auto</th>
+                                        <th scope="col">Placa</th>
                                         <th scope="col">RFID</th>
                                         <th scope="col">Caseta</th>
                                         <th scope="col">Servicio</th>
-                                        <th scope="col">Ubicación</th>
+                                        <th scope="col">UbicaciÃ³n Serv.</th>
                                         <th scope="col">Fecha</th>
                                         <th scope="col">Hora</th>
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    <%  
+                                    if(paso.existenRegistrosPasos()){
+                                        String[][] pasos = paso.consultarRegistrosPasos();
+                                        
+                                        for( int cuenta = 0; cuenta<paso.contarRegistrosPasos(); cuenta++){
+                                    %>  
                                     <tr>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
+                                        <td><% out.print(pasos[cuenta][0]); %></td>
+                                        <td><% out.print(pasos[cuenta][1]); %></td>
+                                        <td><% out.print(pasos[cuenta][2]); %></td>
+                                        <td><% out.print(pasos[cuenta][3]); %></td>
+                                        <td><% out.print(pasos[cuenta][4]); %></td>
+                                        <td><% out.print(pasos[cuenta][5]); %></td>
+                                        <td><% out.print(pasos[cuenta][6]); %></td>
+                                        <td><% out.print(pasos[cuenta][7]); %></td>
+                                        <td><% out.print(pasos[cuenta][8]); %></td>
                                     </tr>
-                                    
+                                    <%
+                                        } 
+                                     }else{  
+                                    %>
                                     <tr>
-                                        <th colspan="9" style="text-align: center;">No existen registros aún.</th>
+                                        <th colspan="9" style="text-align: center;">No existen servicios realizados aÃºn.</th>
                                     </tr>
+                                    <%  } %>
                                 </tbody>
                             </table>
                         </div>
@@ -120,7 +187,7 @@
                 <div class="col">
                     <!-- INTRODUCE AQUI TODO LO DEL FOOTER -->
                     <footer class="page-footer font-small">
-                        <div class="footer-copyright text-center">© 2020 Copyright:
+                        <div class="footer-copyright text-center">Â© 2020 Copyright:
                             <a> Derechos Reservados AWCV</a>
                         </div>
                     </footer>

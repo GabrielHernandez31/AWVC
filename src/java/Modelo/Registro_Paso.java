@@ -10,9 +10,12 @@ import java.sql.ResultSet;
 
 public class Registro_Paso {
     private int id_registro_paso;
-    private int id_auto;
-    private int id_caseta;
-    private int id_servicio;
+    private String nombre_usuario;
+    private String placa_auto;
+    private String rfid;
+    private String caseta;
+    private String servicio;
+    private String ubicacion_servicio;
     private String fecha_paso;
     private String hora_paso;
 
@@ -24,28 +27,52 @@ public class Registro_Paso {
         this.id_registro_paso = id_registro_paso;
     }
 
-    public int getId_auto() {
-        return id_auto;
+    public String getNombre_usuario() {
+        return nombre_usuario;
     }
 
-    public void setId_auto(int id_auto) {
-        this.id_auto = id_auto;
+    public void setNombre_usuario(String nombre_usuario) {
+        this.nombre_usuario = nombre_usuario;
     }
 
-    public int getId_caseta() {
-        return id_caseta;
+    public String getPlaca_auto() {
+        return placa_auto;
     }
 
-    public void setId_caseta(int id_caseta) {
-        this.id_caseta = id_caseta;
+    public void setPlaca_auto(String placa_auto) {
+        this.placa_auto = placa_auto;
     }
 
-    public int getId_servicio() {
-        return id_servicio;
+    public String getRfid() {
+        return rfid;
     }
 
-    public void setId_servicio(int id_servicio) {
-        this.id_servicio = id_servicio;
+    public void setRfid(String rfid) {
+        this.rfid = rfid;
+    }
+
+    public String getCaseta() {
+        return caseta;
+    }
+
+    public void setCaseta(String caseta) {
+        this.caseta = caseta;
+    }
+
+    public String getServicio() {
+        return servicio;
+    }
+
+    public void setServicio(String servicio) {
+        this.servicio = servicio;
+    }
+
+    public String getUbicacion_servicio() {
+        return ubicacion_servicio;
+    }
+
+    public void setUbicacion_servicio(String ubicacion_servicio) {
+        this.ubicacion_servicio = ubicacion_servicio;
     }
 
     public String getFecha_paso() {
@@ -63,21 +90,20 @@ public class Registro_Paso {
     public void setHora_paso(String hora_paso) {
         this.hora_paso = hora_paso;
     }
-    
-    public Registro_Paso() {
-
-    }
 
     public boolean createRegistroPaso() {
         try {
-            final String sql = "Insert into registro_paso values (default,?,?,?,?,?)";
+            final String sql = "Insert into registro_paso values (default,?,?,?,?,?,?,?,?)";
             Conexion conex = new Conexion();
             PreparedStatement insertarUsuario = conex.obtenerConnexion().prepareStatement(sql);
-            insertarUsuario.setInt(1, getId_auto());
-            insertarUsuario.setInt(2, getId_caseta());
-            insertarUsuario.setInt(3, getId_servicio());
-            insertarUsuario.setString(4, getFecha_paso());
-            insertarUsuario.setString(5, getHora_paso());
+            insertarUsuario.setString(1, getNombre_usuario());
+            insertarUsuario.setString(2, getPlaca_auto());
+            insertarUsuario.setString(3, getRfid());
+            insertarUsuario.setString(4, getCaseta());
+            insertarUsuario.setString(5, getServicio());
+            insertarUsuario.setString(6, getUbicacion_servicio());
+            insertarUsuario.setString(7, getFecha_paso());
+            insertarUsuario.setString(8, getHora_paso());
             insertarUsuario.executeUpdate();
             insertarUsuario.close();
             conex.obtenerConnexion().close();
@@ -90,14 +116,7 @@ public class Registro_Paso {
     
     public String[][] consultarRegistrosPasos() {
         try {
-            final String sql = "Select "
-                    + "(id_registro_paso, nombre_usuario,  app_usuario, apm_usuario, placa_auto, serial_rfid, nombre_caseta, nombre_servicio, ubicacion_servicio, fecha_paso, hora_paso) "
-                    + "from registro_paso "
-                    + "inner join automovil on registro_paso.id_auto=automovil.id_auto "
-                    + "inner join usuario on automovil.id_usuario=usuario.id_usuario "
-                    + "inner join rfid on automovil.id_rfid=rfid.id_rfid "
-                    + "inner join caseta on registro_paso.id_caseta=caseta.id_caseta "
-                    + "inner join servicio on registro_paso.id_servicio=servicio.id_servicio";
+            final String sql = "Select * from registro_paso";
             Conexion conex = new Conexion();
             PreparedStatement consultarProducto = conex.obtenerConnexion().prepareStatement(sql);
             ResultSet resulProducto = consultarProducto.executeQuery();
@@ -105,15 +124,15 @@ public class Registro_Paso {
             String[][] arreglo_servicio = new String[contarRegistrosPasos()][9];
             while (resulProducto.next()) {
                 cuenta++;
-                arreglo_servicio[cuenta][0] = resulProducto.getString("id_registro_paso");
-                arreglo_servicio[cuenta][1] = resulProducto.getString("nombre_usuario") + " " + resulProducto.getString("app_usuario") + " " + resulProducto.getString("apm_usuario").charAt(0) + "." ;
+                arreglo_servicio[cuenta][0] = resulProducto.getString("id_registro");
+                arreglo_servicio[cuenta][1] = resulProducto.getString("nombre_usuario");
                 arreglo_servicio[cuenta][2] = resulProducto.getString("placa_auto");
-                arreglo_servicio[cuenta][3] = resulProducto.getString("serial_refid");
-                arreglo_servicio[cuenta][4] = resulProducto.getString("nombre_caseta");
-                arreglo_servicio[cuenta][5] = resulProducto.getString("nombre_servicio");
+                arreglo_servicio[cuenta][3] = resulProducto.getString("rfid");
+                arreglo_servicio[cuenta][4] = resulProducto.getString("caseta");
+                arreglo_servicio[cuenta][5] = resulProducto.getString("servicio");
                 arreglo_servicio[cuenta][6] = resulProducto.getString("ubicacion_servicio");
-                arreglo_servicio[cuenta][7] = resulProducto.getString("fecha_paso");
-                arreglo_servicio[cuenta][8] = resulProducto.getString("hora_paso");
+                arreglo_servicio[cuenta][7] = resulProducto.getString("fecha_de_paso");
+                arreglo_servicio[cuenta][8] = resulProducto.getString("hora_de_paso");
             }
             consultarProducto.close();
             resulProducto.close();
@@ -125,7 +144,7 @@ public class Registro_Paso {
         String[][] arreglo_sinDatos = new String[0][0];
         return arreglo_sinDatos;
     }
-
+    
     public int contarRegistrosPasos() {
         try {
             int resultado;

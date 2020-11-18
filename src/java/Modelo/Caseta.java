@@ -82,6 +82,33 @@ public class Caseta {
         return false;
     }
 
+    public String obtenerNombreCaseta(String id) {
+        try {
+            final String sql = "Select * from caseta where id_caseta = ?";
+            Conexion conex = new Conexion();
+            PreparedStatement existenCategorias = conex.obtenerConnexion().prepareStatement(sql);
+            existenCategorias.setInt(1, Integer.parseInt(id));
+            ResultSet resulExistenCategorias = existenCategorias.executeQuery();
+            if (resulExistenCategorias.next()) {
+                String nombre = resulExistenCategorias.getString("nombre_caseta");
+                existenCategorias.close();
+                resulExistenCategorias.close();
+                conex.obtenerConnexion().close();
+                return nombre;
+            } else {
+                String nombre2 = "Sin asignar aun.";
+                existenCategorias.close();
+                resulExistenCategorias.close();
+                conex.obtenerConnexion().close();
+                return nombre2;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        String nombre3 = "Sin asignar aun.";
+        return nombre3;
+    }
+    
     public boolean validarUbicacionRegistro() {
         try {
             final String sql = "Select * from caseta where ubicacion_caseta = ?";
