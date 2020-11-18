@@ -131,11 +131,11 @@
                                                 <input name="txtNombre" type="text" class="form-control" placeholder="Nombre" required value="">
                                             </div>
                                             <div class="form-group col-md-4">
-                                                <label class="font-weight-bold">A. Paterno</label>
+                                                <label class="font-weight-bold">A. Paterno:</label>
                                                 <input name="txtAp_pat" type="text" class="form-control" placeholder="Apellido P" required value="">
                                             </div>
                                             <div class="form-group col-md-4">
-                                                <label class="font-weight-bold">A. Materno</label>
+                                                <label class="font-weight-bold">A. Materno:</label>
                                                 <input name="txtAp_mat" type="text" class="form-control" placeholder="Apellido M" required value="">
                                             </div>
                                         </div>
@@ -144,7 +144,7 @@
                                             <input name="txtRol" type="text" class="form-control" placeholder="Rol" disabled=""/>
                                         </div>
                                         <div class="form-group mb-3">
-                                            <label  class="font-weight-bold">Telefono:</label>
+                                            <label  class="font-weight-bold">Teléfono:</label>
                                             <input name="txtTel" type="text" class="form-control" placeholder="Telefono" required pattern="[0-9]{10}" title="Ingresa tu telefono" value="">
                                         </div>
                                         <div class="form-group mb-3">
@@ -157,9 +157,9 @@
 
                                         </div>
                                         <div class="form-group mb-3 collapse" id="collapsePass">
-                                            <label class="font-weight-bold">Contraseña Nueva</label>
+                                            <label class="font-weight-bold">Contraseña Nueva:</label>
                                             <input name="txtContra" type="password" class="form-control" placeholder="Contraseña Nueva">
-                                            <label class="font-weight-bold">Confirmar Contraseña Nueva</label>
+                                            <label class="font-weight-bold">Confirmar Contraseña:</label>
                                             <input name="txtVContra" type="password" class="form-control" placeholder="Confirmar Contraseña Nueva">
                                         </div>
 

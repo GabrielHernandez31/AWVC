@@ -130,6 +130,9 @@
                                 </div>
                                 <form action="adm-registrar-rfid.jsp" id="formulario" name="formulario" method="POST">
 
+                                    <script>
+                                            
+                                    </script>
                                     <div class="form-group col-mb-3">
                                         <label class="font-weight-bold">No. Tarjeta: <span class="text-danger">*</span></label>
                                         <input name="trfid" type="text" class="form-control" placeholder="NO. RFID" required onblur="">
