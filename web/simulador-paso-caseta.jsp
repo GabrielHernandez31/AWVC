@@ -94,28 +94,44 @@
     switch (accion) {
         case "Registrar":
                 
+            servicio.setId_servicio(Integer.parseInt(id_servicio));
+            String[][] serviciosDatos = servicio.consultarDatosServicioSimulacion();
+            auto.setId_auto(Integer.parseInt(id_auto));
+            String[][] autosDatos = auto.consultarDatosAutoSimulacion();
+                                    
                 if(caseta1.equals("No necesaria")){
-                    
+                    // NO SE REALIZA NADA
                 }else{
-                    paso.setId_auto(Integer.parseInt(id_auto));
-                    paso.setId_caseta(Integer.parseInt(caseta1));
-                    paso.setId_servicio(Integer.parseInt(id_servicio));
+                    
+                    paso.setNombre_usuario(usuario.obtenerNombreUsuario(id_usuario));
+                    paso.setPlaca_auto(autosDatos[0][1]);
+                    paso.setRfid(rfid.obtenerNombreRFID(autosDatos[0][2]));
+                    paso.setCaseta(caseta.obtenerNombreCaseta(caseta1));
+                    paso.setServicio(serviciosDatos[0][1]);
+                    paso.setUbicacion_servicio(serviciosDatos[0][2]);
                     paso.setFecha_paso(fecha1);
                     paso.setHora_paso(hora1);
+                            
                     if(paso.createRegistroPaso()){
                         out.print("<script>cancelar=confirm('¡Registro Exitoso!'); if(cancelar){ window.location.href='emp-gestionar-serv.jsp'; }else{ window.location.href='emp-gestionar-serv.jsp'; }</script>");
                     }else{
                         out.print("<script>cancelar=confirm('Error al registrar!'); if(cancelar){ window.location.href='simulador-paso-caseta.jsp'; }else{ window.location.href='simulador-paso-caseta.jsp'; }</script>");
                     }
                 }
+                
                 if(caseta2.equals("No necesaria")){
-                    
+                    // NO SE REALIZA NADA
                 }else{
-                    paso.setId_auto(Integer.parseInt(id_auto));
-                    paso.setId_caseta(Integer.parseInt(caseta2));
-                    paso.setId_servicio(Integer.parseInt(id_servicio));
+                    
+                    paso.setNombre_usuario(usuario.obtenerNombreUsuario(id_usuario));
+                    paso.setPlaca_auto(autosDatos[0][1]);
+                    paso.setRfid(rfid.obtenerNombreRFID(autosDatos[0][2]));
+                    paso.setCaseta(caseta.obtenerNombreCaseta(caseta2));
+                    paso.setServicio(serviciosDatos[0][1]);
+                    paso.setUbicacion_servicio(serviciosDatos[0][2]);
                     paso.setFecha_paso(fecha2);
                     paso.setHora_paso(hora2);
+                            
                     if(paso.createRegistroPaso()){
                         out.print("<script>cancelar=confirm('¡Registro Exitoso!'); if(cancelar){ window.location.href='emp-gestionar-serv.jsp'; }else{ window.location.href='emp-gestionar-serv.jsp'; }</script>");
                     }else{
@@ -124,13 +140,18 @@
                 }
                 
                 if(caseta3.equals("No necesaria")){
-                    
+                    // NO SE REALIZA NADA
                 }else{
-                    paso.setId_auto(Integer.parseInt(id_auto));
-                    paso.setId_caseta(Integer.parseInt(caseta3));
-                    paso.setId_servicio(Integer.parseInt(id_servicio));
+                    
+                    paso.setNombre_usuario(usuario.obtenerNombreUsuario(id_usuario));
+                    paso.setPlaca_auto(autosDatos[0][1]);
+                    paso.setRfid(rfid.obtenerNombreRFID(autosDatos[0][2]));
+                    paso.setCaseta(caseta.obtenerNombreCaseta(caseta3));
+                    paso.setServicio(serviciosDatos[0][1]);
+                    paso.setUbicacion_servicio(serviciosDatos[0][2]);
                     paso.setFecha_paso(fecha3);
                     paso.setHora_paso(hora3);
+                            
                     if(paso.createRegistroPaso()){
                         out.print("<script>cancelar=confirm('¡Registro Exitoso!'); if(cancelar){ window.location.href='emp-gestionar-serv.jsp'; }else{ window.location.href='emp-gestionar-serv.jsp'; }</script>");
                     }else{
@@ -139,13 +160,18 @@
                 }
                 
                 if(caseta4.equals("No necesaria")){
-                    
+                    // NO SE REALIZA NADA
                 }else{
-                    paso.setId_auto(Integer.parseInt(id_auto));
-                    paso.setId_caseta(Integer.parseInt(caseta4));
-                    paso.setId_servicio(Integer.parseInt(id_servicio));
+                    
+                    paso.setNombre_usuario(usuario.obtenerNombreUsuario(id_usuario));
+                    paso.setPlaca_auto(autosDatos[0][1]);
+                    paso.setRfid(rfid.obtenerNombreRFID(autosDatos[0][2]));
+                    paso.setCaseta(caseta.obtenerNombreCaseta(caseta4));
+                    paso.setServicio(serviciosDatos[0][1]);
+                    paso.setUbicacion_servicio(serviciosDatos[0][2]);
                     paso.setFecha_paso(fecha4);
                     paso.setHora_paso(hora4);
+                            
                     if(paso.createRegistroPaso()){
                         out.print("<script>cancelar=confirm('¡Registro Exitoso!'); if(cancelar){ window.location.href='emp-gestionar-serv.jsp'; }else{ window.location.href='emp-gestionar-serv.jsp'; }</script>");
                     }else{
