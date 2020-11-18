@@ -1,7 +1,6 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@page import="Modelo.Conexion" %>
-<%@page import="java.util.io.*"%> 
 <%@page import="java.util.*"%> 
+<%@page import="java.io.*"%>
 
 <%@page import="net.sf.jasperreports.engine.*"%>
 <%@page import="net.sf.jasperreports.view.JasperViewer"%>
@@ -14,11 +13,11 @@
         <!-- Required meta tags -->
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-        <title>Gestionar Servicios</title>
+        <title>Reporte de Historial de Paso</title>
     </head>
     <body>
         <%
-        File reporte = new File (application.getRealPath("Reporte.jasper"));
+        File reporte = new File (application.getRealPath("report1h.jasper"));
         
         Map<String,Object> parameter = new HashMap<String,Object>();
         
