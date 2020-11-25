@@ -12,7 +12,7 @@
         Connection con = null;
         try{
         Class.forName("com.mysql.jdbc.Driver");
-        con = (Connection)DriverManager.getConnection("jdbc:mysql://localhost:5432/awcv","postgres","db");
+        con = (Connection)DriverManager.getConnection("jdbc:mysql://localhost:/awcv1","postgres","db");
         out.print("Conexion en Linea");
         }catch(Exception ex){
         out.print("Error: "+ex.getMessage());

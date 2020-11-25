@@ -298,7 +298,7 @@ public class RFID {
     
     public String[][] consultarRFIDAutos() {
         try {
-            final String sql = "Select * from rfid as rfid where estado_rfid NOT LIKE 'Baja' and not exists (select id_rfid from automovil as auto where rfid.id_rfid=auto.id_rfid)";
+            final String sql = "Select * from rfid as rfid where estado_rfid NOT LIKE 'Baja' and estado_rfid NOT LIKE 'Inactivo' and not exists (select id_rfid from automovil as auto where rfid.id_rfid=auto.id_rfid)";
             Conexion conex = new Conexion();
             PreparedStatement consultarProducto = conex.obtenerConnexion().prepareStatement(sql);
             ResultSet resulProducto = consultarProducto.executeQuery();
@@ -326,7 +326,7 @@ public class RFID {
     public int contarRFIDAutos() {
         try {
             int resultado;
-            final String sql = "Select count(*) from rfid as rfid where estado_rfid NOT LIKE 'Baja' and not exists (select id_rfid from automovil as auto where rfid.id_rfid=auto.id_rfid)";
+            final String sql = "Select count(*) from rfid as rfid where estado_rfid NOT LIKE 'Baja' and estado_rfid NOT LIKE 'Inactivo' and not exists (select id_rfid from automovil as auto where rfid.id_rfid=auto.id_rfid)";
             Conexion conex = new Conexion();
             PreparedStatement consultarProducto = conex.obtenerConnexion().prepareStatement(sql);
             ResultSet resulProducto = consultarProducto.executeQuery();
@@ -352,7 +352,7 @@ public class RFID {
 
     public boolean existenRFIDAutos() {
         try {
-            final String sql = "Select * from rfid where estado_rfid NOT LIKE 'Baja'";
+            final String sql = "Select * from rfid where estado_rfid NOT LIKE 'Baja' and estado_rfid NOT LIKE 'Inactivo'";
             Conexion conex = new Conexion();
             PreparedStatement consultarProducto = conex.obtenerConnexion().prepareStatement(sql);
             ResultSet resulProducto = consultarProducto.executeQuery();
